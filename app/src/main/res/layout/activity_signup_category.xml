@@ -28,10 +28,12 @@
             android:layout_height="wrap_content">
 
         <RelativeLayout android:id="@+id/view_student"
-                        android:layout_width="@dimen/_230sdp"
+                        android:layout_width="@dimen/_250sdp"
                         android:orientation="horizontal"
                         android:layout_gravity="center"
                         android:clickable="true"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:paddingBottom="@dimen/_5sdp"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:background="@drawable/bordered_bg"
                         android:layout_height="wrap_content">
@@ -70,10 +72,12 @@
                        android:layout_height="wrap_content"/>
         </RelativeLayout>
 
-        <RelativeLayout android:layout_width="@dimen/_230sdp"
+        <RelativeLayout android:layout_width="@dimen/_250sdp"
                         android:orientation="horizontal"
                         android:layout_gravity="center"
                         android:id="@+id/view_professional"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:paddingBottom="@dimen/_5sdp"
                         android:clickable="true"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:layout_marginTop="@dimen/_10sdp"
@@ -113,12 +117,14 @@
                        android:layout_height="wrap_content"/>
         </RelativeLayout>
 
-        <RelativeLayout android:layout_width="@dimen/_230sdp"
+        <RelativeLayout android:layout_width="@dimen/_250sdp"
                         android:orientation="horizontal"
                         android:id="@+id/view_organisation"
                         android:clickable="true"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:layout_marginTop="@dimen/_10sdp"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:paddingBottom="@dimen/_5sdp"
                         android:layout_gravity="center"
                         android:background="@drawable/bordered_bg"
                         android:layout_height="wrap_content">
