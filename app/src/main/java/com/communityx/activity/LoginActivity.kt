@@ -9,7 +9,6 @@ import android.text.method.PasswordTransformationMethod
 import android.view.View
 import com.communityx.R
 
-
 class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
