@@ -1,11 +1,35 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
+
+    <style name="text_size_heading">
+        <item name="android:textSize">@dimen/_16ssp</item>
+    </style>
+
+    <style name="text_size_normal">
+        <item name="android:textSize">@dimen/_14ssp</item>
+    </style>
+
+    <style name="text_size_small">
+        <item name="android:textSize">@dimen/_12ssp</item>
+    </style>
+
+    <style name="text_size_smaller">
+    <item name="android:textSize">@dimen/_10ssp</item>
+    </style>
+
+    <style name="style_button" parent="Base.TextAppearance.AppCompat.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/_40sdp</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+    </style>
 </resources>
