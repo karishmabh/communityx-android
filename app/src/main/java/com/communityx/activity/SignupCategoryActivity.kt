@@ -63,6 +63,11 @@ class SignupCategoryActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
             finish()
         }
+
+        button_continue.setOnClickListener{
+            startActivity(Intent(this, SignUpStudentInfoActivity::class.java))
+            overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
+        }
     }
 
     private fun categorySelected(category: String) {

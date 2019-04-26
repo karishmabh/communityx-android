@@ -17,5 +17,6 @@
 
         <activity android:name=".activity.LoginActivity"/>
         <activity android:name=".activity.SignupCategoryActivity"/>
+        <activity android:name=".activity.SignUpStudentInfoActivity"/>
     </application>
 </manifest>
