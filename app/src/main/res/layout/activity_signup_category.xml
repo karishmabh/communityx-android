@@ -1,0 +1,201 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+
+    <include android:id="@+id/topView"
+             app:layout_constraintTop_toTopOf="parent"
+             layout="@layout/layout_top_view_logo"/>
+
+    <TextView android:id="@+id/text_heading"
+              android:layout_width="wrap_content"
+              android:text="Please select a category."
+              style="@style/text_size_small"
+              android:layout_height="wrap_content"
+              android:textColor="@color/colorBlackTitle"
+              android:fontFamily="@font/poppins_semibold"
+              android:layout_marginTop="@dimen/_10sdp"
+              app:layout_constraintTop_toBottomOf="@+id/topView"
+              android:layout_marginStart="@dimen/_15sdp"
+              app:layout_constraintStart_toStartOf="parent"/>
+
+    <LinearLayout
+            android:id="@+id/view_category"
+            app:layout_constraintTop_toBottomOf="@+id/text_heading"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+        <RelativeLayout android:id="@+id/view_student"
+                        android:layout_width="@dimen/_230sdp"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:background="@drawable/bordered_bg"
+                        android:layout_height="wrap_content">
+
+            <ImageView android:layout_width="@dimen/_50sdp"
+                       android:id="@+id/image_student"
+                       android:layout_marginStart="@dimen/_10sdp"
+                       android:layout_alignParentStart="true"
+                       android:layout_centerVertical="true"
+                       android:src="@drawable/ic_signup_student_deselect"
+                       android:layout_height="@dimen/_50sdp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:text="I am a Student"
+                    style="@style/text_size_small"
+                    android:id="@+id/text_student"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorLightGrey"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/image_student"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+            <ImageView android:layout_width="wrap_content"
+                       android:src="@drawable/ic_signup_tick"
+                       android:id="@+id/image_student_tick"
+                       android:layout_marginStart="@dimen/_10sdp"
+                       android:layout_alignParentEnd="true"
+                       android:layout_centerVertical="true"
+                       android:visibility="gone"
+                       android:layout_marginEnd="@dimen/_10sdp"
+                       android:layout_gravity="center|end"
+                       android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <RelativeLayout android:layout_width="@dimen/_230sdp"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:id="@+id/view_professional"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/bordered_bg"
+                        android:layout_height="wrap_content">
+
+            <ImageView android:layout_width="@dimen/_50sdp"
+                       android:layout_marginStart="@dimen/_10sdp"
+                       android:id="@+id/image_professional"
+                       android:layout_alignParentStart="true"
+                       android:layout_centerVertical="true"
+                       android:src="@drawable/ic_signup_professional_deselect"
+                       android:layout_height="@dimen/_50sdp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:text="I am a Professional"
+                    style="@style/text_size_small"
+                    android:id="@+id/text_professional"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorLightGrey"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_toRightOf="@+id/image_professional"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+            <ImageView android:layout_width="wrap_content"
+                       android:src="@drawable/ic_signup_tick"
+                       android:id="@+id/image_professional_tick"
+                       android:layout_marginEnd="@dimen/_10sdp"
+                       android:layout_centerVertical="true"
+                       android:visibility="gone"
+                       android:layout_alignParentEnd="true"
+                       android:layout_gravity="center"
+                       android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <RelativeLayout android:layout_width="@dimen/_230sdp"
+                        android:orientation="horizontal"
+                        android:id="@+id/view_organisation"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bordered_bg"
+                        android:layout_height="wrap_content">
+
+            <ImageView android:layout_width="@dimen/_50sdp"
+                       android:layout_marginStart="@dimen/_10sdp"
+                       android:id="@+id/image_organisation"
+                       android:layout_alignParentStart="true"
+                       android:layout_centerVertical="true"
+                       android:src="@drawable/ic_signup_organization_deselect"
+                       android:layout_height="@dimen/_50sdp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:text="I am a Organization"
+                    style="@style/text_size_small"
+                    android:id="@+id/text_organisation"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorLightGrey"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_gravity="center"
+                    android:layout_toRightOf="@+id/image_organisation"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+            <ImageView android:layout_width="wrap_content"
+                       android:src="@drawable/ic_signup_tick"
+                       android:id="@+id/image_organisation_tick"
+                       android:layout_marginEnd="@dimen/_10sdp"
+                       android:layout_alignParentEnd="true"
+                       android:visibility="gone"
+                       android:layout_centerVertical="true"
+                       android:layout_gravity="center"
+                       android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+            android:id="@+id/button_continue"
+            android:layout_width="match_parent"
+            android:background="@drawable/button_inactive"
+            android:text="Continue"
+            android:textColor="@android:color/white"
+            style="@style/style_button"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"/>
+
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  android:layout_marginBottom="@dimen/_10sdp"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  android:id="@+id/linearLayout">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:text="Already have an account?"
+                style="@style/text_size_smaller"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlackTitle"
+                android:fontFamily="@font/poppins_regular"/>
+
+        <TextView android:id="@+id/text_login"
+                  android:layout_width="wrap_content"
+                  android:text="Login"
+                  style="@style/text_size_small"
+                  android:layout_height="wrap_content"
+                  android:textAllCaps="true"
+                  android:textColor="@color/colorPrimary"
+                  android:fontFamily="@font/poppins_semibold"
+                  android:layout_marginStart="@dimen/_5sdp"/>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
