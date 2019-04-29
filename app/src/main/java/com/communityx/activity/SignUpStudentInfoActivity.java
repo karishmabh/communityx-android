@@ -18,22 +18,18 @@ public class SignUpStudentInfoActivity extends AppCompatActivity {
     @BindView(id.text_subtitle)
     TextView textSubtitle;
 
-
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_student_info);
         ButterKnife.bind(this);
 
         textSubtitle.setText("Build your social impact identity on CommunityX.");
-
     }
 
     @OnClick(id.card_add_image)
     void chooseImage(){
        showImageChooserDialog();
     }
-
-
 
     private void showImageChooserDialog(){
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_image_chooser,null);
@@ -43,6 +39,5 @@ public class SignUpStudentInfoActivity extends AppCompatActivity {
 
         View layoutCamera = dialogView.findViewById(id.layout_camera);
         View layoutGallery = dialogView.findViewById(id.layout_gallery);
-
     }
 }

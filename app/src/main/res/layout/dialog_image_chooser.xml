@@ -6,7 +6,6 @@
               android:padding="12dp"
               android:layout_height="@dimen/_95sdp">
 
-
     <LinearLayout android:id="@+id/layout_camera"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
