@@ -1,0 +1,255 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+
+    <include android:id="@+id/topView"
+             app:layout_constraintTop_toTopOf="parent"
+             layout="@layout/layout_top_view_logo"/>
+
+    <TextView android:id="@+id/text_heading"
+              android:layout_width="wrap_content"
+              android:text="Please select your qualification."
+              style="@style/text_size_small"
+              android:layout_height="wrap_content"
+              android:textColor="@color/colorBlackTitle"
+              android:fontFamily="@font/poppins_semibold"
+              android:layout_marginTop="@dimen/_10sdp"
+              app:layout_constraintTop_toBottomOf="@+id/topView"
+              android:layout_marginStart="@dimen/_15sdp"
+              app:layout_constraintStart_toStartOf="parent"/>
+
+    <LinearLayout
+            android:id="@+id/view_category"
+            app:layout_constraintTop_toBottomOf="@+id/text_heading"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+        <LinearLayout
+                android:id="@+id/view_school"
+                android:layout_width="@dimen/_250sdp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:background="@drawable/bordered_bg"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:orientation="vertical">
+
+            <LinearLayout
+                    android:layout_width="@dimen/_250sdp"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:layout_height="wrap_content">
+
+                <ImageView android:layout_width="@dimen/_50sdp"
+                           android:id="@+id/image_school"
+                           android:layout_marginStart="@dimen/_10sdp"
+                           android:src="@drawable/ic_signup_highschool_deselect"
+                           android:layout_height="@dimen/_50sdp"/>
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:text="High School"
+                        style="@style/text_size_small"
+                        android:id="@+id/text_school"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorLightGrey"
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+
+                <ImageView android:layout_width="wrap_content"
+                           android:src="@drawable/ic_signup_tick"
+                           android:id="@+id/image_school_tick"
+                           android:layout_marginStart="@dimen/_10sdp"
+                           android:layout_alignParentEnd="true"
+                           android:layout_centerVertical="true"
+                           android:visibility="gone"
+                           tools:visibility="visible"
+                           android:layout_marginEnd="@dimen/_10sdp"
+                           android:layout_gravity="center|end"
+                           android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:id="@+id/layout_school"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:layout_width="@dimen/_250sdp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                <View android:id="@+id/line_divider"
+                      android:layout_width="match_parent"
+                      android:layout_height="0.5dp"
+                      android:layout_marginStart="12dp"
+                      android:layout_marginEnd="12dp"
+                      android:layout_marginTop="@dimen/_8sdp"
+                      android:layout_marginBottom="@dimen/_8sdp"
+                      android:layout_below="@id/image_school"
+                      android:background="@color/colorLightestGrey"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:text="High School"
+                        style="@style/text_size_small"
+                        android:id="@+id/text_school_name_hint"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorLightGrey"
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_marginStart="@dimen/_10sdp"/>
+                <EditText
+                        android:layout_width="wrap_content"
+                        android:text="ABC International School"
+                        style="@style/text_size_small"
+                        android:id="@+id/text_school_name"
+                        android:textSize="@dimen/_14ssp"
+                        android:background="@null"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorBlackTitle"
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/view_college"
+                android:layout_width="@dimen/_250sdp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/bordered_bg"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:orientation="vertical">
+
+            <LinearLayout
+                    android:layout_width="@dimen/_250sdp"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:layout_height="wrap_content">
+
+                <ImageView android:layout_width="@dimen/_50sdp"
+                           android:id="@+id/image_college"
+                           android:layout_marginStart="@dimen/_10sdp"
+                           android:src="@drawable/ic_signup_college_select"
+                           android:layout_height="@dimen/_50sdp"/>
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:text="College / University"
+                        style="@style/text_size_small"
+                        android:id="@+id/text_college"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorLightGrey"
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+
+                <ImageView android:layout_width="wrap_content"
+                           android:src="@drawable/ic_signup_tick"
+                           android:id="@+id/image_college_tick"
+                           android:layout_marginStart="@dimen/_10sdp"
+                           android:visibility="gone"
+                           android:layout_marginEnd="@dimen/_10sdp"
+                           android:layout_gravity="center|end"
+                           android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:id="@+id/layout_college"
+                    tools:visibility="gone"
+                    android:visibility="gone"
+                    android:layout_width="@dimen/_250sdp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                <View android:id="@+id/line_divider_two"
+                      android:layout_width="match_parent"
+                      android:layout_height="0.5dp"
+                      android:layout_marginStart="12dp"
+                      android:layout_marginEnd="12dp"
+                      android:layout_marginTop="@dimen/_8sdp"
+                      android:layout_marginBottom="@dimen/_8sdp"
+                      android:layout_below="@id/image_school"
+                      android:background="@color/colorLightestGrey"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:text="College / University"
+                        style="@style/text_size_small"
+                        android:id="@+id/text_college_name_hint"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorLightGrey"
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_marginStart="@dimen/_10sdp"/>
+                <EditText
+                        android:layout_width="wrap_content"
+                        tools:text="ABC International School"
+                        style="@style/text_size_small"
+                        android:id="@+id/text_college_name"
+                        android:textSize="@dimen/_14ssp"
+                        android:background="@null"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorBlackTitle"
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+            android:id="@+id/button_continue"
+            android:layout_width="match_parent"
+            android:background="@drawable/button_active"
+            android:text="Continue"
+            android:textColor="@android:color/white"
+            style="@style/style_button"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"/>
+
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  android:layout_marginBottom="@dimen/_10sdp"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  android:id="@+id/linearLayout">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:text="Already have an account?"
+                style="@style/text_size_smaller"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlackTitle"
+                android:fontFamily="@font/poppins_regular"/>
+
+        <TextView android:id="@+id/text_login"
+                  android:layout_width="wrap_content"
+                  android:text="Login"
+                  style="@style/text_size_small"
+                  android:layout_height="wrap_content"
+                  android:textAllCaps="true"
+                  android:textColor="@color/colorPrimary"
+                  android:fontFamily="@font/poppins_semibold"
+                  android:layout_marginStart="@dimen/_5sdp"/>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
