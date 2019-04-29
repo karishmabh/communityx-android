@@ -9,77 +9,70 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.communityx.R;
 import com.communityx.R.id;
 import org.jetbrains.annotations.Nullable;
 
 public class SignupCategoryActivity extends AppCompatActivity {
 
-    private RelativeLayout viewStudent;
-    private RelativeLayout viewProfessional;
-    private RelativeLayout viewOrganisation;
-    private ImageView imageOrganisation;
-    private ImageView imageStudent;
-    private ImageView imageProfessional;
-    private ImageView tickOrganisation;
-    private ImageView tickStudent;
-    private ImageView tickProfessional;
-    private TextView textOrganisation;
-    private TextView textStudent;
-    private TextView textProfessional;
+    @BindView(id.view_student)
+    RelativeLayout viewStudent;
+    @BindView(id.view_professional)
+    RelativeLayout viewProfessional;
+    @BindView(id.view_organisation)
+    RelativeLayout viewOrganisation;
+    @BindView(id.image_organisation)
+    ImageView imageOrganisation;
+    @BindView(id.image_student)
+    ImageView imageStudent;
+    @BindView(id.image_professional)
+    ImageView imageProfessional;
+    @BindView(id.image_organisation_tick)
+    ImageView tickOrganisation;
+    @BindView(id.image_student_tick)
+    ImageView tickStudent;
+    @BindView(R.id.image_professional_tick)
+    ImageView tickProfessional;
+    @BindView(id.text_organisation)
+    TextView textOrganisation;
+    @BindView(id.text_student)
+    TextView textStudent;
+    @BindView(id.text_professional)
+    TextView textProfessional;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_signup_category);
+        ButterKnife.bind(this);
         TextView textSubTitle = findViewById(id.text_subtitle);
         textSubTitle.setText("Build your social impact identity on CommunityX.");
 
-        this.viewStudent = findViewById(id.view_student);
-        this.viewProfessional = findViewById(id.view_professional);
-        this.viewOrganisation = findViewById(id.view_organisation);
-        this.imageOrganisation = findViewById(id.image_organisation);
-        this.imageProfessional = findViewById(id.image_professional);
-        this.imageStudent = findViewById(id.image_student);
-        this.tickOrganisation = findViewById(id.image_organisation_tick);
-        this.tickProfessional = findViewById(id.image_professional_tick);
-        this.tickStudent = findViewById(id.image_student_tick);
-        this.textOrganisation = findViewById(id.text_organisation);
-        this.textProfessional = findViewById(id.text_professional);
-        this.textStudent = findViewById(id.text_student);
 
-        viewStudent.setOnClickListener((new OnClickListener() {
-            public final void onClick(View it) {
-                SignupCategoryActivity.this.categorySelected("student");
-            }
-        }));
+    }
 
-        viewProfessional.setOnClickListener((new OnClickListener() {
-            public final void onClick(View it) {
-                SignupCategoryActivity.this.categorySelected("professional");
-            }
-        }));
+    @OnClick({id.view_student, id.view_professional,id.view_organisation})
+    void selectCategory(View it){
+        if (it.equals(viewStudent)) categorySelected("student");
+        else if (it.equals(viewProfessional)) categorySelected("professional");
+        else if (it.equals(viewOrganisation)) categorySelected("organisation");
+    }
 
-        viewOrganisation.setOnClickListener((new OnClickListener() {
-            public final void onClick(View it) {
-                SignupCategoryActivity.this.categorySelected("organisation");
-            }
-        }));
 
-        this.findViewById(id.text_login).setOnClickListener((new OnClickListener() {
-            public final void onClick(View it) {
-                SignupCategoryActivity.this.startActivity((new Intent(SignupCategoryActivity.this, LoginActivity.class))
-                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                SignupCategoryActivity.this.overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out);
-                SignupCategoryActivity.this.finish();
-            }
-        }));
+    @OnClick(id.button_continue)
+    void letsContinue(){
+        SignupCategoryActivity.this.startActivity(new Intent(SignupCategoryActivity.this, SignUpStudentInfoActivity.class));
+        SignupCategoryActivity.this.overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out);
+    }
 
-        this.findViewById(id.button_continue).setOnClickListener((new OnClickListener() {
-            public final void onClick(View it) {
-                SignupCategoryActivity.this.startActivity(new Intent(SignupCategoryActivity.this, SignUpStudentInfoActivity.class));
-                SignupCategoryActivity.this.overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out);
-            }
-        }));
+    @OnClick(id.text_login)
+    void goToLogin(){
+        SignupCategoryActivity.this.startActivity((new Intent(SignupCategoryActivity.this, LoginActivity.class))
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        SignupCategoryActivity.this.overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out);
+        SignupCategoryActivity.this.finish();
     }
 
     private final void categorySelected(String category) {
