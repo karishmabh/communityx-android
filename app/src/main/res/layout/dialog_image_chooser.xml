@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:gravity="center"
+              android:background="#fff"
+              android:padding="12dp"
+              android:layout_height="@dimen/_95sdp">
+
+    <LinearLayout android:id="@+id/layout_camera"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:gravity="center"
+                  android:layout_weight="1">
+
+        <ImageView android:id="@+id/image_camera"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/ic_signup_camera"/>
+
+        <TextView android:id="@+id/text_camera"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Camera"
+                  android:fontFamily="@font/poppins_medium"
+                  android:textColor="@color/colorBlackTitle"/>
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/layout_gallery"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:gravity="center"
+                  android:orientation="vertical"
+                  android:layout_weight="1">
+
+        <ImageView android:id="@+id/image_gallery"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/ic_signup_gallery"/>
+
+        <TextView android:id="@+id/text_gallery"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Gallery"
+                  android:fontFamily="@font/poppins_medium"
+                  android:textColor="@color/colorBlackTitle"/>
+    </LinearLayout>
+
+
+</LinearLayout>
