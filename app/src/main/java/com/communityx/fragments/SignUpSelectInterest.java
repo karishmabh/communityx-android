@@ -18,7 +18,7 @@ import com.google.android.flexbox.FlexboxLayout;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SignUpSelectInterest extends Fragment {
+    public class SignUpSelectInterest extends Fragment {
 
     @BindView(R.id.flex_layout_civil_right)
     FlexboxLayout flexboxLayoutCivilRight;
@@ -58,6 +58,7 @@ public class SignUpSelectInterest extends Fragment {
         for (String civilRight : civilRights) {
             CheckBox checkBox = (CheckBox) LayoutInflater.from(getContext()).inflate(R.layout.item_interest, null);
             checkBox.setText(civilRight);
+            checkBox.performClick();
             checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 checkBox.setBackgroundResource(isChecked ? R.drawable.bg_interest_active : R.drawable.bg_interest_inactive);
             });
@@ -74,6 +75,7 @@ public class SignUpSelectInterest extends Fragment {
         for (String civilRight : civilRights) {
             CheckBox checkBox = (CheckBox) LayoutInflater.from(getContext()).inflate(R.layout.item_interest, null);
             checkBox.setText(civilRight);
+            checkBox.performClick();
             checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 checkBox.setBackgroundResource(isChecked ? R.drawable.bg_interest_active : R.drawable.bg_interest_inactive);
             });
@@ -90,6 +92,7 @@ public class SignUpSelectInterest extends Fragment {
         for (String civilRight : civilRights) {
             CheckBox checkBox = (CheckBox) LayoutInflater.from(getContext()).inflate(R.layout.item_interest, null);
             checkBox.setText(civilRight);
+            checkBox.performClick();
             checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 checkBox.setBackgroundResource(isChecked ? R.drawable.bg_interest_active : R.drawable.bg_interest_inactive);
             });
