@@ -6,4 +6,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="civil_rights">Civil Rights</string>
+    <string name="human_rights">Human Rights</string>
+    <string name="health">Health</string>
+    <string name="are_we_missing_something_suggest_a_cause">Are we missing something? Suggest a cause.</string>
 </resources>

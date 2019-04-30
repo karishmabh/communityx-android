@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="center_vertical"
+              android:background="@drawable/bg_interest_active">
+
+    <TextView
+            android:id="@+id/text_suggest_cause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="@dimen/_12sdp"
+            android:layout_weight="1"
+            android:padding="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:text="Environment"/>
+
+    <ImageView
+            android:id="@+id/image_cross"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/_6sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp"
+            android:paddingRight="@dimen/_4sdp"
+            android:src="@drawable/ic_signup_tag_cross"/>
+
+</LinearLayout>

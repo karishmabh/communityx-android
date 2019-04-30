@@ -3,10 +3,7 @@ package com.communityx.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import com.communityx.fragments.SignUpMemberOfClub;
-import com.communityx.fragments.SignUpRoleFragment;
-import com.communityx.fragments.SignUpSchoolCollegeFragment;
-import com.communityx.fragments.SignUpStudentInfoFragment;
+import com.communityx.fragments.*;
 
 public class SignUpPagerAdapter extends FragmentPagerAdapter {
 
@@ -14,11 +11,12 @@ public class SignUpPagerAdapter extends FragmentPagerAdapter {
             new SignUpStudentInfoFragment(),
             new SignUpSchoolCollegeFragment(),
             new SignUpRoleFragment(),
-            new SignUpMemberOfClub()
+            new SignUpMemberOfClub(),
+            new SignUpSelectInterest()
     };
 
     private boolean[] buttonEnabledPos = {
-        true,false,false,true
+        true,false,false,true,true
     };
 
     public SignUpPagerAdapter(FragmentManager fm) {
