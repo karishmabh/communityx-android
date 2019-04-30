@@ -3,4 +3,7 @@
     <string name="please_select_your_qualification">Please select your qualification.</string>
     <string name="let_s_get_your_account_set_up">Let\'s get your account set up.</string>
     <string name="please_select_your_classification">Please select your classification.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

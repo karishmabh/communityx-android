@@ -3,6 +3,7 @@ package com.communityx.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import com.communityx.fragments.SignUpMemberOfClub;
 import com.communityx.fragments.SignUpRoleFragment;
 import com.communityx.fragments.SignUpSchoolCollegeFragment;
 import com.communityx.fragments.SignUpStudentInfoFragment;
@@ -10,9 +11,10 @@ import com.communityx.fragments.SignUpStudentInfoFragment;
 public class SignUpPagerAdapter extends FragmentPagerAdapter {
 
     private Fragment[] fragments = {
-           new SignUpStudentInfoFragment()  ,
-           new SignUpSchoolCollegeFragment(),
-           new SignUpRoleFragment()
+            new SignUpStudentInfoFragment(),
+            new SignUpSchoolCollegeFragment(),
+            new SignUpRoleFragment(),
+            new SignUpMemberOfClub()
     };
 
     public SignUpPagerAdapter(FragmentManager fm) {
