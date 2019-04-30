@@ -17,6 +17,10 @@ public class SignUpPagerAdapter extends FragmentPagerAdapter {
             new SignUpMemberOfClub()
     };
 
+    private boolean[] buttonEnabledPos = {
+        true,false,false,true
+    };
+
     public SignUpPagerAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -29,5 +33,9 @@ public class SignUpPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return fragments.length;
+    }
+
+    public boolean isButtonEnabled(int pos){
+        return buttonEnabledPos[pos];
     }
 }

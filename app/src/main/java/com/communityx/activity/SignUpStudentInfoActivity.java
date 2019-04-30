@@ -25,6 +25,8 @@ public class SignUpStudentInfoActivity extends AppCompatActivity {
     @BindView(id.button_continue)
     public Button buttonContinue;
 
+    private SignUpPagerAdapter pagerAdapter;
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_student_info);
@@ -32,11 +34,13 @@ public class SignUpStudentInfoActivity extends AppCompatActivity {
 
         textSubtitle.setText("Build your social impact identity on CommunityX.");
         buttonContinue.setTag(true);
+        buttonContinue.setBackgroundResource(R.drawable.button_active);
         setUpViewPager();
     }
 
     private void setUpViewPager() {
-        viewPager.setAdapter(new SignUpPagerAdapter(getSupportFragmentManager()));
+        pagerAdapter = new SignUpPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(pagerAdapter);
         viewPager.setOnTouchListener((v, event) -> true);
         dotsIndicator.setViewPager(viewPager);
     }
@@ -48,8 +52,9 @@ public class SignUpStudentInfoActivity extends AppCompatActivity {
             return;
         }
         viewPager.setCurrentItem(viewPager.getCurrentItem() + 1,true);
-        buttonContinue.setBackground(this.getResources().getDrawable(R.drawable.button_inactive));
-        buttonContinue.setTag(false);
+        boolean isEnabled = pagerAdapter.isButtonEnabled(viewPager.getCurrentItem());
+        buttonContinue.setTag(isEnabled);
+        buttonContinue.setBackgroundResource(isEnabled ? R.drawable.button_active : R.drawable.button_inactive);
 
     }
 

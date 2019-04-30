@@ -11,9 +11,6 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.communityx.R;
-import com.communityx.activity.SignUpStudentInfoActivity;
-
-import java.util.Objects;
 
 public class SignUpStudentInfoFragment extends Fragment {
 
@@ -22,8 +19,6 @@ public class SignUpStudentInfoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sign_up_student_info,null);
         ButterKnife.bind(this,view);
-
-        ((SignUpStudentInfoActivity) Objects.requireNonNull(getActivity())).buttonContinue.setBackground(this.getResources().getDrawable(R.drawable.button_active));
         return view;
     }
 
