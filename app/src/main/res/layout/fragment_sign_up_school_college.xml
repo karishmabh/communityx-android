@@ -4,27 +4,24 @@
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent">
 
-    <include android:id="@+id/topView"
-             app:layout_constraintTop_toTopOf="parent"
-             layout="@layout/layout_top_view_logo"/>
 
     <TextView android:id="@+id/text_heading"
               android:layout_width="wrap_content"
-              android:text="Please select your qualification."
+              android:text="@string/please_select_your_qualification"
               style="@style/text_size_small"
               android:layout_height="wrap_content"
               android:textColor="@color/colorBlackTitle"
               android:fontFamily="@font/poppins_semibold"
-              android:layout_marginTop="@dimen/_10sdp"
-              app:layout_constraintTop_toBottomOf="@+id/topView"
               android:layout_marginStart="@dimen/_15sdp"
-              app:layout_constraintStart_toStartOf="parent"/>
+              android:layout_marginTop="@dimen/_12sdp"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"/>
 
     <LinearLayout
             android:id="@+id/view_category"
             app:layout_constraintTop_toBottomOf="@+id/text_heading"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_23sdp"
             android:orientation="vertical"
             android:layout_height="wrap_content">
 
@@ -145,7 +142,7 @@
                 <ImageView android:layout_width="@dimen/_50sdp"
                            android:id="@+id/image_college"
                            android:layout_marginStart="@dimen/_10sdp"
-                           android:src="@drawable/ic_signup_college_select"
+                           android:src="@drawable/ic_signup_college_deselect"
                            android:layout_height="@dimen/_50sdp"/>
 
                 <TextView
@@ -174,7 +171,7 @@
 
             <LinearLayout
                     android:id="@+id/layout_college"
-                    tools:visibility="gone"
+                    tools:visibility="visible"
                     android:visibility="gone"
                     android:layout_width="@dimen/_250sdp"
                     android:layout_height="wrap_content"
@@ -202,7 +199,7 @@
 
                 <EditText
                         android:layout_width="wrap_content"
-                        tools:text="ABC International School"
+                        android:text="ABC International College"
                         style="@style/text_size_small"
                         android:id="@+id/text_college_name"
                         android:textSize="@dimen/_14ssp"
@@ -214,47 +211,5 @@
                         android:layout_marginStart="@dimen/_10sdp"/>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
-    <Button
-            android:id="@+id/button_continue"
-            android:layout_width="match_parent"
-            android:background="@drawable/button_active"
-            android:text="Continue"
-            android:textColor="@android:color/white"
-            style="@style/style_button"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_10sdp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"/>
-
-    <LinearLayout android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:orientation="horizontal"
-                  app:layout_constraintEnd_toEndOf="parent"
-                  app:layout_constraintStart_toStartOf="parent"
-                  android:layout_marginBottom="@dimen/_10sdp"
-                  app:layout_constraintBottom_toBottomOf="parent"
-                  android:id="@+id/linearLayout">
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:text="Already have an account?"
-                style="@style/text_size_smaller"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorBlackTitle"
-                android:fontFamily="@font/poppins_regular"/>
-
-        <TextView android:id="@+id/text_login"
-                  android:layout_width="wrap_content"
-                  android:text="Login"
-                  style="@style/text_size_small"
-                  android:layout_height="wrap_content"
-                  android:textAllCaps="true"
-                  android:textColor="@color/colorPrimary"
-                  android:fontFamily="@font/poppins_semibold"
-                  android:layout_marginStart="@dimen/_5sdp"/>
-
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

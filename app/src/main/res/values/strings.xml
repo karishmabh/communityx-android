@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Communityx</string>
+    <string name="please_select_your_qualification">Please select your qualification.</string>
+    <string name="let_s_get_your_account_set_up">Let\'s get your account set up.</string>
+    <string name="please_select_your_classification">Please select your classification.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="civil_rights">Civil Rights</string>
+    <string name="human_rights">Human Rights</string>
+    <string name="health">Health</string>
+    <string name="are_we_missing_something_suggest_a_cause">Are we missing something? Suggest a cause.</string>
 </resources>
