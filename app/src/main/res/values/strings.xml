@@ -10,4 +10,8 @@
     <string name="human_rights">Human Rights</string>
     <string name="health">Health</string>
     <string name="are_we_missing_something_suggest_a_cause">Are we missing something? Suggest a cause.</string>
+    <string name="senior">Senior</string>
+    <string name="junior">Junior</string>
+    <string name="sophomore">Sophomore</string>
+    <string name="freshman">Freshman</string>
 </resources>

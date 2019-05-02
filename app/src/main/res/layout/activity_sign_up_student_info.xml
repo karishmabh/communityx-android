@@ -8,7 +8,7 @@
              app:layout_constraintTop_toTopOf="parent"
              layout="@layout/layout_top_view_logo"/>
 
-    <com.communityx.custom_views.CustomViewPager
+    <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             app:layout_constraintTop_toBottomOf="@+id/topView"
             android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:layout_height="0dp">
 
 
-    </com.communityx.custom_views.CustomViewPager>
+    </android.support.v4.view.ViewPager>
 
     <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
             app:layout_constraintBottom_toTopOf="@+id/button_continue"
@@ -51,7 +51,7 @@
                 android:textColor="@color/colorBlackTitle"
                 android:fontFamily="@font/poppins_regular"/>
 
-        <TextView android:id="@+id/text_signup"
+        <TextView android:id="@+id/text_login"
                   android:layout_width="wrap_content"
                   android:text="Login"
                   style="@style/text_size_small"
