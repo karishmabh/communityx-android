@@ -107,16 +107,14 @@ import com.google.android.flexbox.FlexboxLayout;
     private void setSuggestedCause() {
         editCause.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_UP) {
-                if (event.getRawX() >= (editCause.getRight() - editCause.getCompoundDrawables()[2].getBounds().width())) {
+                if (event.getRawX() >= (editCause.getRight() - editCause.getTotalPaddingRight())) {
                     String suggestedCause = editCause.getText().toString();
                     if (!suggestedCause.isEmpty()) {
                         View view = LayoutInflater.from(getContext()).inflate(R.layout.item_suggest_cause, null);
                         TextView textView = view.findViewById(R.id.text_suggest_cause);
                         ImageView imageCross = view.findViewById(R.id.image_cross);
                         textView.setText(suggestedCause);
-                        imageCross.setOnClickListener(v1 -> {
-                            flexboxLayoutCause.removeView(view);
-                        });
+                        imageCross.setOnClickListener(v1 -> flexboxLayoutCause.removeView(view));
                         ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                         lp.setMargins(10, 10, 10, 10);
                         flexboxLayoutCause.addView(view, lp);

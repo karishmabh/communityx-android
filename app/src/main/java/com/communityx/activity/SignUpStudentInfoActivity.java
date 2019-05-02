@@ -1,5 +1,6 @@
 package com.communityx.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -41,8 +42,15 @@ public class SignUpStudentInfoActivity extends AppCompatActivity {
     private void setUpViewPager() {
         pagerAdapter = new SignUpPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
-        viewPager.setOnTouchListener((v, event) -> true);
         dotsIndicator.setViewPager(viewPager);
+    }
+
+    @OnClick(id.text_login)
+    void goToLogin() {
+        SignUpStudentInfoActivity.this.startActivity((new Intent(SignUpStudentInfoActivity.this, LoginActivity.class))
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        SignUpStudentInfoActivity.this.overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out);
+        SignUpStudentInfoActivity.this.finish();
     }
 
     @OnClick(id.button_continue)
@@ -55,8 +63,5 @@ public class SignUpStudentInfoActivity extends AppCompatActivity {
         boolean isEnabled = pagerAdapter.isButtonEnabled(viewPager.getCurrentItem());
         buttonContinue.setTag(isEnabled);
         buttonContinue.setBackgroundResource(isEnabled ? R.drawable.button_active : R.drawable.button_inactive);
-
     }
-
-
 }
