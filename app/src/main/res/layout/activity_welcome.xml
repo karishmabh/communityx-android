@@ -48,11 +48,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/view_logo"
                 android:src="@drawable/ic_welcome_illustration"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_30sdp"
                 android:layout_width="wrap_content"
                 android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="172dp"
+                app:layout_constraintVertical_bias="1.0"/>
 
     </android.support.constraint.ConstraintLayout>
 
@@ -71,7 +72,7 @@
 
     <TextView android:id="@+id/text_signup"
               android:layout_width="wrap_content"
-              android:text="SignUp"
+              android:text="@string/sign_up"
               style="@style/text_size_small"
               android:layout_marginBottom="@dimen/_20sdp"
               app:layout_constraintBottom_toBottomOf="parent"

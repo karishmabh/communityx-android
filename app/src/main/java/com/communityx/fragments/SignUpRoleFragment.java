@@ -78,8 +78,7 @@ public class SignUpRoleFragment extends Fragment {
     }
 
     private void selectRole(Role freshman) {
-        ((SignUpStudentInfoActivity) Objects.requireNonNull(getActivity())).buttonContinue.setBackground(this.getResources().getDrawable(R.drawable.button_active));
-        ((SignUpStudentInfoActivity) Objects.requireNonNull(getActivity())).buttonContinue.setTag(true);
+        ((SignUpStudentInfoActivity) Objects.requireNonNull(getActivity())).enableButton(true);
 
         switch (freshman){
             case FRESHMAN:
