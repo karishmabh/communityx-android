@@ -54,23 +54,16 @@ public class SignUpRoleFragment extends Fragment {
     @BindView(id.text_senior)
     TextView textSenior;
 
-    private enum Role{
-        FRESHMAN,
-        SOPHOMORE,
-        JUNIOR,
-        SENIOR
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sign_up_select_role,null);
-        ButterKnife.bind(this,view);
+        View view = inflater.inflate(R.layout.fragment_sign_up_select_role, null);
+        ButterKnife.bind(this, view);
         return view;
     }
 
-    @OnClick({id.view_freshman_main,id.view_sophomore_main,id.view_junior_main,id.view_senior_main})
-    void tappedRole(View view){
+    @OnClick({id.view_freshman_main, id.view_sophomore_main, id.view_junior_main, id.view_senior_main})
+    void tappedRole(View view) {
         if (view.equals(viewFreshman)) selectRole(Role.FRESHMAN);
         else if (view.equals(viewSophomore)) selectRole(Role.SOPHOMORE);
         else if (view.equals(viewJunior)) selectRole(Role.JUNIOR);
@@ -78,10 +71,9 @@ public class SignUpRoleFragment extends Fragment {
     }
 
     private void selectRole(Role freshman) {
-        ((SignUpStudentInfoActivity) Objects.requireNonNull(getActivity())).buttonContinue.setBackground(this.getResources().getDrawable(R.drawable.button_active));
-        ((SignUpStudentInfoActivity) Objects.requireNonNull(getActivity())).buttonContinue.setTag(true);
+        ((SignUpStudentInfoActivity) Objects.requireNonNull(getActivity())).enableButton(true);
 
-        switch (freshman){
+        switch (freshman) {
             case FRESHMAN:
                 viewFreshman.setBackground(getActivity().getResources().getDrawable(R.drawable.border_orange_bg));
                 viewSophomore.setBackground(getActivity().getResources().getDrawable(R.drawable.bordered_bg));
@@ -170,5 +162,12 @@ public class SignUpRoleFragment extends Fragment {
                 tickJunior.setVisibility(View.GONE);
                 break;
         }
+    }
+
+    private enum Role {
+        FRESHMAN,
+        SOPHOMORE,
+        JUNIOR,
+        SENIOR
     }
 }

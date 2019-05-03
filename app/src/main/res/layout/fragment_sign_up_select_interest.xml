@@ -12,7 +12,7 @@
                                                  android:layout_height="wrap_content">
         <TextView android:id="@+id/text_heading"
                   android:layout_width="@dimen/_241sdp"
-                  android:text="What causes do you care about?"
+                  android:text="@string/what_causes_do_you_care_about"
                   style="@style/text_size_small"
                   android:layout_height="wrap_content"
                   android:textColor="@color/colorBlackTitle"
@@ -125,6 +125,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_interest_inactive"
                 android:hint="Type here..."
+                android:textSize="@dimen/_11sdp"
                 android:padding="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:layout_marginStart="@dimen/_15sdp"

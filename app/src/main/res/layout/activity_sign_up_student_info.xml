@@ -1,22 +1,23 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             android:background="#fff">
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff">
 
-    <include android:id="@+id/topView"
-             app:layout_constraintTop_toTopOf="parent"
-             layout="@layout/layout_top_view_logo"/>
+    <include
+            android:id="@+id/topView"
+            app:layout_constraintTop_toTopOf="parent"
+            layout="@layout/layout_top_view_logo"/>
 
-    <android.support.v4.view.ViewPager
+    <com.communityx.custom_views.CustomViewPager
             android:id="@+id/view_pager"
             app:layout_constraintTop_toBottomOf="@+id/topView"
             android:layout_width="match_parent"
             app:layout_constraintBottom_toTopOf="@+id/dots_indicator"
             android:layout_height="0dp">
 
-
-    </android.support.v4.view.ViewPager>
+    </com.communityx.custom_views.CustomViewPager>
 
     <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
             app:layout_constraintBottom_toTopOf="@+id/button_continue"
@@ -34,14 +35,15 @@
             app:selectedDotColor="@color/colorPrimary"
             app:progressMode="true"/>
 
-    <LinearLayout android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:orientation="horizontal"
-                  app:layout_constraintEnd_toEndOf="parent"
-                  app:layout_constraintStart_toStartOf="parent"
-                  android:layout_marginBottom="@dimen/_10sdp"
-                  app:layout_constraintBottom_toBottomOf="parent"
-                  android:id="@+id/linearLayout2">
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/linearLayout2">
 
         <TextView
                 android:layout_width="wrap_content"
@@ -51,15 +53,16 @@
                 android:textColor="@color/colorBlackTitle"
                 android:fontFamily="@font/poppins_regular"/>
 
-        <TextView android:id="@+id/text_login"
-                  android:layout_width="wrap_content"
-                  android:text="Login"
-                  style="@style/text_size_small"
-                  android:layout_height="wrap_content"
-                  android:textAllCaps="true"
-                  android:textColor="@color/colorPrimary"
-                  android:fontFamily="@font/poppins_semibold"
-                  android:layout_marginStart="@dimen/_5sdp"/>
+        <TextView
+                android:id="@+id/text_login"
+                android:layout_width="wrap_content"
+                android:text="Login"
+                style="@style/text_size_small"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_marginStart="@dimen/_5sdp"/>
 
     </LinearLayout>
 

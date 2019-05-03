@@ -16,7 +16,7 @@ public class SignUpPagerAdapter extends FragmentPagerAdapter {
     };
 
     private boolean[] buttonEnabledPos = {
-        true,false,false,true,true
+            true, false, false, true, true
     };
 
     public SignUpPagerAdapter(FragmentManager fm) {
@@ -33,7 +33,7 @@ public class SignUpPagerAdapter extends FragmentPagerAdapter {
         return fragments.length;
     }
 
-    public boolean isButtonEnabled(int pos){
+    public boolean isButtonEnabled(int pos) {
         return buttonEnabledPos[pos];
     }
 }

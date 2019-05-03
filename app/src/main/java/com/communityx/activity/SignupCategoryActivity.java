@@ -42,6 +42,8 @@ public class SignupCategoryActivity extends AppCompatActivity {
     TextView textStudent;
     @BindView(id.text_professional)
     TextView textProfessional;
+    @BindView(id.button_continue)
+    Button buttonContinue;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +51,12 @@ public class SignupCategoryActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         TextView textSubTitle = findViewById(id.text_subtitle);
         textSubTitle.setText("Build your social impact identity on CommunityX.");
-
-
+        buttonContinue.setClickable(false);
+        buttonContinue.setAlpha(0.5f);
     }
 
     @OnClick({id.view_student, id.view_professional,id.view_organisation})
-    void selectCategory(View it){
+    void selectCategory(View it) {
         if (it.equals(viewStudent)) categorySelected("student");
         else if (it.equals(viewProfessional)) categorySelected("professional");
         else if (it.equals(viewOrganisation)) categorySelected("organisation");
@@ -76,8 +78,8 @@ public class SignupCategoryActivity extends AppCompatActivity {
     }
 
     private final void categorySelected(String category) {
-        Button buttonContinue = this.findViewById(id.button_continue);
-        buttonContinue.setBackground(this.getResources().getDrawable(R.drawable.button_active));
+        buttonContinue.setClickable(true);
+        buttonContinue.setAlpha(1.0f);
 
         switch (category) {
             case ("student"):

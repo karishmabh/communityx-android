@@ -1,16 +1,19 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <include android:id="@+id/topView"
-             app:layout_constraintTop_toTopOf="parent"
-             layout="@layout/layout_top_view"/>
+    <include
+            android:id="@+id/topView"
+            app:layout_constraintTop_toTopOf="parent"
+            layout="@layout/layout_top_view"/>
 
     <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout"
             app:layout_constraintTop_toBottomOf="@+id/topView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/constraintLayout">
+            android:layout_height="wrap_content">
 
         <LinearLayout
                 android:id="@+id/view_logo"
@@ -48,11 +51,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/view_logo"
                 android:src="@drawable/ic_welcome_illustration"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_30sdp"
                 android:layout_width="wrap_content"
                 android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/_120sdp"/>
 
     </android.support.constraint.ConstraintLayout>
 
@@ -67,11 +71,11 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginStart="@dimen/_10sdp"
             app:layout_constraintBottom_toTopOf="@+id/text_signup"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
     <TextView android:id="@+id/text_signup"
               android:layout_width="wrap_content"
-              android:text="SignUp"
+              android:text="@string/sign_up"
               style="@style/text_size_small"
               android:layout_marginBottom="@dimen/_20sdp"
               app:layout_constraintBottom_toBottomOf="parent"

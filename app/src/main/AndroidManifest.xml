@@ -7,7 +7,8 @@
                  android:roundIcon="@mipmap/ic_launcher_round"
                  android:supportsRtl="true"
                  android:theme="@style/AppTheme">
-        <activity android:name=".activity.WelcomeActivity">
+        <activity android:name=".activity.WelcomeActivity"
+        android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -15,8 +16,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.LoginActivity"/>
-        <activity android:name=".activity.SignupCategoryActivity"/>
-        <activity android:name=".activity.SignUpStudentInfoActivity"/>
+        <activity android:name=".activity.LoginActivity"
+        android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SignupCategoryActivity"
+        android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SignUpStudentInfoActivity"
+        android:screenOrientation="portrait"/>
     </application>
 </manifest>

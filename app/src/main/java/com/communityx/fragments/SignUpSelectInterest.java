@@ -53,7 +53,7 @@ import com.google.android.flexbox.FlexboxLayout;
     }
 
     private void setCivilRights() {
-        String[] civilRights = {"LGBTQ+", "Women's Rights", "Healthcare Reform", "Police Misconduct", "Gun Control", "Immigration", "Healthcare Reform", "Sports Activsm"};
+        String[] civilRights = {"LGBTQ +", "Women's Rights", "Healthcare Reform", "Police Misconduct", "Gun Control", "Immigration", "Healthcare Reform", "Sports Activsm"};
 
         for (String civilRight : civilRights) {
             CheckBox checkBox = (CheckBox) LayoutInflater.from(getContext()).inflate(R.layout.item_interest, null);
