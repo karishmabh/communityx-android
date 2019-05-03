@@ -125,6 +125,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_interest_inactive"
                 android:hint="Type here..."
+                android:textSize="@dimen/_11sdp"
                 android:padding="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:layout_marginStart="@dimen/_15sdp"
