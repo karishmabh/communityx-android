@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Communityx</string>
+    <string name="app_name">CommunityX</string>
     <string name="please_select_your_qualification">Please select your qualification.</string>
     <string name="let_s_get_your_account_set_up">Let\'s get your account set up.</string>
     <string name="please_select_your_classification">Please select your classification.</string>
@@ -45,4 +45,5 @@
     <string name="college_university">College / University</string>
     <string name="please_login_to_continue">Please login to continue</string>
     <string name="communityx">CommunityX</string>
+    <string name="are_you_a_high_school_or_university_student">Are you a High School or University student?</string>
 </resources>
