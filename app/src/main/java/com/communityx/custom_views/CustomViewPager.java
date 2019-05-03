@@ -48,7 +48,6 @@ public class CustomViewPager extends ViewPager {
         if (this.IsSwipeAllowed(event)) {
             return super.onTouchEvent(event);
         }
-
         return false;
     }
 
@@ -57,14 +56,13 @@ public class CustomViewPager extends ViewPager {
         if (this.IsSwipeAllowed(event)) {
             return super.onInterceptTouchEvent(event);
         }
-
         return false;
     }
 
     private boolean IsSwipeAllowed(MotionEvent event) {
         if (this.direction == SwipeDirection.all) return true;
 
-        if (direction == SwipeDirection.none)//disable any swipe
+        if (direction == SwipeDirection.none)
             return false;
 
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -86,7 +84,6 @@ public class CustomViewPager extends ViewPager {
                 exception.printStackTrace();
             }
         }
-
         return true;
     }
 
@@ -95,53 +92,40 @@ public class CustomViewPager extends ViewPager {
     }
 
     public void setScrollDuration(int scrollDuration) {
-
         this.scrollDuration = scrollDuration;
-
     }
 
     public void setmSwipeDirectionListener(SwipeDirectionListener swipeDirectionListener) {
-
         this.mSwipeDirectionListener = swipeDirectionListener;
-
     }
 
     private void scroller() {
         try {
-
             Class cls = ViewPager.class;
             Field scroller = cls.getDeclaredField("mScroller");
             scroller.setAccessible(true);
             scroller.set(this, new CustomScroller(mContext));
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
 
     public interface SwipeDirectionListener {
-
         void onSwipe(SwipeDirection direction);
         void onPageChange(int position);
-
     }
 
     private class CustomScroller extends Scroller {
-
 
         public CustomScroller(Context context) {
             super(context);
         }
 
         @Override
-
         public void startScroll(int startX, int startY, int dx, int dy) {
-
             super.startScroll(startX, startY, dx, dy, scrollDuration);
-
         }
-
     }
 }
