@@ -22,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.communityx.R;
+import com.communityx.utils.Utils;
 
 public class SignUpStudentInfoFragment extends Fragment {
 
@@ -53,6 +54,8 @@ public class SignUpStudentInfoFragment extends Fragment {
     LinearLayout viewPassword;
     @BindView(R.id.resend_otp)
     TextView textResendOtp;
+    @BindView(R.id.edit_birthday)
+    TextInputEditText editBirthDate;
 
     @Nullable
     @Override
@@ -95,6 +98,11 @@ public class SignUpStudentInfoFragment extends Fragment {
     void tappedSentOtp() {
          visibleOtpField(true);
         scrollView.post(() -> scrollView.scrollTo(0, scrollView.getHeight()));
+    }
+
+    @OnClick(R.id.edit_birthday)
+    void tappedEditBirth() {
+        Utils.datePicker(getActivity(), editBirthDate);
     }
 
     private void initOtpBox() {

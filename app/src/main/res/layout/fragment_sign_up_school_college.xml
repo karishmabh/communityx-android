@@ -1,8 +1,9 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
     <TextView android:id="@+id/text_heading"
@@ -52,7 +53,7 @@
 
                 <TextView
                         android:layout_width="0dp"
-                        android:text="High School"
+                        android:text="@string/high_school"
                         style="@style/text_size_small"
                         android:id="@+id/text_school"
                         android:layout_weight="1"
@@ -148,7 +149,7 @@
 
                 <TextView
                         android:layout_width="0dp"
-                        android:text="College / University"
+                        android:text="@string/college_university"
                         style="@style/text_size_small"
                         android:id="@+id/text_college"
                         android:layout_weight="1"
@@ -190,7 +191,7 @@
 
                 <TextView
                         android:layout_width="wrap_content"
-                        android:text="College / University"
+                        android:text="@string/college_university"
                         style="@style/text_size_small"
                         android:id="@+id/text_college_name_hint"
                         android:layout_height="wrap_content"
