@@ -12,15 +12,16 @@ import butterknife.OnClick;
 import com.communityx.R;
 import com.communityx.R.id;
 import com.communityx.adapters.SignUpPagerAdapter;
+import com.communityx.custom_views.CustomViewPager;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 import org.jetbrains.annotations.Nullable;
 
-public class SignUpStudentInfoActivity extends AppCompatActivity {
+public class SignUpStudentInfoActivity extends AppCompatActivity{
 
     @BindView(id.text_subtitle)
     TextView textSubtitle;
     @BindView(id.view_pager)
-    ViewPager viewPager;
+    CustomViewPager viewPager;
     @BindView(id.dots_indicator)
     DotsIndicator dotsIndicator;
     @BindView(id.button_continue)
@@ -42,7 +43,20 @@ public class SignUpStudentInfoActivity extends AppCompatActivity {
     private void setUpViewPager() {
         pagerAdapter = new SignUpPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setAllowedSwipeDirection(CustomViewPager.SwipeDirection.left);
+        viewPager.setmSwipeDirectionListener(new CustomViewPager.SwipeDirectionListener() {
+            @Override
+            public void onSwipe(CustomViewPager.SwipeDirection direction) {
+
+            }
+
+            @Override
+            public void onPageChange(int position) {
+                enableButton(pagerAdapter.isButtonEnabled(position));
+            }
+        });
         dotsIndicator.setViewPager(viewPager);
+        dotsIndicator.setDotsClickable(false);
     }
 
     @OnClick(id.text_login)
@@ -64,4 +78,6 @@ public class SignUpStudentInfoActivity extends AppCompatActivity {
         buttonContinue.setAlpha(enable ? 1.0f : 0.5f);
         buttonContinue.setClickable(enable);
     }
+
+
 }
