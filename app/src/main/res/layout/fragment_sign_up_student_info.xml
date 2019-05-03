@@ -2,7 +2,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
             android:id="@+id/scrollView"
@@ -83,7 +83,8 @@
                     android:layout_width="match_parent"
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:hint="Full Name"
+                    android:hint="@string/full_name"
+                    app:hintTextAppearance="@style/TextInputHint"
                     app:layout_constraintTop_toBottomOf="@+id/view_add_image"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp">
@@ -102,7 +103,8 @@
                     android:layout_width="match_parent"
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:hint="Email"
+                    android:hint="@string/email"
+                    app:hintTextAppearance="@style/TextInputHint"
                     app:layout_constraintTop_toBottomOf="@+id/textinput_email_username"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp">
@@ -123,6 +125,7 @@
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
                     android:hint="@string/birthday"
+                    app:hintTextAppearance="@style/TextInputHint"
                     app:layout_constraintTop_toBottomOf="@+id/textinput_email"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp">
@@ -147,6 +150,7 @@
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
                     android:hint="@string/postal_code"
+                    app:hintTextAppearance="@style/TextInputHint"
                     app:layout_constraintTop_toBottomOf="@id/textinput_birthday"
                     app:passwordToggleEnabled="true">
 
@@ -172,6 +176,8 @@
                         android:layout_marginStart="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_15sdp"
                         android:hint="Mobile Number"
+                        app:hintTextAppearance="@style/TextInputHint"
+
                         app:passwordToggleEnabled="true">
 
                     <android.support.design.widget.TextInputEditText
@@ -189,7 +195,7 @@
                         android:id="@+id/text_send_otp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/change_number"
+                        android:text="@string/send_otp"
                         android:textAllCaps="true"
                         android:fontFamily="@font/poppins_semibold"
                         android:textSize="@dimen/_10ssp"
@@ -198,29 +204,61 @@
                         android:textColor="@color/colorPrimary"/>
             </FrameLayout>
 
-            <android.support.design.widget.TextInputLayout
-                    android:id="@+id/text_confirm_password"
-                    style="@style/textInputLayoutColor"
+            <LinearLayout
+                    android:id="@+id/view_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:layout_marginEnd="@dimen/_15sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/view_otp"
-                    android:hint="Confirm Password"
-                    android:visibility="gone"
-                    app:passwordToggleEnabled="true">
-
-                <android.support.design.widget.TextInputEditText
-                        android:id="@+id/edit_confirm_password"
-                        style="@style/textInputEditText"
+                    android:orientation="vertical"
+                    tools:visibility="visible"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toBottomOf="@+id/view_otp">
+                <android.support.design.widget.TextInputLayout
+                        android:id="@+id/text_create_password"
+                        style="@style/textInputLayoutColor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"
-                        android:maxLength="10"
-                        android:fontFamily="@font/poppins_medium"/>
-            </android.support.design.widget.TextInputLayout>
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:hint="Create Password"
+                        app:hintTextAppearance="@style/TextInputHint"
+                        app:layout_constraintTop_toBottomOf="@+id/resend_otp"
+                        app:layout_constraintBottom_toTopOf="@+id/text_confirm_password"
+                        app:passwordToggleEnabled="false">
 
+                    <android.support.design.widget.TextInputEditText
+                            android:id="@+id/edit_create_password"
+                            style="@style/textInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:maxLength="10"
+                            android:fontFamily="@font/poppins_medium"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                        android:id="@+id/text_confirm_password"
+                        style="@style/textInputLayoutColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        app:layout_constraintTop_toBottomOf="@+id/text_create_password"
+                        android:hint="Confirm Password"
+                        app:hintTextAppearance="@style/TextInputHint"
+                        app:passwordToggleEnabled="false">
+
+                    <android.support.design.widget.TextInputEditText
+                            android:id="@+id/edit_confirm_password"
+                            style="@style/textInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:maxLength="10"
+                            android:fontFamily="@font/poppins_medium"/>
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
             <TextView
                     android:id="@+id/text_enter_otp"
@@ -305,15 +343,17 @@
 
             </LinearLayout>
             <TextView
+                    android:id="@+id/resend_otp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@+id/view_otp"
                     android:text="@string/resend_otp"
+                    android:textAllCaps="true"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_10ssp"
                     android:fontFamily="@font/poppins_semibold"
                     android:layout_marginTop="@dimen/_4sdp"
-            app:layout_constraintEnd_toEndOf="@+id/view_otp"/>
+                    app:layout_constraintEnd_toEndOf="@+id/view_otp"/>
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

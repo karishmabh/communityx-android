@@ -55,8 +55,8 @@
                 android:layout_width="wrap_content"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="172dp"
-                app:layout_constraintVertical_bias="1.0"/>
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/_120sdp"/>
 
     </android.support.constraint.ConstraintLayout>
 

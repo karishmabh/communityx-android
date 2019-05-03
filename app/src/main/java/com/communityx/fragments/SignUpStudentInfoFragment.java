@@ -49,6 +49,10 @@ public class SignUpStudentInfoFragment extends Fragment {
     TextInputEditText editMobile;
     @BindView(R.id.constraintLayout)
     ConstraintLayout constraintLayout;
+    @BindView(R.id.view_password)
+    LinearLayout viewPassword;
+    @BindView(R.id.resend_otp)
+    TextView textResendOtp;
 
     @Nullable
     @Override
@@ -62,6 +66,7 @@ public class SignUpStudentInfoFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initOtpBox();
+        viewPassword.setVisibility(View.GONE);
         editMobile.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -88,15 +93,12 @@ public class SignUpStudentInfoFragment extends Fragment {
 
     @OnClick(R.id.text_send_otp)
     void tappedSentOtp() {
-        textSendOtp.setText("Change");
-        textEnterOtp.setVisibility(View.VISIBLE);
-        viewOtpBox.setVisibility(View.VISIBLE);
+         visibleOtpField(true);
         scrollView.post(() -> scrollView.scrollTo(0, scrollView.getHeight()));
     }
 
     private void initOtpBox() {
-        textEnterOtp.setVisibility(View.GONE);
-        viewOtpBox.setVisibility(View.GONE);
+        visibleOtpField(false);
         initOtpTextWatcher(editOtpOne, editOtpTwo, null);
         initOtpTextWatcher(editOtpTwo, editOtpThree, editOtpOne);
         initOtpTextWatcher(editOtpThree, editOtpFour, editOtpTwo);
@@ -119,6 +121,10 @@ public class SignUpStudentInfoFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if(currentEditText.equals(editOtpSix)){
+                    scrollView.post(() -> viewPassword.setVisibility(View.VISIBLE));
+                    visibleOtpField(false);
+                }
             }
         });
     }
@@ -160,5 +166,19 @@ public class SignUpStudentInfoFragment extends Fragment {
             return false;
         }
         return true;
+    }
+
+    private void visibleOtpField(boolean visible){
+        if(visible){
+            textSendOtp.setText("Change");
+            textEnterOtp.setVisibility(View.VISIBLE);
+            viewOtpBox.setVisibility(View.VISIBLE);
+            textResendOtp.setVisibility(View.VISIBLE);
+        }
+        else{
+            textEnterOtp.setVisibility(View.GONE);
+            viewOtpBox.setVisibility(View.GONE);
+            textResendOtp.setVisibility(View.GONE);
+        }
     }
 }

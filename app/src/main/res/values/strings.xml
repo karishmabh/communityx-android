@@ -26,7 +26,6 @@
     <string name="sign_up">Sign Up</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="login">Login</string>
-    <string name="already_have_an_account">Already have an account?</string>
     <string name="please_select_a_category">Please select a category.</string>
     <string name="student">I am a Student</string>
     <string name="professional">I am a Professional</string>
@@ -36,4 +35,6 @@
     <string name="birthday">Birthday</string>
     <string name="resend_otp">Resend otp</string>
     <string name="what_causes_do_you_care_about">What causes do you care about?</string>
+    <string name="email">Email</string>
+    <string name="full_name">Full Name</string>
 </resources>
