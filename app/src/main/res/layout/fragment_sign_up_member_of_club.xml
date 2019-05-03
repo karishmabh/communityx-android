@@ -43,6 +43,15 @@
             app:layout_constraintTop_toBottomOf="@id/text_club_name_hint"
             tools:listitem="@tools:sample/full_names"/>
 
+    <View
+            android:id="@+id/view_divider_one"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorLightGrey"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_club_name"/>
+
     <TextView
             android:id="@+id/text_role_hint"
             android:layout_width="wrap_content"
@@ -54,7 +63,7 @@
             android:layout_marginStart="@dimen/_15sdp"
             android:fontFamily="@font/poppins_regular"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spinner_club_name"/>
+            app:layout_constraintTop_toBottomOf="@id/view_divider_one"/>
 
     <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spinner_role"
@@ -67,5 +76,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_role_hint"
             tools:listitem="@tools:sample/cities"/>
+
+    <View
+            android:id="@+id/view_divider_two"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorLightGrey"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_role"/>
 
 </android.support.constraint.ConstraintLayout>

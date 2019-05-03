@@ -56,8 +56,8 @@ public class SignUpSchoolCollegeFragment extends Fragment {
     }
 
     private void selectQualificationInfo(Qualification qualification) {
-        ((SignUpStudentInfoActivity) Objects.requireNonNull(getActivity())).buttonContinue.setBackground(this.getResources().getDrawable(R.drawable.button_active));
-        ((SignUpStudentInfoActivity) Objects.requireNonNull(getActivity())).buttonContinue.setTag(true);
+        ((SignUpStudentInfoActivity) Objects.requireNonNull(getActivity())).enableButton(true);
+
 
         switch (qualification) {
             case SCHOOL:

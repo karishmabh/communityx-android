@@ -24,7 +24,7 @@ public class SignUpStudentInfoActivity extends AppCompatActivity {
     @BindView(id.dots_indicator)
     DotsIndicator dotsIndicator;
     @BindView(id.button_continue)
-    public Button buttonContinue;
+    Button buttonContinue;
 
     private SignUpPagerAdapter pagerAdapter;
 
@@ -55,13 +55,13 @@ public class SignUpStudentInfoActivity extends AppCompatActivity {
 
     @OnClick(id.button_continue)
     void tappedContinue(){
-        boolean isActive = (boolean) buttonContinue.getTag();
-        if (!isActive){
-            return;
-        }
         viewPager.setCurrentItem(viewPager.getCurrentItem() + 1,true);
         boolean isEnabled = pagerAdapter.isButtonEnabled(viewPager.getCurrentItem());
-        buttonContinue.setTag(isEnabled);
-        buttonContinue.setBackgroundResource(isEnabled ? R.drawable.button_active : R.drawable.button_inactive);
+        enableButton(isEnabled);
+    }
+
+    public void enableButton(boolean enable){
+        buttonContinue.setAlpha(enable ? 1.0f : 0.5f);
+        buttonContinue.setClickable(enable);
     }
 }

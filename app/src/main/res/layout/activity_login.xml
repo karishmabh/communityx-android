@@ -17,6 +17,7 @@
             android:layout_marginEnd="@dimen/_15sdp"
             android:hint="@string/mobile_number"
             app:layout_constraintTop_toBottomOf="@+id/topView"
+            app:hintTextAppearance="@style/TextInputHint"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_40sdp">
 
@@ -33,6 +34,7 @@
             style="@style/textInputLayoutColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:hintTextAppearance="@style/TextInputHint"
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"

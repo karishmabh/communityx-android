@@ -171,7 +171,7 @@
     <Button
             android:id="@+id/button_continue"
             android:layout_width="match_parent"
-            android:background="@drawable/button_inactive"
+            android:background="@drawable/button_active"
             android:text="@string/continue_button"
             android:textColor="@android:color/white"
             style="@style/style_button"
