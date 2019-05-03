@@ -13,6 +13,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.communityx.R;
 
+import java.util.Objects;
+
 public class SignUpMemberOfClub extends Fragment {
 
     @BindView(R.id.spinner_club_name)
@@ -26,7 +28,20 @@ public class SignUpMemberOfClub extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sign_up_member_of_club, null);
         ButterKnife.bind(this,view);
 
-        spinnerClubName.setAdapter(new ArrayAdapter<>(getContext(), R.layout.item_member_of_club,R.id.text_item, new String[]{"Amnesty International", "Amnesty International"}));
+        spinnerClubName.setAdapter(new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.item_member_of_club,R.id.text_item, new String[]{"Amnesty International",
+                "Best Buddies",
+                "Rotary Interact",
+                "DECA",
+                "Model United Nations",
+                "Gay/Straight Alliance",
+                "National Business Honor Society",
+                "National Technology Honor Society",
+                "Mock Trial Club",
+                "Student Government",
+                "Yoga Club",
+                "Animal Rights Organizatio",
+                "Entrepreneur Club",
+                "Human Rights Club"}));
         spinnerRole.setAdapter(new ArrayAdapter<>(getContext(), R.layout.item_member_of_club,R.id.text_item, new String[]{"President", "President"}));
         return view;
     }
