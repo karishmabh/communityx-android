@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circle_profile_image"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_margin="@dimen/_10sdp"
+                android:src="@drawable/ic_profile_placeholder"
+                app:civ_border_color="@android:color/background_light"
+                app:civ_border_width="3dp"/>
+
+        <TextView
+                android:id="@+id/text_title_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bella Oliver"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="@dimen/_14ssp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="@color/colorBlackTitle"
+                android:layout_marginLeft="@dimen/_12sdp"
+                app:layout_constraintLeft_toRightOf="@+id/circle_profile_image"/>
+
+        <TextView
+                android:id="@+id/text_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="College Student, New york"
+                android:textSize="@dimen/_10ssp"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/colorLightGrey"
+                app:layout_constraintTop_toBottomOf="@+id/text_title_name"
+                app:layout_constraintStart_toStartOf="@+id/text_title_name"/>
+
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_suggestion_friend_add_friend"
+                app:layout_constraintLeft_toRightOf="@+id/text_description"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>
