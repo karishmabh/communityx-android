@@ -1,8 +1,8 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
-
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <ScrollView
             android:id="@+id/scrollView"
@@ -11,6 +11,7 @@
             android:layout_height="0dp" app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout"
                 app:layout_constraintTop_toBottomOf="@+id/topView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -63,7 +64,7 @@
 
                 <TextView
                         android:layout_width="wrap_content"
-                        android:text="Add Pofile Image"
+                        android:text="@string/add_profile_image"
                         style="@style/text_size_small"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorBlackTitle"
@@ -121,7 +122,7 @@
                     android:layout_width="match_parent"
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:hint="Birthday"
+                    android:hint="@string/birthday"
                     app:layout_constraintTop_toBottomOf="@+id/textinput_email"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp">
@@ -145,7 +146,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:hint="Postal Code"
+                    android:hint="@string/postal_code"
                     app:layout_constraintTop_toBottomOf="@id/textinput_birthday"
                     app:passwordToggleEnabled="true">
 
@@ -188,7 +189,7 @@
                         android:id="@+id/text_send_otp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Send OTP"
+                        android:text="@string/change_number"
                         android:textAllCaps="true"
                         android:fontFamily="@font/poppins_semibold"
                         android:textSize="@dimen/_10ssp"
@@ -197,11 +198,35 @@
                         android:textColor="@color/colorPrimary"/>
             </FrameLayout>
 
+            <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_confirm_password"
+                    style="@style/textInputLayoutColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    app:layout_constraintTop_toBottomOf="@+id/view_otp"
+                    android:hint="Confirm Password"
+                    android:visibility="gone"
+                    app:passwordToggleEnabled="true">
+
+                <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_confirm_password"
+                        style="@style/textInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:maxLength="10"
+                        android:fontFamily="@font/poppins_medium"/>
+            </android.support.design.widget.TextInputLayout>
+
+
             <TextView
                     android:id="@+id/text_enter_otp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Enter OTP"
+                    android:text="@string/enter_otp"
                     android:textSize="@dimen/_9ssp"
                     android:fontFamily="@font/poppins_regular"
                     android:textColor="@color/colorLightGrey"
@@ -279,8 +304,16 @@
                         style="@style/textInputEditText"/>
 
             </LinearLayout>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/view_otp"
+                    android:text="@string/resend_otp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_10ssp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:layout_marginTop="@dimen/_4sdp"
+            app:layout_constraintEnd_toEndOf="@+id/view_otp"/>
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
-
-
 </android.support.constraint.ConstraintLayout>

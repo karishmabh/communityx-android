@@ -41,30 +41,25 @@ public class SignUpSchoolCollegeFragment extends Fragment {
     @BindView(R.id.text_college)
     TextView textCollege;
 
-    private enum Qualification{
-        SCHOOL,
-        COLLEGE
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sign_up_school_college, null);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         return view;
     }
 
-    @OnClick({R.id.view_school,R.id.view_college})
+    @OnClick({R.id.view_school, R.id.view_college})
     void tappedQualificationInfo(View it) {
         if (it.equals(viewSchool)) selectQualificationInfo(Qualification.SCHOOL);
         else if (it.equals(viewCollege)) selectQualificationInfo(Qualification.COLLEGE);
     }
 
-    private void selectQualificationInfo(Qualification qualification){
+    private void selectQualificationInfo(Qualification qualification) {
         ((SignUpStudentInfoActivity) Objects.requireNonNull(getActivity())).buttonContinue.setBackground(this.getResources().getDrawable(R.drawable.button_active));
         ((SignUpStudentInfoActivity) Objects.requireNonNull(getActivity())).buttonContinue.setTag(true);
 
-        switch (qualification){
+        switch (qualification) {
             case SCHOOL:
                 viewSchool.setBackground(getResources().getDrawable(R.drawable.border_orange_bg));
                 viewCollege.setBackground(getResources().getDrawable(R.drawable.bordered_bg));
@@ -99,5 +94,10 @@ public class SignUpSchoolCollegeFragment extends Fragment {
                 layoutSchool.setVisibility(View.GONE);
                 break;
         }
+    }
+
+    private enum Qualification {
+        SCHOOL,
+        COLLEGE
     }
 }

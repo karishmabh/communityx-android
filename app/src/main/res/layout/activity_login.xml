@@ -1,8 +1,9 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <include android:id="@+id/topView"
              app:layout_constraintTop_toTopOf="parent"
@@ -14,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
-            android:hint="Mobile Number"
+            android:hint="@string/mobile_number"
             app:layout_constraintTop_toBottomOf="@+id/topView"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_40sdp">
@@ -24,7 +25,7 @@
                 style="@style/textInputEditText"
                 android:layout_width="match_parent"
                 android:fontFamily="@font/poppins_medium"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -35,7 +36,7 @@
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
-            android:hint="Password"
+            android:hint="@string/password"
             app:layout_constraintTop_toBottomOf="@id/textinput_email_username"
             app:passwordToggleEnabled="true">
 
@@ -44,7 +45,7 @@
                 style="@style/textInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"  />
+                android:fontFamily="@font/poppins_medium"/>
     </android.support.design.widget.TextInputLayout>
 
     <TextView
@@ -55,7 +56,8 @@
             android:layout_marginEnd="@dimen/_15sdp"
             android:fontFamily="@font/poppins_semibold"
             android:paddingEnd="@dimen/_2sdp"
-            android:text="Forgot Password"
+            android:paddingStart="@dimen/_2sdp"
+            android:text="@string/forgot_password"
             android:textAllCaps="true"
             android:textColor="@color/colorPrimary"
             app:layout_constraintRight_toRightOf="parent"
@@ -72,21 +74,21 @@
 
         <TextView
                 android:layout_width="wrap_content"
-                android:text="Don't have an account?"
+                android:text="@string/don_t_have_an_account"
                 style="@style/text_size_smaller"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorBlackTitle"
-                android:fontFamily="@font/poppins_regular" />
+                android:fontFamily="@font/poppins_regular"/>
 
         <TextView android:id="@+id/text_signup"
                   android:layout_width="wrap_content"
-                  android:text="SignUp"
+                  android:text="@string/signup"
                   style="@style/text_size_small"
                   android:layout_height="wrap_content"
                   android:textAllCaps="true"
                   android:textColor="@color/colorPrimary"
                   android:fontFamily="@font/poppins_semibold"
-                  android:layout_marginStart="@dimen/_5sdp"  />
+                  android:layout_marginStart="@dimen/_5sdp"/>
 
     </LinearLayout>
 
@@ -94,14 +96,13 @@
             android:id="@+id/button_login"
             android:layout_width="match_parent"
             android:background="@drawable/button_active"
-            android:text="Login"
+            android:text="@string/login"
             android:textColor="@android:color/white"
             style="@style/style_button"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_15sdp"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_40sdp"
-            app:layout_constraintTop_toBottomOf="@+id/textinput_password"
-            tools:layout_editor_absoluteX="13dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/textinput_password"/>
 
 </android.support.constraint.ConstraintLayout>

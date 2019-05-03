@@ -30,5 +30,4 @@ public class SignUpMemberOfClub extends Fragment {
         spinnerRole.setAdapter(new ArrayAdapter<>(getContext(), R.layout.item_member_of_club,R.id.text_item, new String[]{"President", "President"}));
         return view;
     }
-
 }

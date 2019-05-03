@@ -3,10 +3,13 @@ package com.communityx.fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,12 +47,14 @@ public class SignUpStudentInfoFragment extends Fragment {
     ScrollView scrollView;
     @BindView(R.id.edit_mobile)
     TextInputEditText editMobile;
+    @BindView(R.id.constraintLayout)
+    ConstraintLayout constraintLayout;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sign_up_student_info,null);
-        ButterKnife.bind(this,view);
+        View view = inflater.inflate(R.layout.fragment_sign_up_student_info, null);
+        ButterKnife.bind(this, view);
         return view;
     }
 
@@ -59,11 +64,12 @@ public class SignUpStudentInfoFragment extends Fragment {
         initOtpBox();
         editMobile.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() < 3){
+                if (s.length() < 3) {
                     editMobile.setText("+91");
                     editMobile.setSelection(3);
                 }
@@ -76,52 +82,83 @@ public class SignUpStudentInfoFragment extends Fragment {
     }
 
     @OnClick(R.id.card_add_image)
-    void chooseImage(){
+    void chooseImage() {
         showImageChooserDialog();
     }
 
     @OnClick(R.id.text_send_otp)
-    void tappedSentOtp(){
+    void tappedSentOtp() {
         textSendOtp.setText("Change");
         textEnterOtp.setVisibility(View.VISIBLE);
         viewOtpBox.setVisibility(View.VISIBLE);
-        scrollView.post(() -> scrollView.scrollTo(0,scrollView.getHeight()));
+        scrollView.post(() -> scrollView.scrollTo(0, scrollView.getHeight()));
     }
 
     private void initOtpBox() {
         textEnterOtp.setVisibility(View.GONE);
         viewOtpBox.setVisibility(View.GONE);
-        initOtpTextWatcher(editOtpOne,editOtpTwo, null);
-        initOtpTextWatcher(editOtpTwo,editOtpThree,editOtpOne);
-        initOtpTextWatcher(editOtpThree,editOtpFour,editOtpTwo);
-        initOtpTextWatcher(editOtpFour,editOtpFive,editOtpThree);
-        initOtpTextWatcher(editOtpFive,editOtpSix,editOtpFour);
-        initOtpTextWatcher(editOtpSix,null,editOtpFive);
+        initOtpTextWatcher(editOtpOne, editOtpTwo, null);
+        initOtpTextWatcher(editOtpTwo, editOtpThree, editOtpOne);
+        initOtpTextWatcher(editOtpThree, editOtpFour, editOtpTwo);
+        initOtpTextWatcher(editOtpFour, editOtpFive, editOtpThree);
+        initOtpTextWatcher(editOtpFive, editOtpSix, editOtpFour);
+        initOtpTextWatcher(editOtpSix, null, editOtpFive);
     }
 
-    private void initOtpTextWatcher(EditText currentEditText, EditText nextEditText, EditText prevEditText){
+    private void initOtpTextWatcher(EditText currentEditText, EditText nextEditText, EditText prevEditText) {
         currentEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-               if (nextEditText != null && s.length() == 1) nextEditText.requestFocus();
-               else if (prevEditText != null && s.length() == 0) prevEditText.requestFocus();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
-            public void afterTextChanged(Editable s) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (nextEditText != null && s.length() == 1) nextEditText.requestFocus();
+                else if (prevEditText != null && s.length() == 0) prevEditText.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
         });
     }
 
-    private void showImageChooserDialog(){
-        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_image_chooser,null);
+    private void showImageChooserDialog() {
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_image_chooser, null);
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
         bottomSheetDialog.setContentView(dialogView);
         bottomSheetDialog.show();
 
         View layoutCamera = dialogView.findViewById(R.id.layout_camera);
         View layoutGallery = dialogView.findViewById(R.id.layout_gallery);
+    }
+
+    //TODO: HARD CODED STRING
+    private boolean validateField(String firstName, String email, String birthDate, String postalCode) {
+
+        if (TextUtils.isEmpty(firstName)) {
+            Snackbar snackbar = Snackbar.make(constraintLayout, "Please Enter First Name", Snackbar.LENGTH_LONG);
+            snackbar.show();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(email)) {
+            Snackbar snackbar = Snackbar.make(constraintLayout, "Please Enter Email", Snackbar.LENGTH_LONG);
+            snackbar.show();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(birthDate)) {
+            Snackbar snackbar = Snackbar.make(constraintLayout, "Please Enter Birthdate", Snackbar.LENGTH_LONG);
+            snackbar.show();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(postalCode)) {
+            Snackbar snackbar = Snackbar.make(constraintLayout, "Please Enter Postal Code", Snackbar.LENGTH_LONG);
+            snackbar.show();
+            return false;
+        }
+        return true;
     }
 }
