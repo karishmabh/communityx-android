@@ -35,4 +35,10 @@ public class LoginActivity extends AppCompatActivity {
         LoginActivity.this.overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out);
     }
 
+    @OnClick(id.button_login)
+    void loginClicked(){
+        LoginActivity.this.startActivity(new Intent((Context)LoginActivity.this, DashboardActivity.class));
+        LoginActivity.this.overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out);
+    }
+
 }
