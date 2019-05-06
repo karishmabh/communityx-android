@@ -24,7 +24,7 @@ public class SignUpStudentInfoActivity extends AppCompatActivity {
     @BindView(id.dots_indicator)
     DotsIndicator dotsIndicator;
     @BindView(id.button_continue)
-    Button buttonContinue;
+    public Button buttonContinue;
 
     private SignUpPagerAdapter pagerAdapter;
 
