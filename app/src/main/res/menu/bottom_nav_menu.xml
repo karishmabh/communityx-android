@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/navigation_home"
+    <item android:id="@+id/navigation_friends"
           android:icon="@drawable/ic_all_friend_tab_friend_deselect"
           android:title="•"/>
 
-    <item android:id="@+id/navigation_dashboard"
+    <item android:id="@+id/navigation_notifications"
           android:icon="@drawable/ic_all_friend_tab_notification_deselect"
           android:title="•"/>
 
-    <item android:id="@+id/navigation_notifications"
+    <item android:id="@+id/navigation_community"
           android:title="•"/>
 
-    <item android:icon="@drawable/ic_all_friend_tab_message_deselect"
+    <item android:id="@+id/navigation_message"
+          android:icon="@drawable/ic_all_friend_tab_message_deselect"
           android:title="•"/>
 
-    <item android:icon="@drawable/ic_all_friend_tab_my_profile_deselect"
+    <item android:id="@+id/navigation_profile"
+          android:icon="@drawable/ic_all_friend_tab_my_profile_deselect"
           android:title="•"/>
 
 </menu>

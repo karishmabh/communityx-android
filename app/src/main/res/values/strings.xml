@@ -50,4 +50,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="search_your_friend_list">Search your friend list...</string>
+    <string name="all_friends">All Friends</string>
+    <string name="invitations">Invitations</string>
+    <string name="suggestions">Suggestions</string>
 </resources>
