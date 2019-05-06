@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Communityx</string>
+    <string name="app_name">CommunityX</string>
     <string name="please_select_your_qualification">Please select your qualification.</string>
     <string name="let_s_get_your_account_set_up">Let\'s get your account set up.</string>
     <string name="please_select_your_classification">Please select your classification.</string>
@@ -46,4 +46,13 @@
     <string name="please_login_to_continue">Please login to continue</string>
     <string name="communityx">CommunityX</string>
     <string name="enter_your_community">ENTER YOUR COMMUNITY</string>
+    <string name="are_you_a_high_school_or_university_student">Are you a High School or University student?</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="search_your_friend_list">Search your friend list...</string>
+    <string name="all_friends">All Friends</string>
+    <string name="invitations">Invitations</string>
+    <string name="suggestions">Suggestions</string>
 </resources>

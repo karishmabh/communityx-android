@@ -14,8 +14,21 @@
         <activity android:name=".activity.ConnectAliies">
         </activity>
         <activity
+                android:name=".activity.DashboardActivity"/>
+        <activity
                 android:name=".activity.WelcomeActivity"
-                android:screenOrientation="portrait">
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.LoginActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.SignupCategoryActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.SignUpStudentInfoActivity"
+                android:screenOrientation="portrait"/>
+        <activity-alias android:name="Main"
+                        android:targetActivity=".activity.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -31,6 +44,7 @@
         <activity
                 android:name=".activity.SignUpStudentInfoActivity"
                 android:screenOrientation="portrait"/>
+        </activity-alias>
     </application>
 
 </manifest>

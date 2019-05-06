@@ -10,14 +10,14 @@
             app:layout_constraintTop_toTopOf="parent"
             layout="@layout/layout_top_view_logo"/>
 
-    <android.support.v4.view.ViewPager
+    <com.communityx.custom_views.CustomViewPager
             android:id="@+id/view_pager"
             app:layout_constraintTop_toBottomOf="@+id/topView"
             android:layout_width="match_parent"
             app:layout_constraintBottom_toTopOf="@+id/dots_indicator"
             android:layout_height="0dp">
 
-    </android.support.v4.view.ViewPager>
+    </com.communityx.custom_views.CustomViewPager>
 
     <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
             app:layout_constraintBottom_toTopOf="@+id/button_continue"
