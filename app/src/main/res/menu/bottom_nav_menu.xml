@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/navigation_home"
+          android:icon="@drawable/ic_all_friend_tab_friend_deselect"
+          android:title="•"/>
+
+    <item android:id="@+id/navigation_dashboard"
+          android:icon="@drawable/ic_all_friend_tab_notification_deselect"
+          android:title="•"/>
+
+    <item android:id="@+id/navigation_notifications"
+          android:title="•"/>
+
+    <item android:icon="@drawable/ic_all_friend_tab_message_deselect"
+          android:title="•"/>
+
+    <item android:icon="@drawable/ic_all_friend_tab_my_profile_deselect"
+          android:title="•"/>
+
+</menu>
