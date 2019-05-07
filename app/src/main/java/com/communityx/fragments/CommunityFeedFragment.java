@@ -38,6 +38,7 @@ public class CommunityFeedFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         customToolBarUtils.setTitle(R.string.my_community);
+        customToolBarUtils.setImageTail(R.drawable.ic_my_community_nav_filter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         communityFeedAdapter = new CommunityFeedAdapter(getContext());

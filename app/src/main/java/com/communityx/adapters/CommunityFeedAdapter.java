@@ -1,6 +1,7 @@
 package com.communityx.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.communityx.R;
+import com.communityx.activity.PraiseActivity;
 
 public class CommunityFeedAdapter extends RecyclerView.Adapter {
 
@@ -44,6 +47,16 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
+        }
+
+        @OnClick({R.id.image_comment,R.id.text_comment})
+        void praisedClicked(){
+            mContext.startActivity(new Intent(mContext, PraiseActivity.class));
+        }
+
+        @OnClick({R.id.image_like,R.id.text_like})
+        void tappedLike(){
+            mContext.startActivity(new Intent(mContext,LikesActivity.class));
         }
     }
 }
