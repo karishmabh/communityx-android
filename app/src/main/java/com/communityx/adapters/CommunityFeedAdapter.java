@@ -11,6 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.communityx.R;
+import com.communityx.activity.LikesActivity;
 import com.communityx.activity.PraiseActivity;
 
 public class CommunityFeedAdapter extends RecyclerView.Adapter {
@@ -56,7 +57,7 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
 
         @OnClick({R.id.image_like,R.id.text_like})
         void tappedLike(){
-            mContext.startActivity(new Intent(mContext,LikesActivity.class));
+            mContext.startActivity(new Intent(mContext, LikesActivity.class));
         }
     }
 }

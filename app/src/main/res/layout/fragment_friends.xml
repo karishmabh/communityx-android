@@ -10,9 +10,11 @@
 
     <include layout="@layout/view_search"/>
 
-    <android.support.v4.widget.NestedScrollView android:layout_width="match_parent"
-                                                android:layout_height="match_parent"
-                                                android:scrollbars="vertical">
+    <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical">
+
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_my_friends"
                 android:layout_width="match_parent"
