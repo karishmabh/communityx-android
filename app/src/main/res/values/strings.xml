@@ -55,4 +55,7 @@
     <string name="all_friends">All Friends</string>
     <string name="invitations">Invitations</string>
     <string name="suggestions">Suggestions</string>
+    <string name="connect_with_allias">Connect with Allias</string>
+    <string name="we_found_global">We found local and global allies that share your social impact interests. Add them as connections to build your community and Share your work</string>
+
 </resources>
