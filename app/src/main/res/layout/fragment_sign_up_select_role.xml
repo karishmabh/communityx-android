@@ -6,17 +6,18 @@
         android:layout_height="match_parent">
 
 
-    <TextView android:id="@+id/text_heading"
-              android:layout_width="wrap_content"
-              android:text="@string/please_select_your_classification"
-              style="@style/text_size_small"
-              android:layout_height="wrap_content"
-              android:textColor="@color/colorBlackTitle"
-              android:fontFamily="@font/poppins_semibold"
-              android:layout_marginStart="@dimen/_20sdp"
-              android:layout_marginTop="@dimen/_12sdp"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+            android:id="@+id/text_heading"
+            android:layout_width="wrap_content"
+            android:text="@string/please_select_your_classification"
+            style="@style/text_size_small"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlackTitle"
+            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.constraint.ConstraintLayout
             android:id="@+id/view_role"
@@ -28,13 +29,15 @@
             app:layout_constraintTop_toBottomOf="@+id/text_heading"
             app:layout_constraintEnd_toEndOf="parent">
 
-        <FrameLayout android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     app:layout_constraintEnd_toEndOf="parent"
-                     android:id="@+id/view_sophomore"
-                     app:layout_constraintTop_toTopOf="parent"
-                     android:layout_marginEnd="20dp" android:layout_marginStart="2dp"
-                     app:layout_constraintStart_toEndOf="@+id/view_freshman">
+        <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/view_sophomore"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="2dp"
+                app:layout_constraintStart_toEndOf="@+id/view_freshman">
 
             <RelativeLayout
                     android:id="@+id/view_sophomore_main"
@@ -43,17 +46,19 @@
                     android:orientation="horizontal"
                     android:layout_gravity="center"
                     android:clickable="true"
+                    android:focusable="true"
                     android:paddingTop="@dimen/_5sdp"
                     android:paddingBottom="@dimen/_5sdp"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:background="@drawable/bordered_bg"
                     android:layout_height="@dimen/_100sdp">
 
-                <ImageView android:layout_width="@dimen/_50sdp"
-                           android:id="@+id/image_sophomore"
-                           android:layout_centerInParent="true"
-                           android:src="@drawable/ic_signup_sophomore_deselect"
-                           android:layout_height="@dimen/_50sdp"/>
+                <ImageView
+                        android:layout_width="@dimen/_50sdp"
+                        android:id="@+id/image_sophomore"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_signup_sophomore_deselect"
+                        android:layout_height="@dimen/_50sdp"/>
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -67,22 +72,24 @@
                         android:layout_below="@id/image_sophomore"/>
             </RelativeLayout>
 
-            <ImageView android:layout_width="wrap_content"
-                       android:src="@drawable/ic_signup_tick"
-                       android:id="@+id/image_sophomore_tick"
-                       android:visibility="gone"
-                       android:layout_gravity="top|end"
-                       android:layout_height="wrap_content"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_signup_tick"
+                    android:id="@+id/image_sophomore_tick"
+                    android:visibility="gone"
+                    android:layout_gravity="top|end"
+                    android:layout_height="wrap_content"/>
         </FrameLayout>
 
-        <FrameLayout android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     app:layout_constraintTop_toTopOf="parent"
-                     android:id="@+id/view_freshman"
-                     app:layout_constraintStart_toStartOf="parent"
-                     android:layout_marginStart="20dp"
-                     app:layout_constraintEnd_toStartOf="@+id/view_sophomore"
-                     android:layout_marginEnd="8dp">
+        <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/view_freshman"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="20dp"
+                app:layout_constraintEnd_toStartOf="@+id/view_sophomore"
+                android:layout_marginEnd="8dp">
 
             <RelativeLayout
                     android:id="@+id/view_freshman_main"
@@ -91,17 +98,19 @@
                     android:orientation="horizontal"
                     android:layout_gravity="center"
                     android:clickable="true"
+                    android:focusable="true"
                     android:paddingTop="@dimen/_5sdp"
                     android:paddingBottom="@dimen/_5sdp"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:background="@drawable/bordered_bg"
                     android:layout_height="@dimen/_100sdp">
 
-                <ImageView android:layout_width="@dimen/_50sdp"
-                           android:id="@+id/image_freshman"
-                           android:layout_centerInParent="true"
-                           android:src="@drawable/ic_signup_freshman_deselect"
-                           android:layout_height="@dimen/_50sdp"/>
+                <ImageView
+                        android:layout_width="@dimen/_50sdp"
+                        android:id="@+id/image_freshman"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_signup_freshman_deselect"
+                        android:layout_height="@dimen/_50sdp"/>
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -116,22 +125,26 @@
 
             </RelativeLayout>
 
-            <ImageView android:layout_width="wrap_content"
-                       android:src="@drawable/ic_signup_tick"
-                       android:id="@+id/image_freshman_tick"
-                       android:visibility="gone"
-                       tools:visibility="visible"
-                       android:layout_gravity="top|end"
-                       android:layout_height="wrap_content"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_signup_tick"
+                    android:id="@+id/image_freshman_tick"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:layout_gravity="top|end"
+                    android:layout_height="wrap_content"/>
         </FrameLayout>
 
-        <FrameLayout android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     app:layout_constraintEnd_toEndOf="parent"
-                     android:id="@+id/view_senior"
-                     android:layout_marginEnd="20dp" android:layout_marginStart="2dp"
-                     app:layout_constraintStart_toEndOf="@+id/view_junior" android:layout_marginTop="8dp"
-                     app:layout_constraintTop_toBottomOf="@+id/view_sophomore">
+        <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/view_senior"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="2dp"
+                app:layout_constraintStart_toEndOf="@+id/view_junior"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/view_sophomore">
 
             <RelativeLayout
                     android:id="@+id/view_senior_main"
@@ -146,11 +159,12 @@
                     android:background="@drawable/bordered_bg"
                     android:layout_height="@dimen/_100sdp">
 
-                <ImageView android:layout_width="@dimen/_50sdp"
-                           android:id="@+id/image_senior"
-                           android:layout_centerInParent="true"
-                           android:src="@drawable/ic_signup_senior_deselect"
-                           android:layout_height="@dimen/_50sdp"/>
+                <ImageView
+                        android:layout_width="@dimen/_50sdp"
+                        android:id="@+id/image_senior"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_signup_senior_deselect"
+                        android:layout_height="@dimen/_50sdp"/>
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -165,23 +179,27 @@
 
             </RelativeLayout>
 
-            <ImageView android:layout_width="wrap_content"
-                       android:src="@drawable/ic_signup_tick"
-                       android:id="@+id/image_senior_tick"
-                       android:visibility="gone"
-                       android:layout_gravity="top|end"
-                       android:layout_height="wrap_content"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_signup_tick"
+                    android:id="@+id/image_senior_tick"
+                    android:visibility="gone"
+                    android:layout_gravity="top|end"
+                    android:layout_height="wrap_content"/>
 
         </FrameLayout>
 
-        <FrameLayout android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:id="@+id/view_junior"
-                     app:layout_constraintStart_toStartOf="parent"
-                     android:layout_marginStart="20dp"
-                     app:layout_constraintEnd_toStartOf="@+id/view_senior"
-                     android:layout_marginEnd="8dp" android:layout_marginTop="8dp"
-                     app:layout_constraintTop_toBottomOf="@+id/view_freshman">
+        <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/view_junior"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="20dp"
+                app:layout_constraintEnd_toStartOf="@+id/view_senior"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/view_freshman">
+
             <RelativeLayout
                     android:id="@+id/view_junior_main"
                     android:layout_margin="@dimen/_6sdp"
@@ -195,11 +213,12 @@
                     android:background="@drawable/bordered_bg"
                     android:layout_height="@dimen/_100sdp">
 
-                <ImageView android:layout_width="@dimen/_50sdp"
-                           android:id="@+id/image_junior"
-                           android:layout_centerInParent="true"
-                           android:src="@drawable/ic_signup_junior_deselect"
-                           android:layout_height="@dimen/_50sdp"/>
+                <ImageView
+                        android:layout_width="@dimen/_50sdp"
+                        android:id="@+id/image_junior"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_signup_junior_deselect"
+                        android:layout_height="@dimen/_50sdp"/>
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -214,12 +233,13 @@
 
             </RelativeLayout>
 
-            <ImageView android:layout_width="wrap_content"
-                       android:src="@drawable/ic_signup_tick"
-                       android:id="@+id/image_junior_tick"
-                       android:visibility="gone"
-                       android:layout_gravity="top|end"
-                       android:layout_height="wrap_content"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_signup_tick"
+                    android:id="@+id/image_junior_tick"
+                    android:visibility="gone"
+                    android:layout_gravity="top|end"
+                    android:layout_height="wrap_content"/>
         </FrameLayout>
 
     </android.support.constraint.ConstraintLayout>
