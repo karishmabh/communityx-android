@@ -95,7 +95,7 @@ public class SignUpStudentInfoFragment extends Fragment {
                 if (keyDel == 0) {
                     int len = editMobile.getText().length();
                     if(len == 3) {
-                        editMobile.setText(editMobile.getText() + "-");
+                        editMobile.setText(editMobile.getText().toString().substring(0,3));
                         editMobile.setSelection(editMobile.getText().length());
                     }
                 } else {
