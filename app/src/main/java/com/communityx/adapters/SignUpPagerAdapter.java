@@ -36,4 +36,8 @@ public class SignUpPagerAdapter extends FragmentPagerAdapter {
     public boolean isButtonEnabled(int pos) {
         return buttonEnabledPos[pos];
     }
+
+    public int getTotalItems(){
+        return fragments.length;
+    }
 }

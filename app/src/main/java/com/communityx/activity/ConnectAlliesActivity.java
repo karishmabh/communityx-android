@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.communityx.R;
@@ -23,6 +24,10 @@ public class ConnectAlliesActivity extends AppCompatActivity {
     TextView textDescription;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+    @BindString(R.string.connect_with_allias)
+    String textAllias;
+    @BindString(R.string.we_found_global)
+    String textTitleDescription ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +35,8 @@ public class ConnectAlliesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_connect_allies);
         ButterKnife.bind(this);
 
-        textTitle.setText("Connect with Allies");
-        textDescription.setText("We found local and global allies that share your social impact interests. Add them as connections to build your community and Share your work");
+        textTitle.setText(textAllias);
+        textDescription.setText(textTitleDescription);
 
         setAdapter(alliesList);
     }
