@@ -36,7 +36,7 @@ public class CommunityAlliesAdapter extends RecyclerView.Adapter<CommunityAllies
 
     @Override
     public void onBindViewHolder(@NonNull EventHolder eventHolder, int i) {
-        List<String> list = Arrays.asList(new String[] {"School Safety", "Immigration", "LGBTQ+", "Mental Health", "Prisom Reform"});
+        List<String> list = Arrays.asList(new String[] {"School Safety", "Immigration", "LGBTQ+", "Mental health", "Prisom Reform"});
         setFLexLayout(eventHolder.flexboxLayout, list);
     }
 

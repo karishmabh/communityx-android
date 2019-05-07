@@ -1,23 +1,26 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <include android:id="@+id/topView"
-             app:layout_constraintTop_toTopOf="parent"
-             layout="@layout/layout_top_view_logo"/>
+    <include
+            android:id="@+id/topView"
+            app:layout_constraintTop_toTopOf="parent"
+            layout="@layout/layout_top_view_logo"/>
 
-    <TextView android:id="@+id/text_heading"
-              android:layout_width="wrap_content"
-              android:text="@string/please_select_a_category"
-              style="@style/text_size_small"
-              android:layout_height="wrap_content"
-              android:textColor="@color/colorBlackTitle"
-              android:fontFamily="@font/poppins_semibold"
-              android:layout_marginTop="@dimen/_10sdp"
-              app:layout_constraintTop_toBottomOf="@+id/topView"
-              android:layout_marginStart="@dimen/_15sdp"
-              app:layout_constraintStart_toStartOf="parent"/>
+    <TextView
+            android:id="@+id/text_heading"
+            android:layout_width="wrap_content"
+            android:text="@string/please_select_a_category"
+            style="@style/text_size_small"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlackTitle"
+            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/topView"
+            android:layout_marginStart="@dimen/_15sdp"
+            app:layout_constraintStart_toStartOf="parent"/>
 
     <LinearLayout
             android:id="@+id/view_category"
@@ -27,25 +30,27 @@
             android:orientation="vertical"
             android:layout_height="wrap_content">
 
-        <RelativeLayout android:id="@+id/view_student"
-                        android:layout_width="@dimen/_250sdp"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:paddingTop="@dimen/_5sdp"
-                        android:paddingBottom="@dimen/_5sdp"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:background="@drawable/bordered_bg"
-                        android:layout_height="wrap_content">
+        <RelativeLayout
+                android:id="@+id/view_student"
+                android:layout_width="@dimen/_270sdp"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="@drawable/bordered_bg"
+                android:layout_height="wrap_content">
 
-            <ImageView android:layout_width="@dimen/_50sdp"
-                       android:id="@+id/image_student"
-                       android:layout_marginStart="@dimen/_10sdp"
-                       android:layout_alignParentStart="true"
-                       android:layout_centerVertical="true"
-                       android:src="@drawable/ic_signup_student_deselect"
-                       android:layout_height="@dimen/_50sdp"/>
+            <ImageView
+                    android:layout_width="@dimen/_50sdp"
+                    android:id="@+id/image_student"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_signup_student_deselect"
+                    android:layout_height="@dimen/_50sdp"/>
 
             <TextView
                     android:layout_width="wrap_content"
@@ -55,45 +60,47 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorLightGrey"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/image_student"
                     android:layout_toEndOf="@+id/image_student"
                     android:fontFamily="@font/poppins_medium"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_10sdp"
                     app:layout_constraintStart_toStartOf="parent"/>
 
-            <ImageView android:layout_width="wrap_content"
-                       android:src="@drawable/ic_signup_tick"
-                       android:id="@+id/image_student_tick"
-                       android:layout_marginStart="@dimen/_10sdp"
-                       android:layout_alignParentEnd="true"
-                       android:layout_centerVertical="true"
-                       android:visibility="gone"
-                       android:layout_marginEnd="@dimen/_10sdp"
-                       android:layout_gravity="center|end"
-                       android:layout_height="wrap_content"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_signup_tick"
+                    android:id="@+id/image_student_tick"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_gravity="center|end"
+                    android:layout_height="wrap_content"/>
         </RelativeLayout>
 
-        <RelativeLayout android:layout_width="@dimen/_250sdp"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center"
-                        android:id="@+id/view_professional"
-                        android:paddingTop="@dimen/_5sdp"
-                        android:paddingBottom="@dimen/_5sdp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:background="@drawable/bordered_bg"
-                        android:layout_height="wrap_content">
+        <RelativeLayout
+                android:layout_width="@dimen/_270sdp"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:id="@+id/view_professional"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bordered_bg"
+                android:layout_height="wrap_content">
 
-            <ImageView android:layout_width="@dimen/_50sdp"
-                       android:layout_marginStart="@dimen/_10sdp"
-                       android:id="@+id/image_professional"
-                       android:layout_alignParentStart="true"
-                       android:layout_centerVertical="true"
-                       android:src="@drawable/ic_signup_professional_deselect"
-                       android:layout_height="@dimen/_50sdp"/>
+            <ImageView
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:id="@+id/image_professional"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_signup_professional_deselect"
+                    android:layout_height="@dimen/_50sdp"/>
 
             <TextView
                     android:layout_width="wrap_content"
@@ -107,7 +114,8 @@
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_10sdp"
-                    app:layout_constraintStart_toStartOf="parent" tools:ignore="RtlHardcoded"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="RtlHardcoded"/>
 
             <ImageView android:layout_width="wrap_content"
                        android:src="@drawable/ic_signup_tick"
@@ -120,26 +128,28 @@
                        android:layout_height="wrap_content"/>
         </RelativeLayout>
 
-        <RelativeLayout android:layout_width="@dimen/_250sdp"
-                        android:orientation="horizontal"
-                        android:id="@+id/view_organisation"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:paddingTop="@dimen/_5sdp"
-                        android:paddingBottom="@dimen/_5sdp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/bordered_bg"
-                        android:layout_height="wrap_content">
+        <RelativeLayout
+                android:layout_width="@dimen/_270sdp"
+                android:orientation="horizontal"
+                android:id="@+id/view_organisation"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/bordered_bg"
+                android:layout_height="wrap_content">
 
-            <ImageView android:layout_width="@dimen/_50sdp"
-                       android:layout_marginStart="@dimen/_10sdp"
-                       android:id="@+id/image_organisation"
-                       android:layout_alignParentStart="true"
-                       android:layout_centerVertical="true"
-                       android:src="@drawable/ic_signup_organization_deselect"
-                       android:layout_height="@dimen/_50sdp"/>
+            <ImageView
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:id="@+id/image_organisation"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_signup_organization_deselect"
+                    android:layout_height="@dimen/_50sdp"/>
 
             <TextView
                     android:layout_width="wrap_content"
@@ -150,21 +160,21 @@
                     android:textColor="@color/colorLightGrey"
                     android:fontFamily="@font/poppins_medium"
                     android:layout_gravity="center"
-                    android:layout_toRightOf="@+id/image_organisation"
                     android:layout_toEndOf="@+id/image_organisation"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/_10sdp"
                     app:layout_constraintStart_toStartOf="parent"/>
 
-            <ImageView android:layout_width="wrap_content"
-                       android:src="@drawable/ic_signup_tick"
-                       android:id="@+id/image_organisation_tick"
-                       android:layout_marginEnd="@dimen/_10sdp"
-                       android:layout_alignParentEnd="true"
-                       android:visibility="gone"
-                       android:layout_centerVertical="true"
-                       android:layout_gravity="center"
-                       android:layout_height="wrap_content"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_signup_tick"
+                    android:id="@+id/image_organisation_tick"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_alignParentEnd="true"
+                    android:visibility="gone"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"/>
         </RelativeLayout>
     </LinearLayout>
 
@@ -198,15 +208,16 @@
                 android:textColor="@color/colorBlackTitle"
                 android:fontFamily="@font/poppins_regular"/>
 
-        <TextView android:id="@+id/text_login"
-                  android:layout_width="wrap_content"
-                  android:text="@string/login"
-                  style="@style/text_size_small"
-                  android:layout_height="wrap_content"
-                  android:textAllCaps="true"
-                  android:textColor="@color/colorPrimary"
-                  android:fontFamily="@font/poppins_semibold"
-                  android:layout_marginStart="@dimen/_5sdp"/>
+        <TextView
+                android:id="@+id/text_login"
+                android:layout_width="wrap_content"
+                android:text="@string/login"
+                style="@style/text_size_small"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_marginStart="@dimen/_5sdp"/>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

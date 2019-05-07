@@ -2,7 +2,6 @@ package com.communityx.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
@@ -70,7 +69,7 @@ public class SignUpStudentInfoActivity extends AppCompatActivity{
     }
 
     @OnClick(id.button_continue)
-    void tappedContinue(){
+    void tappedContinue() {
         if(viewPager.getCurrentItem() == pagerAdapter.getTotalItems()-1){
             sendToActivity();
             return;
