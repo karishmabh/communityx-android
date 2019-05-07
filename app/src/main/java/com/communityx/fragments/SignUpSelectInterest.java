@@ -2,7 +2,6 @@ package com.communityx.fragments;
 
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,8 +13,6 @@ import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.communityx.R;
-import com.communityx.activity.ConnectAlliesActivity;
-import com.communityx.activity.SignUpStudentInfoActivity;
 import com.google.android.flexbox.FlexboxLayout;
 
 /**
@@ -53,13 +50,6 @@ import com.google.android.flexbox.FlexboxLayout;
         setHumanRights();
         setHealth();
         setSuggestedCause();
-
-        ((SignUpStudentInfoActivity)getActivity()).buttonContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               sendToActivity();
-            }
-        });
     }
 
     private void setCivilRights() {
@@ -136,9 +126,5 @@ import com.google.android.flexbox.FlexboxLayout;
             }
             return false;
         });
-    }
-
-    private void sendToActivity() {
-        startActivity(new Intent(getActivity(), ConnectAlliesActivity.class));
     }
 }

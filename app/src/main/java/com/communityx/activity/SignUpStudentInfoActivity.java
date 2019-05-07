@@ -69,6 +69,10 @@ public class SignUpStudentInfoActivity extends AppCompatActivity{
 
     @OnClick(id.button_continue)
     void tappedContinue(){
+        if(viewPager.getCurrentItem() == pagerAdapter.getTotalItems()-1){
+            sendToActivity();
+            return;
+        }
         viewPager.setCurrentItem(viewPager.getCurrentItem() + 1,true);
         boolean isEnabled = pagerAdapter.isButtonEnabled(viewPager.getCurrentItem());
         enableButton(isEnabled);
@@ -79,5 +83,7 @@ public class SignUpStudentInfoActivity extends AppCompatActivity{
         buttonContinue.setClickable(enable);
     }
 
-
+    private void sendToActivity() {
+        startActivity(new Intent(this, ConnectAlliesActivity.class));
+    }
 }

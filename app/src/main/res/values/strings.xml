@@ -45,7 +45,7 @@
     <string name="college_university">College / University</string>
     <string name="please_login_to_continue">Please login to continue</string>
     <string name="communityx">CommunityX</string>
-    <string name="enter_your_community">ENTER YOUR COMMUNITY</string>
+    <string name="enter_your_community">Enter Your Community</string>
     <string name="are_you_a_high_school_or_university_student">Are you a High School or University student?</string>
     <string name="title_activity_dashboard">DashboardActivity</string>
     <string name="title_home">Home</string>
@@ -55,4 +55,7 @@
     <string name="all_friends">All Friends</string>
     <string name="invitations">Invitations</string>
     <string name="suggestions">Suggestions</string>
+    <string name="connect_with_allias">Connect with Allias</string>
+    <string name="we_found_global">We found local and global allies that share your social impact interests. Add them as connections to build your community and Share your work</string>
+
 </resources>
