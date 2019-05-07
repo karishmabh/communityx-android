@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.communityx.R;
+import com.communityx.fragments.CommunityFeedFragment;
 import com.communityx.fragments.MyAllFriendsFragment;
 import com.communityx.utils.Utils;
 
@@ -30,9 +32,19 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
-            case R.id.navigation_friends : replceFragment(new MyAllFriendsFragment(), "fragment_myfriends");
+            case R.id.navigation_friends:
+                replceFragment(new MyAllFriendsFragment(), "fragment_myfriends");
+                break;
+            case R.id.navigation_community:
+                replceFragment(new CommunityFeedFragment(), "fragment_community");
+                break;
         }
         return true;
+    }
+
+    @OnClick(R.id.view_community_btn)
+    void tappedCommunityFeed() {
+        bottomNavigationView.setSelectedItemId(R.id.navigation_community);
     }
 
     private void replceFragment(Fragment fragment, String tag){

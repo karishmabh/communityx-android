@@ -49,6 +49,7 @@ public class SignupCategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_signup_category);
         ButterKnife.bind(this);
+
         TextView textSubTitle = findViewById(id.text_subtitle);
         textSubTitle.setText("Build your social impact identity on CommunityX.");
         buttonContinue.setClickable(false);

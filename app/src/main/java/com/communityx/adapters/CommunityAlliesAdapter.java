@@ -36,13 +36,23 @@ public class CommunityAlliesAdapter extends RecyclerView.Adapter<CommunityAllies
 
     @Override
     public void onBindViewHolder(@NonNull EventHolder eventHolder, int i) {
-        List<String> list = Arrays.asList(new String[]{"School Safety", "Immigration", "LGBTQ+", "Mental Health", "Prisom Reform"});
+        List<String> list = Arrays.asList(new String[] {"School Safety", "Immigration", "LGBTQ+", "Mental health", "Prisom Reform"});
         setFLexLayout(eventHolder.flexboxLayout, list);
     }
 
     @Override
     public int getItemCount() {
         return 10;
+    }
+
+    public class EventHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.flex_layout_allies)
+        FlexboxLayout flexboxLayout;
+
+        public EventHolder(@NonNull View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
     }
 
     public void setFLexLayout(FlexboxLayout fLexLayout, List<String> interest) {
@@ -58,16 +68,6 @@ public class CommunityAlliesAdapter extends RecyclerView.Adapter<CommunityAllies
             ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp.setMargins(10, 10, 10, 10);
             fLexLayout.addView(checkBox, lp);
-        }
-    }
-
-    public class EventHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.flex_layout_allies)
-        FlexboxLayout flexboxLayout;
-
-        public EventHolder(@NonNull View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
         }
     }
 }

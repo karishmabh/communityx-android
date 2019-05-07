@@ -10,7 +10,7 @@
             android:id="@+id/constraint_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_5sdp"
+            android:padding="@dimen/_3sdp"
             android:background="@color/colorWhite"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -52,7 +52,7 @@
         <LinearLayout
                 android:id="@+id/linear_add_friend"
                 android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="@dimen/_25sdp"
                 android:background="@drawable/square_bg"
                 app:layout_constraintLeft_toRightOf="@+id/text_description"
                 app:layout_constraintTop_toTopOf="@+id/text_title_name"
@@ -63,25 +63,25 @@
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_suggestion_friend_add_friend"/>
+                    app:srcCompat="@drawable/ic_suggestion_friend_add_friend"/>
 
         </LinearLayout>
 
         <LinearLayout
                 android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="@dimen/_25sdp"
                 android:background="@drawable/square_green_bg"
                 app:layout_constraintLeft_toRightOf="@+id/linear_add_friend"
                 app:layout_constraintTop_toTopOf="@+id/text_title_name"
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="@+id/text_description"
-                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
                 android:id="@+id/linear_message">
 
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_suggestion_friend_message"/>
+                    app:srcCompat="@drawable/ic_suggestion_friend_message"/>
         </LinearLayout>
 
         <com.google.android.flexbox.FlexboxLayout
@@ -96,7 +96,7 @@
                 app:layout_constraintTop_toBottomOf="@id/text_description"
                 app:layout_constraintStart_toEndOf="@+id/circle_profile_image"
                 app:layout_constraintEnd_toEndOf="@+id/linear_message"
-                android:layout_marginStart="8dp"/>
+                android:layout_marginStart="6dp"/>
     </android.support.constraint.ConstraintLayout>
 
     <View

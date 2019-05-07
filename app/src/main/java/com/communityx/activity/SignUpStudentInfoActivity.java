@@ -2,7 +2,6 @@ package com.communityx.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,6 +12,7 @@ import com.communityx.R;
 import com.communityx.R.id;
 import com.communityx.adapters.SignUpPagerAdapter;
 import com.communityx.custom_views.CustomViewPager;
+import com.communityx.utils.Utils;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 import org.jetbrains.annotations.Nullable;
 
@@ -53,6 +53,7 @@ public class SignUpStudentInfoActivity extends AppCompatActivity{
             @Override
             public void onPageChange(int position) {
                 enableButton(pagerAdapter.isButtonEnabled(position));
+                buttonContinue.setText(position == pagerAdapter.getTotalItems()-1 ? R.string.submit : R.string.continue_button);
             }
         });
         dotsIndicator.setViewPager(viewPager);
@@ -68,7 +69,7 @@ public class SignUpStudentInfoActivity extends AppCompatActivity{
     }
 
     @OnClick(id.button_continue)
-    void tappedContinue(){
+    void tappedContinue() {
         if(viewPager.getCurrentItem() == pagerAdapter.getTotalItems()-1){
             sendToActivity();
             return;
@@ -79,8 +80,7 @@ public class SignUpStudentInfoActivity extends AppCompatActivity{
     }
 
     public void enableButton(boolean enable){
-        buttonContinue.setAlpha(enable ? 1.0f : 0.5f);
-        buttonContinue.setClickable(enable);
+        Utils.enableButton(buttonContinue,enable);
     }
 
     private void sendToActivity() {

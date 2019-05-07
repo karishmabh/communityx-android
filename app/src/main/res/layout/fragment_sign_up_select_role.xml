@@ -1,8 +1,9 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
     <TextView android:id="@+id/text_heading"
@@ -12,11 +13,10 @@
               android:layout_height="wrap_content"
               android:textColor="@color/colorBlackTitle"
               android:fontFamily="@font/poppins_semibold"
-              android:layout_marginStart="@dimen/_15sdp"
+              android:layout_marginStart="@dimen/_20sdp"
               android:layout_marginTop="@dimen/_12sdp"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-    />
+              app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.constraint.ConstraintLayout
             android:id="@+id/view_role"
@@ -83,6 +83,7 @@
                      android:layout_marginStart="20dp"
                      app:layout_constraintEnd_toStartOf="@+id/view_sophomore"
                      android:layout_marginEnd="8dp">
+
             <RelativeLayout
                     android:id="@+id/view_freshman_main"
                     android:layout_margin="@dimen/_6sdp"

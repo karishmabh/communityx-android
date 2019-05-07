@@ -8,9 +8,11 @@ import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,15 +73,33 @@ public class SignUpStudentInfoFragment extends Fragment {
         initOtpBox();
         viewPassword.setVisibility(View.GONE);
         editMobile.addTextChangedListener(new TextWatcher() {
+            int keyDel = 0;
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() < 3) {
-                    editMobile.setText("+91");
-                    editMobile.setSelection(3);
+                editMobile.setOnKeyListener(new View.OnKeyListener() {
+
+                    @Override
+                    public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                        if (keyCode == KeyEvent.KEYCODE_DEL)
+                            keyDel = 1;
+                        return false;
+                    }
+                });
+
+                if (keyDel == 0) {
+                    int len = editMobile.getText().length();
+                    if(len == 3) {
+                        editMobile.setText(editMobile.getText() + "-");
+                        editMobile.setSelection(editMobile.getText().length());
+                    }
+                } else {
+                    keyDel = 0;
                 }
             }
 

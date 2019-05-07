@@ -18,6 +18,7 @@
     </FrameLayout>
 
     <FrameLayout
+            android:id="@+id/view_community_btn"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
             app:layout_constraintStart_toStartOf="parent"

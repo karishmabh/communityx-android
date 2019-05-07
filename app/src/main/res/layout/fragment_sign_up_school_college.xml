@@ -34,6 +34,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/bordered_bg"
                 android:clickable="true"
+                android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:orientation="vertical">
 
@@ -108,7 +109,7 @@
                 <EditText
                         android:layout_width="match_parent"
                         android:layout_marginEnd="@dimen/_20sdp"
-                        android:text="ABC International School"
+                        tools:text="ABC International School"
                         style="@style/text_size_small"
                         android:id="@+id/text_school_name"
                         android:textSize="@dimen/_14ssp"
@@ -130,6 +131,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/bordered_bg"
                 android:clickable="true"
+                android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:orientation="vertical">
 
@@ -141,11 +143,12 @@
                     android:paddingBottom="@dimen/_5sdp"
                     android:layout_height="wrap_content">
 
-                <ImageView android:layout_width="@dimen/_50sdp"
-                           android:id="@+id/image_college"
-                           android:layout_marginStart="@dimen/_10sdp"
-                           android:src="@drawable/ic_signup_college_deselect"
-                           android:layout_height="@dimen/_50sdp"/>
+                <ImageView
+                        android:layout_width="@dimen/_50sdp"
+                        android:id="@+id/image_college"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:src="@drawable/ic_signup_college_deselect"
+                        android:layout_height="@dimen/_50sdp"/>
 
                 <TextView
                         android:layout_width="0dp"
@@ -161,14 +164,15 @@
                         app:layout_constraintStart_toStartOf="parent"/>
 
 
-                <ImageView android:layout_width="wrap_content"
-                           android:src="@drawable/ic_signup_tick"
-                           android:id="@+id/image_college_tick"
-                           android:layout_marginStart="@dimen/_10sdp"
-                           android:visibility="gone"
-                           android:layout_marginEnd="@dimen/_10sdp"
-                           android:layout_gravity="center|end"
-                           android:layout_height="wrap_content"/>
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/ic_signup_tick"
+                        android:id="@+id/image_college_tick"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:visibility="gone"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_gravity="center|end"
+                        android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <LinearLayout
@@ -179,15 +183,16 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                <View android:id="@+id/line_divider_two"
-                      android:layout_width="match_parent"
-                      android:layout_height="0.5dp"
-                      android:layout_marginStart="12dp"
-                      android:layout_marginEnd="12dp"
-                      android:layout_marginTop="@dimen/_8sdp"
-                      android:layout_marginBottom="@dimen/_8sdp"
-                      android:layout_below="@id/image_school"
-                      android:background="@color/colorLightestGrey"/>
+                <View
+                        android:id="@+id/line_divider_two"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:layout_below="@id/image_school"
+                        android:background="@color/colorLightestGrey"/>
 
                 <TextView
                         android:layout_width="wrap_content"
