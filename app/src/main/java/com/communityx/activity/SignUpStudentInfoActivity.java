@@ -13,6 +13,7 @@ import com.communityx.R;
 import com.communityx.R.id;
 import com.communityx.adapters.SignUpPagerAdapter;
 import com.communityx.custom_views.CustomViewPager;
+import com.communityx.utils.Utils;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 import org.jetbrains.annotations.Nullable;
 
@@ -80,8 +81,7 @@ public class SignUpStudentInfoActivity extends AppCompatActivity{
     }
 
     public void enableButton(boolean enable){
-        buttonContinue.setAlpha(enable ? 1.0f : 0.5f);
-        buttonContinue.setClickable(enable);
+        Utils.enableButton(buttonContinue,enable);
     }
 
     private void sendToActivity() {

@@ -38,23 +38,23 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(id.text_signup)
     void goToSignUp(){
-        LoginActivity.this.startActivity(new Intent((Context)LoginActivity.this, SignupCategoryActivity.class));
+        LoginActivity.this.startActivity(new Intent(LoginActivity.this, SignupCategoryActivity.class));
         LoginActivity.this.overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out);
     }
 
     @OnClick(id.button_login)
     void loginClicked(){
-        LoginActivity.this.startActivity(new Intent((Context)LoginActivity.this, DashboardActivity.class));
+        LoginActivity.this.startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
         LoginActivity.this.overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out);
     }
 
     @OnTextChanged(id.edit_email_username)
     void onEmailTyping(CharSequence s){
-        Utils.enableButton(buttonLogin, s.length() != 0);
+        Utils.enableButton(buttonLogin, s.length() != 0 && editPassword.length() != 0);
     }
 
     @OnTextChanged(id.edit_password)
     void onPasswordTyping(CharSequence s){
-        Utils.enableButton(buttonLogin, s.length() != 0);
+        Utils.enableButton(buttonLogin, s.length() != 0 && editEmail.length() != 0);
     }
 }

@@ -95,7 +95,7 @@ public class MyAllFriendsFragment extends Fragment implements ViewPager.OnPageCh
         if (context == null) return null;
         Spannable spannable = new SpannableString(updatedText);
         spannable.setSpan(new ForegroundColorSpan(
-                        isActive ? context.getResources().getColor(R.color.colorLightGrey): context.getResources().getColor(R.color.colorPrimary)) ,
+                        isActive ? context.getResources().getColor(R.color.colorPrimary): context.getResources().getColor(R.color.colorLightGrey)) ,
                 title.length(),updatedText.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannable;
