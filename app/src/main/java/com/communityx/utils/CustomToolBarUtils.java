@@ -1,5 +1,6 @@
 package com.communityx.utils;
 
+import android.app.Activity;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -23,6 +24,11 @@ public class CustomToolBarUtils {
         ButterKnife.bind(this,view);
     }
 
+    public CustomToolBarUtils(@NonNull Activity activity) {
+        View view = activity.findViewById(android.R.id.content);
+        ButterKnife.bind(this,view);
+    }
+
     public void setTitle(String title){
         if(textTitle == null) return;
         textTitle.setText(title);
@@ -40,6 +46,11 @@ public class CustomToolBarUtils {
 
     public void setImageTail(@DrawableRes int resId) {
         if(imageTail == null) return;
+        imageTail.setVisibility(View.VISIBLE);
         imageTail.setImageResource(resId);
+    }
+
+    public ImageView getImageLogo() {
+        return imageLogo;
     }
 }

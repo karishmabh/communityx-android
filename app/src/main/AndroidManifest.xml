@@ -17,11 +17,6 @@
         <activity
                 android:name=".activity.WelcomeActivity"
                 android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity
                 android:name=".activity.LoginActivity"
@@ -32,6 +27,7 @@
         <activity
                 android:name=".activity.SignUpStudentInfoActivity"
                 android:screenOrientation="portrait"/>
+        <activity android:name=".activity.PraiseActivity"/>
 
         <activity-alias android:name="Main"
                         android:targetActivity=".activity.WelcomeActivity">
