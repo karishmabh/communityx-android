@@ -78,6 +78,4 @@ public class SignUpStudentInfoActivity extends AppCompatActivity{
         buttonContinue.setAlpha(enable ? 1.0f : 0.5f);
         buttonContinue.setClickable(enable);
     }
-
-
 }

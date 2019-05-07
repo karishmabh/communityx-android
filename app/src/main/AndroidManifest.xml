@@ -9,10 +9,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".activity.ConnectAlliesActivity">
-        </activity>
-        <activity android:name=".activity.ConnectAliies">
-        </activity>
+        <activity android:name=".activity.ConnectAlliesActivity"/>
         <activity
                 android:name=".activity.DashboardActivity"/>
         <activity
@@ -27,24 +24,15 @@
         <activity
                 android:name=".activity.SignUpStudentInfoActivity"
                 android:screenOrientation="portrait"/>
+
         <activity-alias android:name="Main"
                         android:targetActivity=".activity.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity
-                android:name=".activity.LoginActivity"
-                android:screenOrientation="portrait"/>
-        <activity
-                android:name=".activity.SignupCategoryActivity"
-                android:screenOrientation="portrait"/>
-        <activity
-                android:name=".activity.SignUpStudentInfoActivity"
-                android:screenOrientation="portrait"/>
         </activity-alias>
+
     </application>
 
 </manifest>

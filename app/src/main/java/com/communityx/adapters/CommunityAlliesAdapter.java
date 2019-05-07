@@ -27,7 +27,6 @@ public class CommunityAlliesAdapter extends RecyclerView.Adapter<CommunityAllies
         this.mLayoutInflater = LayoutInflater.from(activity);
     }
 
-
     @NonNull
     @Override
     public EventHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -38,9 +37,7 @@ public class CommunityAlliesAdapter extends RecyclerView.Adapter<CommunityAllies
     @Override
     public void onBindViewHolder(@NonNull EventHolder eventHolder, int i) {
         List<String> list = Arrays.asList(new String[]{"School Safety", "Immigration", "LGBTQ+", "Mental Health", "Prisom Reform"});
-        eventHolder.flexboxLayout.removeAllViews();
         setFLexLayout(eventHolder.flexboxLayout, list);
-
     }
 
     @Override
@@ -49,6 +46,7 @@ public class CommunityAlliesAdapter extends RecyclerView.Adapter<CommunityAllies
     }
 
     public void setFLexLayout(FlexboxLayout fLexLayout, List<String> interest) {
+        fLexLayout.removeAllViews();
         for (String civilRight : interest) {
             CheckBox checkBox = (CheckBox) LayoutInflater.from(mActvity).inflate(R.layout.item_interest, null);
             checkBox.setText(civilRight);
@@ -70,7 +68,6 @@ public class CommunityAlliesAdapter extends RecyclerView.Adapter<CommunityAllies
         public EventHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-
         }
     }
 }
