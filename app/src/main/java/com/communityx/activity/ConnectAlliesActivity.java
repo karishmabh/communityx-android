@@ -1,14 +1,16 @@
 package com.communityx.activity;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.TextView;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.communityx.R;
 import com.communityx.adapters.CommunityAlliesAdapter;
 
@@ -24,6 +26,8 @@ public class ConnectAlliesActivity extends AppCompatActivity {
     TextView textDescription;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+    @BindView(R.id.button_community)
+    Button buttonCommunity;
     @BindString(R.string.connect_with_allias)
     String textAllias;
     @BindString(R.string.we_found_global)
@@ -39,6 +43,11 @@ public class ConnectAlliesActivity extends AppCompatActivity {
         textDescription.setText(textTitleDescription);
 
         setAdapter(alliesList);
+    }
+
+    @OnClick(R.id.button_community)
+    void buttonCommunityTapped() {
+        startActivity(new Intent(ConnectAlliesActivity.this, DashboardActivity.class));
     }
 
     public void setAdapter(ArrayList<String> alliesList) {

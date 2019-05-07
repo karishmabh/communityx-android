@@ -5,15 +5,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import com.communityx.fragments.FriendsFragment;
+import com.communityx.fragments.InvitationFragment;
+import com.communityx.fragments.SuggestionFragment;
 
 public class FriendsPagerAdapter extends FragmentPagerAdapter {
 
     private Fragment[] fragments = {
             new FriendsFragment(),
-            new FriendsFragment(),
-            new FriendsFragment()
+            new InvitationFragment(),
+            new SuggestionFragment()
     };
 
+    //TODO: Hard Coded String
     private String titles[] = {
             "All Friends",
             "Invitations",

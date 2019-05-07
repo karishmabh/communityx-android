@@ -16,22 +16,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CommunityAlliesAdapter extends RecyclerView.Adapter<CommunityAlliesAdapter.EventHolder> {
-    private ArrayList<String> mArrayList;
+public class LikesAdapter extends RecyclerView.Adapter<LikesAdapter.EventHolder> {
+    private ArrayList<String> mLikesList;
     private Activity mActvity;
     private LayoutInflater mLayoutInflater;
 
-    public CommunityAlliesAdapter(ArrayList<String> arrayList, Activity activity) {
-        this.mArrayList = arrayList;
+    public LikesAdapter(ArrayList<String> likesList, Activity activity) {
+        this.mLikesList = likesList;
         this.mActvity = activity;
         this.mLayoutInflater = LayoutInflater.from(activity);
     }
-
     @NonNull
     @Override
     public EventHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = mLayoutInflater.inflate(R.layout.item_connect_allies, viewGroup, false);
-        return new CommunityAlliesAdapter.EventHolder(view);
+        return new LikesAdapter.EventHolder(view);
     }
 
     @Override
@@ -39,6 +38,7 @@ public class CommunityAlliesAdapter extends RecyclerView.Adapter<CommunityAllies
         List<String> list = Arrays.asList(new String[] {"School Safety", "Immigration", "LGBTQ+", "Mental Health", "Prisom Reform"});
         setFLexLayout(eventHolder.flexboxLayout, list);
     }
+
 
     @Override
     public int getItemCount() {

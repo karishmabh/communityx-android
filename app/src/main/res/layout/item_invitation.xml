@@ -53,7 +53,7 @@
                 android:id="@+id/linear_add_friend"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_25sdp"
-                android:background="@drawable/square_bg"
+                android:background="@drawable/square_green_bg"
                 app:layout_constraintLeft_toRightOf="@+id/text_description"
                 app:layout_constraintTop_toTopOf="@+id/text_title_name"
                 android:gravity="center"
@@ -63,14 +63,14 @@
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_suggestion_friend_add_friend"/>
+                    app:srcCompat="@drawable/ic_invitation_tick"/>
 
         </LinearLayout>
 
         <LinearLayout
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_25sdp"
-                android:background="@drawable/square_green_bg"
+                android:background="@drawable/bg_red_outline"
                 app:layout_constraintLeft_toRightOf="@+id/linear_add_friend"
                 app:layout_constraintTop_toTopOf="@+id/text_title_name"
                 android:gravity="center"
@@ -81,7 +81,7 @@
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_suggestion_friend_message"/>
+                    app:srcCompat="@drawable/ic_invitation_cross"/>
         </LinearLayout>
 
         <com.google.android.flexbox.FlexboxLayout

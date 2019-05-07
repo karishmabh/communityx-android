@@ -16,13 +16,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CommunityAlliesAdapter extends RecyclerView.Adapter<CommunityAlliesAdapter.EventHolder> {
-    private ArrayList<String> mArrayList;
+public class SuggestionAdapter extends RecyclerView.Adapter<SuggestionAdapter.EventHolder> {
+    private ArrayList<String> mSuggestionList;
     private Activity mActvity;
     private LayoutInflater mLayoutInflater;
 
-    public CommunityAlliesAdapter(ArrayList<String> arrayList, Activity activity) {
-        this.mArrayList = arrayList;
+    public SuggestionAdapter(ArrayList<String > suggestionList, Activity activity) {
+        this.mSuggestionList = suggestionList;
         this.mActvity = activity;
         this.mLayoutInflater = LayoutInflater.from(activity);
     }
@@ -31,7 +31,7 @@ public class CommunityAlliesAdapter extends RecyclerView.Adapter<CommunityAllies
     @Override
     public EventHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = mLayoutInflater.inflate(R.layout.item_connect_allies, viewGroup, false);
-        return new CommunityAlliesAdapter.EventHolder(view);
+        return new SuggestionAdapter.EventHolder(view);
     }
 
     @Override
@@ -46,6 +46,7 @@ public class CommunityAlliesAdapter extends RecyclerView.Adapter<CommunityAllies
     }
 
     public class EventHolder extends RecyclerView.ViewHolder {
+
         @BindView(R.id.flex_layout_allies)
         FlexboxLayout flexboxLayout;
 

@@ -16,27 +16,29 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CommunityAlliesAdapter extends RecyclerView.Adapter<CommunityAlliesAdapter.EventHolder> {
-    private ArrayList<String> mArrayList;
-    private Activity mActvity;
+public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.EventHolder> {
+
+    private ArrayList<String> mInvitationList;
+    private Activity mActivity;
     private LayoutInflater mLayoutInflater;
 
-    public CommunityAlliesAdapter(ArrayList<String> arrayList, Activity activity) {
-        this.mArrayList = arrayList;
-        this.mActvity = activity;
+    public InvitationAdapter(ArrayList<String> invitationList, Activity activity) {
+
+        this.mInvitationList = invitationList;
+        this.mActivity = activity;
         this.mLayoutInflater = LayoutInflater.from(activity);
     }
 
     @NonNull
     @Override
     public EventHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = mLayoutInflater.inflate(R.layout.item_connect_allies, viewGroup, false);
-        return new CommunityAlliesAdapter.EventHolder(view);
+        View view = mLayoutInflater.inflate(R.layout.item_invitation, viewGroup, false);
+        return new InvitationAdapter.EventHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull EventHolder eventHolder, int i) {
-        List<String> list = Arrays.asList(new String[] {"School Safety", "Immigration", "LGBTQ+", "Mental Health", "Prisom Reform"});
+        List<String> list = Arrays.asList(new String[]{"School Safety", "Immigration", "LGBTQ+", "Mental Health", "Prisom Reform"});
         setFLexLayout(eventHolder.flexboxLayout, list);
     }
 
@@ -58,7 +60,7 @@ public class CommunityAlliesAdapter extends RecyclerView.Adapter<CommunityAllies
     public void setFLexLayout(FlexboxLayout fLexLayout, List<String> interest) {
         fLexLayout.removeAllViews();
         for (String civilRight : interest) {
-            CheckBox checkBox = (CheckBox) LayoutInflater.from(mActvity).inflate(R.layout.item_interest, null);
+            CheckBox checkBox = (CheckBox) LayoutInflater.from(mActivity).inflate(R.layout.item_interest, null);
             checkBox.setText(civilRight);
             checkBox.performClick();
             checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
