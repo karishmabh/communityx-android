@@ -3,9 +3,11 @@ package com.communityx.utils;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import com.communityx.R;
@@ -40,5 +42,10 @@ public class Utils {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         if(addToStack) transaction.addToBackStack(tag);
         transaction.replace(R.id.frame_root,fragment,tag).commit();
+    }
+
+    public static void enableButton(@NonNull Button button, boolean enable){
+        button.setAlpha(enable ? 1.0f : 0.5f);
+        button.setClickable(enable);
     }
 }

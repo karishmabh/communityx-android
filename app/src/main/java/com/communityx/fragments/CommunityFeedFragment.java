@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.communityx.R;
@@ -20,6 +21,8 @@ public class CommunityFeedFragment extends Fragment {
 
     @BindView(R.id.recycler_view_feed)
     RecyclerView recyclerView;
+    @BindView(R.id.edit_search)
+    EditText editPost;
 
     private CommunityFeedAdapter communityFeedAdapter;
     private CustomToolBarUtils customToolBarUtils;
@@ -37,6 +40,7 @@ public class CommunityFeedFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        editPost.setHint(R.string.write_something_here);
         customToolBarUtils.setTitle(R.string.my_community);
         customToolBarUtils.setImageTail(R.drawable.ic_my_community_nav_filter);
 

@@ -53,6 +53,7 @@ public class SignUpStudentInfoActivity extends AppCompatActivity{
             @Override
             public void onPageChange(int position) {
                 enableButton(pagerAdapter.isButtonEnabled(position));
+                buttonContinue.setText(position == pagerAdapter.getTotalItems()-1 ? R.string.submit : R.string.continue_button);
             }
         });
         dotsIndicator.setViewPager(viewPager);

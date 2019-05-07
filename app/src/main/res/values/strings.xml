@@ -61,5 +61,7 @@
     </string>
     <string name="my_community">My Community</string>
     <string name="praise">Praise</string>
+    <string name="write_something_here">Write something here...</string>
+    <string name="submit">Submit</string>
 
 </resources>
