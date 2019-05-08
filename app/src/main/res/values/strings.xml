@@ -76,6 +76,8 @@
     <string name="description">Description</string>
     <string name="human_disasters">Human Disasters</string>
     <string name="natural_disasters">Natural Disasters</string>
+    <string name="donate_now">Donate Now</string>
+    <string name="amount">Amount ($)</string>
     >>>>>>> e21ff0eda503b364431553515af290d5dacfd59e
 
 </resources>
