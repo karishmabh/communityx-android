@@ -66,6 +66,9 @@
     <string name="your_global_community">Your Global Impact Community</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
->>>>>>> e21ff0eda503b364431553515af290d5dacfd59e
+    <string name="proceed_to_pay">PROCEED TO PAY</string>
+    <string name="pay_now">PAY NOW</string>
+    <string name="select_options_to_pay">Select options to pay</string>
+    >>>>>>> e21ff0eda503b364431553515af290d5dacfd59e
 
 </resources>
