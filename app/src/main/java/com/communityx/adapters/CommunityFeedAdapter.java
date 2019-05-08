@@ -48,7 +48,6 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
         }
     }
 
-
     @Override
     public int getItemCount() {
         return 7;
