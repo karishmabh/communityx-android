@@ -18,7 +18,6 @@
              android:layout_height="wrap_content"
              android:layout_marginBottom="@dimen/_165sdp"
              app:layout_constraintTop_toBottomOf="@id/view_too_bar">
-         <include layout="@layout/fragment_create_post_content"/>
      </FrameLayout>
 
      <ImageView

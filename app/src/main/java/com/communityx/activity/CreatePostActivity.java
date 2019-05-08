@@ -9,6 +9,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.communityx.R;
 import com.communityx.fragments.CreatePostContentFragment;
+import com.communityx.fragments.PostReportingFragment;
 import com.communityx.utils.CustomToolBarUtils;
 import com.communityx.utils.Utils;
 
@@ -54,6 +55,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
     @OnClick({R.id.text_reporting, R.id.image_reporting})
     void postReportingClicked() {
+        Utils.replaceFragment(this, new PostReportingFragment(), false, "fragment_post");
         makeActiveText(textReporting,imageReporting,R.drawable.ic_create_post_reporting_select);
     }
 
@@ -66,7 +68,6 @@ public class CreatePostActivity extends AppCompatActivity {
     void postCreateEvent() {
         makeActiveText(textEvent,imageEvent,R.drawable.ic_create_post_event_select);
     }
-
 
     private void makeActiveText(TextView activeText, ImageView activeImage, int imgRes) {
 
