@@ -66,6 +66,9 @@
     <string name="your_global_community">Your Global Impact Community</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
->>>>>>> e21ff0eda503b364431553515af290d5dacfd59e
+    <string name="tag_this_post_with_a_cause_or_movement">Tag this post with a cause or movement.</string>
+    <string name="post">Post</string>
+    <string name="create_post">Create Post</string>
+    >>>>>>> e21ff0eda503b364431553515af290d5dacfd59e
 
 </resources>

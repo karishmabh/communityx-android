@@ -1,6 +1,7 @@
 package com.communityx.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.communityx.R;
+import com.communityx.activity.CreatePostActivity;
 import com.communityx.adapters.CommunityFeedAdapter;
 import com.communityx.utils.CustomToolBarUtils;
 
@@ -47,5 +50,10 @@ public class CommunityFeedFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         communityFeedAdapter = new CommunityFeedAdapter(getContext());
         recyclerView.setAdapter(communityFeedAdapter);
+    }
+
+    @OnClick(R.id.edit_search)
+    void tappedCreatePost(){
+        startActivity(new Intent(getContext(), CreatePostActivity.class));
     }
 }
