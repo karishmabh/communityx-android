@@ -7,14 +7,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 
 import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTouch;
 import com.communityx.R;
 import com.communityx.activity.CreatePostActivity;
 import com.communityx.adapters.CommunityFeedAdapter;
@@ -52,8 +51,12 @@ public class CommunityFeedFragment extends Fragment {
         recyclerView.setAdapter(communityFeedAdapter);
     }
 
-    @OnClick(R.id.edit_search)
-    void tappedCreatePost(){
-        startActivity(new Intent(getContext(), CreatePostActivity.class));
+    @OnTouch(R.id.edit_search)
+    boolean tappedCreatePost(View view, MotionEvent event){
+        if(event.getAction() == KeyEvent.ACTION_DOWN) {
+            startActivity(new Intent(getContext(), CreatePostActivity.class));
+            return true;
+        }
+        return false;
     }
 }

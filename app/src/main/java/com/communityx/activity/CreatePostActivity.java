@@ -2,6 +2,7 @@ package com.communityx.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
@@ -45,6 +46,12 @@ public class CreatePostActivity extends AppCompatActivity {
         CustomToolBarUtils customToolBarUtils = new CustomToolBarUtils(this);
         customToolBarUtils.setLogoIcon(R.drawable.ic_praise_back_arrow);
         customToolBarUtils.setTitle(R.string.create_post);
+        customToolBarUtils.getImageLogo().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @OnClick({R.id.image_content, R.id.text_content})
