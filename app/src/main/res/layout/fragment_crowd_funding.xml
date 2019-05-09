@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.CrowdfundingDetailActivity">
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ImageView
+                android:id="@+id/image_cover"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                android:src="#ccc"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        <android.support.design.widget.FloatingActionButton
+                app:elevation="@dimen/_7sdp"
+                android:layout_marginTop="@dimen/_180sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="@dimen/_10sdp"
+                app:fabCustomSize="@dimen/_40sdp"
+                android:src="@drawable/ic_create_crowdfunding_add"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"/>
+
+        <android.support.design.widget.TextInputLayout
+                android:id="@+id/textinput_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:hint="@string/title"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                app:layout_constraintTop_toBottomOf="@id/image_cover"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+            <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_location"
+                    style="@style/textInputEditText"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10ssp"
+                    android:layout_marginEnd="@dimen/_12ssp"
+                    app:hintTextAppearance="@style/TextInputHint"
+                    app:layout_constraintTop_toBottomOf="@+id/text_location"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+                android:id="@+id/textinput_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:hint="@string/description"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                app:layout_constraintTop_toBottomOf="@id/textinput_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+            <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_description"
+                    style="@style/textInputEditText"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:layout_marginStart="@dimen/_10ssp"
+                    android:layout_marginEnd="@dimen/_12ssp"
+                    app:hintTextAppearance="@style/TextInputHint"
+                    app:layout_constraintTop_toBottomOf="@+id/text_location"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+                android:id="@+id/textinput_amount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:hint="@string/target_amount"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                app:layout_constraintTop_toBottomOf="@id/textinput_description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+            <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_amount"
+                    style="@style/textInputEditText"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:text="$"
+                    android:layout_marginStart="@dimen/_10ssp"
+                    android:layout_marginEnd="@dimen/_12ssp"
+                    app:hintTextAppearance="@style/TextInputHint"
+                    app:layout_constraintTop_toBottomOf="@+id/text_location"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+                android:id="@+id/textinput_donation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:hint="@string/last_date_for_donation"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                app:layout_constraintTop_toBottomOf="@id/textinput_amount"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+            <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_donation_date"
+                    style="@style/textInputEditText"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:drawableRight="@drawable/ic_signup_calendar"
+                    android:focusableInTouchMode="false"
+                    android:layout_marginStart="@dimen/_10ssp"
+                    android:layout_marginEnd="@dimen/_12ssp"
+                    app:hintTextAppearance="@style/TextInputHint"
+                    app:layout_constraintTop_toBottomOf="@+id/text_location"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+                android:id="@+id/text_cause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_12ssp"
+                android:textColor="@color/colorLightGrey"
+                android:text="@string/tag_this_post_with_a_cause_or_movement"
+                android:fontFamily="@font/poppins_medium"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_18sdp"
+                app:layout_constraintTop_toBottomOf="@id/textinput_donation"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        <EditText
+                android:id="@+id/edit_cause"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_interest_inactive"
+                android:hint="Type here..."
+                android:textSize="@dimen/_11sdp"
+                android:padding="@dimen/_8sdp"
+                android:singleLine="true"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:fontFamily="@font/poppins_medium"
+                app:layout_constraintTop_toBottomOf="@id/text_cause"
+                android:drawablePadding="@dimen/_8sdp"
+                android:drawableEnd="@drawable/ic_signup_add_interest"/>
+
+        <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/flex_layout_cause"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                app:flexWrap="wrap"
+                app:alignItems="stretch"
+                app:alignContent="stretch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_cause">
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_25sdp"
+                android:background="@drawable/button_inactive"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/post"
+                android:id="@+id/button_post"
+                android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/flex_layout_cause"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_marginTop="15dp"/>
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
