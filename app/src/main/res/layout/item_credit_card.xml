@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp">
+
+    <RadioButton
+            android:id="@+id/radio_credit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:checked="false"/>
+
+    <TextView
+            android:id="@+id/text_debit_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@+id/radio_credit_button"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Credit Card"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/colorBlackTitle"/>
+
+    <LinearLayout
+            android:id="@+id/linear_credit_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/text_debit_card">
+
+    <android.support.design.widget.TextInputLayout
+            android:id="@+id/text_input_card_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <EditText
+                android:id="@+id/edit_card_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Card Number"
+                android:textColor="@color/colorBlackTitle"
+                android:fontFamily="@font/poppins_medium"
+                android:textColorHint="@color/colorLightGrey"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+            android:id="@+id/text_input_card_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_card_no">
+
+        <EditText
+                android:id="@+id/edit_card_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Card Holder Name"
+                android:textColor="@color/colorBlackTitle"
+                android:fontFamily="@font/poppins_medium"
+                android:textColorHint="@color/colorLightGrey"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+            android:id="@+id/linear_expiry_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_card_holder">
+
+        <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
+
+            <EditText
+                    android:id="@+id/edit_cvv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Expiry Date"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:textColor="@color/colorBlackTitle"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColorHint="@color/colorLightGrey"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
+
+            <EditText
+                    android:id="@+id/edit_expiry_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="CVV"
+                    android:drawableEnd="@drawable/ic_payment_method_question_mark"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:textColor="@color/colorBlackTitle"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColorHint="@color/colorLightGrey"/>
+
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <Button
+            android:id="@+id/button_proceed_to_pay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_active"
+            app:layout_constraintTop_toBottomOf="@+id/linear_expiry_date"
+            android:text="@string/pay_now"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_14ssp"
+            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginTop="@dimen/_15sdp"/>
+
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/text_credit_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@+id/text_debit_card"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="$100.00"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:fontFamily="@font/poppins_bold"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:textColor="@color/colorBlackTitle"/>
+
+</android.support.constraint.ConstraintLayout>

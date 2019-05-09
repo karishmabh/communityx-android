@@ -11,7 +11,10 @@
             android:theme="@style/AppTheme">
         <activity android:name=".activity.CrowdfundingDetailActivity">
         </activity>
-        <activity android:name=".activity.CreatePostActivity">
+        <activity android:name=".activity.CreatePostActivity"/>
+
+        <activity android:name=".activity.PaymentActivity">
+
         </activity>
         <activity
                 android:name=".activity.LikesActivity"
@@ -31,7 +34,7 @@
 
         <activity-alias
                 android:name=".Main"
-                android:targetActivity=".activity.WelcomeActivity">
+                android:targetActivity=".activity.PaymentActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -50,6 +53,7 @@
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".activity.PraiseActivity"/>
+
         <activity android:name=".activity.DonatedByActivity"/>
     </application>
 

@@ -80,4 +80,9 @@
     <string name="amount">Amount ($)</string>
     <string name="other_amount">Other Amount</string>
     <string name="funds_collected_last_donation">funds collected | Last Donation</string>
+
+    <string name="proceed_to_pay">PROCEED TO PAY</string>
+    <string name="pay_now">PAY NOW</string>
+    <string name="select_options_to_pay">Select options to pay</string>
+
 </resources>
