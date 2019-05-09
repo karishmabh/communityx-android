@@ -43,14 +43,14 @@
             app:layout_constraintTop_toBottomOf="@id/text_type_disasters">
         <RadioButton android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:textSize="@dimen/_14ssp"
+                     android:textSize="@dimen/_12ssp"
                      android:textColor="@color/text_selector"
                      android:fontFamily="@font/poppins_medium"
                      tools:checked="true"
                      android:text="@string/natural_disasters"/>
         <RadioButton android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:textSize="@dimen/_14ssp"
+                     android:textSize="@dimen/_12ssp"
                      android:textColor="@color/text_selector"
                      android:fontFamily="@font/poppins_medium"
                      android:text="@string/human_disasters"/>
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_12ssp"
             android:layout_marginEnd="@dimen/_12ssp"
-            android:background="@drawable/spinner_dropdown"
+            android:background="@drawable/spinner_dropdown_gray"
             app:layout_constraintTop_toBottomOf="@id/text_type_report"/>
 
     <TextView
@@ -141,7 +141,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_description" app:layout_constraintVertical_bias="0.888"
             android:layout_marginTop="15dp"/>
-
 
 
 </android.support.constraint.ConstraintLayout>

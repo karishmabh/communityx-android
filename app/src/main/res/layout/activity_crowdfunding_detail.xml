@@ -40,7 +40,8 @@
                 android:fontFamily="@font/poppins_extrabold"
                 android:layout_marginTop="15dp"
                 app:layout_constraintTop_toBottomOf="@+id/image_cover"
-                app:layout_constraintStart_toEndOf="@+id/image_raised" android:layout_marginStart="7dp"/>
+                app:layout_constraintStart_toEndOf="@+id/image_raised" android:layout_marginStart="7dp"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="70dp"/>
 
         <TextView
                 android:id="@+id/text_traget"
@@ -62,7 +63,8 @@
                 android:text="Raised amount for"
                 android:fontFamily="@font/poppins_regular"
                 app:layout_constraintTop_toBottomOf="@+id/text_raised_amount"
-                app:layout_constraintStart_toEndOf="@+id/image_raised" android:layout_marginStart="7dp"/>
+                app:layout_constraintStart_toEndOf="@+id/image_raised" android:layout_marginStart="7dp"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="21dp"/>
 
         <ImageView
                 android:id="@+id/image_target"
@@ -85,7 +87,8 @@
                 android:layout_marginTop="20dp"
                 app:layout_constraintTop_toBottomOf="@+id/image_cover"
                 app:layout_constraintStart_toEndOf="@+id/text_traget"
-                android:layout_marginStart="51dp"/>
+                android:layout_marginStart="51dp" app:layout_constraintEnd_toStartOf="@+id/text_raised_amount"
+                android:layout_marginEnd="7dp"/>
 
         <SeekBar android:layout_width="match_parent"
                  android:layout_height="wrap_content"
@@ -163,7 +166,7 @@
                                                       android:layout_height="@dimen/_35sdp"
                                                       app:civ_border_color="@color/colorLightestGrey"
                                                       app:civ_border_width="1dp"
-                                                      android:src="@drawable/ic_my_community_like_deselect"
+                                                      android:src="@drawable/ic_profile_placeholder"
                                                       android:id="@+id/circleImageView"
                                                       app:layout_constraintTop_toBottomOf="@+id/text_crowdfunding_content"
                                                       android:layout_marginTop="12dp"
@@ -261,6 +264,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/text_like" app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="15dp"/>
 
+        <TextView android:id="@+id/text_donated_by_2"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:textSize="@dimen/_10ssp"
+                  android:textColor="@color/colorLightGrey"
+                  android:text="Donated By"
+                  android:fontFamily="@font/poppins_regular"
+                  android:visibility="visible"
+                  app:layout_constraintTop_toBottomOf="@id/view_divider_one"
+                  android:layout_marginTop="@dimen/_10sdp"
+                  android:layout_marginStart="@dimen/_8sdp"
+                  android:layout_marginEnd="@dimen/_12sdp"/>
+
         <LinearLayout
                 android:id="@+id/view_donated_by"
                 android:layout_width="match_parent"
@@ -269,7 +285,8 @@
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginEnd="@dimen/_12sdp"
                 android:visibility="visible"
-                app:layout_constraintTop_toBottomOf="@+id/view_divider_one" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_donated_by_2"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -440,7 +457,7 @@ April 23, 2019."
                     style="@style/textInputEditText"
                     android:layout_width="match_parent"
                     android:fontFamily="@font/poppins_medium"
-                    tools:text="122"
+                    android:text="$"
                     android:textSize="@dimen/_14ssp"
                     android:inputType="numberDecimal"
                     android:layout_height="wrap_content"/>

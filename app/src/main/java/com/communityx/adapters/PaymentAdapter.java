@@ -1,8 +1,10 @@
 package com.communityx.adapters;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.EventHol
     private Activity mActivity;
     private ArrayList<String> mCardList;
     private OnCardCheckedListener cardCheckedListener;
+    private boolean isFirstTime = true;
 
     public PaymentAdapter(ArrayList<String> cardList, Activity activity) {
      this.mCardList =  cardList;
@@ -42,8 +45,11 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.EventHol
 
     @Override
     public void onBindViewHolder(@NonNull EventHolder eventHolder, int viewType) {
-        eventHolder.radioSavedButton.setChecked(false);
+        if(!isFirstTime) {
+            eventHolder.radioSavedButton.setChecked(false);
+        }
         eventHolder.setRadioSavedButton();
+        isFirstTime = false;
     }
 
     @Override
@@ -58,15 +64,20 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.EventHol
         LinearLayout linearSavedCard;
         @BindView(R.id.text_saved_amount)
         TextView textSavedCard;
+        @BindView(R.id.text_debit_card)
+        TextView textCardName;
 
         public EventHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            radioSavedButton.setChecked(true);
+            makeActive(true,textCardName);
         }
 
         public void setRadioSavedButton() {
             radioSavedButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if(cardCheckedListener != null) cardCheckedListener.onCardChecked(isChecked,radioSavedButton);
+                makeActive(isChecked,textCardName);
                 if(isChecked) {
                     linearSavedCard.setVisibility(View.VISIBLE);
                     textSavedCard.setVisibility(View.VISIBLE);
@@ -80,5 +91,12 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.EventHol
 
     public interface OnCardCheckedListener{
         void onCardChecked(boolean isChecked, RadioButton radioButton);
+    }
+
+    private void makeActive(boolean isChecked, TextView textView){
+        textView.setTypeface(isChecked ? Typeface.createFromAsset(mActivity.getAssets(),"fonts/poppins_semibold.ttf")
+                : Typeface.createFromAsset(mActivity.getAssets(),"fonts/poppins_regular.ttf"));
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                isChecked ? mActivity.getResources().getDimension(R.dimen._16ssp) : mActivity.getResources().getDimension(R.dimen._14ssp) );
     }
 }

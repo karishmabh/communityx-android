@@ -8,11 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import com.communityx.R;
 
 public class CrowdfundingDetailActivity extends AppCompatActivity {
@@ -38,8 +40,6 @@ public class CrowdfundingDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crowdfunding_detail);
         ButterKnife.bind(this);
         radioListener();
-
-        new Handler().postDelayed(() -> startActivity(new Intent(CrowdfundingDetailActivity.this, DonatedByActivity.class)),2000);
     }
 
     private void radioListener() {
@@ -68,5 +68,18 @@ public class CrowdfundingDetailActivity extends AppCompatActivity {
     @OnClick(R.id.button_pay)
     void tappedPayNow(){
         startActivity(new Intent(this,PaymentActivity.class));
+    }
+
+    @OnTextChanged(R.id.edit_amount)
+    void onAmountTyping(CharSequence s){
+        if(s.length() < 1){
+            editAmount.setText("$");
+            editAmount.setSelection(1);
+        }
+    }
+
+    @OnClick({R.id.view_donated_by})
+    void tappedViewDonatedBy(){
+        startActivity(new Intent(CrowdfundingDetailActivity.this, DonatedByActivity.class));
     }
 }
