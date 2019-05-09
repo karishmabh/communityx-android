@@ -50,6 +50,7 @@
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".activity.PraiseActivity"/>
+        <activity android:name=".activity.DonatedByActivity"/>
     </application>
 
 </manifest>

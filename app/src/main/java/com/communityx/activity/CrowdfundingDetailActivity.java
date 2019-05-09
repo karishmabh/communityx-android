@@ -1,5 +1,7 @@
 package com.communityx.activity;
 
+import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.communityx.R;
 
 public class CrowdfundingDetailActivity extends AppCompatActivity {
@@ -35,6 +38,8 @@ public class CrowdfundingDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crowdfunding_detail);
         ButterKnife.bind(this);
         radioListener();
+
+        new Handler().postDelayed(() -> startActivity(new Intent(CrowdfundingDetailActivity.this, DonatedByActivity.class)),2000);
     }
 
     private void radioListener() {
@@ -53,5 +58,10 @@ public class CrowdfundingDetailActivity extends AppCompatActivity {
             if(isChecked) buttonPay.setBackgroundResource(R.drawable.button_active);
             radioOtherAmount.setBackgroundResource(isChecked ? R.drawable.button_active : R.drawable.bg_stroke_grey);
         });
+    }
+
+    @OnClick({R.id.text_comment,R.id.image_comment})
+    void tappedPraised(){
+        startActivity(new Intent(this,PraiseActivity.class));
     }
 }
