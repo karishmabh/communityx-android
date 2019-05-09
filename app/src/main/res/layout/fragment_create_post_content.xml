@@ -85,6 +85,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="#98A5C4"/>
+        <ImageView
+                android:id="@+id/image_remove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|top"
+                android:layout_margin="@dimen/_8sdp"
+                android:src="@drawable/ic_posting_content_image_cross"/>
 
     </FrameLayout>
 

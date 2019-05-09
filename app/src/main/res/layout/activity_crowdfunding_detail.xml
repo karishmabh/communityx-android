@@ -269,7 +269,7 @@
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginEnd="@dimen/_12sdp"
                 android:visibility="visible"
-                app:layout_constraintTop_toBottomOf="@+id/text_donated_by" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_divider_one" app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -406,6 +406,7 @@ April 23, 2019."
                     android:textColor="@color/donation_selector_2"
                     android:background="@drawable/bg_stroke_grey"
                     android:text="Other Amount"
+                    android:textAllCaps="true"
                     android:button="@drawable/selector_donation"
                     android:paddingStart="@dimen/_12sdp"
                     android:paddingEnd="@dimen/_12sdp"
@@ -455,11 +456,12 @@ April 23, 2019."
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginEnd="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_12sdp"
                 android:textColor="@android:color/white"
                 style="?android:attr/borderlessButtonStyle"
                 app:layout_constraintTop_toBottomOf="@+id/textinput_amount"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-        />
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
 
     </android.support.constraint.ConstraintLayout>
