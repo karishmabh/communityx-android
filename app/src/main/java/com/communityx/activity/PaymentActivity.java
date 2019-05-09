@@ -54,7 +54,6 @@ public class PaymentActivity extends AppCompatActivity implements PaymentAdapter
         setAdapter(mCardList);
         setDebitCard();
         setCreditCard();
-
     }
 
     private void setAdapter(ArrayList<String> cardList) {
@@ -79,7 +78,6 @@ public class PaymentActivity extends AppCompatActivity implements PaymentAdapter
             paymentAdapter.notifyDataSetChanged();
             makeActive(isChecked,textCreditCard);
             showPannel(isChecked,linearCreditCard,textCreditAmount);
-
         });
     }
 
