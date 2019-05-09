@@ -51,6 +51,12 @@
         <item name="android:windowExitAnimation">@anim/anim_slide_down</item>
     </style>
 
+    <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorLightGrey</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+    </style>
+
     <style name="TextInputHint">
         <item name="android:fontFamily">@font/poppins_medium</item>
         <item name="android:textColor">@color/colorLightGrey</item>
