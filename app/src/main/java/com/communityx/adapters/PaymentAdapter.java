@@ -21,11 +21,16 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.EventHol
     private LayoutInflater mLayoutInflater;
     private Activity mActivity;
     private ArrayList<String> mCardList;
+    private OnCardCheckedListener cardCheckedListener;
 
     public PaymentAdapter(ArrayList<String> cardList, Activity activity) {
      this.mCardList =  cardList;
      this.mActivity = activity;
      this.mLayoutInflater = LayoutInflater.from(activity);
+    }
+
+    public void setCardCheckedListener(OnCardCheckedListener cardCheckedListener) {
+        this.cardCheckedListener = cardCheckedListener;
     }
 
     @NonNull
@@ -37,7 +42,8 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.EventHol
 
     @Override
     public void onBindViewHolder(@NonNull EventHolder eventHolder, int viewType) {
-       eventHolder.setRadioSavedButton();
+        eventHolder.radioSavedButton.setChecked(false);
+        eventHolder.setRadioSavedButton();
     }
 
     @Override
@@ -59,18 +65,20 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.EventHol
         }
 
         public void setRadioSavedButton() {
-            radioSavedButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(isChecked) {
-                        linearSavedCard.setVisibility(View.VISIBLE);
-                        textSavedCard.setVisibility(View.VISIBLE);
-                    } else if(!isChecked) {
-                        linearSavedCard.setVisibility(View.GONE);
-                        textSavedCard.setVisibility(View.GONE);
-                    }
+            radioSavedButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if(cardCheckedListener != null) cardCheckedListener.onCardChecked(isChecked,radioSavedButton);
+                if(isChecked) {
+                    linearSavedCard.setVisibility(View.VISIBLE);
+                    textSavedCard.setVisibility(View.VISIBLE);
+                } else {
+                    linearSavedCard.setVisibility(View.GONE);
+                    textSavedCard.setVisibility(View.GONE);
                 }
             });
         }
+    }
+
+    public interface OnCardCheckedListener{
+        void onCardChecked(boolean isChecked, RadioButton radioButton);
     }
 }

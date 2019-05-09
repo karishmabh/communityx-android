@@ -34,7 +34,7 @@
 
         <activity-alias
                 android:name=".Main"
-                android:targetActivity=".activity.PaymentActivity">
+                android:targetActivity=".activity.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -53,7 +53,6 @@
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".activity.PraiseActivity"/>
-
         <activity android:name=".activity.DonatedByActivity"/>
     </application>
 

@@ -64,4 +64,9 @@ public class CrowdfundingDetailActivity extends AppCompatActivity {
     void tappedPraised(){
         startActivity(new Intent(this,PraiseActivity.class));
     }
+
+    @OnClick(R.id.button_pay)
+    void tappedPayNow(){
+        startActivity(new Intent(this,PaymentActivity.class));
+    }
 }
