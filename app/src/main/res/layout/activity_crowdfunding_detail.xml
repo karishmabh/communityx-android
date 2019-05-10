@@ -357,7 +357,7 @@ April 23, 2019."
                 android:fontFamily="@font/poppins_medium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_donated_by_post"
-               />
+        />
 
         <TextView
                 android:id="@+id/text_donate_now"

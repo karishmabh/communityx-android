@@ -51,6 +51,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title">Title</string>
     <string name="search_your_friend_list">Search your friend list...</string>
     <string name="all_friends">All Friends</string>
     <string name="invitations">Invitations</string>
@@ -84,5 +85,16 @@
     <string name="proceed_to_pay">PROCEED TO PAY</string>
     <string name="pay_now">PAY NOW</string>
     <string name="select_options_to_pay">Select options to pay</string>
+    <string name="target_amount">Target Amount($)</string>
+    <string name="last_date_for_donation">Last date for Donation</string>
+    <string name="event_title">Event Title</string>
+    <string name="start_date_time"><![CDATA[Start Date & Time]]></string>
+    <string name="end_date_time"><![CDATA[End Date & Time]]></string>
+    <string name="add_location">Add Location</string>
+    <string name="event_detail">Event Detail</string>
+    <string name="create_event">Create Event</string>
+    <string name="crowdfunding">Crowdfunding</string>
+    <string name="reporting">Reporting</string>
+    <string name="posting_content">Posting Content</string>
 
 </resources>
