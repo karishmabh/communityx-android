@@ -12,7 +12,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import com.communityx.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Utils {
 
@@ -36,9 +38,33 @@ public class Utils {
         datePickerDialog.show();
     }
 
-   /* public static String convertedDate(String givenTime) {
-        String initialPattern = "MM-dd-yyyy";
-        String requiredPattern = "h:mm a";
+    public static void datePicker(Activity activity, IDateCallback iDateCallback) {
+        int mYear, mMonth, mDay;
+
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        monthOfYear += 1;
+                        iDateCallback.getDate(String.format("%s/%d/%d", "0" + monthOfYear, dayOfMonth, year));
+                    }
+                }, mYear, mMonth, mDay);
+        datePickerDialog.show();
+    }
+
+    public interface IDateCallback {
+       public void getDate(String date);
+    }
+
+    public static String convertedDate(String givenTime) {
+        String initialPattern = "MM/dd/yyyy";
+        String requiredPattern = "MMMM dd, yyyy";
         String outputDate = "";
         SimpleDateFormat dateFormat = new SimpleDateFormat(initialPattern);
         Date date = null;
@@ -51,7 +77,24 @@ public class Utils {
             e.printStackTrace();
         }
         return outputDate;
-    }*/
+    }
+
+    public static String convertedDateTime(String givenTime) {
+        String initialPattern = "MM/dd/yyyy";
+        String requiredPattern = "E, MMM dd, yyyy . h:mm a";
+        String outputDate = "";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(initialPattern);
+        Date date = null;
+        try {
+            date = dateFormat.parse(givenTime);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(requiredPattern);
+            outputDate = simpleDateFormat.format(date);
+            return outputDate;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return outputDate;
+    }
 
     public static void replaceFragment(AppCompatActivity activity, Fragment fragment, boolean addToStack, String tag){
         if(activity == null) return;

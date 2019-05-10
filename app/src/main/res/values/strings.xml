@@ -81,7 +81,6 @@
     <string name="amount">Amount ($)</string>
     <string name="other_amount">Other Amount</string>
     <string name="funds_collected_last_donation">funds collected | Last Donation</string>
-
     <string name="proceed_to_pay">PROCEED TO PAY</string>
     <string name="pay_now">PAY NOW</string>
     <string name="select_options_to_pay">Select options to pay</string>
@@ -94,5 +93,8 @@
     <string name="event_detail">Event Detail</string>
     <string name="thanks_to_your_payment">Thanks to your payment.</string>
     <string name="you_donated">You donated</string>
-
+    <string name="create_event">Create Event</string>
+    <string name="crowdfunding">Crowdfunding</string>
+    <string name="reporting">Reporting</string>
+    <string name="posting_content">Posting Content</string>
 </resources>
