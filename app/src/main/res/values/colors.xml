@@ -11,6 +11,6 @@
     <color name="colorGreyWhite">#fafafa</color>
     <color name="colorBackground">#f8f8f8</color>
     <color name="colorGreen">#28ae54</color>
+    <color name="colorLightestPrimary">#fff8f1</color>
     <color name="colorWhite_background">#faf8f8</color>
-
 </resources>

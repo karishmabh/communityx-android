@@ -33,7 +33,7 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                DialogHelper.showEventDialog(DashboardActivity.this,"");
+                DialogHelper.showReportingDialog(DashboardActivity.this,"");
             }
         },4000);
     }
