@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#faf8f8"
+        tools:context=".activity.CreatePostActivity">
+
+ <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
+                                              android:layout_height="match_parent"
+                                              android:paddingBottom="@dimen/_8sdp">
+     <include android:id="@+id/view_too_bar" layout="@layout/toolbar"/>
+
+     <FrameLayout
+             android:id="@+id/frame_root"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="@dimen/_165sdp"
+             app:layout_constraintTop_toBottomOf="@id/view_too_bar">
+     </FrameLayout>
+
+     <ImageView
+             android:id="@+id/image_content"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:src="@drawable/ic_create_post_content_deselect"
+             app:layout_constraintStart_toStartOf="parent"
+             android:layout_marginStart="16dp"
+             android:layout_marginTop="14dp"
+             app:layout_constraintTop_toBottomOf="@+id/frame_root"/>
+
+     <TextView
+             android:id="@+id/text_content"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Posting Content"
+             android:textSize="@dimen/_12ssp"
+             android:fontFamily="@font/poppins_medium"
+             android:textColorHint="@color/colorLightGrey"
+             app:layout_constraintStart_toEndOf="@+id/image_content"
+             android:layout_marginStart="9dp"
+             android:layout_marginTop="14dp"
+             app:layout_constraintTop_toBottomOf="@+id/frame_root"/>
+
+     <View android:layout_width="match_parent"
+           android:layout_height="0.5dp"
+           android:background="@color/colorLightestGrey"
+           android:id="@+id/view_divider_one"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           android:layout_marginTop="14dp"
+           app:layout_constraintTop_toBottomOf="@+id/image_content"
+           android:layout_marginStart="16dp"
+           android:layout_marginEnd="16dp"/>
+
+     <ImageView
+             android:id="@+id/image_reporting"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:src="@drawable/ic_create_post_reporting_deselect"
+             app:layout_constraintStart_toStartOf="parent"
+             android:layout_marginStart="16dp"
+             android:layout_marginTop="14dp"
+             app:layout_constraintTop_toBottomOf="@+id/view_divider_one"/>
+
+     <TextView
+             android:id="@+id/text_reporting"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Reporting"
+             android:textSize="@dimen/_12ssp"
+             android:fontFamily="@font/poppins_medium"
+             android:textColorHint="@color/colorLightGrey"
+             app:layout_constraintStart_toEndOf="@+id/image_reporting"
+             android:layout_marginStart="9dp"
+             android:layout_marginTop="14dp"
+             app:layout_constraintTop_toBottomOf="@+id/view_divider_one"/>
+
+     <View android:layout_width="match_parent"
+           android:layout_height="0.5dp"
+           android:id="@+id/view_divider_two"
+           android:background="@color/colorLightestGrey"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           android:layout_marginTop="14dp"
+           app:layout_constraintTop_toBottomOf="@+id/image_reporting"
+           android:layout_marginStart="16dp"
+           android:layout_marginEnd="16dp"/>
+
+     <ImageView
+             android:id="@+id/image_crowdfunding"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:src="@drawable/ic_create_post_crowdfunding_deselect"
+             app:layout_constraintStart_toStartOf="parent"
+             android:layout_marginStart="16dp"
+             android:layout_marginTop="14dp"
+             app:layout_constraintTop_toBottomOf="@+id/view_divider_two"/>
+
+     <TextView
+             android:id="@+id/text_crowdfunding"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Crowdfunding "
+             android:textSize="@dimen/_12ssp"
+             android:fontFamily="@font/poppins_medium"
+             android:textColorHint="@color/colorLightGrey"
+             app:layout_constraintStart_toEndOf="@+id/image_crowdfunding"
+             android:layout_marginStart="9dp"
+             android:layout_marginTop="14dp"
+             app:layout_constraintTop_toBottomOf="@+id/view_divider_two"/>
+
+     <View android:layout_width="match_parent"
+           android:layout_height="0.5dp"
+           android:id="@+id/view_divider_three"
+           android:background="@color/colorLightestGrey"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           android:layout_marginTop="14dp"
+           app:layout_constraintTop_toBottomOf="@+id/image_crowdfunding"
+           android:layout_marginStart="16dp"
+           android:layout_marginEnd="16dp"/>
+
+     <ImageView
+             android:id="@+id/image_create_event"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:src="@drawable/ic_create_post_event_deselect"
+             app:layout_constraintStart_toStartOf="parent"
+             android:layout_marginStart="16dp"
+             android:layout_marginTop="14dp"
+             app:layout_constraintTop_toBottomOf="@+id/view_divider_three"/>
+
+     <TextView
+             android:id="@+id/text_create_event"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Create Event "
+             android:textSize="@dimen/_12ssp"
+             android:fontFamily="@font/poppins_medium"
+             android:textColorHint="@color/colorLightGrey"
+             app:layout_constraintStart_toEndOf="@+id/image_create_event"
+             android:layout_marginStart="9dp"
+             android:layout_marginTop="14dp"
+             app:layout_constraintTop_toBottomOf="@+id/view_divider_three"/>
+
+     <View android:layout_width="match_parent"
+           android:layout_height="0.5dp"
+           android:id="@+id/view_divider_four"
+           android:background="@color/colorLightestGrey"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           android:layout_marginTop="14dp"
+           android:visibility="gone"
+           app:layout_constraintTop_toBottomOf="@+id/image_create_event"
+           android:layout_marginStart="16dp"
+           android:layout_marginEnd="16dp"/>
+ </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

@@ -1,19 +1,21 @@
 package com.communityx.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 
 import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnTouch;
 import com.communityx.R;
+import com.communityx.activity.CreatePostActivity;
 import com.communityx.adapters.CommunityFeedAdapter;
 import com.communityx.utils.CustomToolBarUtils;
 
@@ -41,11 +43,21 @@ public class CommunityFeedFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         editPost.setHint(R.string.write_something_here);
+        editPost.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
         customToolBarUtils.setTitle(R.string.my_community);
         customToolBarUtils.setImageTail(R.drawable.ic_my_community_nav_filter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         communityFeedAdapter = new CommunityFeedAdapter(getContext());
         recyclerView.setAdapter(communityFeedAdapter);
+    }
+
+    @OnTouch(R.id.edit_search)
+    boolean tappedCreatePost(View view, MotionEvent event){
+        if(event.getAction() == KeyEvent.ACTION_DOWN) {
+            startActivity(new Intent(getContext(), CreatePostActivity.class));
+            return true;
+        }
+        return false;
     }
 }

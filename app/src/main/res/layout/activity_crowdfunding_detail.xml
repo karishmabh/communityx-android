@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.CrowdfundingDetailActivity">
+
+    <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
+                                                 android:layout_height="match_parent">
+
+
+        <ImageView
+                android:id="@+id/image_cover"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                android:src="#ccc" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+                android:id="@+id/text_traget_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_14ssp"
+                android:textColor="@color/colorBlackTitle"
+                android:text="$10,000"
+                android:fontFamily="@font/poppins_extrabold"
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/image_cover"
+                app:layout_constraintStart_toEndOf="@+id/image_target" android:layout_marginStart="9dp"/>
+
+        <TextView
+                android:id="@+id/text_raised_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_14ssp"
+                android:textColor="@color/colorBlackTitle"
+                android:text="$10,000"
+                android:fontFamily="@font/poppins_extrabold"
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/image_cover"
+                app:layout_constraintStart_toEndOf="@+id/image_raised" android:layout_marginStart="7dp"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="70dp"/>
+
+        <TextView
+                android:id="@+id/text_traget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_10ssp"
+                android:textColor="@color/colorLightGrey"
+                android:text="Target amount"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@+id/text_traget_amount"
+                app:layout_constraintStart_toEndOf="@+id/image_target" android:layout_marginStart="9dp"/>
+
+        <TextView
+                android:id="@+id/text_raised"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_10ssp"
+                android:textColor="@color/colorLightGrey"
+                android:text="Raised amount for"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@+id/text_raised_amount"
+                app:layout_constraintStart_toEndOf="@+id/image_raised" android:layout_marginStart="7dp"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="21dp"/>
+
+        <ImageView
+                android:id="@+id/image_target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_active"
+                android:padding="@dimen/_4sdp"
+                android:src="@drawable/ic_crowdfuding_detail_target_amount"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/image_cover" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/_12sdp"/>
+
+        <ImageView
+                android:id="@+id/image_raised"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_active"
+                android:padding="@dimen/_4sdp"
+                android:src="@drawable/ic_crowdfuding_detail_raised_amount"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/image_cover"
+                app:layout_constraintStart_toEndOf="@+id/text_traget"
+                android:layout_marginStart="51dp" app:layout_constraintEnd_toStartOf="@+id/text_raised_amount"
+                android:layout_marginEnd="7dp"/>
+
+        <SeekBar android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="15dp"
+                 android:layout_marginStart="@dimen/_12sdp"
+                 android:layout_marginEnd="@dimen/_12sdp"
+                 android:progress="50"
+                 app:layout_constraintTop_toBottomOf="@+id/text_traget" app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintEnd_toEndOf="parent" android:id="@+id/seekBar"/>
+
+        <TextView
+                android:id="@+id/text_crowdfunding_content"
+                android:layout_width="@dimen/_240sdp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_14ssp"
+                android:textColor="@color/colorBlackTitle"
+                android:text="Help families in village because of disaster. Donate for them."
+                android:fontFamily="@font/poppins_medium"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/seekBar" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp"/>
+
+
+        <TextView
+                android:id="@+id/text_by"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_10ssp"
+                android:textColor="@color/colorLightGrey"
+                android:text="by"
+                android:fontFamily="@font/poppins_regular"
+
+                app:layout_constraintTop_toBottomOf="@+id/text_crowdfunding_content"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toEndOf="@+id/circleImageView" android:layout_marginStart="8dp"/>
+
+
+        <TextView
+                android:id="@+id/text_fund_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_10ssp"
+                android:textColor="@color/colorAccent"
+                android:text="Charity Life"
+                android:fontFamily="@font/poppins_semibold"
+                app:layout_constraintTop_toBottomOf="@+id/text_crowdfunding_content"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toEndOf="@+id/text_by" android:layout_marginStart="4dp"/>
+
+        <TextView
+                android:id="@+id/text_fund_collected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_10ssp"
+                android:textColor="@color/colorLightGrey"
+                android:text="| Last Donation"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@+id/text_crowdfunding_content"
+                app:layout_constraintStart_toEndOf="@+id/text_fund_amount" android:layout_marginStart="4dp"
+                android:layout_marginTop="24dp"/>
+
+        <TextView
+                android:id="@+id/text_fund_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_10ssp"
+                android:textColor="@color/colorBlackTitle"
+                android:text="May 12 2019"
+                android:fontFamily="@font/poppins_medium"
+                app:layout_constraintTop_toBottomOf="@+id/text_crowdfunding_content"
+                app:layout_constraintStart_toEndOf="@+id/text_fund_collected"
+                android:layout_marginTop="24dp" android:layout_marginStart="4dp"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView android:layout_width="@dimen/_35sdp"
+                                                      android:layout_height="@dimen/_35sdp"
+                                                      app:civ_border_color="@color/colorLightestGrey"
+                                                      app:civ_border_width="1dp"
+                                                      android:src="@drawable/ic_profile_placeholder"
+                                                      android:id="@+id/circleImageView"
+                                                      app:layout_constraintTop_toBottomOf="@+id/text_crowdfunding_content"
+                                                      android:layout_marginTop="12dp"
+                                                      app:layout_constraintEnd_toStartOf="@+id/text_by"
+                                                      android:layout_marginEnd="8dp"
+                                                      app:layout_constraintStart_toStartOf="parent"
+                                                      android:layout_marginStart="16dp"/>
+
+        <ImageView android:id="@+id/image_like"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   app:srcCompat="@drawable/ic_my_community_like_select"
+                   app:layout_constraintStart_toStartOf="parent"
+                   android:layout_marginStart="24dp"
+                   android:layout_marginTop="16dp"
+                   app:layout_constraintTop_toBottomOf="@+id/circleImageView"/>
+
+        <TextView android:id="@+id/text_like"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="@dimen/_12ssp"
+                  android:textColor="@color/colorBlackTitle"
+                  android:text="1K"
+                  android:fontFamily="@font/poppins_semibold"
+                  app:layout_constraintStart_toEndOf="@+id/image_like"
+                  android:layout_marginStart="5dp"
+                  android:layout_marginTop="16dp"
+                  app:layout_constraintTop_toBottomOf="@+id/circleImageView"/>
+
+
+        <ImageView android:id="@+id/image_comment"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   app:srcCompat="@drawable/ic_my_community_comment"
+                   android:layout_marginStart="28dp"
+                   app:layout_constraintStart_toEndOf="@+id/text_like"
+                   android:layout_marginTop="16dp"
+                   app:layout_constraintTop_toBottomOf="@+id/circleImageView"/>
+
+        <TextView android:id="@+id/text_comment"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="@dimen/_12ssp"
+                  android:textColor="@color/colorBlackTitle"
+                  android:text="175"
+                  android:fontFamily="@font/poppins_semibold"
+                  app:layout_constraintStart_toEndOf="@+id/image_comment"
+                  android:layout_marginStart="5dp"
+                  android:layout_marginTop="16dp"
+                  app:layout_constraintTop_toBottomOf="@+id/circleImageView"/>
+
+
+        <ImageView android:id="@+id/image_share"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   app:srcCompat="@drawable/ic_my_community_share"
+                   android:layout_marginStart="28dp"
+                   app:layout_constraintStart_toEndOf="@+id/text_comment"
+                   android:layout_marginTop="16dp"
+                   app:layout_constraintTop_toBottomOf="@+id/circleImageView"/>
+
+        <TextView android:id="@+id/text_share"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="@dimen/_12ssp"
+                  android:textColor="@color/colorBlackTitle"
+                  android:text="1.2k"
+                  android:fontFamily="@font/poppins_semibold"
+                  app:layout_constraintStart_toEndOf="@+id/image_share"
+                  android:layout_marginTop="16dp"
+                  app:layout_constraintTop_toBottomOf="@+id/circleImageView"
+                  android:layout_marginStart="5dp"/>
+
+        <View
+                android:id="@+id/view_divider_one"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorLightestGrey"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                app:layout_constraintTop_toBottomOf="@+id/text_like" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+                android:id="@+id/text_donated_by"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_10ssp"
+                android:textColor="@color/colorLightGrey"
+                android:text="Donated by"
+                android:fontFamily="@font/poppins_regular"
+                android:layout_marginTop="31dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/text_like" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="15dp"/>
+
+        <TextView android:id="@+id/text_donated_by_2"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:textSize="@dimen/_10ssp"
+                  android:textColor="@color/colorLightGrey"
+                  android:text="Donated By"
+                  android:fontFamily="@font/poppins_regular"
+                  android:visibility="visible"
+                  app:layout_constraintTop_toBottomOf="@id/view_divider_one"
+                  android:layout_marginTop="@dimen/_10sdp"
+                  android:layout_marginStart="@dimen/_8sdp"
+                  android:layout_marginEnd="@dimen/_12sdp"/>
+
+        <LinearLayout
+                android:id="@+id/view_donated_by"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@+id/text_donated_by_2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="@dimen/_31sdp"
+                    android:layout_height="@dimen/_31sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_profile_placeholder"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="@dimen/_31sdp"
+                    android:layout_height="@dimen/_31sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:src="@drawable/ic_profile_placeholder"/>
+
+            <FrameLayout
+                    android:layout_width="@dimen/_31sdp"
+                    android:layout_height="@dimen/_31sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:background="@drawable/circle_active">
+
+                <TextView
+                        android:id="@+id/text_donate_by_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_10ssp"
+                        android:textColor="@android:color/white"
+                        android:text="+212"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/poppins_semibold"
+                />
+            </FrameLayout>
+        </LinearLayout>
+
+        <TextView android:id="@+id/text_donated_by_post"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:textSize="@dimen/_12ssp"
+                  android:textColor="@color/colorBlackTitle"
+                  android:text="Members of the Security Ccil vote on a resolution concerning sexual violence during a Security Council meeting at United Nations headquarters, Tuesday,
+April 23, 2019."
+                  android:fontFamily="@font/poppins_regular"
+                  android:visibility="visible"
+                  app:layout_constraintStart_toStartOf="parent"
+                  android:layout_marginTop="@dimen/_12sdp"
+                  android:layout_marginStart="@dimen/_8sdp"
+                  app:layout_constraintTop_toBottomOf="@+id/view_donated_by"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  android:layout_marginEnd="@dimen/_12sdp"/>
+
+
+        <TextView
+                android:id="@+id/read_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_10ssp"
+                android:textColor="@color/colorAccent"
+                android:text="Read More"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_donated_by_post"
+               />
+
+        <TextView
+                android:id="@+id/text_donate_now"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_12ssp"
+                android:textColor="@color/colorBlackTitle"
+                android:text="@string/donate_now"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_marginTop="14dp"
+                app:layout_constraintTop_toBottomOf="@+id/read_more"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/radioGroup"
+                android:layout_marginEnd="18dp"/>
+
+        <RadioGroup android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/radioGroup"
+                    app:layout_constraintStart_toEndOf="@+id/text_donate_now"
+                    android:layout_marginStart="8dp"
+
+                    app:layout_constraintTop_toBottomOf="@+id/read_more">
+            <RadioButton
+                    android:id="@+id/text_dollor_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_11ssp"
+                    android:textColor="@color/donation_selector_2"
+                    android:background="@drawable/bg_stroke_grey"
+                    android:text="$1"
+                    android:checked="false"
+                    android:button="@drawable/selector_donation"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/text_donate_now"
+                    app:layout_constraintStart_toEndOf="@+id/text_dollor_one"
+            />
+
+            <RadioButton
+                    android:id="@+id/text_dollor_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_11ssp"
+                    android:textColor="@color/donation_selector_2"
+                    android:background="@drawable/bg_stroke_grey"
+                    android:text="$5"
+                    android:button="@null"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:fontFamily="@font/poppins_medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/text_donate_now"/>
+
+
+            <RadioButton
+                    android:id="@+id/text_other_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_11ssp"
+                    android:textColor="@color/donation_selector_2"
+                    android:background="@drawable/bg_stroke_grey"
+                    android:text="Other Amount"
+                    android:textAllCaps="true"
+                    android:button="@drawable/selector_donation"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:fontFamily="@font/poppins_medium"
+                    app:layout_constraintStart_toEndOf="@id/text_dollor_two"
+                    android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/text_donate_now"/>
+
+        </RadioGroup>
+
+        <android.support.design.widget.TextInputLayout
+                android:id="@+id/textinput_amount"
+                style="@style/textInputLayoutColor"
+                android:layout_width="match_parent"
+                android:hint="@string/amount"
+                android:visibility="gone"
+                tools:visibility="visible"
+                app:hintTextAppearance="@style/TextInputHint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_12ssp"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+            <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_amount"
+                    style="@style/textInputEditText"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="$"
+                    android:textSize="@dimen/_14ssp"
+                    android:inputType="numberDecimal"
+                    android:layout_height="wrap_content"/>
+        </android.support.design.widget.TextInputLayout>
+
+
+        <Button android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_inactive"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Pay Now"
+                android:id="@+id/button_pay"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_12sdp"
+                android:textColor="@android:color/white"
+                style="?android:attr/borderlessButtonStyle"
+                app:layout_constraintTop_toBottomOf="@+id/textinput_amount"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

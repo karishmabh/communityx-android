@@ -8,7 +8,6 @@ import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
-import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -16,13 +15,11 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import com.communityx.R;
 import com.communityx.utils.Utils;
 
@@ -72,41 +69,23 @@ public class SignUpStudentInfoFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         initOtpBox();
         viewPassword.setVisibility(View.GONE);
-        editMobile.addTextChangedListener(new TextWatcher() {
-            int keyDel = 0;
+    }
 
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                editMobile.setOnKeyListener(new View.OnKeyListener() {
-
-                    @Override
-                    public boolean onKey(View v, int keyCode, KeyEvent event) {
-
-                        if (keyCode == KeyEvent.KEYCODE_DEL)
-                            keyDel = 1;
-                        return false;
-                    }
-                });
-
-                if (keyDel == 0) {
-                    int len = editMobile.getText().length();
-                    if(len == 3) {
-                        editMobile.setText(editMobile.getText().toString().substring(0,3));
-                        editMobile.setSelection(editMobile.getText().length());
-                    }
-                } else {
-                    keyDel = 0;
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
+    private boolean isDel = false;
+    @OnTextChanged(R.id.edit_mobile)
+    void onMobileNumberChange(CharSequence s){
+        editMobile.setOnKeyListener((v, keyCode, event) -> {
+            isDel = keyCode == KeyEvent.KEYCODE_DEL;
+            return false;
         });
+
+        if (s.length() < 3) {
+            editMobile.setText("+91");
+            editMobile.setSelection(3);
+        } else if (s.length() == 4 && !isDel) {
+            editMobile.setText(s.toString().substring(0,3) + "-" + s.toString().substring(3));
+            editMobile.setSelection(5);
+        }
     }
 
     @OnClick(R.id.card_add_image)
@@ -150,7 +129,8 @@ public class SignUpStudentInfoFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 if(currentEditText.equals(editOtpSix)){
-                    scrollView.post(() -> viewPassword.setVisibility(View.VISIBLE));
+                    viewPassword.setVisibility(View.VISIBLE);
+                    scrollView.post(() -> scrollView.scrollTo(0, scrollView.getHeight()));
                     visibleOtpField(false);
                 }
             }

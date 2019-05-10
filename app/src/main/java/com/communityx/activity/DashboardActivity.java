@@ -1,6 +1,7 @@
 package com.communityx.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import butterknife.OnClick;
 import com.communityx.R;
 import com.communityx.fragments.CommunityFeedFragment;
 import com.communityx.fragments.MyAllFriendsFragment;
+import com.communityx.utils.DialogHelper;
 import com.communityx.utils.Utils;
 
 public class DashboardActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -26,7 +28,14 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
         ButterKnife.bind(this);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        bottomNavigationView.setSelectedItemId(R.id.navigation_friends);
+        bottomNavigationView.setSelectedItemId(R.id.navigation_community);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                DialogHelper.showEventDialog(DashboardActivity.this,"");
+            }
+        },4000);
     }
 
     @Override

@@ -60,12 +60,29 @@
         connections to build your community and Share your work
     </string>
     <string name="my_community">My Community</string>
-    <string name="praise">Praise</string>
+    <string name="praise">All Praise</string>
     <string name="write_something_here">Write something here...</string>
     <string name="submit">Submit</string>
     <string name="your_global_community">Your Global Impact Community</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
->>>>>>> e21ff0eda503b364431553515af290d5dacfd59e
+    <string name="tag_this_post_with_a_cause_or_movement">Tag this post with a cause or movement.</string>
+    <string name="post">Post</string>
+    <string name="create_post">Create Post</string>
+    <string name="report_to_communityx">Report to CommunityX</string>
+    <string name="type_of_disasters">Type of Disasters</string>
+    <string name="type_of_report">Type of Report</string>
+    <string name="enter_location">Enter Location</string>
+    <string name="description">Description</string>
+    <string name="human_disasters">Human Disasters</string>
+    <string name="natural_disasters">Natural Disasters</string>
+    <string name="donate_now">Donate Now</string>
+    <string name="amount">Amount ($)</string>
+    <string name="other_amount">Other Amount</string>
+    <string name="funds_collected_last_donation">funds collected | Last Donation</string>
+
+    <string name="proceed_to_pay">PROCEED TO PAY</string>
+    <string name="pay_now">PAY NOW</string>
+    <string name="select_options_to_pay">Select options to pay</string>
 
 </resources>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp">
+
+    <RadioButton
+            android:id="@+id/radio_saved_card_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:checked="false"/>
+
+    <TextView
+            android:id="@+id/text_debit_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@+id/radio_saved_card_button"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="UNI Debit Card"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/colorBlackTitle"/>
+
+    <LinearLayout
+            android:id="@+id/linear_saved_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@+id/text_debit_card">
+
+        <TextView
+                android:id="@+id/text_card_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9877 **** **** 3021 "
+                android:textSize="@dimen/_10ssp"
+                android:textColor="@color/colorBlackTitle"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_marginStart="@dimen/_30sdp"/>
+
+    <EditText
+            android:id="@+id/edit_cvv_detail"
+            android:layout_width="@dimen/_180sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:background="@drawable/bg_card"
+            app:layout_constraintTop_toBottomOf="@+id/text_card_no"
+            app:layout_constraintStart_toStartOf="@+id/radio_saved_card_button"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:hint="CVV"
+            android:inputType="numberPassword"
+            android:maxLength="3"
+            android:drawableRight="@drawable/ic_payment_method_card"
+            android:textSize="@dimen/_10sdp"
+            android:paddingStart="@dimen/_8sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:fontFamily="@font/poppins_medium"
+            android:textColorHint="@color/colorLightGrey"
+            android:layout_marginTop="@dimen/_10sdp"/>
+
+    <Button
+            android:id="@+id/button_proceed_to_pay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_active"
+            app:layout_constraintTop_toBottomOf="@+id/edit_cvv_detail"
+            app:layout_constraintStart_toStartOf="@+id/edit_cvv_detail"
+            app:layout_constraintEnd_toEndOf="@+id/text_amount"
+            android:text="@string/proceed_to_pay"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_14ssp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginTop="@dimen/_15sdp"/>
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/text_saved_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@+id/text_debit_card"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="$100.00"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:fontFamily="@font/poppins_bold"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:textColor="@color/colorBlackTitle"/>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                             android:layout_height="wrap_content"
+                                             android:paddingBottom="@dimen/_12sdp"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+            android:id="@+id/text_crowdfunding_content"
+            android:layout_width="@dimen/_240sdp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/colorBlackTitle"
+            android:text="Help families in village because of disaster. Donate for them."
+            android:fontFamily="@font/poppins_medium"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12ssp"
+            android:layout_marginTop="@dimen/_18sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.communityx.custom_views.CircularProgress
+            android:id="@+id/progress_circular"
+            android:layout_width="@dimen/_46sdp"
+            android:layout_height="@dimen/_46sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="23dp"
+            app:donut_progress="25"
+            app:donut_circle_starting_degree="270"
+            app:donut_text_size="@dimen/_10sdp"
+            app:donut_text_color="@color/colorBlackTitle"
+            app:donut_finished_color="@color/colorAccent"
+            app:donut_unfinished_color="#AAFFCDA3"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/_12sdp"
+            app:donut_finished_stroke_width="@dimen/_4sdp"
+            app:donut_unfinished_stroke_width="@dimen/_3sdp"
+            app:layout_constraintStart_toEndOf="@+id/text_crowdfunding_content"/>
+
+    <TextView
+            android:id="@+id/text_fund_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="@color/colorAccent"
+            android:text="55,500"
+            android:fontFamily="@font/poppins_medium"
+            app:layout_constraintTop_toBottomOf="@+id/text_crowdfunding_content"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"/>
+
+    <TextView
+            android:id="@+id/text_fund_collected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="@color/colorLightGrey"
+            android:text="@string/funds_collected_last_donation"
+            android:fontFamily="@font/poppins_regular"
+            app:layout_constraintTop_toBottomOf="@+id/text_crowdfunding_content"
+            app:layout_constraintStart_toEndOf="@+id/text_fund_amount" android:layout_marginStart="4dp"/>
+
+    <TextView
+            android:id="@+id/text_fund_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="@color/colorBlackTitle"
+            android:text="May 12 2019"
+            android:fontFamily="@font/poppins_medium"
+            app:layout_constraintTop_toBottomOf="@+id/text_crowdfunding_content"
+            app:layout_constraintStart_toEndOf="@+id/text_fund_collected"
+            android:layout_marginStart="3dp"/>
+
+    <TextView
+            android:id="@+id/text_donate_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/colorBlackTitle"
+            android:text="@string/donate_now"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_marginTop="14dp"
+            app:layout_constraintTop_toBottomOf="@+id/text_fund_amount"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"/>
+
+    <RadioGroup android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                app:layout_constraintTop_toBottomOf="@+id/text_donate_now"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0" android:id="@+id/radioGroup">
+        <RadioButton
+                android:id="@+id/text_dollor_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_11ssp"
+                android:textColor="@color/donation_selector"
+                android:background="@drawable/bg_stroke_grey"
+                android:text="$5"
+                android:button="@drawable/selector_donation"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_12sdp"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/text_donate_now"
+                app:layout_constraintStart_toEndOf="@+id/text_dollor_one"
+                />
+
+        <RadioButton
+                android:id="@+id/text_dollor_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_11ssp"
+                android:textColor="@color/donation_selector"
+                android:background="@drawable/bg_stroke_grey"
+                android:text="$11"
+                android:button="@null"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_12sdp"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:fontFamily="@font/poppins_medium"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/text_donate_now"/>
+
+
+        <RadioButton
+                android:id="@+id/text_other_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_11ssp"
+                android:textColor="@color/donation_selector"
+                android:background="@drawable/bg_stroke_grey"
+                android:text="@string/other_amount"
+                android:textAllCaps="true"
+                android:button="@drawable/selector_donation"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_12sdp"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:fontFamily="@font/poppins_medium"
+                app:layout_constraintStart_toEndOf="@id/text_dollor_two"
+                android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/text_donate_now"/>
+
+    </RadioGroup>
+
+    <android.support.design.widget.TextInputLayout
+            android:id="@+id/textinput_amount"
+            style="@style/textInputLayoutColor"
+            android:layout_width="match_parent"
+            android:hint="@string/amount"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:hintTextAppearance="@style/TextInputHint"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12ssp"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        <android.support.design.widget.TextInputEditText
+                android:id="@+id/edit_amount"
+                style="@style/textInputEditText"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/poppins_medium"
+                tools:text="122"
+                android:inputType="numberDecimal"
+                android:layout_height="wrap_content"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <Button android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:background="@drawable/button_inactive"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Pay Now"
+            android:id="@+id/button_pay"
+            android:textColor="@android:color/white"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintTop_toBottomOf="@+id/textinput_amount"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"/>
+
+</android.support.constraint.ConstraintLayout>
