@@ -11,7 +11,7 @@ import butterknife.ButterKnife;
 import butterknife.OnTextChanged;
 import com.communityx.R;
 import com.communityx.adapters.PraiseAdapter;
-import com.communityx.utils.CustomToolBarUtils;
+import com.communityx.utils.CustomToolBarHelper;
 
 public class PraiseActivity extends AppCompatActivity {
 
@@ -43,9 +43,8 @@ public class PraiseActivity extends AppCompatActivity {
     }
 
     private void setUpToolbar() {
-        CustomToolBarUtils customToolBarUtils = new CustomToolBarUtils(this);
-        customToolBarUtils.setLogoIcon(R.drawable.ic_praise_back_arrow);
+        CustomToolBarHelper customToolBarUtils = new CustomToolBarHelper(this);
         customToolBarUtils.setTitle(R.string.praise);
-        customToolBarUtils.getImageLogo().setOnClickListener(v -> finish());
+        customToolBarUtils.enableBackPress();
     }
 }

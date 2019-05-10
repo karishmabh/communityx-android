@@ -2,7 +2,6 @@ package com.communityx.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
@@ -13,7 +12,7 @@ import com.communityx.fragments.CreateEventFragment;
 import com.communityx.fragments.CreatePostContentFragment;
 import com.communityx.fragments.CrowdFundingFragment;
 import com.communityx.fragments.PostReportingFragment;
-import com.communityx.utils.CustomToolBarUtils;
+import com.communityx.utils.CustomToolBarHelper;
 import com.communityx.utils.Utils;
 
 public class CreatePostActivity extends AppCompatActivity {
@@ -45,15 +44,9 @@ public class CreatePostActivity extends AppCompatActivity {
     }
 
     private void setUpToobar() {
-        CustomToolBarUtils customToolBarUtils = new CustomToolBarUtils(this);
-        customToolBarUtils.setLogoIcon(R.drawable.ic_praise_back_arrow);
+        CustomToolBarHelper customToolBarUtils = new CustomToolBarHelper(this);
         customToolBarUtils.setTitle(R.string.create_post);
-        customToolBarUtils.getImageLogo().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        customToolBarUtils.enableBackPress();
     }
 
     @OnClick({R.id.image_content, R.id.text_content})
@@ -86,7 +79,6 @@ public class CreatePostActivity extends AppCompatActivity {
     }
 
     private void makeActiveText(TextView activeText, ImageView activeImage, int imgRes) {
-
         imageContent.setImageResource(R.drawable.ic_create_post_content_deselect);
         textContent.setTextColor(getResources().getColor(R.color.colorLightGrey));
         imageReporting.setImageResource(R.drawable.ic_create_post_reporting_deselect);

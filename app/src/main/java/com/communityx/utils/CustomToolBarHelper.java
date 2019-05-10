@@ -11,7 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.communityx.R;
 
-public class CustomToolBarUtils {
+public class CustomToolBarHelper {
 
     @BindView(R.id.imageView)
     ImageView imageLogo;
@@ -19,14 +19,16 @@ public class CustomToolBarUtils {
     ImageView imageTail;
     @BindView(R.id.text_title)
     TextView textTitle;
+    private Activity activity;
 
-    public CustomToolBarUtils(@NonNull View view) {
+    public CustomToolBarHelper(@NonNull View view) {
         ButterKnife.bind(this,view);
     }
 
-    public CustomToolBarUtils(@NonNull Activity activity) {
+    public CustomToolBarHelper(@NonNull Activity activity) {
         View view = activity.findViewById(android.R.id.content);
         ButterKnife.bind(this,view);
+        this.activity = activity;
     }
 
     public void setTitle(String title){
@@ -50,7 +52,13 @@ public class CustomToolBarUtils {
         imageTail.setImageResource(resId);
     }
 
-    public ImageView getImageLogo() {
-        return imageLogo;
+    public void enableBackPress(){
+        setLogoIcon(R.drawable.ic_praise_back_arrow);
+        goBack();
+    }
+
+    private void goBack(){
+        if(activity == null) return;
+        imageLogo.setOnClickListener(v -> activity.finish());
     }
 }

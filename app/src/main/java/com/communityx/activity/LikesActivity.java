@@ -4,12 +4,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.communityx.R;
 import com.communityx.adapters.LikesAdapter;
-import com.communityx.utils.CustomToolBarUtils;
+import com.communityx.utils.CustomToolBarHelper;
 
 import java.util.ArrayList;
 
@@ -36,10 +35,9 @@ public class LikesActivity extends AppCompatActivity {
     }
 
   private void setupToolbar() {
-      CustomToolBarUtils customToolBarUtils = new CustomToolBarUtils(this);
+      CustomToolBarHelper customToolBarUtils = new CustomToolBarHelper(this);
       customToolBarUtils.setTitle("Likes(1k)");
-      customToolBarUtils.setLogoIcon(R.drawable.ic_praise_back_arrow);
-      customToolBarUtils.getImageLogo().setOnClickListener(v -> finish());
+      customToolBarUtils.enableBackPress();
     }
 }
 
