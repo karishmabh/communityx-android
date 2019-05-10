@@ -9,7 +9,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.communityx.R;
+import com.communityx.fragments.CreateEventFragment;
 import com.communityx.fragments.CreatePostContentFragment;
+import com.communityx.fragments.CrowdFundingFragment;
 import com.communityx.fragments.PostReportingFragment;
 import com.communityx.utils.CustomToolBarUtils;
 import com.communityx.utils.Utils;
@@ -68,7 +70,14 @@ public class CreatePostActivity extends AppCompatActivity {
 
     @OnClick({R.id.text_crowdfunding, R.id.image_crowdfunding})
     void postCrowdfundingClicked() {
+        Utils.replaceFragment(this, new CrowdFundingFragment(), false, "fragment_post");
         makeActiveText(textCrowdfunding,imageCrowdfunding,R.drawable.ic_create_post_crowdfunding_select);
+    }
+
+    @OnClick({R.id.text_create_event, R.id.image_create_event})
+    void createEventClicked() {
+        Utils.replaceFragment(this, new CreateEventFragment(), false, "fragment_post");
+        makeActiveText(textEvent,imageEvent,R.drawable.ic_create_post_event_select);
     }
 
     @OnClick({R.id.text_create_event, R.id.image_create_event})

@@ -6,8 +6,9 @@
         android:layout_height="match_parent"
         tools:context=".activity.CrowdfundingDetailActivity">
 
-    <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
-                                                 android:layout_height="match_parent">
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
         <ImageView
@@ -349,7 +350,7 @@ April 23, 2019."
                 android:fontFamily="@font/poppins_medium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_donated_by_post"
-               />
+        />
 
         <TextView
                 android:id="@+id/text_donate_now"
