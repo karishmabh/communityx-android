@@ -12,12 +12,12 @@ import android.view.*;
 import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.OnTouch;
 import com.communityx.R;
 import com.communityx.activity.CreatePostActivity;
 import com.communityx.adapters.CommunityFeedAdapter;
-import com.communityx.utils.CustomToolBarUtils;
+import com.communityx.utils.CustomToolBarHelper;
+import org.jetbrains.annotations.NotNull;
 
 public class CommunityFeedFragment extends Fragment {
 
@@ -26,29 +26,23 @@ public class CommunityFeedFragment extends Fragment {
     @BindView(R.id.edit_search)
     EditText editPost;
 
-    private CommunityFeedAdapter communityFeedAdapter;
-    private CustomToolBarUtils customToolBarUtils;
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_community_feed, container, false);
         ButterKnife.bind(this,view);
-        customToolBarUtils = new CustomToolBarUtils(view);
+        setUpToolbar(view);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         editPost.setHint(R.string.write_something_here);
         editPost.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
-        customToolBarUtils.setTitle(R.string.my_community);
-        customToolBarUtils.setImageTail(R.drawable.ic_my_community_nav_filter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        communityFeedAdapter = new CommunityFeedAdapter(getContext());
+        CommunityFeedAdapter communityFeedAdapter = new CommunityFeedAdapter(getContext());
         recyclerView.setAdapter(communityFeedAdapter);
     }
 
@@ -59,5 +53,11 @@ public class CommunityFeedFragment extends Fragment {
             return true;
         }
         return false;
+    }
+
+    private void setUpToolbar(View view){
+        CustomToolBarHelper toolbarHelper = new CustomToolBarHelper(view);
+        toolbarHelper.setTitle(R.string.my_community);
+        toolbarHelper.setImageTail(R.drawable.ic_my_community_nav_filter);
     }
 }

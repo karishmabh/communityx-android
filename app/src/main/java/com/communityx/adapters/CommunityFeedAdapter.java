@@ -16,6 +16,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import com.communityx.R;
 import com.communityx.activity.CrowdfundingDetailActivity;
 import com.communityx.activity.LikesActivity;
@@ -45,8 +46,6 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
         if (i == 5) {
             holder.viewDontation.setVisibility(View.VISIBLE);
             holder.textPost.setVisibility(View.GONE);
-            holder.flexboxLayout.setVisibility(View.GONE);
-
             holder.itemView.setOnClickListener(v -> mContext.startActivity(new Intent(mContext, CrowdfundingDetailActivity.class)));
         }
     }
@@ -94,6 +93,14 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
         @OnClick({R.id.image_like,R.id.text_like})
         void tappedLike(){
             mContext.startActivity(new Intent(mContext, LikesActivity.class));
+        }
+
+        @OnTextChanged(R.id.edit_amount)
+        void amountTypng(CharSequence s){
+            if(s.length() < 1){
+                editAmount.setText("$");
+                editAmount.setSelection(1);
+            }
         }
 
         private void radioListener() {
