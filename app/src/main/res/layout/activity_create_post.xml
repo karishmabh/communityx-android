@@ -5,13 +5,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#faf8f8"
+        android:background="@color/colorWhite_background"
         tools:context=".activity.CreatePostActivity">
 
- <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
-                                              android:layout_height="match_parent"
-                                              android:paddingBottom="@dimen/_8sdp">
-     <include android:id="@+id/view_too_bar" layout="@layout/toolbar"/>
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/_8sdp">
+
+        <include android:id="@+id/view_too_bar" layout="@layout/toolbar"/>
 
         <FrameLayout
                 android:id="@+id/frame_root"
@@ -27,21 +29,21 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_create_post_content_deselect"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_14sdp"
                 app:layout_constraintTop_toBottomOf="@+id/frame_root"/>
 
         <TextView
                 android:id="@+id/text_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Posting Content"
+                android:text="@string/posting_content"
                 android:textSize="@dimen/_12ssp"
                 android:fontFamily="@font/poppins_medium"
                 android:textColorHint="@color/colorLightGrey"
                 app:layout_constraintStart_toEndOf="@+id/image_content"
-                android:layout_marginStart="9dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginStart="@dimen/_9sdp"
+                android:layout_marginTop="@dimen/_14sdp"
                 app:layout_constraintTop_toBottomOf="@+id/frame_root"/>
 
         <View android:layout_width="match_parent"
@@ -50,10 +52,10 @@
               android:id="@+id/view_divider_one"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintEnd_toEndOf="parent"
-              android:layout_marginTop="14dp"
+              android:layout_marginTop="@dimen/_14sdp"
               app:layout_constraintTop_toBottomOf="@+id/image_content"
-              android:layout_marginStart="16dp"
-              android:layout_marginEnd="16dp"/>
+              android:layout_marginStart="@dimen/_16sdp"
+              android:layout_marginEnd="@dimen/_16sdp"/>
 
         <ImageView
                 android:id="@+id/image_reporting"
@@ -61,21 +63,21 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_create_post_reporting_deselect"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_14sdp"
                 app:layout_constraintTop_toBottomOf="@+id/view_divider_one"/>
 
         <TextView
                 android:id="@+id/text_reporting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reporting"
+                android:text="@string/reporting"
                 android:textSize="@dimen/_12ssp"
                 android:fontFamily="@font/poppins_medium"
                 android:textColorHint="@color/colorLightGrey"
                 app:layout_constraintStart_toEndOf="@+id/image_reporting"
-                android:layout_marginStart="9dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginStart="@dimen/_9sdp"
+                android:layout_marginTop="@dimen/_14sdp"
                 app:layout_constraintTop_toBottomOf="@+id/view_divider_one"/>
 
         <View android:layout_width="match_parent"
@@ -84,10 +86,10 @@
               android:background="@color/colorLightestGrey"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintEnd_toEndOf="parent"
-              android:layout_marginTop="14dp"
+              android:layout_marginTop="@dimen/_14sdp"
               app:layout_constraintTop_toBottomOf="@+id/image_reporting"
-              android:layout_marginStart="16dp"
-              android:layout_marginEnd="16dp"/>
+              android:layout_marginStart="@dimen/_16sdp"
+              android:layout_marginEnd="@dimen/_16sdp"/>
 
         <ImageView
                 android:id="@+id/image_crowdfunding"
@@ -95,21 +97,21 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_create_post_crowdfunding_deselect"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_14sdp"
                 app:layout_constraintTop_toBottomOf="@+id/view_divider_two"/>
 
         <TextView
                 android:id="@+id/text_crowdfunding"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Crowdfunding "
+                android:text="@string/crowdfunding"
                 android:textSize="@dimen/_12ssp"
                 android:fontFamily="@font/poppins_medium"
                 android:textColorHint="@color/colorLightGrey"
                 app:layout_constraintStart_toEndOf="@+id/image_crowdfunding"
-                android:layout_marginStart="9dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginStart="@dimen/_9sdp"
+                android:layout_marginTop="@dimen/_14sdp"
                 app:layout_constraintTop_toBottomOf="@+id/view_divider_two"/>
 
         <View android:layout_width="match_parent"
@@ -118,10 +120,10 @@
               android:background="@color/colorLightestGrey"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintEnd_toEndOf="parent"
-              android:layout_marginTop="14dp"
+              android:layout_marginTop="@dimen/_14sdp"
               app:layout_constraintTop_toBottomOf="@+id/image_crowdfunding"
-              android:layout_marginStart="16dp"
-              android:layout_marginEnd="16dp"/>
+              android:layout_marginStart="@dimen/_16sdp"
+              android:layout_marginEnd="@dimen/_16sdp"/>
 
         <ImageView
                 android:id="@+id/image_create_event"
@@ -137,13 +139,13 @@
                 android:id="@+id/text_create_event"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Create Event "
+                android:text="@string/create_event"
                 android:textSize="@dimen/_12ssp"
                 android:fontFamily="@font/poppins_medium"
                 android:textColorHint="@color/colorLightGrey"
                 app:layout_constraintStart_toEndOf="@+id/image_create_event"
-                android:layout_marginStart="9dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginStart="@dimen/_9sdp"
+                android:layout_marginTop="@dimen/_14sdp"
                 app:layout_constraintTop_toBottomOf="@+id/view_divider_three"/>
 
         <View android:layout_width="match_parent"
@@ -152,11 +154,10 @@
               android:background="@color/colorLightestGrey"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintEnd_toEndOf="parent"
-              android:layout_marginTop="14dp"
+              android:layout_marginTop="@dimen/_14sdp"
               android:visibility="gone"
               app:layout_constraintTop_toBottomOf="@+id/image_create_event"
-              android:layout_marginStart="16dp"
-              android:layout_marginEnd="16dp"/>
+              android:layout_marginStart="@dimen/_16sdp"
+              android:layout_marginEnd="@dimen/_16sdp"/>
     </android.support.constraint.ConstraintLayout>
-
 </ScrollView>
