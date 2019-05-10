@@ -36,6 +36,23 @@ public class Utils {
         datePickerDialog.show();
     }
 
+   /* public static String convertedDate(String givenTime) {
+        String initialPattern = "MM-dd-yyyy";
+        String requiredPattern = "h:mm a";
+        String outputDate = "";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(initialPattern);
+        Date date = null;
+        try {
+            date = dateFormat.parse(givenTime);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(requiredPattern);
+            outputDate = simpleDateFormat.format(date);
+            return outputDate;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return outputDate;
+    }*/
+
     public static void replaceFragment(AppCompatActivity activity, Fragment fragment, boolean addToStack, String tag){
         if(activity == null) return;
 
