@@ -92,5 +92,7 @@
     <string name="end_date_time"><![CDATA[End Date & Time]]></string>
     <string name="add_location">Add Location</string>
     <string name="event_detail">Event Detail</string>
+    <string name="thanks_to_your_payment">Thanks to your payment.</string>
+    <string name="you_donated">You donated</string>
 
 </resources>

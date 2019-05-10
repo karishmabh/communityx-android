@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_170sdp">
+
+    <TextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/colorBlackTitle"
+            android:text="Successfully Donated ! "
+            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginTop="40dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_dialog"
+            android:layout_marginStart="17dp"/>
+
+    <TextView android:id="@+id/text_1"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="@dimen/_12ssp"
+              android:textColor="@color/colorBlackTitle"
+              android:text="@string/you_donated"
+              android:layout_marginTop="@dimen/_4sdp"
+              android:fontFamily="@font/poppins_regular"
+              app:layout_constraintTop_toBottomOf="@+id/text_title"
+              app:layout_constraintStart_toEndOf="@+id/image_dialog"
+              android:layout_marginStart="17dp"/>
+
+    <TextView android:id="@+id/text_2"
+              android:layout_width="@dimen/_200sdp"
+              android:layout_height="wrap_content"
+              android:textSize="@dimen/_12ssp"
+              android:textColor="@color/colorBlackTitle"
+              android:text="@string/thanks_to_your_payment"
+              android:fontFamily="@font/poppins_regular"
+              app:layout_constraintStart_toEndOf="@+id/image_dialog"
+              android:layout_marginStart="16dp"
+              app:layout_constraintTop_toBottomOf="@+id/text_amount"/>
+
+    <TextView android:id="@+id/text_amount"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="@dimen/_12ssp"
+              android:textColor="@color/colorAccent"
+              android:text="$100.0"
+              android:fontFamily="@font/poppins_semibold"
+              app:layout_constraintStart_toEndOf="@+id/text_1"
+              android:layout_marginStart="@dimen/_4sdp"
+              android:layout_marginTop="@dimen/_4sdp"
+              app:layout_constraintTop_toBottomOf="@+id/text_title"/>
+
+    <ImageView
+            android:id="@+id/image_cross"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_posting_content_image_cross"
+            android:padding="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp"/>
+
+    <Button android:layout_width="@dimen/_178sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:background="@drawable/button_active"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Back to My Community"
+            android:id="@+id/button_yes"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_10ssp"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_marginTop="@dimen/_14sdp"
+            app:layout_constraintTop_toBottomOf="@+id/text_2"
+            app:layout_constraintStart_toEndOf="@+id/image_dialog"
+            android:layout_marginStart="17dp"/>
+
+    <ImageView
+            android:id="@+id/image_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_successful_donated_donate"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="45dp"
+            app:layout_constraintStart_toStartOf="parent"/>
+</android.support.constraint.ConstraintLayout>
