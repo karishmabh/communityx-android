@@ -3,6 +3,10 @@ package com.communityx.utils;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import com.communityx.R;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 
 public class Utils {
@@ -47,5 +52,12 @@ public class Utils {
     public static void enableButton(@NonNull Button button, boolean enable){
         button.setAlpha(enable ? 1.0f : 0.5f);
         button.setClickable(enable);
+    }
+
+    public static Uri getImageUri(Context mContext, Bitmap photo) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        photo.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(mContext.getContentResolver(), photo, "", null);
+        return Uri.parse(path);
     }
 }
