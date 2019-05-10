@@ -16,8 +16,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import com.communityx.R;
 
+<<<<<<< HEAD
 import java.io.ByteArrayOutputStream;
+=======
 import java.text.SimpleDateFormat;
+>>>>>>> dev
 import java.util.Calendar;
 import java.util.Date;
 

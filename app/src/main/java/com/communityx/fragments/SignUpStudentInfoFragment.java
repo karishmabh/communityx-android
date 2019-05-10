@@ -1,10 +1,15 @@
 package com.communityx.fragments;
 
+import android.Manifest;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
@@ -21,9 +26,20 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import com.communityx.R;
+import com.communityx.utils.AppConstant;
+import com.communityx.utils.DialogHelper;
+import com.communityx.utils.PermissionHelper;
 import com.communityx.utils.Utils;
 
-public class SignUpStudentInfoFragment extends Fragment {
+import java.io.IOException;
+
+import static android.app.Activity.RESULT_OK;
+
+public class SignUpStudentInfoFragment extends Fragment implements AppConstant {
+
+    private static String[] permissions = { Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private Bitmap mBitmap;
+    private Uri mSelectedImage;
 
     @BindView(R.id.view_otp)
     LinearLayout viewOtpBox;
@@ -55,12 +71,21 @@ public class SignUpStudentInfoFragment extends Fragment {
     TextView textResendOtp;
     @BindView(R.id.edit_birthday)
     TextInputEditText editBirthDate;
+    @BindView(R.id.image_profile)
+    ImageView imageProfile;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sign_up_student_info, null);
         ButterKnife.bind(this, view);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PermissionHelper permission = new PermissionHelper(getActivity());
+            if (!permission.checkPermission(permissions))
+                requestPermissions(permissions, REQUEST_PERMISSION_CODE);
+        }
+
         return view;
     }
 
@@ -88,7 +113,12 @@ public class SignUpStudentInfoFragment extends Fragment {
         }
     }
 
-    @OnClick(R.id.card_add_image)
+    /*@OnClick(R.id.card_add_image)
+    void chooseImage() {
+        showImageChooserDialog();
+    }*/
+
+    @OnClick(R.id.image_profile)
     void chooseImage() {
         showImageChooserDialog();
     }
@@ -138,13 +168,50 @@ public class SignUpStudentInfoFragment extends Fragment {
     }
 
     private void showImageChooserDialog() {
-        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_image_chooser, null);
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
-        bottomSheetDialog.setContentView(dialogView);
-        bottomSheetDialog.show();
+        DialogHelper.selectImage(getActivity());
+    }
 
-        View layoutCamera = dialogView.findViewById(R.id.layout_camera);
-        View layoutGallery = dialogView.findViewById(R.id.layout_gallery);
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case PICK_FROM_CAMERA:
+                    Bundle extras = data.getExtras();
+                    uploadImageFromCamera(extras);
+                    break;
+                case PICK_FROM_GALLERY:
+                    Uri selectedImage = data.getData();
+                    imageProfile.setImageURI(selectedImage);
+                    /*mSelectedImage = data.getData();
+                    uploadImageFromGallery(mSelectedImage);*/
+                    break;
+            }
+        }
+    }
+
+    private void uploadImageFromCamera(Bundle extras) {
+        try {
+            if (extras != null) {
+                mBitmap = (Bitmap) extras.get("data");
+                mSelectedImage = Utils.getImageUri(getActivity(), mBitmap);
+                imageProfile.setImageBitmap(mBitmap);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void uploadImageFromGallery(Uri selectedImage) {
+        try {
+            mBitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+            imageProfile.setImageBitmap(mBitmap);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //TODO: HARD CODED STRING

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_margin="@dimen/_10sdp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image_circular_view"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:src="@drawable/ic_profile_placeholder"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+            android:id="@+id/text_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@+id/image_circular_view"
+            android:text="Bonnie Baker"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:textColor="@color/colorBlackTitle"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/text_name"
+            app:layout_constraintStart_toStartOf="@+id/text_name"
+            android:text="College Student,New York"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="@color/colorLightGrey" android:id="@+id/textView"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$100.00"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="@dimen/_16ssp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/colorBlackTitle" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"/>
+
+    <View android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginTop="@dimen/_10sdp"
+          app:layout_constraintTop_toBottomOf="@+id/image_circular_view"
+          android:background="@color/colorLightestGrey"/>
+
+</android.support.constraint.ConstraintLayout>
