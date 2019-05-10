@@ -14,8 +14,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlackTitle"
             android:fontFamily="@font/poppins_semibold"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_22sdp"
+            android:layout_marginTop="@dimen/_18sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 

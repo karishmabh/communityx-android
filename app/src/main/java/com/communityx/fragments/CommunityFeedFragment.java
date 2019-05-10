@@ -43,6 +43,7 @@ public class CommunityFeedFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         editPost.setHint(R.string.write_something_here);
+        editPost.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
         customToolBarUtils.setTitle(R.string.my_community);
         customToolBarUtils.setImageTail(R.drawable.ic_my_community_nav_filter);
 

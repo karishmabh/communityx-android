@@ -54,7 +54,6 @@ public class PaymentActivity extends AppCompatActivity implements PaymentAdapter
         setAdapter(mCardList);
         setDebitCard();
         setCreditCard();
-
     }
 
     private void setAdapter(ArrayList<String> cardList) {
@@ -79,7 +78,6 @@ public class PaymentActivity extends AppCompatActivity implements PaymentAdapter
             paymentAdapter.notifyDataSetChanged();
             makeActive(isChecked,textCreditCard);
             showPannel(isChecked,linearCreditCard,textCreditAmount);
-
         });
     }
 
@@ -88,8 +86,6 @@ public class PaymentActivity extends AppCompatActivity implements PaymentAdapter
                 : Typeface.createFromAsset(getAssets(),"fonts/poppins_regular.ttf"));
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 isChecked ? getResources().getDimension(R.dimen._16ssp) : getResources().getDimension(R.dimen._14ssp) );
-
-
     }
 
     @Override
