@@ -10,6 +10,7 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorGreyWhite">#fafafa</color>
     <color name="colorBackground">#f8f8f8</color>
+    <color name="colorBackgroundCard">#f6f6f6</color>
     <color name="colorGreen">#28ae54</color>
     <color name="colorLightestPrimary">#fff8f1</color>
     <color name="colorWhite_background">#faf8f8</color>

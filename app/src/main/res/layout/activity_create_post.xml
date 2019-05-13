@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -13,7 +14,9 @@
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/_8sdp">
 
-        <include android:id="@+id/view_too_bar" layout="@layout/toolbar"/>
+        <include
+                android:id="@+id/view_too_bar"
+                layout="@layout/toolbar"/>
 
         <FrameLayout
                 android:id="@+id/frame_root"
@@ -46,16 +49,17 @@
                 android:layout_marginTop="@dimen/_14sdp"
                 app:layout_constraintTop_toBottomOf="@+id/frame_root"/>
 
-        <View android:layout_width="match_parent"
-              android:layout_height="0.5dp"
-              android:background="@color/colorLightestGrey"
-              android:id="@+id/view_divider_one"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"
-              android:layout_marginTop="@dimen/_14sdp"
-              app:layout_constraintTop_toBottomOf="@+id/image_content"
-              android:layout_marginStart="@dimen/_16sdp"
-              android:layout_marginEnd="@dimen/_16sdp"/>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorLightestGrey"
+                android:id="@+id/view_divider_one"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/_14sdp"
+                app:layout_constraintTop_toBottomOf="@+id/image_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"/>
 
         <ImageView
                 android:id="@+id/image_reporting"
@@ -80,16 +84,17 @@
                 android:layout_marginTop="@dimen/_14sdp"
                 app:layout_constraintTop_toBottomOf="@+id/view_divider_one"/>
 
-        <View android:layout_width="match_parent"
-              android:layout_height="0.5dp"
-              android:id="@+id/view_divider_two"
-              android:background="@color/colorLightestGrey"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"
-              android:layout_marginTop="@dimen/_14sdp"
-              app:layout_constraintTop_toBottomOf="@+id/image_reporting"
-              android:layout_marginStart="@dimen/_16sdp"
-              android:layout_marginEnd="@dimen/_16sdp"/>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:id="@+id/view_divider_two"
+                android:background="@color/colorLightestGrey"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/_14sdp"
+                app:layout_constraintTop_toBottomOf="@+id/image_reporting"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"/>
 
         <ImageView
                 android:id="@+id/image_crowdfunding"
@@ -114,16 +119,17 @@
                 android:layout_marginTop="@dimen/_14sdp"
                 app:layout_constraintTop_toBottomOf="@+id/view_divider_two"/>
 
-        <View android:layout_width="match_parent"
-              android:layout_height="0.5dp"
-              android:id="@+id/view_divider_three"
-              android:background="@color/colorLightestGrey"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"
-              android:layout_marginTop="@dimen/_14sdp"
-              app:layout_constraintTop_toBottomOf="@+id/image_crowdfunding"
-              android:layout_marginStart="@dimen/_16sdp"
-              android:layout_marginEnd="@dimen/_16sdp"/>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:id="@+id/view_divider_three"
+                android:background="@color/colorLightestGrey"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/_14sdp"
+                app:layout_constraintTop_toBottomOf="@+id/image_crowdfunding"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"/>
 
         <ImageView
                 android:id="@+id/image_create_event"
@@ -148,16 +154,17 @@
                 android:layout_marginTop="@dimen/_14sdp"
                 app:layout_constraintTop_toBottomOf="@+id/view_divider_three"/>
 
-        <View android:layout_width="match_parent"
-              android:layout_height="0.5dp"
-              android:id="@+id/view_divider_four"
-              android:background="@color/colorLightestGrey"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"
-              android:layout_marginTop="@dimen/_14sdp"
-              android:visibility="gone"
-              app:layout_constraintTop_toBottomOf="@+id/image_create_event"
-              android:layout_marginStart="@dimen/_16sdp"
-              android:layout_marginEnd="@dimen/_16sdp"/>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:id="@+id/view_divider_four"
+                android:background="@color/colorLightestGrey"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/image_create_event"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"/>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

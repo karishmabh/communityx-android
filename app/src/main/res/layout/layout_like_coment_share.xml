@@ -1,6 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <ImageView android:id="@+id/image_like"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               app:srcCompat="@drawable/ic_my_community_like_select"
+               app:layout_constraintStart_toStartOf="parent"
+               android:layout_marginStart="24dp"
+               android:layout_marginTop="14dp"
+               app:layout_constraintTop_toBottomOf="@+id/view_donation"/>
+
+    <TextView android:id="@+id/text_like"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="@dimen/_12ssp"
+              android:textColor="@color/colorBlackTitle"
+              android:text="1K"
+              android:fontFamily="@font/poppins_semibold"
+              app:layout_constraintStart_toEndOf="@+id/image_like"
+              android:layout_marginStart="5dp"
+              android:layout_marginTop="14dp"
+              app:layout_constraintTop_toBottomOf="@+id/view_donation"/>
+
+
+    <ImageView android:id="@+id/image_comment"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               app:srcCompat="@drawable/ic_my_community_comment"
+               android:layout_marginStart="28dp"
+               app:layout_constraintStart_toEndOf="@+id/text_like"
+               android:layout_marginTop="14dp"
+               app:layout_constraintTop_toBottomOf="@+id/view_donation"/>
+
+    <TextView android:id="@+id/text_comment"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="@dimen/_12ssp"
+              android:textColor="@color/colorBlackTitle"
+              android:text="175"
+              android:fontFamily="@font/poppins_semibold"
+              app:layout_constraintStart_toEndOf="@+id/image_comment"
+              android:layout_marginStart="5dp"
+              android:layout_marginTop="14dp"
+              app:layout_constraintTop_toBottomOf="@+id/view_donation"/>
+
+
+    <ImageView android:id="@+id/image_share"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               app:srcCompat="@drawable/ic_my_community_share"
+               android:layout_marginStart="28dp"
+               app:layout_constraintStart_toEndOf="@+id/text_comment"
+               android:layout_marginTop="14dp"
+               app:layout_constraintTop_toBottomOf="@+id/view_donation"/>
+
+    <TextView android:id="@+id/text_share"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="@dimen/_12ssp"
+              android:textColor="@color/colorBlackTitle"
+              android:text="1.2k"
+              android:fontFamily="@font/poppins_semibold"
+              app:layout_constraintStart_toEndOf="@+id/image_share"
+              android:layout_marginTop="14dp"
+              app:layout_constraintTop_toBottomOf="@+id/view_donation"
+              android:layout_marginStart="5dp"/>
+
+
+    <Button android:layout_width="wrap_content"
+            android:layout_height="@dimen/_25sdp"
+            android:drawablePadding="@dimen/_4sdp"
+            android:text="interested"
+            android:paddingEnd="@dimen/_6sdp"
+            android:paddingStart="@dimen/_6sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_11sdp"
+            android:background="@drawable/button_active"
+            app:layout_constraintStart_toEndOf="@+id/text_share"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="14dp"
+            app:layout_constraintTop_toBottomOf="@+id/view_donation"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="11dp"/>
+</android.support.constraint.ConstraintLayout>
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
