@@ -43,6 +43,9 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
         if (i == POST_EVENT_FEED) {
             return new ViewHolderEventFeed(inflater.inflate(R.layout.item_event_feed, viewGroup, false));
         }
+        else if (i == POST_CROWFUNDING_FEED) {
+            return new ViewHolderCrowdfundingFeed(inflater.inflate(R.layout.item_crowdfunding_feed, viewGroup, false));
+        }
         return new ViewHolderPostFeed(inflater.inflate(R.layout.item_community_feeds, viewGroup, false));
     }
 
@@ -51,11 +54,6 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
         if (viewHolder instanceof ViewHolderPostFeed) {
             ViewHolderPostFeed holder = (ViewHolderPostFeed) viewHolder;
             holder.viewPostMedia.setVisibility(i % 3 == 0 && i != 0 ? View.VISIBLE : View.GONE);
-            if (i == 5) {
-                holder.viewDontation.setVisibility(View.VISIBLE);
-                holder.textPost.setVisibility(View.GONE);
-                holder.itemView.setOnClickListener(v -> mContext.startActivity(new Intent(mContext, CrowdfundingDetailActivity.class)));
-            }
         }
     }
 
@@ -66,21 +64,59 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 4) {
-            return POST_EVENT_FEED;
-        }
-        return POST_FEED;
+        if (position == 4) return POST_EVENT_FEED;
+        else if(position == 5) return POST_CROWFUNDING_FEED;
+        else return POST_FEED;
     }
 
-    class ViewHolderPostFeed extends RecyclerView.ViewHolder {
-        @BindView(R.id.view_post_media)
-        View viewPostMedia;
-        @BindView(R.id.view_donation)
-        View viewDontation;
-        @BindView(R.id.text_post)
-        TextView textPost;
+    class BaseFeedViewHolder extends RecyclerView.ViewHolder{
+
         @BindView(R.id.flexboxLayout2)
         FlexboxLayout flexboxLayout;
+
+        public BaseFeedViewHolder(@NonNull View itemView) {
+            super(itemView);
+            ButterKnife.bind(this,itemView);
+        }
+
+        @OnClick({R.id.image_comment,R.id.text_comment})
+        void praisedClicked(){
+            mContext.startActivity(new Intent(mContext, PraiseActivity.class));
+        }
+
+        @OnClick({R.id.image_like,R.id.text_like})
+        void tappedLike(){
+            mContext.startActivity(new Intent(mContext, LikesActivity.class));
+        }
+    }
+
+    class ViewHolderPostFeed extends BaseFeedViewHolder{
+
+        @BindView(R.id.view_post_media)
+        View viewPostMedia;
+        @BindView(R.id.text_post)
+        TextView textPost;
+
+        public ViewHolderPostFeed(@NonNull View itemView) {
+            super(itemView);
+            ButterKnife.bind(this,itemView);
+        }
+    }
+
+    class ViewHolderEventFeed extends BaseFeedViewHolder {
+
+        @BindView(R.id.button_interested)
+        Button buttonInterested;
+
+        public ViewHolderEventFeed(@NonNull View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+            buttonInterested.setVisibility(View.VISIBLE);
+        }
+    }
+
+    class ViewHolderCrowdfundingFeed extends BaseFeedViewHolder {
+
         @BindView((R.id.edit_amount))
         TextInputEditText editAmount;
         @BindView(R.id.radioGroup)
@@ -96,20 +132,10 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
         @BindView(R.id.button_pay)
         Button buttonPay;
 
-        public ViewHolderPostFeed(@NonNull View itemView) {
+        public ViewHolderCrowdfundingFeed(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
             radioListener();
-        }
-
-        @OnClick({R.id.image_comment,R.id.text_comment})
-        void praisedClicked(){
-            mContext.startActivity(new Intent(mContext, PraiseActivity.class));
-        }
-
-        @OnClick({R.id.image_like,R.id.text_like})
-        void tappedLike(){
-            mContext.startActivity(new Intent(mContext, LikesActivity.class));
         }
 
         @OnTextChanged(R.id.edit_amount)
@@ -136,14 +162,6 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
                 if(isChecked) buttonPay.setBackgroundResource(R.drawable.button_active);
                 radioOtherAmount.setBackgroundResource(isChecked ? R.drawable.bg_stroke_active : R.drawable.bg_stroke_grey);
             });
-        }
-    }
-
-    class ViewHolderEventFeed extends RecyclerView.ViewHolder {
-
-        public ViewHolderEventFeed(@NonNull View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
         }
     }
 }
