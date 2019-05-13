@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="1dp"
+        app:cardElevation="2dp"
+        android:layout_height="wrap_content">
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:src="@drawable/ic_profile_placeholder"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="15dp"
+            android:id="@+id/image_user"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="@dimen/_14ssp"
+              android:textColor="@color/colorBlackTitle"
+              android:text="Bella Oliver"
+              android:fontFamily="@font/poppins_semibold"
+              app:layout_constraintTop_toTopOf="parent"
+              android:layout_marginTop="16dp"
+              app:layout_constraintStart_toEndOf="@+id/image_user"
+              android:layout_marginStart="9dp"
+              android:id="@+id/text_name"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="@dimen/_10ssp"
+              android:textColor="@color/colorLightGrey"
+              android:text="College Student, New York"
+              android:fontFamily="@font/poppins_regular"
+              app:layout_constraintTop_toBottomOf="@+id/text_name"
+              app:layout_constraintStart_toEndOf="@+id/image_user"
+              android:layout_marginStart="9dp"
+              android:id="@+id/text_location"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="@dimen/_10ssp"
+              android:textColor="@color/colorLightGrey"
+              android:text="18m"
+              android:fontFamily="@font/poppins_regular"
+              android:id="@+id/text_time"
+              android:layout_marginTop="16dp"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              android:layout_marginEnd="16dp"/>
+
+    <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/text_location"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="65dp"
+            android:id="@+id/flexboxLayout2">
+        <include layout="@layout/item_interest_feed"/>
+        <include layout="@layout/item_interest_feed"/>
+    </com.google.android.flexbox.FlexboxLayout>
+</android.support.constraint.ConstraintLayout>

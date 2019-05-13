@@ -26,6 +26,10 @@ import com.google.android.flexbox.FlexboxLayout;
 
 public class CommunityFeedAdapter extends RecyclerView.Adapter {
 
+    private final int POST_FEED = 0;
+    private final int POST_EVENT_FEED = 1;
+    private final int POST_CROWFUNDING_FEED = 2;
+
     private Context mContext;
     private LayoutInflater inflater;
 
@@ -37,11 +41,23 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new ViewHolder(inflater.inflate(R.layout.item_community_feeds,viewGroup,false));
+        if (i == POST_EVENT_FEED) {
+            return new ViewHolderEventFeed(inflater.inflate(R.layout.item_event_feed, viewGroup, false));
+        }
+        else if (i == POST_CROWFUNDING_FEED) {
+            return new ViewHolderCrowdfundingFeed(inflater.inflate(R.layout.item_crowdfunding_feed, viewGroup, false));
+        }
+        return new ViewHolderPostFeed(inflater.inflate(R.layout.item_community_feeds, viewGroup, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+        ViewHolder holder = (ViewHolder) viewHolder;
+        holder.viewPostMedia.setVisibility(i % 3 == 0 && i != 0 ? View.VISIBLE : View.GONE);
+        if (i == 5) {
+            holder.viewDontation.setVisibility(View.VISIBLE);
+            holder.textPost.setVisibility(View.GONE);
+            holder.itemView.setOnClickListener(v -> mContext.startActivity(new Intent(mContext, CrowdfundingDetailActivity.class)));
         ViewHolder holder = (ViewHolder) viewHolder;
         holder.viewPostMedia.setVisibility(i % 3 == 0 && i != 0 ? View.VISIBLE : View.GONE);
 
@@ -49,10 +65,9 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
             holder.itemView.setOnClickListener(v -> mContext.startActivity(new Intent(mContext, EventDetailActivity.class)));
         }
 
-        if (i == 5) {
-            holder.viewDontation.setVisibility(View.VISIBLE);
-            holder.textPost.setVisibility(View.GONE);
-            holder.itemView.setOnClickListener(v -> mContext.startActivity(new Intent(mContext, CrowdfundingDetailActivity.class)));
+        if (viewHolder instanceof ViewHolderPostFeed) {
+            ViewHolderPostFeed holder = (ViewHolderPostFeed) viewHolder;
+            holder.viewPostMedia.setVisibility(i % 3 == 0 && i != 0 ? View.VISIBLE : View.GONE);
         }
     }
 
@@ -61,15 +76,61 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
         return 7;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.view_post_media)
-        View viewPostMedia;
-        @BindView(R.id.view_donation)
-        View viewDontation;
-        @BindView(R.id.text_post)
-        TextView textPost;
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 4) return POST_EVENT_FEED;
+        else if(position == 5) return POST_CROWFUNDING_FEED;
+        else return POST_FEED;
+    }
+
+    class BaseFeedViewHolder extends RecyclerView.ViewHolder{
+
         @BindView(R.id.flexboxLayout2)
         FlexboxLayout flexboxLayout;
+
+        public BaseFeedViewHolder(@NonNull View itemView) {
+            super(itemView);
+            ButterKnife.bind(this,itemView);
+        }
+
+        @OnClick({R.id.image_comment,R.id.text_comment})
+        void praisedClicked(){
+            mContext.startActivity(new Intent(mContext, PraiseActivity.class));
+        }
+
+        @OnClick({R.id.image_like,R.id.text_like})
+        void tappedLike(){
+            mContext.startActivity(new Intent(mContext, LikesActivity.class));
+        }
+    }
+
+    class ViewHolderPostFeed extends BaseFeedViewHolder{
+
+        @BindView(R.id.view_post_media)
+        View viewPostMedia;
+        @BindView(R.id.text_post)
+        TextView textPost;
+
+        public ViewHolderPostFeed(@NonNull View itemView) {
+            super(itemView);
+            ButterKnife.bind(this,itemView);
+        }
+    }
+
+    class ViewHolderEventFeed extends BaseFeedViewHolder {
+
+        @BindView(R.id.button_interested)
+        Button buttonInterested;
+
+        public ViewHolderEventFeed(@NonNull View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+            buttonInterested.setVisibility(View.VISIBLE);
+        }
+    }
+
+    class ViewHolderCrowdfundingFeed extends BaseFeedViewHolder {
+
         @BindView((R.id.edit_amount))
         TextInputEditText editAmount;
         @BindView(R.id.radioGroup)
@@ -85,20 +146,13 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
         @BindView(R.id.button_pay)
         Button buttonPay;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolderCrowdfundingFeed(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
             radioListener();
-        }
-
-        @OnClick({R.id.image_comment,R.id.text_comment})
-        void praisedClicked(){
-            mContext.startActivity(new Intent(mContext, PraiseActivity.class));
-        }
-
-        @OnClick({R.id.image_like,R.id.text_like})
-        void tappedLike(){
-            mContext.startActivity(new Intent(mContext, LikesActivity.class));
+            itemView.setOnClickListener(v -> {
+                mContext.startActivity(new Intent(mContext, CrowdfundingDetailActivity.class));
+            });
         }
 
         @OnTextChanged(R.id.edit_amount)
