@@ -97,4 +97,7 @@
     <string name="crowdfunding">Crowdfunding</string>
     <string name="reporting">Reporting</string>
     <string name="posting_content">Posting Content</string>
+    <string name="events">Events</string>
+    <string name="logout">Logout</string>
+    <string name="my_profile">My Profile</string>
 </resources>
