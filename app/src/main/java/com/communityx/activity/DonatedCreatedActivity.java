@@ -1,14 +1,14 @@
 package com.communityx.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.communityx.R;
 import com.communityx.adapters.DonatedCreatorAdapter;
-import com.communityx.utils.CustomToolBarUtils;
+import com.communityx.utils.CustomToolBarHelper;
 
 import java.util.ArrayList;
 
@@ -36,9 +36,8 @@ public class DonatedCreatedActivity extends AppCompatActivity {
     }
 
     private void setupToolbar() {
-        CustomToolBarUtils customToolBarUtils = new CustomToolBarUtils(this);
+        CustomToolBarHelper customToolBarUtils = new CustomToolBarHelper(this);
         customToolBarUtils.setTitle("Donated by (219)");
-        customToolBarUtils.setLogoIcon(R.drawable.ic_praise_back_arrow);
-        customToolBarUtils.getImageLogo().setOnClickListener(v -> finish());
+        customToolBarUtils.enableBackPress();
     }
 }
