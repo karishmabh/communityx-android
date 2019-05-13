@@ -136,6 +136,9 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
             super(itemView);
             ButterKnife.bind(this, itemView);
             radioListener();
+            itemView.setOnClickListener(v -> {
+                mContext.startActivity(new Intent(mContext, CrowdfundingDetailActivity.class));
+            });
         }
 
         @OnTextChanged(R.id.edit_amount)
