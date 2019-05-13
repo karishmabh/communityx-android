@@ -25,6 +25,10 @@ import com.google.android.flexbox.FlexboxLayout;
 
 public class CommunityFeedAdapter extends RecyclerView.Adapter {
 
+    private final int POST_FEED = 0;
+    private final int POST_EVENT_FEED = 1;
+    private final int POST_CROWFUNDING_FEED = 2;
+
     private Context mContext;
     private LayoutInflater inflater;
 
@@ -36,17 +40,22 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new ViewHolder(inflater.inflate(R.layout.item_community_feeds,viewGroup,false));
+        if (i == POST_EVENT_FEED) {
+            return new ViewHolderEventFeed(inflater.inflate(R.layout.item_event_feed, viewGroup, false));
+        }
+        return new ViewHolderPostFeed(inflater.inflate(R.layout.item_community_feeds, viewGroup, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        ViewHolder holder = (ViewHolder) viewHolder;
-        holder.viewPostMedia.setVisibility(i % 3 == 0 && i != 0 ? View.VISIBLE : View.GONE);
-        if (i == 5) {
-            holder.viewDontation.setVisibility(View.VISIBLE);
-            holder.textPost.setVisibility(View.GONE);
-            holder.itemView.setOnClickListener(v -> mContext.startActivity(new Intent(mContext, CrowdfundingDetailActivity.class)));
+        if (viewHolder instanceof ViewHolderPostFeed) {
+            ViewHolderPostFeed holder = (ViewHolderPostFeed) viewHolder;
+            holder.viewPostMedia.setVisibility(i % 3 == 0 && i != 0 ? View.VISIBLE : View.GONE);
+            if (i == 5) {
+                holder.viewDontation.setVisibility(View.VISIBLE);
+                holder.textPost.setVisibility(View.GONE);
+                holder.itemView.setOnClickListener(v -> mContext.startActivity(new Intent(mContext, CrowdfundingDetailActivity.class)));
+            }
         }
     }
 
@@ -55,7 +64,15 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
         return 7;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 4) {
+            return POST_EVENT_FEED;
+        }
+        return POST_FEED;
+    }
+
+    class ViewHolderPostFeed extends RecyclerView.ViewHolder {
         @BindView(R.id.view_post_media)
         View viewPostMedia;
         @BindView(R.id.view_donation)
@@ -79,7 +96,7 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
         @BindView(R.id.button_pay)
         Button buttonPay;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolderPostFeed(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
             radioListener();
@@ -119,6 +136,14 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
                 if(isChecked) buttonPay.setBackgroundResource(R.drawable.button_active);
                 radioOtherAmount.setBackgroundResource(isChecked ? R.drawable.bg_stroke_active : R.drawable.bg_stroke_grey);
             });
+        }
+    }
+
+    class ViewHolderEventFeed extends RecyclerView.ViewHolder {
+
+        public ViewHolderEventFeed(@NonNull View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
