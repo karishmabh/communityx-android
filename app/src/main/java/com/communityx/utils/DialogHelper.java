@@ -31,6 +31,7 @@ public class DialogHelper {
         TextView textContent = dialog.findViewById(R.id.text_content);
         textContent.setText(content);
     }
+
      public static void selectImage(Activity activity) {
           final int PICK_FROM_CAMERA = 0;
           final int PICK_FROM_GALLERY = 1;

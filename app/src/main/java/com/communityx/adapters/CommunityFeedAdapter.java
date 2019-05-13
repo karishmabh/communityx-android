@@ -19,6 +19,7 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import com.communityx.R;
 import com.communityx.activity.CrowdfundingDetailActivity;
+import com.communityx.activity.EventDetailActivity;
 import com.communityx.activity.LikesActivity;
 import com.communityx.activity.PraiseActivity;
 import com.google.android.flexbox.FlexboxLayout;
@@ -43,6 +44,11 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         ViewHolder holder = (ViewHolder) viewHolder;
         holder.viewPostMedia.setVisibility(i % 3 == 0 && i != 0 ? View.VISIBLE : View.GONE);
+
+        if (i==3) {
+            holder.itemView.setOnClickListener(v -> mContext.startActivity(new Intent(mContext, EventDetailActivity.class)));
+        }
+
         if (i == 5) {
             holder.viewDontation.setVisibility(View.VISIBLE);
             holder.textPost.setVisibility(View.GONE);
