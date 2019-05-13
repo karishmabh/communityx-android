@@ -92,16 +92,14 @@
                 android:layout_marginStart="51dp" app:layout_constraintEnd_toStartOf="@+id/text_raised_amount"
                 android:layout_marginEnd="7dp"/>
 
-        <SeekBar
-                android:id="@+id/seekBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginEnd="@dimen/_12sdp"
-                android:progress="50"
-                app:layout_constraintTop_toBottomOf="@+id/text_traget" app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+        <SeekBar android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="15dp"
+                 android:layout_marginStart="@dimen/_12sdp"
+                 android:layout_marginEnd="@dimen/_12sdp"
+                 android:progress="50"
+                 app:layout_constraintTop_toBottomOf="@+id/text_traget" app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintEnd_toEndOf="parent" android:id="@+id/seekBar"/>
 
         <TextView
                 android:id="@+id/text_crowdfunding_content"
@@ -124,6 +122,7 @@
                 android:textColor="@color/colorLightGrey"
                 android:text="by"
                 android:fontFamily="@font/poppins_regular"
+
                 app:layout_constraintTop_toBottomOf="@+id/text_crowdfunding_content"
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toEndOf="@+id/circleImageView" android:layout_marginStart="8dp"/>
@@ -212,6 +211,14 @@
                   app:layout_constraintTop_toBottomOf="@+id/flexboxLayout2"/>
 
 
+        <ImageView android:id="@+id/image_comment"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   app:srcCompat="@drawable/ic_my_community_comment"
+                   android:layout_marginStart="28dp"
+                   app:layout_constraintStart_toEndOf="@+id/text_like"
+                   android:layout_marginTop="16dp"
+                   app:layout_constraintTop_toBottomOf="@+id/flexboxLayout2"/>
 
         <TextView android:id="@+id/text_comment"
                   android:layout_width="wrap_content"
@@ -323,7 +330,8 @@
                         android:textColor="@android:color/white"
                         android:text="+212"
                         android:layout_gravity="center"
-                        android:fontFamily="@font/poppins_semibold"/>
+                        android:fontFamily="@font/poppins_semibold"
+                />
             </FrameLayout>
         </LinearLayout>
 
