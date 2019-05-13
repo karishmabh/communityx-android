@@ -13,6 +13,7 @@ import butterknife.OnClick;
 import com.communityx.R;
 import com.communityx.fragments.CommunityFeedFragment;
 import com.communityx.fragments.MyAllFriendsFragment;
+import com.communityx.fragments.ProfileFragment;
 import com.communityx.utils.DialogHelper;
 import com.communityx.utils.Utils;
 
@@ -46,6 +47,9 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
                 break;
             case R.id.navigation_community:
                 replceFragment(new CommunityFeedFragment(), "fragment_community");
+                break;
+            case R.id.navigation_profile:
+                replceFragment(new ProfileFragment(), "fragment_profile");
                 break;
         }
         return true;
