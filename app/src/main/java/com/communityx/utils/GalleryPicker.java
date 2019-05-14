@@ -5,12 +5,14 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.annotation.RequiresPermission;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,18 +28,25 @@ public class GalleryPicker {
     public static final int PICK_GALLERY = 200;
     private static final String TAG = "GalleryPicker";
     private Activity mActivity;
+    private Fragment mFragment;
     private GalleryPickerListener galleryPickerListener;
     private Uri mSelectedImage;
+    private BottomSheetDialog bottomSheetDialog;
+    private Media media = Media.IMAGE;
+
+    private GalleryPicker(Activity activity, Fragment fragment) {
+        this.mFragment = fragment;
+        this.mActivity = activity;
+    }
 
     private GalleryPicker(Activity activity) {
         this.mActivity = activity;
     }
 
-    @RequiresPermission(allOf = {
-            Manifest.permission.CAMERA,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE
-    })
+    public static GalleryPicker with(Activity activity, Fragment fragment) {
+        return new GalleryPicker(activity, fragment);
+    }
+
     public static GalleryPicker with(Activity activity) {
         return new GalleryPicker(activity);
     }
@@ -73,9 +82,14 @@ public class GalleryPicker {
         return this;
     }
 
+    public GalleryPicker setMedia(Media media) {
+        this.media = media;
+        return this;
+    }
+
     public GalleryPicker showDialog() {
         View dialogView = LayoutInflater.from(mActivity).inflate(R.layout.dialog_image_chooser, null);
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(mActivity);
+        bottomSheetDialog = new BottomSheetDialog(mActivity);
         bottomSheetDialog.setContentView(dialogView);
         bottomSheetDialog.show();
         initViews(dialogView);
@@ -88,20 +102,32 @@ public class GalleryPicker {
                 mSelectedImage = data.getData();
                 break;
             case CAPTURE_IMAGE:
-                Bitmap bitmap = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
-                assert bitmap != null;
-                mSelectedImage = getImageUri(mActivity, bitmap);
+                if (media == Media.IMAGE) {
+                    Bitmap bitmap = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
+                    assert bitmap != null;
+                    mSelectedImage = getImageUri(mActivity, bitmap);
+                } else mSelectedImage = data.getData();
                 break;
         }
-        galleryPickerListener.onImageSelected(getImagePath(mActivity, mSelectedImage), mSelectedImage);
+        galleryPickerListener.onMediaSelected(getImagePath(mActivity, mSelectedImage), mSelectedImage, media == Media.IMAGE);
     }
 
     private void initViews(View view) {
         ImageView imageCamera = view.findViewById(R.id.image_camera);
         ImageView imageGallery = view.findViewById(R.id.image_gallery);
 
-        imageCamera.setOnClickListener(v -> fireIntent(Option.CAMERA, CAPTURE_IMAGE));
-        imageGallery.setOnClickListener(v -> fireIntent(Option.GALLERY, PICK_GALLERY));
+        imageCamera.setOnClickListener(v -> {
+            if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                Log.e(TAG, "Camera Permission Required");
+                return;
+            }
+            fireIntent(Option.CAMERA, CAPTURE_IMAGE);
+            bottomSheetDialog.dismiss();
+        });
+        imageGallery.setOnClickListener(v -> {
+            fireIntent(Option.GALLERY, PICK_GALLERY);
+            bottomSheetDialog.dismiss();
+        });
     }
 
     private void fireIntent(Option option, int requestCode) {
@@ -109,11 +135,13 @@ public class GalleryPicker {
         if (option == Option.GALLERY) {
             intent.setAction(Intent.ACTION_PICK);
             intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intent.setType(media.getMedia());
         } else if (option == Option.CAMERA) {
-            intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.setAction(media == Media.IMAGE ? MediaStore.ACTION_IMAGE_CAPTURE : MediaStore.ACTION_VIDEO_CAPTURE);
         }
         try {
-            mActivity.startActivityForResult(intent, requestCode);
+            if (mFragment != null) mFragment.startActivityForResult(intent, requestCode);
+            else mActivity.startActivityForResult(intent, requestCode);
         } catch (ActivityNotFoundException e) {
             Log.d(TAG, "fireIntent: Activity not found");
         }
@@ -124,7 +152,22 @@ public class GalleryPicker {
         GALLERY
     }
 
+    public enum Media {
+
+        IMAGE("image/jpg"),
+        VIDEO("video/*");
+        private String media;
+
+        Media(String media) {
+            this.media = media;
+        }
+
+        public String getMedia() {
+            return media;
+        }
+    }
+
     public interface GalleryPickerListener {
-        void onImageSelected(String imagePath, Uri uri);
+        void onMediaSelected(String imagePath, Uri uri, boolean isImage);
     }
 }
