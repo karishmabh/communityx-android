@@ -43,8 +43,7 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         if (i == POST_EVENT_FEED) {
             return new ViewHolderEventFeed(inflater.inflate(R.layout.item_event_feed, viewGroup, false));
-        }
-        else if (i == POST_CROWFUNDING_FEED) {
+        } else if (i == POST_CROWFUNDING_FEED) {
             return new ViewHolderCrowdfundingFeed(inflater.inflate(R.layout.item_crowdfunding_feed, viewGroup, false));
         }
         return new ViewHolderPostFeed(inflater.inflate(R.layout.item_community_feeds, viewGroup, false));
@@ -52,19 +51,6 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        ViewHolder holder = (ViewHolder) viewHolder;
-        holder.viewPostMedia.setVisibility(i % 3 == 0 && i != 0 ? View.VISIBLE : View.GONE);
-        if (i == 5) {
-            holder.viewDontation.setVisibility(View.VISIBLE);
-            holder.textPost.setVisibility(View.GONE);
-            holder.itemView.setOnClickListener(v -> mContext.startActivity(new Intent(mContext, CrowdfundingDetailActivity.class)));
-        ViewHolder holder = (ViewHolder) viewHolder;
-        holder.viewPostMedia.setVisibility(i % 3 == 0 && i != 0 ? View.VISIBLE : View.GONE);
-
-        if (i==3) {
-            holder.itemView.setOnClickListener(v -> mContext.startActivity(new Intent(mContext, EventDetailActivity.class)));
-        }
-
         if (viewHolder instanceof ViewHolderPostFeed) {
             ViewHolderPostFeed holder = (ViewHolderPostFeed) viewHolder;
             holder.viewPostMedia.setVisibility(i % 3 == 0 && i != 0 ? View.VISIBLE : View.GONE);
@@ -79,32 +65,32 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         if (position == 4) return POST_EVENT_FEED;
-        else if(position == 5) return POST_CROWFUNDING_FEED;
+        else if (position == 5) return POST_CROWFUNDING_FEED;
         else return POST_FEED;
     }
 
-    class BaseFeedViewHolder extends RecyclerView.ViewHolder{
+    class BaseFeedViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.flexboxLayout2)
         FlexboxLayout flexboxLayout;
 
         public BaseFeedViewHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
 
-        @OnClick({R.id.image_comment,R.id.text_comment})
-        void praisedClicked(){
+        @OnClick({R.id.image_comment, R.id.text_comment})
+        void praisedClicked() {
             mContext.startActivity(new Intent(mContext, PraiseActivity.class));
         }
 
-        @OnClick({R.id.image_like,R.id.text_like})
-        void tappedLike(){
+        @OnClick({R.id.image_like, R.id.text_like})
+        void tappedLike() {
             mContext.startActivity(new Intent(mContext, LikesActivity.class));
         }
     }
 
-    class ViewHolderPostFeed extends BaseFeedViewHolder{
+    class ViewHolderPostFeed extends BaseFeedViewHolder {
 
         @BindView(R.id.view_post_media)
         View viewPostMedia;
@@ -113,7 +99,7 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
 
         public ViewHolderPostFeed(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 
@@ -126,6 +112,7 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
             super(itemView);
             ButterKnife.bind(this, itemView);
             buttonInterested.setVisibility(View.VISIBLE);
+            itemView.setOnClickListener(v -> mContext.startActivity(new Intent(mContext, EventDetailActivity.class)));
         }
     }
 
@@ -150,14 +137,11 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
             super(itemView);
             ButterKnife.bind(this, itemView);
             radioListener();
-            itemView.setOnClickListener(v -> {
-                mContext.startActivity(new Intent(mContext, CrowdfundingDetailActivity.class));
-            });
         }
 
         @OnTextChanged(R.id.edit_amount)
-        void amountTypng(CharSequence s){
-            if(s.length() < 1){
+        void amountTypng(CharSequence s) {
+            if (s.length() < 1) {
                 editAmount.setText("$");
                 editAmount.setSelection(1);
             }
@@ -165,18 +149,18 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
 
         private void radioListener() {
             radioDollorOne.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if(isChecked) buttonPay.setBackgroundResource(R.drawable.button_active);
+                if (isChecked) buttonPay.setBackgroundResource(R.drawable.button_active);
                 radioDollorOne.setBackgroundResource(isChecked ? R.drawable.bg_stroke_active : R.drawable.bg_stroke_grey);
             });
 
             radioDollorTwo.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if(isChecked) buttonPay.setBackgroundResource(R.drawable.button_active);
+                if (isChecked) buttonPay.setBackgroundResource(R.drawable.button_active);
                 radioDollorTwo.setBackgroundResource(isChecked ? R.drawable.bg_stroke_active : R.drawable.bg_stroke_grey);
             });
 
             radioOtherAmount.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 inputLayoutAmount.setVisibility(isChecked ? View.VISIBLE : View.GONE);
-                if(isChecked) buttonPay.setBackgroundResource(R.drawable.button_active);
+                if (isChecked) buttonPay.setBackgroundResource(R.drawable.button_active);
                 radioOtherAmount.setBackgroundResource(isChecked ? R.drawable.bg_stroke_active : R.drawable.bg_stroke_grey);
             });
         }
