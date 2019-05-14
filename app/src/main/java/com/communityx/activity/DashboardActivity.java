@@ -20,7 +20,10 @@ import com.communityx.utils.Utils;
 public class DashboardActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.nav_view)
-    BottomNavigationView bottomNavigationView;
+    public BottomNavigationView bottomNavigationView;
+
+    public boolean hasGoneToProfileViewImage = false;
+    private boolean isBackPressClick = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +49,21 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
                 replceFragment(new MyAllFriendsFragment(), "fragment_myfriends");
                 break;
             case R.id.navigation_community:
+                if(isBackPressClick){
+                    isBackPressClick = false;
+                    hasGoneToProfileViewImage = false;
+                    return true;
+                }
+                else if(hasGoneToProfileViewImage){
+                    onBackPressed();
+                    return true;
+                }
                 replceFragment(new CommunityFeedFragment(), "fragment_community");
                 break;
             case R.id.navigation_profile:
+                if(hasGoneToProfileViewImage){
+                    return true;
+                }
                 replceFragment(new ProfileFragment(), "fragment_profile");
                 break;
         }
@@ -62,5 +77,14 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
 
     private void replceFragment(Fragment fragment, String tag){
         Utils.replaceFragment(this,fragment,false,tag);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(hasGoneToProfileViewImage){
+            isBackPressClick = true;
+            bottomNavigationView.setSelectedItemId(R.id.navigation_community);
+        }
+        super.onBackPressed();
     }
 }
