@@ -2,6 +2,8 @@ package com.communityx.fragments;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
@@ -19,12 +21,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import com.communityx.R;
+import com.communityx.utils.GalleryPicker;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.Objects;
 
+import static android.app.Activity.RESULT_OK;
 
-public class CreatePostContentFragment extends Fragment {
+
+public class CreatePostContentFragment extends Fragment implements GalleryPicker.GalleryPickerListener {
 
     @BindView(R.id.edit_cause)
     EditText editCause;
@@ -34,6 +39,8 @@ public class CreatePostContentFragment extends Fragment {
     EditText editContent;
     @BindView(R.id.button_post)
     Button buttonPost;
+
+    private GalleryPicker galleryPicker;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,9 +87,20 @@ public class CreatePostContentFragment extends Fragment {
 
     @OnClick({R.id.image_video,R.id.image_gallery})
     void tappedChooseMedia(View it){
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_image_chooser,null);
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Objects.requireNonNull(getContext()));
-        bottomSheetDialog.setContentView(view);
-        bottomSheetDialog.show();
+       galleryPicker = GalleryPicker.with(getActivity(),this)
+               .setMedia(it.getId() == R.id.image_gallery ? GalleryPicker.Media.IMAGE : GalleryPicker.Media.VIDEO)
+               .setListener(this)
+               .showDialog();
+    }
+
+    @Override
+    public void onMediaSelected(String path, Uri uri, boolean isImage) {
+        //TODO: set image/video
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK) galleryPicker.fetch(requestCode,data);
     }
 }
