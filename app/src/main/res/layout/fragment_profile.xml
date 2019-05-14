@@ -10,6 +10,8 @@
 
     <android.support.v7.widget.CardView android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:transitionName="card"
+                                        android:id="@+id/card"
                                         android:layout_marginBottom="@dimen/_4sdp"
                                         app:cardElevation="@dimen/_5sdp">
         <android.support.constraint.ConstraintLayout
@@ -20,6 +22,7 @@
                     android:id="@+id/image_user_profile"
                     android:layout_width="@dimen/_60sdp"
                     android:layout_height="@dimen/_60sdp"
+                    android:transitionName="user_image"
                     android:src="@drawable/ic_profile_placeholder"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginTop="31dp" app:layout_constraintStart_toStartOf="parent"

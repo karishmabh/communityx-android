@@ -2,11 +2,9 @@ package com.communityx.fragments;
 
 import android.Manifest;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -27,19 +25,16 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import com.communityx.R;
 import com.communityx.utils.AppConstant;
-import com.communityx.utils.DialogHelper;
+import com.communityx.utils.GalleryPicker;
 import com.communityx.utils.PermissionHelper;
 import com.communityx.utils.Utils;
 
-import java.io.IOException;
-
 import static android.app.Activity.RESULT_OK;
 
-public class SignUpStudentInfoFragment extends Fragment implements AppConstant {
+public class SignUpStudentInfoFragment extends Fragment implements AppConstant, GalleryPicker.GalleryPickerListener {
 
-    private static String[] permissions = { Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-    private Bitmap mBitmap;
-    private Uri mSelectedImage;
+    private static String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private GalleryPicker galleryPicker;
 
     @BindView(R.id.view_otp)
     LinearLayout viewOtpBox;
@@ -73,6 +68,8 @@ public class SignUpStudentInfoFragment extends Fragment implements AppConstant {
     TextInputEditText editBirthDate;
     @BindView(R.id.image_profile)
     ImageView imageProfile;
+    @BindView(R.id.image_add_edit)
+    ImageView imageAddEdit;
 
     @Nullable
     @Override
@@ -97,8 +94,9 @@ public class SignUpStudentInfoFragment extends Fragment implements AppConstant {
     }
 
     private boolean isDel = false;
+
     @OnTextChanged(R.id.edit_mobile)
-    void onMobileNumberChange(CharSequence s){
+    void onMobileNumberChange(CharSequence s) {
         editMobile.setOnKeyListener((v, keyCode, event) -> {
             isDel = keyCode == KeyEvent.KEYCODE_DEL;
             return false;
@@ -108,15 +106,10 @@ public class SignUpStudentInfoFragment extends Fragment implements AppConstant {
             editMobile.setText("+91");
             editMobile.setSelection(3);
         } else if (s.length() == 4 && !isDel) {
-            editMobile.setText(s.toString().substring(0,3) + "-" + s.toString().substring(3));
+            editMobile.setText(s.toString().substring(0, 3) + "-" + s.toString().substring(3));
             editMobile.setSelection(5);
         }
     }
-
-    /*@OnClick(R.id.card_add_image)
-    void chooseImage() {
-        showImageChooserDialog();
-    }*/
 
     @OnClick(R.id.image_profile)
     void chooseImage() {
@@ -125,13 +118,25 @@ public class SignUpStudentInfoFragment extends Fragment implements AppConstant {
 
     @OnClick(R.id.text_send_otp)
     void tappedSentOtp() {
-         visibleOtpField(true);
+        visibleOtpField(true);
         scrollView.post(() -> scrollView.scrollTo(0, scrollView.getHeight()));
     }
 
     @OnClick(R.id.edit_birthday)
     void tappedEditBirth() {
         Utils.datePicker(getActivity(), editBirthDate);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) galleryPicker.fetch(requestCode, data);
+    }
+
+    @Override
+    public void onMediaSelected(String imagePath, Uri uri, boolean isImage) {
+        imageProfile.setImageURI(uri);
+        imageAddEdit.setImageResource(R.drawable.ic_signup_edit_image);
     }
 
     private void initOtpBox() {
@@ -158,7 +163,7 @@ public class SignUpStudentInfoFragment extends Fragment implements AppConstant {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(currentEditText.equals(editOtpSix)){
+                if (currentEditText.equals(editOtpSix)) {
                     viewPassword.setVisibility(View.VISIBLE);
                     scrollView.post(() -> scrollView.scrollTo(0, scrollView.getHeight()));
                     visibleOtpField(false);
@@ -168,50 +173,9 @@ public class SignUpStudentInfoFragment extends Fragment implements AppConstant {
     }
 
     private void showImageChooserDialog() {
-        DialogHelper.selectImage(getActivity());
-    }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case PICK_FROM_CAMERA:
-                    Bundle extras = data.getExtras();
-                    uploadImageFromCamera(extras);
-                    break;
-                case PICK_FROM_GALLERY:
-                    Uri selectedImage = data.getData();
-                    imageProfile.setImageURI(selectedImage);
-                    /*mSelectedImage = data.getData();
-                    uploadImageFromGallery(mSelectedImage);*/
-                    break;
-            }
-        }
-    }
-
-    private void uploadImageFromCamera(Bundle extras) {
-        try {
-            if (extras != null) {
-                mBitmap = (Bitmap) extras.get("data");
-                mSelectedImage = Utils.getImageUri(getActivity(), mBitmap);
-                imageProfile.setImageBitmap(mBitmap);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void uploadImageFromGallery(Uri selectedImage) {
-        try {
-            mBitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-            imageProfile.setImageBitmap(mBitmap);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        galleryPicker = GalleryPicker.with(getActivity(), this)
+                .setListener(this)
+                .showDialog();
     }
 
     //TODO: HARD CODED STRING
@@ -256,4 +220,5 @@ public class SignUpStudentInfoFragment extends Fragment implements AppConstant {
             textResendOtp.setVisibility(View.GONE);
         }
     }
+
 }
