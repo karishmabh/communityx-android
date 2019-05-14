@@ -50,6 +50,7 @@ public class CommunityFeedFragment extends Fragment {
     boolean tappedCreatePost(View view, MotionEvent event){
         if(event.getAction() == KeyEvent.ACTION_DOWN) {
             startActivity(new Intent(getContext(), CreatePostActivity.class));
+            getActivity().overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up );
             return true;
         }
         return false;
