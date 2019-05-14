@@ -2,18 +2,14 @@ package com.communityx.fragments;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -33,16 +29,12 @@ import com.communityx.utils.GalleryPicker;
 import com.communityx.utils.PermissionHelper;
 import com.communityx.utils.Utils;
 
-import java.io.IOException;
-
 import static android.app.Activity.RESULT_OK;
 
 public class SignUpStudentInfoFragment extends Fragment implements AppConstant, GalleryPicker.GalleryPickerListener {
 
     private static String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private GalleryPicker galleryPicker;
-    private final int CAMERA_PERMISSION_REQ = 201;
-
 
     @BindView(R.id.view_otp)
     LinearLayout viewOtpBox;
@@ -138,9 +130,7 @@ public class SignUpStudentInfoFragment extends Fragment implements AppConstant, 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            galleryPicker.fetch(requestCode, data);
-        }
+        if (resultCode == RESULT_OK) galleryPicker.fetch(requestCode, data);
     }
 
     @Override
