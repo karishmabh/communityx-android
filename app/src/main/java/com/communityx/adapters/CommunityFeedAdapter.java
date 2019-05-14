@@ -148,6 +148,8 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
         }
 
         private void radioListener() {
+            itemView.setOnClickListener(v -> mContext.startActivity(new Intent(mContext, CrowdfundingDetailActivity.class)));
+
             radioDollorOne.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) buttonPay.setBackgroundResource(R.drawable.button_active);
                 radioDollorOne.setBackgroundResource(isChecked ? R.drawable.bg_stroke_active : R.drawable.bg_stroke_grey);
