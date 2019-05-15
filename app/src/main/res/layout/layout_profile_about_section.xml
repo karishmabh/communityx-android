@@ -45,10 +45,11 @@
                 android:textSize="@dimen/_11ssp"
                 android:textColor="?colorPrimary"
                 android:background="@drawable/bg_white_orange_stroke"
-                android:text="@string/add_headline"
+                android:text="@string/add_experience"
                 android:drawablePadding="-40dp"
                 android:paddingStart="50dp"
                 android:drawableTint="?colorPrimary"
+                android:foreground="?attr/selectableItemBackground"
                 android:drawableStart="@drawable/ic_my_profile_add_gray"/>
 
     </LinearLayout>

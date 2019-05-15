@@ -73,7 +73,7 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         if (position == 4) return POST_EVENT_FEED;
         else if (position == 5) return POST_CROWFUNDING_FEED;
-        else if (fromProfile && (position == 2 || position == 6)) return POST_SHARE_FEED;
+        else if (fromProfile && position == 2) return POST_SHARE_FEED;
         else return POST_FEED;
     }
 

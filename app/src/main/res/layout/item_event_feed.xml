@@ -129,7 +129,7 @@
                         android:layout_width="@dimen/_25sdp"
                         android:layout_height="@dimen/_25sdp"
                         app:civ_border_width="@dimen/_1sdp"
-                        app:civ_border_color="@color/colorLightestGrey"
+                        app:civ_border_color="@android:color/white"
                         android:src="@drawable/profile_placeholder"
                 />
 
@@ -138,7 +138,7 @@
                         android:layout_height="@dimen/_25sdp"
                         android:layout_marginStart="-6dp"
                         app:civ_border_width="@dimen/_1sdp"
-                        app:civ_border_color="@color/colorLightestGrey"
+                        app:civ_border_color="@android:color/white"
                         android:src="@drawable/profile_placeholder"
                 />
 
@@ -147,7 +147,7 @@
                         android:layout_height="@dimen/_25sdp"
                         android:layout_marginStart="-6dp"
                         app:civ_border_width="@dimen/_1sdp"
-                        app:civ_border_color="@color/colorLightestGrey"
+                        app:civ_border_color="@android:color/white"
                         android:src="@drawable/profile_placeholder"
                 />
 

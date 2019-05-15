@@ -18,13 +18,11 @@
                 app:cardElevation="@dimen/_5sdp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginBottom="@dimen/_8sdp">
+                app:layout_constraintEnd_toEndOf="parent">
 
             <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingBottom="@dimen/_8sdp"
                     android:background="@android:color/white">
 
                 <FrameLayout
@@ -189,6 +187,7 @@
                             android:text="@string/add_headline"
                             android:drawablePadding="-40dp"
                             android:paddingStart="50dp"
+                            android:foreground="?attr/selectableItemBackground"
                             android:drawableStart="@drawable/ic_my_profile_add_gray"/>
                 </LinearLayout>
 
@@ -254,9 +253,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:layout_marginTop="@dimen/_10sdp"
+                        android:paddingTop="@dimen/_10sdp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        android:clickable="true"
+                        android:paddingBottom="@dimen/_8sdp"
+                        android:background="?attr/selectableItemBackground"
                         app:layout_constraintTop_toBottomOf="@id/view_divider_two"
                         >
                     <LinearLayout
@@ -270,7 +272,7 @@
                                 android:layout_width="@dimen/_20sdp"
                                 android:layout_height="@dimen/_20sdp"
                                 app:civ_border_width="@dimen/_1sdp"
-                                app:civ_border_color="@color/colorLightestGrey"
+                                app:civ_border_color="@android:color/white"
                                 android:src="@drawable/profile_placeholder"
                                 />
 
@@ -279,7 +281,7 @@
                                 android:layout_height="@dimen/_20sdp"
                                 android:layout_marginStart="-6dp"
                                 app:civ_border_width="@dimen/_1sdp"
-                                app:civ_border_color="@color/colorLightestGrey"
+                                app:civ_border_color="@android:color/white"
                                 android:src="@drawable/profile_placeholder"
                                 />
 
@@ -288,7 +290,7 @@
                                 android:layout_height="@dimen/_20sdp"
                                 android:layout_marginStart="-6dp"
                                 app:civ_border_width="@dimen/_1sdp"
-                                app:civ_border_color="@color/colorLightestGrey"
+                                app:civ_border_color="@android:color/white"
                                 android:src="@drawable/profile_placeholder"
                                 />
 
