@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+
+        <layer-list>
+
+            <item>
+                <shape android:shape="oval">
+                    <size android:height="@dimen/_95sdp"
+                          android:width="@dimen/_95sdp"/>
+                    <stroke android:width="2dp"
+                            android:color="@android:color/white"/>
+
+                    <solid android:width="2px" android:color="@color/colorBackgroundCard"/>
+                </shape>
+            </item>
+
+            <item>
+
+                <bitmap android:gravity="center"
+                        android:src="@drawable/ic_my_profile_placeholder"/>
+
+            </item>
+
+        </layer-list>
+
+    </item>
+
+</selector>
