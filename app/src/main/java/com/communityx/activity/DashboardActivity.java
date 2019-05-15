@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.communityx.R;
 import com.communityx.fragments.CommunityFeedFragment;
+import com.communityx.fragments.MessageFragment;
 import com.communityx.fragments.MyAllFriendsFragment;
 import com.communityx.fragments.ProfileFragment;
 import com.communityx.utils.AnimationUtils;
@@ -63,6 +64,9 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
                 }
                 AnimationUtils.rotateView(imageFeed,0,800);
                 replceFragment(new CommunityFeedFragment(), "fragment_community");
+                break;
+            case R.id.navigation_message:
+                replceFragment(new MessageFragment(), "fragment_message");
                 break;
             case R.id.navigation_profile:
                 if(hasGoneToProfileViewImage){

@@ -107,6 +107,8 @@
     <string name="events">Events</string>
     <string name="logout">Logout</string>
     <string name="my_profile">My Profile</string>
+    <string name="search">Search...</string>
+    <string name="messages">Messages</string>
     <string name="earthquake_reported">Earthquake reported in your area. Do you need any help?</string>
     <string name="add_a_short_headline_about_yourself">Add a short headline about yourself.</string>
     <string name="add_headline">Add Headline</string>
