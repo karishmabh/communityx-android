@@ -37,7 +37,6 @@
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginStart="15dp"
                 android:src="@drawable/profile_placeholder"/>
-
         <include layout="@layout/view_search"/>
     </LinearLayout>
 
@@ -49,5 +48,4 @@
             tools:itemCount="2"
             tools:listitem="@layout/item_community_feeds"
             app:layout_constraintTop_toBottomOf="@id/view_post"/>
-
 </android.support.constraint.ConstraintLayout>

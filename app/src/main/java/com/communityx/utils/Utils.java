@@ -122,7 +122,6 @@ public class Utils {
         return Uri.parse(path);
     }
 
-
     public static void showHideView(@NonNull View view, boolean show){
         view.setVisibility(show ? View.VISIBLE : View.GONE);
     }
