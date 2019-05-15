@@ -17,6 +17,7 @@
         <activity android:name=".activity.NewGroupActivity">
         </activity>
         <activity android:name=".activity.MessageActivity">
+        <activity android:name=".activity.ProfileActivity">
         </activity>
         <activity android:name=".activity.EventDetailActivity">
         </activity>

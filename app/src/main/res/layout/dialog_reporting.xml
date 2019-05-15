@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/_12ssp"
             android:textColor="@color/colorBlackTitle"
-            android:text="Earthquake reported in your area. Do you need any help? "
+            android:text="@string/earthquake_reported"
             android:fontFamily="@font/poppins_regular"
             app:layout_constraintTop_toBottomOf="@+id/text_title"
             app:layout_constraintStart_toEndOf="@+id/image_dialog" android:layout_marginStart="17dp"/>
