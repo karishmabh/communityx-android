@@ -14,14 +14,17 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".activity.ProfileActivity">
+        </activity>
         <activity android:name=".activity.EventDetailActivity">
         </activity>
         <activity android:name=".activity.DonatedCreatedActivity">
         </activity>
         <activity android:name=".activity.CrowdfundingDetailActivity">
         </activity>
-        <activity android:name=".activity.CreatePostActivity"
-                  android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity
+                android:name=".activity.CreatePostActivity"
+                android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".activity.PaymentActivity">
         </activity>
         <activity

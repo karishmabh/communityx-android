@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -119,5 +120,9 @@ public class Utils {
         photo.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(mContext.getContentResolver(), photo, "", null);
         return Uri.parse(path);
+    }
+
+    public static void showHideView(@NonNull View view, boolean show){
+        view.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 }

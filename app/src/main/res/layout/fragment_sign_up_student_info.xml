@@ -41,7 +41,7 @@
                         android:id="@+id/image_profile"
                         android:layout_width="@dimen/_50sdp"
                         app:cardElevation="@dimen/_2sdp"
-                        android:src="@drawable/ic_profile_placeholder"
+                        android:src="@drawable/profile_placeholder"
                         android:layout_height="@dimen/_50sdp">
 
                 </de.hdodenhof.circleimageview.CircleImageView>
