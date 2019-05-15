@@ -107,4 +107,5 @@
     <string name="events">Events</string>
     <string name="logout">Logout</string>
     <string name="my_profile">My Profile</string>
+    <string name="earthquake_reported">Earthquake reported in your area. Do you need any help?</string>
 </resources>
