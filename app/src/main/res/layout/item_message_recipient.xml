@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content"
+                                             android:padding="@dimen/_10sdp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image_user_profile"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/ic_profile_placeholder"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"/>
+
+    <TextView
+            android:id="@+id/text_user_name"
+            android:text="Bellla Oliver"
+            app:layout_constraintStart_toEndOf="@id/image_user_profile"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="@dimen/_12ssp"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/colorBlackTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:text="Looks like good"
+            app:layout_constraintTop_toBottomOf="@id/text_user_name"
+            app:layout_constraintStart_toEndOf="@id/image_user_profile"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textSize="@dimen/_10ssp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/colorBlackTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:id="@+id/text_last_time"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textSize="@dimen/_10ssp"
+            android:text="7:21 pm"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/colorBlackTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            app:layout_constraintTop_toBottomOf="@id/text_last_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textSize="@dimen/_10ssp"
+            android:text="1"
+            android:gravity="center"
+            android:background="@drawable/circle_active"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/colorWhite"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"/>
+
+    <View
+            android:background="@color/colorLightestGrey"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_user_profile"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_1sdp"/>
+</android.support.constraint.ConstraintLayout>
