@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.communityx.R;
 import com.communityx.fragments.CommunityFeedFragment;
+import com.communityx.fragments.MessageFragment;
 import com.communityx.fragments.MyAllFriendsFragment;
 import com.communityx.fragments.ProfileFragment;
 import com.communityx.utils.DialogHelper;
@@ -59,6 +60,9 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
                     return true;
                 }
                 replceFragment(new CommunityFeedFragment(), "fragment_community");
+                break;
+            case R.id.navigation_message:
+                replceFragment(new MessageFragment(), "fragment_message");
                 break;
             case R.id.navigation_profile:
                 if(hasGoneToProfileViewImage){

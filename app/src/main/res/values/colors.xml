@@ -14,4 +14,8 @@
     <color name="colorGreen">#28ae54</color>
     <color name="colorLightestPrimary">#fff8f1</color>
     <color name="colorWhite_background">#faf8f8</color>
+    <color name="colorBorderGrey">#ebebeb</color>
+    <color name="colorBorderLightOrange">#fce3ca</color>
+    <color name="colorOrangeDate">#ff9933</color>
+    <color name="colorBackgroundOrange">#fdf5ed</color>
 </resources>
