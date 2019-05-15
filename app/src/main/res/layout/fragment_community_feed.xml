@@ -34,7 +34,7 @@
                         android:layout_height="@dimen/_35sdp"
                         android:layout_marginStart="15dp"
                         android:transitionName="user_image"
-                        android:src="@drawable/ic_profile_placeholder"/>
+                        android:src="@drawable/profile_placeholder"/>
                 <include layout="@layout/view_search"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>

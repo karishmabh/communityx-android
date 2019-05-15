@@ -271,7 +271,7 @@
                                 android:layout_height="@dimen/_20sdp"
                                 app:civ_border_width="@dimen/_1sdp"
                                 app:civ_border_color="@color/colorLightestGrey"
-                                android:src="@drawable/ic_profile_placeholder"
+                                android:src="@drawable/profile_placeholder"
                                 />
 
                         <de.hdodenhof.circleimageview.CircleImageView
@@ -280,7 +280,7 @@
                                 android:layout_marginStart="-6dp"
                                 app:civ_border_width="@dimen/_1sdp"
                                 app:civ_border_color="@color/colorLightestGrey"
-                                android:src="@drawable/ic_profile_placeholder"
+                                android:src="@drawable/profile_placeholder"
                                 />
 
                         <de.hdodenhof.circleimageview.CircleImageView
@@ -289,7 +289,7 @@
                                 android:layout_marginStart="-6dp"
                                 app:civ_border_width="@dimen/_1sdp"
                                 app:civ_border_color="@color/colorLightestGrey"
-                                android:src="@drawable/ic_profile_placeholder"
+                                android:src="@drawable/profile_placeholder"
                                 />
 
                     </LinearLayout>

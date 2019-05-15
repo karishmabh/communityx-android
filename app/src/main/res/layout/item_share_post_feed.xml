@@ -14,7 +14,7 @@
       <de.hdodenhof.circleimageview.CircleImageView
               android:layout_width="@dimen/_35sdp"
               android:layout_height="@dimen/_35sdp"
-              android:src="@drawable/ic_profile_placeholder"
+              android:src="@drawable/profile_placeholder"
               app:layout_constraintTop_toTopOf="parent"
               android:layout_marginTop="16dp"
               app:layout_constraintStart_toStartOf="parent"
