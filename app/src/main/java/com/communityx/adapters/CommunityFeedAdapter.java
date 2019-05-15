@@ -3,20 +3,15 @@ package com.communityx.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnTextChanged;
+import android.widget.*;
+import butterknife.*;
 import com.communityx.R;
 import com.communityx.activity.CrowdfundingDetailActivity;
 import com.communityx.activity.EventDetailActivity;
@@ -29,13 +24,19 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
     private final int POST_FEED = 0;
     private final int POST_EVENT_FEED = 1;
     private final int POST_CROWFUNDING_FEED = 2;
+    private final int POST_SHARE_FEED = 3;
 
     private Context mContext;
     private LayoutInflater inflater;
+    private boolean fromProfile;
 
     public CommunityFeedAdapter(Context context) {
         this.mContext = context;
         inflater = LayoutInflater.from(context);
+    }
+
+    public void setFromProfile(boolean fromProfile) {
+        this.fromProfile = fromProfile;
     }
 
     @NonNull
@@ -45,6 +46,8 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
             return new ViewHolderEventFeed(inflater.inflate(R.layout.item_event_feed, viewGroup, false));
         } else if (i == POST_CROWFUNDING_FEED) {
             return new ViewHolderCrowdfundingFeed(inflater.inflate(R.layout.item_crowdfunding_feed, viewGroup, false));
+        } else if (i == POST_SHARE_FEED) {
+            return new ViewHolderShareFeed(inflater.inflate(R.layout.item_share_post_feed, viewGroup, false));
         }
         return new ViewHolderPostFeed(inflater.inflate(R.layout.item_community_feeds, viewGroup, false));
     }
@@ -55,22 +58,28 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
             ViewHolderPostFeed holder = (ViewHolderPostFeed) viewHolder;
             holder.viewPostMedia.setVisibility(i % 3 == 0 && i != 0 ? View.VISIBLE : View.GONE);
         }
+        else if (viewHolder instanceof ViewHolderShareFeed){
+            ViewHolderShareFeed holder = (ViewHolderShareFeed) viewHolder;
+            holder.addDummyShare(i);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 7;
+        return 14;
     }
 
     @Override
     public int getItemViewType(int position) {
         if (position == 4) return POST_EVENT_FEED;
         else if (position == 5) return POST_CROWFUNDING_FEED;
+        else if (fromProfile && (position == 2 || position == 6)) return POST_SHARE_FEED;
         else return POST_FEED;
     }
 
     class BaseFeedViewHolder extends RecyclerView.ViewHolder {
 
+        @Nullable
         @BindView(R.id.flexboxLayout2)
         FlexboxLayout flexboxLayout;
 
@@ -165,6 +174,29 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
                 if (isChecked) buttonPay.setBackgroundResource(R.drawable.button_active);
                 radioOtherAmount.setBackgroundResource(isChecked ? R.drawable.bg_stroke_active : R.drawable.bg_stroke_grey);
             });
+        }
+    }
+
+    class ViewHolderShareFeed extends BaseFeedViewHolder {
+
+        @BindView(R.id.container_share_post)
+        FrameLayout containerSharePost;
+
+        public ViewHolderShareFeed(@NonNull View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        public void addDummyShare(int position) {
+            View view;
+            if (position == 2) {
+                view = inflater.inflate(R.layout.item_event_feed, null);
+                view.findViewById(R.id.text_post).setVisibility(View.GONE);
+                view.findViewById(R.id.button_interested_share).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.view_like_share_comment).setVisibility(View.GONE);
+                view.findViewById(R.id.text_miles).setVisibility(View.GONE);
+                containerSharePost.addView(view);
+            }
         }
     }
 }

@@ -35,7 +35,7 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    @OnClick(R.id.button_view_profile)
+    @OnClick({R.id.button_view_profile,R.id.image_user_profile})
     void tappedProfile(){
         Intent intent = new Intent(getContext(), ProfileActivity.class);
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(

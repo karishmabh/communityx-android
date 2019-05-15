@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindString;
@@ -36,6 +37,8 @@ public class ProfileActivity extends AppCompatActivity {
     TextView textHeadline;
     @BindView(R.id.text_my_post)
     TextView textMyPost;
+    @BindView(R.id.edit_search)
+    EditText editPost;
 
     @BindString(R.string.my_posts)
     String myPost;
@@ -49,6 +52,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
+        editPost.setHint(R.string.write_something_here);
+        editPost.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
 
         setMyPost();
         showEditIcon(!isOtherProfile);
@@ -60,7 +65,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void setMyPost() {
         recyclerPost.setLayoutManager(new LinearLayoutManager(this));
-        recyclerPost.setAdapter(new CommunityFeedAdapter(this));
+        CommunityFeedAdapter communityFeedAdapter = new CommunityFeedAdapter(this);
+        communityFeedAdapter.setFromProfile(true);
+        recyclerPost.setAdapter(communityFeedAdapter);
     }
 
     private void showEditIcon(boolean shouldShow){
@@ -85,5 +92,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void setPostLabel(boolean isOtherProfile){
         textMyPost.setText(isOtherProfile ? post : myPost);
+    }
+
+    public void goBack(View view) {
+        onBackPressed();
     }
 }
