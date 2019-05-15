@@ -43,12 +43,6 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.navigation_community);
-
-        new Handler().postDelayed(() -> {
-            if(!DashboardActivity.this.isFinishing()){
-                DialogHelper.showReportingDialog(DashboardActivity.this,stringReporting);
-            }
-        },4000);
     }
 
     @Override
