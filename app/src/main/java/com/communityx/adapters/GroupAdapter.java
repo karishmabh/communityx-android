@@ -7,22 +7,28 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.communityx.R;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.MessageHolder> {
     private ArrayList<String> mUsersList;
     private Activity mActvity;
     private LayoutInflater mLayoutInflater;
     private String mLetter;
+    private Set<String> mSelectedUsers = new HashSet<>();
+    private IUsersSelected iUsersSelected;
 
-    public GroupAdapter(ArrayList<String> mUsersList, Activity activity) {
+    public GroupAdapter(ArrayList<String> mUsersList, Activity activity, IUsersSelected iUsersSelected) {
         this.mUsersList = mUsersList;
         this.mActvity = activity;
+        this.iUsersSelected = iUsersSelected;
         this.mLayoutInflater = LayoutInflater.from(activity);
     }
 
@@ -50,6 +56,9 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.MessageHolde
                 messageHolder.textHeader.setVisibility(View.GONE);
             }
         }
+
+        messageHolder.textUserName.setText(name);
+        messageHolder.bindData();
     }
 
     @Override
@@ -61,10 +70,66 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.MessageHolde
 
         @BindView(R.id.text_header)
         TextView textHeader;
+        @BindView(R.id.text_user_name)
+        TextView textUserName;
+        @BindView(R.id.image_tick)
+        ImageView imageTick;
 
         public MessageHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    boolean isSelected = checkSelectedUsers(mUsersList.get(getAdapterPosition()));
+                    if (isSelected) {
+                        mSelectedUsers.remove(mUsersList.get(getAdapterPosition()));
+                        imageTick.setVisibility(View.GONE);
+                    } else {
+                        mSelectedUsers.add(mUsersList.get(getAdapterPosition()));
+                        imageTick.setVisibility(View.VISIBLE);
+                    }
+
+                    iUsersSelected.updatedUsersList(mSelectedUsers);
+                }
+            });
         }
+
+
+        public void bindData() {
+            if (checkSelectedUsers(mUsersList.get(getAdapterPosition()))) {
+                imageTick.setVisibility(View.VISIBLE);
+            } else {
+                imageTick.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    public void uncheckUser(String name, ImageView imageNext) {
+        if (checkSelectedUsers(name)) {
+            mSelectedUsers.remove(name);
+        }
+
+        if (mSelectedUsers.size() == 0) imageNext.setVisibility(View.GONE);
+
+        notifyDataSetChanged();
+    }
+
+    public Set<String> getSelectedUsersList() {
+        return mSelectedUsers;
+    }
+
+    private boolean checkSelectedUsers(String givenName) {
+        for (String name: mSelectedUsers) {
+            if (name.equals(givenName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public interface IUsersSelected {
+        void updatedUsersList(Set<String> mSelectedUsers);
     }
 }

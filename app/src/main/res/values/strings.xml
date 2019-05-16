@@ -122,4 +122,6 @@
     <string name="posts">Posts</string>
     <string name="view_profile">View Profile</string>
     <string name="add_experience">Add Experience</string>
+    <string name="add_group_icon">Add Group Icon</string>
+    <string name="group_subject">Group Subject</string>
 </resources>

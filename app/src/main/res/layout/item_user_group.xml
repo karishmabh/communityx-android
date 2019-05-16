@@ -30,6 +30,18 @@
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"/>
 
+    <ImageView
+            android:id="@+id/image_tick"
+            android:padding="@dimen/_3sdp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/image_user_profile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:src="@drawable/ic_new_group_tick"
+            android:background="@drawable/bg_check"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"/>
+
     <LinearLayout
             app:layout_constraintTop_toTopOf="@id/image_user_profile"
             app:layout_constraintBottom_toBottomOf="@id/image_user_profile"
