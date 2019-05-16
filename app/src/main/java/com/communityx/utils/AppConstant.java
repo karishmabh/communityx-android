@@ -12,4 +12,6 @@ public interface AppConstant {
     int PICK_FROM_CAMERA = 0;
     int PICK_FROM_GALLERY = 1;
     int REQUEST_PERMISSION_CODE = 300;
+
+    String INTENT_USERLIST = "userlist";
 }
