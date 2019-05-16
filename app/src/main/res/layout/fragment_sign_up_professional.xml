@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             android:paddingStart="@dimen/_12sdp"
-                                             android:paddingEnd="@dimen/_12sdp"
-                                             android:paddingTop="@dimen/_12sdp"
-                                             tools:context=".fragments.SignUpProfessional">
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:paddingStart="@dimen/_12sdp"
+        android:paddingEnd="@dimen/_12sdp"
+        android:paddingTop="@dimen/_12sdp"
+        tools:context=".fragments.SignUpProfessional">
 
     <TextView
             android:id="@+id/text_heading"
@@ -56,5 +57,4 @@
                 android:fontFamily="@font/poppins_medium"
                 android:layout_height="wrap_content"/>
     </android.support.design.widget.TextInputLayout>
-
 </android.support.constraint.ConstraintLayout>

@@ -34,7 +34,6 @@ public class SignUpStudentInfoActivity extends AppCompatActivity implements AppC
     public Button buttonContinue;
 
     private SignUpPagerAdapter pagerAdapter;
-
     private String selectedCategory;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {

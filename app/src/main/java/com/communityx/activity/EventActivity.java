@@ -27,7 +27,6 @@ public class EventActivity extends BaseActivity {
     CustomViewPager viewPager;
     private EventPagerAdapter pagerAdapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,5 +77,4 @@ public class EventActivity extends BaseActivity {
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannable;
     }
-
 }

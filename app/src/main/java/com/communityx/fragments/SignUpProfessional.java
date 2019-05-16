@@ -17,5 +17,4 @@ public class SignUpProfessional extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sign_up_professional, container, false);
         return view;
     }
-
 }

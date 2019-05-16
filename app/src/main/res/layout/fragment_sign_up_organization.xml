@@ -27,8 +27,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     app:layout_constraintTop_toBottomOf="@+id/text_heading"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                  >
+                    app:layout_constraintStart_toStartOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/image_profile"
@@ -38,7 +37,6 @@
                 android:layout_height="@dimen/_50sdp"
                 app:civ_border_color="@color/colorLightestGrey"
                 app:civ_border_width="@dimen/_1sdp">
-
         </de.hdodenhof.circleimageview.CircleImageView>
 
         <ImageView
@@ -135,5 +133,4 @@
                 android:fontFamily="@font/poppins_medium"
                 android:layout_height="wrap_content"/>
     </android.support.design.widget.TextInputLayout>
-
 </android.support.constraint.ConstraintLayout>

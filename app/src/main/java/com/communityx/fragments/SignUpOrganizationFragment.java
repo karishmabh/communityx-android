@@ -20,5 +20,4 @@ public class SignUpOrganizationFragment extends Fragment {
         ButterKnife.bind(this,view);
         return view;
     }
-
 }

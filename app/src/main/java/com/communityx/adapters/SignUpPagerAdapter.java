@@ -40,5 +40,4 @@ public class SignUpPagerAdapter extends FragmentPagerAdapter {
     private boolean[] buttonEnabledPos = {
             true, false, false, true, true
     };
-
 }
