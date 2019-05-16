@@ -1,20 +1,21 @@
 package com.communityx.activity;
 
 import android.content.Intent;
-import android.os.Handler;
+import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
+import android.widget.SeekBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import butterknife.OnTouch;
 import com.communityx.R;
 
 public class CrowdfundingDetailActivity extends AppCompatActivity {
@@ -33,6 +34,10 @@ public class CrowdfundingDetailActivity extends AppCompatActivity {
     RadioButton radioDollorTwo;
     @BindView(R.id.button_pay)
     Button buttonPay;
+    @BindView(R.id.scrollView)
+    ScrollView scrollView;
+    @BindView(R.id.seekBar)
+    SeekBar seekDonationProgess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +50,19 @@ public class CrowdfundingDetailActivity extends AppCompatActivity {
     private void radioListener() {
         radioDollorOne.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked) buttonPay.setBackgroundResource(R.drawable.button_active);
-            radioDollorOne.setBackgroundResource(isChecked ? R.drawable.button_active : R.drawable.bg_stroke_grey);
+            radioDollorOne.setBackgroundResource(isChecked ? R.drawable.bg_stroke_active : R.drawable.bg_stroke_grey);
         });
 
         radioDollorTwo.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked) buttonPay.setBackgroundResource(R.drawable.button_active);
-            radioDollorTwo.setBackgroundResource(isChecked ? R.drawable.button_active : R.drawable.bg_stroke_grey);
+            radioDollorTwo.setBackgroundResource(isChecked ? R.drawable.bg_stroke_active : R.drawable.bg_stroke_grey);
         });
 
         radioOtherAmount.setOnCheckedChangeListener((buttonView, isChecked) -> {
             inputLayoutAmount.setVisibility(isChecked ? View.VISIBLE : View.GONE);
             if(isChecked) buttonPay.setBackgroundResource(R.drawable.button_active);
-            radioOtherAmount.setBackgroundResource(isChecked ? R.drawable.button_active : R.drawable.bg_stroke_grey);
+            radioOtherAmount.setBackgroundResource(isChecked ? R.drawable.bg_stroke_active : R.drawable.bg_stroke_grey);
+            scrollView.post(() -> scrollView.scrollTo(0,scrollView.getHeight()));
         });
     }
 
@@ -81,5 +87,10 @@ public class CrowdfundingDetailActivity extends AppCompatActivity {
     @OnClick({R.id.view_donated_by})
     void tappedViewDonatedBy(){
         startActivity(new Intent(CrowdfundingDetailActivity.this, DonatedByActivity.class));
+    }
+
+    @OnTouch(R.id.seekBar)
+    boolean seekDonationTouch(){
+        return true;
     }
 }

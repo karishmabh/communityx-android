@@ -4,7 +4,7 @@
         <layer-list>
             <item>
                 <shape android:shape="oval">
-                    <size android:height="@dimen/_95sdp" android:width="@dimen/_95sdp"/>
+                    <size android:height="@dimen/_70sdp" android:width="@dimen/_70sdp"/>
                     <stroke android:width="2dp" android:color="@android:color/white"/>
                     <solid android:width="2px" android:color="@color/colorBackgroundCard"/>
                 </shape>
