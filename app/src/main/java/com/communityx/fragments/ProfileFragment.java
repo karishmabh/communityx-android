@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.communityx.R;
+import com.communityx.activity.EventActivity;
 import com.communityx.activity.ProfileActivity;
 import com.communityx.utils.CustomToolBarHelper;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -43,5 +44,13 @@ public class ProfileFragment extends Fragment {
                 imageUser,
                 Objects.requireNonNull(ViewCompat.getTransitionName(imageUser)));
         Objects.requireNonNull(getContext()).startActivity(intent, options.toBundle());
+    }
+
+    @OnClick({R.id.image_event_arrow,R.id.image_crowdfunding_arrow,R.id.image_logout_arrow})
+    void tappedOptions(View it){
+        if(it.getId() == R.id.image_event_arrow){
+            startActivity(new Intent(getContext(), EventActivity.class));
+            Objects.requireNonNull(getActivity()).overridePendingTransition(R.anim.anim_next_slide_in,R.anim.anim_next_slide_out);
+        }
     }
 }

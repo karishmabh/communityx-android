@@ -128,4 +128,7 @@
     <string name="recent_job_title">Recent Job Title</string>
     <string name="recent_compnay">Recent Compnay</string>
     <string name="share_your_work_history">Share your work history.</string>
+    <string name="read_more">Read more</string>
+    <string name="my_hosted_events">My Hosted Events</string>
+    <string name="i_am_interested_in">I am Interested In</string>
 </resources>
