@@ -49,6 +49,7 @@
             android:layout_height="wrap_content"/>
 
     <TextView
+            android:id="@+id/badge"
             app:layout_constraintTop_toBottomOf="@id/text_last_time"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="@dimen/_10sdp"
@@ -62,6 +63,7 @@
             android:layout_height="@dimen/_16sdp"/>
 
     <View
+            android:id="@+id/view_divider_one"
             android:background="@color/colorLightestGrey"
             android:layout_marginTop="@dimen/_15sdp"
             app:layout_constraintStart_toStartOf="parent"

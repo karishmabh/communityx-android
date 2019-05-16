@@ -131,4 +131,5 @@
     <string name="read_more">Read more</string>
     <string name="my_hosted_events">My Hosted Events</string>
     <string name="i_am_interested_in">I am Interested In</string>
+    <string name="activity">Activity</string>
 </resources>
