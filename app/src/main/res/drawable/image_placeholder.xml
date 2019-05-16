@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <size android:height="@dimen/_200sdp" android:width="@dimen/_360sdp"/>
+            <solid android:width="2px" android:color="@color/colorBackgroundCard"/>
+        </shape>
+    </item>
+    <item android:top="@dimen/_80sdp" android:bottom="@dimen/_80sdp"
+          android:end="@dimen/_160sdp" android:start="@dimen/_160sdp">
+        <shape android:shape="rectangle">
+            <size android:height="@dimen/_56sdp"
+                  android:width="@dimen/_56sdp"/>
+            <solid android:color="@android:color/white"/>
+        </shape>
+    </item>
+    <item>
+        <bitmap android:gravity="center" android:src="@drawable/ic_create_crowdfunding_image_placeholder"/>
+    </item>
+</layer-list>

@@ -26,7 +26,7 @@ import com.communityx.viewModels.DashboardActivtyViewModel;
 
 import java.util.Objects;
 
-public class MyAllFriendsFragment extends Fragment implements ViewPager.OnPageChangeListener {
+public class MyAllFriendsFragment extends Fragment{
 
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
@@ -52,24 +52,10 @@ public class MyAllFriendsFragment extends Fragment implements ViewPager.OnPageCh
         pagerAdapter = new FriendsPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-        viewPager.addOnPageChangeListener(this);
-        updateTabText(0);
+        updateTabText();
     }
 
-    @Override
-    public void onPageScrolled(int i, float v, int i1) {
-    }
-
-    @Override
-    public void onPageSelected(int i) {
-        updateTabText(i);
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int i) {
-    }
-
-    private void updateTabText(int currentPos){
+    private void updateTabText(){
         for(int i=0;i<tabLayout.getTabCount();i++){
             TextView tv = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(i)).getChildAt(1));
             String title = pagerAdapter.getPageTitle(i).toString();
@@ -85,17 +71,16 @@ public class MyAllFriendsFragment extends Fragment implements ViewPager.OnPageCh
                     updatedText = title + " " + 54;
                     break;
             }
-            Spannable spannable = createSpannable(updatedText,title, i == currentPos);
+            Spannable spannable = createSpannable(updatedText,title);
             if(spannable != null) tv.setText(spannable, TextView.BufferType.SPANNABLE);
         }
     }
 
-    private Spannable createSpannable(String updatedText, String title, boolean isActive){
+    private Spannable createSpannable(String updatedText, String title){
         Context context = getContext();
         if (context == null) return null;
         Spannable spannable = new SpannableString(updatedText);
-        spannable.setSpan(new ForegroundColorSpan(
-                        isActive ? context.getResources().getColor(R.color.colorPrimary): context.getResources().getColor(R.color.colorLightGrey)) ,
+        spannable.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.colorPrimary)),
                 title.length(),updatedText.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannable;

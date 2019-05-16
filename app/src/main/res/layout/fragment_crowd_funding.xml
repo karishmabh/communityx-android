@@ -14,7 +14,7 @@
                 android:id="@+id/image_cover"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp"
-                android:src="#ccc"
+                android:src="@drawable/image_placeholder"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -156,7 +156,7 @@
                 android:fontFamily="@font/poppins_medium"
                 app:layout_constraintTop_toBottomOf="@id/text_cause"
                 android:drawablePadding="@dimen/_8sdp"
-                android:drawableEnd="@drawable/ic_signup_add_interest"/>
+                android:drawableEnd="@drawable/ic_signup_add_interest_deselect"/>
 
         <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/flex_layout_cause"

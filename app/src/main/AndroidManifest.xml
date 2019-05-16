@@ -14,7 +14,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".activity.CreateGroupActivity">
+        <activity android:name=".activity.CreateGroupActivity"/>
+        <activity android:name=".activity.EventActivity">
         </activity>
         <activity
                 android:name=".activity.NewGroupActivity"

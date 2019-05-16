@@ -10,13 +10,15 @@
                    android:layout_height="wrap_content"
                    android:src="@drawable/ic_allfriend_logo"
                    app:layout_constraintTop_toTopOf="parent"
+                   android:background="?attr/selectableItemBackgroundBorderless"
+                   android:clickable="true"
                    android:layout_marginTop="56dp" app:layout_constraintStart_toStartOf="parent"
                    android:layout_marginStart="16dp" android:id="@+id/imageView"
                    app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="16dp"/>
 
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="My Friends"
+                  android:text="My Allies"
                   android:id="@+id/text_title"
                   android:textColor="@android:color/white"
                   android:textSize="@dimen/_16ssp"
@@ -24,7 +26,6 @@
                   app:layout_constraintStart_toEndOf="@+id/imageView" android:layout_marginStart="12dp"
                   android:layout_marginTop="56dp" app:layout_constraintTop_toTopOf="parent"
                   android:layout_marginBottom="14dp" app:layout_constraintBottom_toBottomOf="parent"/>
-        >
 
         <ImageView android:layout_width="wrap_content"
                    android:layout_height="wrap_content"

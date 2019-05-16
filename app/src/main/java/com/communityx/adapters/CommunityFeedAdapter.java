@@ -88,12 +88,12 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, itemView);
         }
 
-        @OnClick({R.id.image_comment, R.id.text_comment})
+        @OnClick(R.id.view_comment)
         void praisedClicked() {
             mContext.startActivity(new Intent(mContext, PraiseActivity.class));
         }
 
-        @OnClick({R.id.image_like, R.id.text_like})
+        @OnClick(R.id.view_like)
         void tappedLike() {
             mContext.startActivity(new Intent(mContext, LikesActivity.class));
         }

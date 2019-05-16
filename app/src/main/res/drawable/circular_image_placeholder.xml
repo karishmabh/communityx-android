@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <size android:height="@dimen/_45sdp" android:width="@dimen/_45sdp"/>
+                    <stroke android:width="2dp" android:color="@android:color/white"/>
+                    <solid android:color="@color/colorBackgroundCard"/>
+                </shape>
+            </item>
+            <item>
+                <bitmap android:gravity="center" android:src="@drawable/ic_signup_placeholder_logo"/>
+            </item>
+        </layer-list>
+    </item>
+</selector>

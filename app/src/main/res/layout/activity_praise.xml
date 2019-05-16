@@ -34,7 +34,7 @@
                     android:id="@+id/image_user"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
-                    android:src="@drawable/ic_profile_placeholder"/>
+                    android:src="@drawable/profile_placeholder"/>
 
             <EditText
                     android:id="@+id/edit_type"

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/_8sdp"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+            android:id="@+id/view_receipent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+        <include layout="@layout/item_message_recipient"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/view_date"
+            android:layout_width="@dimen/_33sdp"
+            android:layout_height="@dimen/_33sdp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="?colorPrimary"
+            android:layout_marginStart="@dimen/_58sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_receipent">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="@dimen/_11ssp"
+                android:text="18"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="@dimen/_10ssp"
+                android:layout_marginTop="-5dp"
+                android:text="May"/>
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/text_heading"
+            android:layout_width="@dimen/_170sdp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlackTitle"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="@dimen/_11ssp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:text="Climate Change Adaptation..."
+            android:singleLine="true"
+           app:layout_constraintTop_toBottomOf="@id/view_receipent"
+            app:layout_constraintStart_toEndOf="@id/view_date"/>
+
+    <TextView
+            android:id="@+id/text_sub_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorLightGrey"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="@dimen/_10ssp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:text="Park Ground Sao Paulo, Brazil"
+            android:drawableStart="@drawable/ic_community_event_location_pin"
+            android:drawablePadding="@dimen/_2sdp"
+            app:layout_constraintTop_toBottomOf="@id/text_heading"
+            app:layout_constraintStart_toEndOf="@id/view_date"
+            tools:layout_editor_absoluteY="122dp"/>
+
+    <Button
+            android:id="@+id/button_read_more"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="@dimen/_11ssp"
+            android:textColor="?colorPrimary"
+            android:background="@drawable/bg_white_orange_stroke"
+            android:text="@string/read_more"
+            android:layout_marginStart="@dimen/_58sdp"
+            android:drawableTint="?colorPrimary"
+            android:foreground="?attr/selectableItemBackground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_sub_heading"/>
+
+    <View
+            android:id="@+id/view_divider_two"
+            android:background="@color/colorLightestGrey"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_read_more"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_1sdp"/>
+
+</android.support.constraint.ConstraintLayout>

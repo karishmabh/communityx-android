@@ -28,7 +28,7 @@
                 android:id="@+id/image_user"
                 android:layout_width="@dimen/_43sdp"
                 android:layout_height="@dimen/_43sdp"
-                android:src="@drawable/ic_profile_placeholder"
+                android:src="@drawable/profile_placeholder"
                 android:layout_marginStart="@dimen/_18sdp"
                 app:civ_border_color="@android:color/background_light"
                 app:civ_border_width="3dp"
