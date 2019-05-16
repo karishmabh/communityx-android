@@ -14,9 +14,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.communityx.R;
 import com.communityx.R.id;
+import com.communityx.utils.AppConstant;
 import org.jetbrains.annotations.Nullable;
 
-public class SignupCategoryActivity extends AppCompatActivity {
+public class SignupCategoryActivity extends AppCompatActivity implements AppConstant {
 
     @BindView(id.view_student)
     RelativeLayout viewStudent;
@@ -45,6 +46,8 @@ public class SignupCategoryActivity extends AppCompatActivity {
     @BindView(id.button_continue)
     Button buttonContinue;
 
+    private String selectedCategory;
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_signup_category);
@@ -58,15 +61,17 @@ public class SignupCategoryActivity extends AppCompatActivity {
 
     @OnClick({id.view_student, id.view_professional,id.view_organisation})
     void selectCategory(View it) {
-        if (it.equals(viewStudent)) categorySelected("student");
-        else if (it.equals(viewProfessional)) categorySelected("professional");
-        else if (it.equals(viewOrganisation)) categorySelected("organisation");
+        if (it.equals(viewStudent)) categorySelected(ACTION_SIGN_UP_STUDENT);
+        else if (it.equals(viewProfessional)) categorySelected(ACTION_SIGN_UP_PROFESSIONAL);
+        else if (it.equals(viewOrganisation)) categorySelected(ACTION_SIGN_UP_ORGANIZATION);
     }
 
 
     @OnClick(id.button_continue)
     void letsContinue(){
-        SignupCategoryActivity.this.startActivity(new Intent(SignupCategoryActivity.this, SignUpStudentInfoActivity.class));
+        Intent intent = new Intent(this,SignUpStudentInfoActivity.class);
+        intent.setAction(selectedCategory);
+        SignupCategoryActivity.this.startActivity(intent);
         SignupCategoryActivity.this.overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out);
     }
 
@@ -81,9 +86,10 @@ public class SignupCategoryActivity extends AppCompatActivity {
     private final void categorySelected(String category) {
         buttonContinue.setClickable(true);
         buttonContinue.setAlpha(1.0f);
+        selectedCategory = category;
 
         switch (category) {
-            case ("student"):
+            case ACTION_SIGN_UP_STUDENT:
                 viewStudent.setBackground(this.getResources().getDrawable(R.drawable.border_orange_bg));
                 viewProfessional.setBackground(this.getResources().getDrawable(R.drawable.bordered_bg));
                 viewOrganisation.setBackground(this.getResources().getDrawable(R.drawable.bordered_bg));
@@ -101,7 +107,7 @@ public class SignupCategoryActivity extends AppCompatActivity {
                 tickOrganisation.setVisibility(View.GONE);
 
                 break;
-            case ("professional"):
+            case ACTION_SIGN_UP_PROFESSIONAL:
                 viewStudent.setBackground(this.getResources().getDrawable(R.drawable.bordered_bg));
                 viewProfessional.setBackground(this.getResources().getDrawable(R.drawable.border_orange_bg));
                 viewOrganisation.setBackground(this.getResources().getDrawable(R.drawable.bordered_bg));
@@ -119,7 +125,7 @@ public class SignupCategoryActivity extends AppCompatActivity {
                 tickOrganisation.setVisibility(View.GONE);
 
                 break;
-            case ("organisation"):
+            case ACTION_SIGN_UP_ORGANIZATION:
                 viewStudent.setBackground(this.getResources().getDrawable(R.drawable.bordered_bg));
                 viewProfessional.setBackground(this.getResources().getDrawable(R.drawable.bordered_bg));
                 viewOrganisation.setBackground(this.getResources().getDrawable(R.drawable.border_orange_bg));

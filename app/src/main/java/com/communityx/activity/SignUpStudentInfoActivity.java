@@ -2,6 +2,7 @@ package com.communityx.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,11 +13,16 @@ import com.communityx.R;
 import com.communityx.R.id;
 import com.communityx.adapters.SignUpPagerAdapter;
 import com.communityx.custom_views.CustomViewPager;
+import com.communityx.fragments.*;
+import com.communityx.utils.AppConstant;
 import com.communityx.utils.Utils;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 import org.jetbrains.annotations.Nullable;
 
-public class SignUpStudentInfoActivity extends AppCompatActivity{
+import java.util.ArrayList;
+import java.util.List;
+
+public class SignUpStudentInfoActivity extends AppCompatActivity implements AppConstant {
 
     @BindView(id.text_subtitle)
     TextView textSubtitle;
@@ -29,19 +35,31 @@ public class SignUpStudentInfoActivity extends AppCompatActivity{
 
     private SignUpPagerAdapter pagerAdapter;
 
+    private String selectedCategory;
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_student_info);
         ButterKnife.bind(this);
 
+        initActivity();
+        setUpViewPager();
+    }
+
+    private void initActivity() {
+        getIntentData();
         textSubtitle.setText("Build your social impact identity on CommunityX.");
         buttonContinue.setTag(true);
         buttonContinue.setBackgroundResource(R.drawable.button_active);
-        setUpViewPager();
+    }
+
+    private void getIntentData() {
+        selectedCategory = getIntent().getAction();
     }
 
     private void setUpViewPager() {
         pagerAdapter = new SignUpPagerAdapter(getSupportFragmentManager());
+        pagerAdapter.setFragments(getFragments(selectedCategory));
         viewPager.setAdapter(pagerAdapter);
         viewPager.setAllowedSwipeDirection(CustomViewPager.SwipeDirection.left);
         viewPager.setmSwipeDirectionListener(new CustomViewPager.SwipeDirectionListener() {
@@ -52,6 +70,9 @@ public class SignUpStudentInfoActivity extends AppCompatActivity{
 
             @Override
             public void onPageChange(int position) {
+                if(!selectedCategory.equals(ACTION_SIGN_UP_STUDENT)){
+                    return;
+                }
                 enableButton(pagerAdapter.isButtonEnabled(position));
                 buttonContinue.setText(position == pagerAdapter.getTotalItems()-1 ? R.string.submit : R.string.continue_button);
             }
@@ -75,6 +96,9 @@ public class SignUpStudentInfoActivity extends AppCompatActivity{
             return;
         }
         viewPager.setCurrentItem(viewPager.getCurrentItem() + 1,true);
+        if(!selectedCategory.equals(ACTION_SIGN_UP_STUDENT)){
+            return;
+        }
         boolean isEnabled = pagerAdapter.isButtonEnabled(viewPager.getCurrentItem());
         enableButton(isEnabled);
     }
@@ -85,5 +109,26 @@ public class SignUpStudentInfoActivity extends AppCompatActivity{
 
     private void sendToActivity() {
         startActivity(new Intent(this, ConnectAlliesActivity.class));
+    }
+
+    private List<Fragment> getFragments(String selectedCategory) {
+        List<Fragment> fragments = new ArrayList<>();
+        if (selectedCategory.equals(ACTION_SIGN_UP_STUDENT)) {
+            fragments.add(new SignUpStudentInfoFragment());
+            fragments.add(new SignUpSchoolCollegeFragment());
+            fragments.add(new SignUpRoleFragment());
+            fragments.add(new SignUpMemberOfClub());
+        }
+        else if (selectedCategory.equals(ACTION_SIGN_UP_PROFESSIONAL)) {
+            fragments.add(new SignUpStudentInfoFragment());
+            fragments.add(new SignUpProfessional());
+            fragments.add(new SignUpMemberOfClub());
+        }
+        else if(selectedCategory.equals(ACTION_SIGN_UP_ORGANIZATION)) {
+            fragments.add(new SignUpOrganizationFragment());
+
+        }
+        fragments.add(new SignUpSelectInterest());
+        return fragments;
     }
 }
