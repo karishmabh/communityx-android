@@ -10,7 +10,7 @@
             android:id="@+id/image_circular_view"
             android:layout_width="@dimen/_45sdp"
             android:layout_height="@dimen/_45sdp"
-            android:src="@drawable/ic_profile_placeholder"
+            android:src="@drawable/profile_placeholder"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 

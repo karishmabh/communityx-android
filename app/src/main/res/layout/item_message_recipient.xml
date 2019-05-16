@@ -9,7 +9,7 @@
             android:id="@+id/image_user_profile"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:src="@drawable/ic_profile_placeholder"
+            android:src="@drawable/profile_placeholder"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"/>
 
