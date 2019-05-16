@@ -16,10 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.communityx.R;
-import com.communityx.fragments.CommunityFeedFragment;
-import com.communityx.fragments.MessageFragment;
-import com.communityx.fragments.MyAllFriendsFragment;
-import com.communityx.fragments.ProfileFragment;
+import com.communityx.fragments.*;
 import com.communityx.utils.AnimationUtils;
 import com.communityx.utils.DialogHelper;
 import com.communityx.utils.Utils;
@@ -73,6 +70,9 @@ public class DashboardActivity extends AppCompatActivity implements BottomNaviga
                     return true;
                 }
                 replceFragment(new ProfileFragment(), "fragment_profile");
+                break;
+            case R.id.navigation_notifications:
+                replceFragment(new NotificationFragment(),"fragment_notification");
                 break;
         }
         return true;
