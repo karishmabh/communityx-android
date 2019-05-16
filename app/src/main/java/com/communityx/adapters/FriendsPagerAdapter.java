@@ -18,7 +18,7 @@ public class FriendsPagerAdapter extends FragmentPagerAdapter {
 
     //TODO: Hard Coded String
     private String titles[] = {
-            "All Friends",
+            "All Allies",
             "Invitations",
             "Suggestions"
     };

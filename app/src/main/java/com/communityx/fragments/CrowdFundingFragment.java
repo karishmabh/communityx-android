@@ -94,4 +94,10 @@ public class CrowdFundingFragment extends Fragment {
             return false;
         });
     }
+
+    @OnTextChanged(R.id.edit_cause)
+    void onCauseTyping(CharSequence s){
+        editCause.setCompoundDrawablesWithIntrinsicBounds(0, 0,
+                s.length() != 0 ? R.drawable.ic_signup_add_interest : R.drawable.ic_signup_add_interest_deselect, 0);
+    }
 }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnTextChanged;
 import com.communityx.R;
 import com.google.android.flexbox.FlexboxLayout;
 
@@ -126,5 +127,11 @@ import com.google.android.flexbox.FlexboxLayout;
             }
             return false;
         });
+    }
+
+    @OnTextChanged(R.id.edit_cause)
+    void onCauseTyping(CharSequence s){
+        editCause.setCompoundDrawablesWithIntrinsicBounds(0, 0,
+                s.length() != 0 ? R.drawable.ic_signup_add_interest : R.drawable.ic_signup_add_interest_deselect, 0);
     }
 }
