@@ -1,5 +1,6 @@
 package com.communityx.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,5 +35,10 @@ public class MessageActivity extends AppCompatActivity {
     private void setRecyclerViewChat() {
         recyclerViewChat.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewChat.setAdapter(new ChatAdapter(MessageActivity.this, new ArrayList<String>()));
+    }
+
+    @OnClick(R.id.topView)
+    void tappedToolbar(){
+        startActivity(new Intent(this, GroupInfoActivity.class));
     }
 }

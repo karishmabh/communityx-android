@@ -19,4 +19,5 @@
     <color name="colorOrangeDate">#ff9933</color>
     <color name="colorBackgroundOrange">#fdf5ed</color>
     <color name="colorGreyCross">#a2a2a2</color>
+    <color name="colorRed">#fd4141</color>
 </resources>
