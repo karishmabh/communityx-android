@@ -2,11 +2,17 @@ package com.communityx.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import butterknife.BindString;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.communityx.R;
+import com.communityx.utils.Utils;
 
 public class PraiseAdapter extends RecyclerView.Adapter<PraiseAdapter.ViewHolder> {
 
@@ -26,7 +32,7 @@ public class PraiseAdapter extends RecyclerView.Adapter<PraiseAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-
+        if (i % 2 == 0 && i != 0) viewHolder.showViewAllReplies(String.valueOf(i +1), true);
     }
 
     @Override
@@ -36,8 +42,24 @@ public class PraiseAdapter extends RecyclerView.Adapter<PraiseAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
+        @BindView(R.id.underline)
+        View viewUnderline;
+        @BindView(R.id.text_all_replies)
+        TextView textAllReplies;
+
+        @BindString(R.string.view_replies)
+        String viewReplies;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
+            showViewAllReplies("",false);
+        }
+
+        void showViewAllReplies(@NonNull String repliesCount, boolean shouldShow) {
+            Utils.showHideView(viewUnderline, shouldShow);
+            Utils.showHideView(textAllReplies, shouldShow);
+            if (shouldShow) textAllReplies.setText(viewReplies.concat(" (").concat(repliesCount).concat(")"));
         }
     }
 }

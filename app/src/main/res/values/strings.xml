@@ -135,4 +135,6 @@
     <string name="i_am_interested_in">I am Interested In</string>
     <string name="activity">Activity</string>
     <string name="group_admin">Group Admin</string>
+    <string name="reply">Reply</string>
+    <string name="view_replies">View Replies</string>
 </resources>
