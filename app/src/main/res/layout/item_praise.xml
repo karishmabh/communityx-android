@@ -128,6 +128,8 @@
                 android:layout_height="wrap_content"
                 android:text="View Replies (12)"
                 android:textColor="?colorPrimary"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
                 android:textSize="@dimen/_10ssp"
                 android:layout_marginTop="@dimen/_13sdp"
                 android:fontFamily="@font/poppins_medium"
