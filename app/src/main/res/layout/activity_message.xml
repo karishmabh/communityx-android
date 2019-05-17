@@ -28,12 +28,14 @@
             android:layout_height="wrap_content">
 
         <EditText
+                android:id="@+id/edit_chat"
                 android:paddingTop="@dimen/_5sdp"
                 android:paddingBottom="@dimen/_5sdp"
                 android:paddingLeft="@dimen/_10sdp"
                 android:paddingRight="@dimen/_10sdp"
                 android:textSize="@dimen/_12ssp"
                 android:layout_weight="1"
+                android:inputType="textMultiLine"
                 android:elevation="@dimen/_1sdp"
                 android:textColor="@color/colorBlackTitle"
                 android:fontFamily="@font/poppins_regular"
@@ -42,7 +44,8 @@
                 android:drawablePadding="@dimen/_5sdp"
                 android:drawableRight="@drawable/drawable_left_location"
                 android:layout_marginRight="@dimen/_10sdp"
-                android:layout_height="@dimen/_35sdp"/>
+                android:minHeight="@dimen/_35sdp"
+                android:layout_height="wrap_content"/>
 
         <ImageView
                 android:paddingLeft="@dimen/_10sdp"

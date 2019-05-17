@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -15,9 +16,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 import com.communityx.R;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -62,6 +65,18 @@ public class Utils {
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
+    }
+
+    public static Bitmap convertToBitmap(Activity activity, String filename) {
+        try {
+            FileInputStream inputStream = activity.openFileInput(filename);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            inputStream.close();
+            return bitmap;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public interface IDateCallback {
