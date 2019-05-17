@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.Window;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import butterknife.BindDrawable;
@@ -19,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.communityx.R;
 import com.communityx.adapters.MultipleImagesAdapter;
+import com.communityx.utils.AnimationUtils;
 import com.communityx.utils.CustomToolBarHelper;
 
 import java.util.ArrayList;
@@ -29,6 +31,8 @@ public class EventDetailActivity extends AppCompatActivity {
     RecyclerView recyclerGoing;
     @BindView(R.id.recycler_interested)
     RecyclerView recyclerInterested;
+    @BindView(R.id.image_like)
+    ImageView imageLike;
 
     @BindDrawable(R.drawable.ic_event_details_gray_star)
     Drawable drawableStar;
@@ -70,6 +74,14 @@ public class EventDetailActivity extends AppCompatActivity {
     @OnClick(R.id.button_interested)
     void openBottomSheet() {
         openDialog();
+    }
+
+    boolean isLike = true;
+    @OnClick(R.id.image_like)
+    void likeTapped(){
+        imageLike.setImageResource(isLike ? R.drawable.ic_my_community_like_deselect : R.drawable.ic_my_community_like_select);
+        isLike = !isLike;
+        AnimationUtils.pulse(imageLike,1,300);
     }
 
     public void openDialog() {

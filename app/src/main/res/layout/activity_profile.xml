@@ -65,13 +65,14 @@
                         android:layout_width="@dimen/_95sdp"
                         android:layout_height="@dimen/_95sdp"
                         android:transitionName="user_image"
-                        android:elevation="@dimen/_1sdp"
+                        android:elevation="@dimen/_3sdp"
+                        app:civ_border_width="@dimen/_1sdp"
+                        app:civ_border_color="@color/colorWhite"
                         android:layout_marginTop="@dimen/_40sdp"
                         android:src="@drawable/profile_placeholder"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        />
+                        app:layout_constraintEnd_toEndOf="parent"/>
 
                 <TextView
                         android:id="@+id/text_name"
@@ -164,8 +165,7 @@
                             android:textSize="@dimen/_10ssp"
                             android:fontFamily="@font/poppins_regular"
                             android:singleLine="true"
-                            android:text="@string/add_a_short_headline_about_yourself"
-                            />
+                            android:text="@string/add_a_short_headline_about_yourself"/>
 
                     <Button
                             android:layout_width="@dimen/_180sdp"
@@ -182,18 +182,17 @@
                             android:drawableStart="@drawable/ic_my_profile_add_gray"/>
                 </LinearLayout>
 
-                <View
-                        android:id="@+id/view_divider_one"
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginStart="@dimen/_12sdp"
-                        android:layout_marginEnd="@dimen/_12sdp"
-                        android:background="@color/colorLightestGrey"
-                        android:layout_marginTop="@dimen/_12sdp"
-                        android:layout_marginBottom="@dimen/_8sdp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/view_add_headline"/>
+                <View android:id="@+id/view_divider_one"
+                      android:layout_width="match_parent"
+                      android:layout_height="0.5dp"
+                      android:layout_marginStart="@dimen/_12sdp"
+                      android:layout_marginEnd="@dimen/_12sdp"
+                      android:background="@color/colorLightestGrey"
+                      android:layout_marginTop="@dimen/_12sdp"
+                      android:layout_marginBottom="@dimen/_8sdp"
+                      app:layout_constraintStart_toStartOf="parent"
+                      app:layout_constraintEnd_toEndOf="parent"
+                      app:layout_constraintTop_toBottomOf="@id/view_add_headline"/>
 
                 <TextView
                         android:id="@+id/text_cause"
@@ -223,22 +222,20 @@
                         app:layout_constraintEnd_toEndOf="parent">
 
                     <include layout="@layout/item_interest_feed"/>
-
                     <include layout="@layout/item_interest_feed"/>
 
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <View
-                        android:id="@+id/view_divider_two"
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginStart="@dimen/_12sdp"
-                        android:layout_marginEnd="@dimen/_12sdp"
-                        android:background="@color/colorLightestGrey"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/flex_layout_cause"/>
+                <View android:id="@+id/view_divider_two"
+                      android:layout_width="match_parent"
+                      android:layout_height="0.5dp"
+                      android:layout_marginStart="@dimen/_12sdp"
+                      android:layout_marginEnd="@dimen/_12sdp"
+                      android:background="@color/colorLightestGrey"
+                      android:layout_marginTop="@dimen/_8sdp"
+                      app:layout_constraintStart_toStartOf="parent"
+                      app:layout_constraintEnd_toEndOf="parent"
+                      app:layout_constraintTop_toBottomOf="@id/flex_layout_cause"/>
 
                 <LinearLayout
                         android:layout_width="match_parent"
@@ -256,25 +253,14 @@
                             android:id="@+id/view_connections_holder"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            >
+                            android:orientation="horizontal">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                                 android:layout_width="@dimen/_22sdp"
                                 android:layout_height="@dimen/_22sdp"
                                 app:civ_border_width="@dimen/_1sdp"
                                 app:civ_border_color="@android:color/white"
-                                android:src="@drawable/profile_placeholder"
-                                />
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                                android:layout_width="@dimen/_22sdp"
-                                android:layout_height="@dimen/_22sdp"
-                                android:layout_marginStart="-6dp"
-                                app:civ_border_width="@dimen/_1sdp"
-                                app:civ_border_color="@android:color/white"
-                                android:src="@drawable/profile_placeholder"
-                                />
+                                android:src="@drawable/profile_placeholder"/>
 
                         <de.hdodenhof.circleimageview.CircleImageView
                                 android:layout_width="@dimen/_22sdp"
@@ -282,9 +268,15 @@
                                 android:layout_marginStart="-6dp"
                                 app:civ_border_width="@dimen/_1sdp"
                                 app:civ_border_color="@android:color/white"
-                                android:src="@drawable/profile_placeholder"
-                                />
+                                android:src="@drawable/profile_placeholder"/>
 
+                        <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="@dimen/_22sdp"
+                                android:layout_height="@dimen/_22sdp"
+                                android:layout_marginStart="-6dp"
+                                app:civ_border_width="@dimen/_1sdp"
+                                app:civ_border_color="@android:color/white"
+                                android:src="@drawable/profile_placeholder"/>
                     </LinearLayout>
 
                     <TextView
@@ -295,12 +287,9 @@
                             android:layout_marginStart="@dimen/_8sdp"
                             android:fontFamily="@font/poppins_medium"
                             android:textColor="@color/colorBlackTitle"
-                            android:text="See all 102 connections"
-                            />
+                            android:text="See all 102 connections"/>
                 </LinearLayout>
-
             </android.support.constraint.ConstraintLayout>
-
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
@@ -312,7 +301,6 @@
             <include layout="@layout/layout_profile_about_section"/>
         </android.support.v7.widget.CardView>
 
-
         <android.support.v7.widget.CardView
                 android:id="@+id/view_post"
                 android:layout_width="match_parent"
@@ -321,7 +309,5 @@
                 app:layout_constraintTop_toBottomOf="@id/view_about">
             <include layout="@layout/layout_profile_post"/>
         </android.support.v7.widget.CardView>
-
     </android.support.constraint.ConstraintLayout>
-
 </android.support.v4.widget.NestedScrollView>

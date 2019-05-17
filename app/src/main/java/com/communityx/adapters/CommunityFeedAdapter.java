@@ -17,6 +17,7 @@ import com.communityx.activity.CrowdfundingDetailActivity;
 import com.communityx.activity.EventDetailActivity;
 import com.communityx.activity.LikesActivity;
 import com.communityx.activity.PraiseActivity;
+import com.communityx.utils.AnimationUtils;
 import com.google.android.flexbox.FlexboxLayout;
 
 public class CommunityFeedAdapter extends RecyclerView.Adapter {
@@ -82,6 +83,8 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
         @Nullable
         @BindView(R.id.flexboxLayout2)
         FlexboxLayout flexboxLayout;
+        @BindView(R.id.image_like)
+        ImageView imageLike;
 
         public BaseFeedViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,6 +99,14 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
         @OnClick(R.id.view_like)
         void tappedLike() {
             mContext.startActivity(new Intent(mContext, LikesActivity.class));
+        }
+
+        boolean isLike = true;
+        @OnClick(R.id.image_like)
+        void likeTapped(){
+            imageLike.setImageResource(isLike ? R.drawable.ic_my_community_like_deselect : R.drawable.ic_my_community_like_select);
+            isLike = !isLike;
+            AnimationUtils.pulse(imageLike,1,300);
         }
     }
 
