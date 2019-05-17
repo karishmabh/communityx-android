@@ -1,5 +1,8 @@
 package com.communityx.utils;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.animation.Animation;
@@ -19,5 +22,17 @@ public class AnimationUtils {
         rotateAnimation.setRepeatCount(repeat);
         rotateAnimation.setInterpolator(new LinearInterpolator());
         view.startAnimation(rotateAnimation);
+    }
+
+    public static void pulse(View view, int repeat, int duration) {
+        ValueAnimator scaleDown = ObjectAnimator.ofPropertyValuesHolder(
+                view,
+                PropertyValuesHolder.ofFloat("scaleX", 1.3f),
+                PropertyValuesHolder.ofFloat("scaleY", 1.3f));
+        scaleDown.setDuration(duration);
+
+        scaleDown.setRepeatCount(repeat);
+        scaleDown.setRepeatMode(ObjectAnimator.REVERSE);
+        scaleDown.start();
     }
 }
