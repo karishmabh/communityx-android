@@ -26,7 +26,7 @@ public class GroupInfoActivity extends BaseActivity {
         setContentView(R.layout.activity_group_info);
         ButterKnife.bind(this);
 
-        setGroupToolbar(this,"Charity Life", "Created by You at 7:15 pm");
+        setGroupToolbar(this,"Charity Life", "Created by You, at 7:15 pm");
         setUpRecyclerData();
     }
 

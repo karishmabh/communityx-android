@@ -34,7 +34,7 @@
               android:id="@+id/edit_search"
               android:textSize="@dimen/_10sdp"
               android:fontFamily="@font/poppins_medium"
-              android:hint="@string/search_your_friend_list"
+              android:hint="@string/search"
               android:drawableStart="@drawable/ic_all_friend_search_bar_search"
               android:drawablePadding="@dimen/_8sdp"
               android:paddingStart="@dimen/_8sdp"
