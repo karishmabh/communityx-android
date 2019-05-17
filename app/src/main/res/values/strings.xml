@@ -134,4 +134,7 @@
     <string name="my_hosted_events">My Hosted Events</string>
     <string name="i_am_interested_in">I am Interested In</string>
     <string name="activity">Activity</string>
+    <string name="title_activity_send_location">Map</string>
+    <string name="accurate_to_18_metres">Accurate to 18 metres</string>
+    <string name="send_your_current_location">Send your current location</string>
 </resources>
