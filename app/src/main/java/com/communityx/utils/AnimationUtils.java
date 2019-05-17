@@ -28,9 +28,10 @@ public class AnimationUtils {
         ValueAnimator scaleDown = ObjectAnimator.ofPropertyValuesHolder(
                 view,
                 PropertyValuesHolder.ofFloat("scaleX", 1.3f),
-                PropertyValuesHolder.ofFloat("scaleY", 1.3f));
-        scaleDown.setDuration(duration);
+                PropertyValuesHolder.ofFloat("scaleY", 1.3f)
+        );
 
+        scaleDown.setDuration(duration);
         scaleDown.setRepeatCount(repeat);
         scaleDown.setRepeatMode(ObjectAnimator.REVERSE);
         scaleDown.start();
