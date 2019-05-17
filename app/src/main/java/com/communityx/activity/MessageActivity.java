@@ -90,4 +90,9 @@ public class MessageActivity extends AppCompatActivity {
         mChatAdapter = new ChatAdapter(MessageActivity.this, mChatList);
         recyclerViewChat.setAdapter(mChatAdapter);
     }
+
+    @OnClick(R.id.topView)
+    void tappedToolbar(){
+        startActivity(new Intent(this, GroupInfoActivity.class));
+    }
 }

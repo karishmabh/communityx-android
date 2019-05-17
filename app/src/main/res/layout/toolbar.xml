@@ -37,9 +37,9 @@
                    android:id="@+id/image_tail_toolbar"
                    android:visibility="gone"
                    tools:visibility="visible"
+                   android:background="?attr/selectableItemBackgroundBorderless"
+                   android:clickable="true"
                    app:layout_constraintBottom_toBottomOf="parent"
                    android:layout_marginBottom="16dp"/>
-
     </android.support.constraint.ConstraintLayout>
-
 </android.support.design.widget.AppBarLayout>
