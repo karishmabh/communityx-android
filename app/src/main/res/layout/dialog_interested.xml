@@ -17,7 +17,7 @@
                 android:id="@+id/radio_button_1"
                 android:text="@string/interested"
                 android:textAllCaps="true"
-                android:drawableLeft="@drawable/ic_event_details_gray_star"
+                android:drawableLeft="@drawable/drawable_star"
                 android:drawablePadding="@dimen/_5sdp"
                 android:layoutDirection="rtl"
                 android:fontFamily="@font/poppins_medium"

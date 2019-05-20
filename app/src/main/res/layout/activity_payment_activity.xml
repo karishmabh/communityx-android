@@ -59,8 +59,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toRightOf="@+id/radio_debit_button"
             android:textSize="@dimen/_14ssp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/radio_debit_button"
             android:text="Debit Card"
+            android:layout_marginTop="@dimen/_3sdp"
             android:layout_marginStart="@dimen/_5sdp"
             android:fontFamily="@font/poppins_regular"
             android:textColor="@color/colorBlackTitle"/>
@@ -118,8 +119,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toRightOf="@+id/radio_credit_button"
             android:textSize="@dimen/_14ssp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/radio_credit_button"
             android:text="Credit Card"
+            android:layout_marginTop="@dimen/_3sdp"
             android:layout_marginStart="@dimen/_5sdp"
             android:fontFamily="@font/poppins_regular"
             android:textColor="@color/colorBlackTitle"/>

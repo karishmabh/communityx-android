@@ -3,12 +3,14 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".activity.SendLocationActivity">
 
     <include
             android:id="@+id/topView"
             app:layout_constraintTop_toTopOf="parent"
-            layout="@layout/chat_toolbar"/>
+            layout="@layout/toolbar"/>
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
