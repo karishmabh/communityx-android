@@ -121,15 +121,15 @@
         </android.support.constraint.ConstraintLayout>
 
         <android.support.design.widget.FloatingActionButton
-                app:elevation="@dimen/_7sdp"
+                app:elevation="@dimen/_4sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="@dimen/_10sdp"
-                app:fabCustomSize="@dimen/_40sdp"
+                app:fabCustomSize="@dimen/_48sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
                 app:layout_constraintBottom_toTopOf="@+id/text_end_date"
                 android:src="@drawable/ic_event_details_map_navigator"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"/>
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"/>
 
         <TextView
                 android:id="@+id/text_start_time_heading"

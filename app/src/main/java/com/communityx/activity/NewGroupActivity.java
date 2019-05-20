@@ -2,6 +2,7 @@ package com.communityx.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,7 +27,7 @@ public class NewGroupActivity extends AppCompatActivity implements GroupAdapter.
     @BindView(R.id.recycler_added_users)
     RecyclerView recyclerAddedUsers;
     @BindView(R.id.image_next)
-    ImageView imageNext;
+    FloatingActionButton imageNext;
 
     private SelectedMembersAdapter selectedMembersAdapter ;
     private GroupAdapter groupAdapter;
@@ -38,6 +39,7 @@ public class NewGroupActivity extends AppCompatActivity implements GroupAdapter.
         setContentView(R.layout.activity_new_group);
         ButterKnife.bind(this);
 
+        imageNext.hide();
         setRecyclerViewChat();
     }
 
@@ -88,11 +90,11 @@ public class NewGroupActivity extends AppCompatActivity implements GroupAdapter.
             selectedUsersList.addAll(mSelectedUsers);
 
             recyclerAddedUsers.setVisibility(View.VISIBLE);
-            imageNext.setVisibility(View.VISIBLE);
+            imageNext.show();
             recyclerAddedUsers.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
             selectedMembersAdapter.notifyDataSetChanged();
         } else {
-            imageNext.setVisibility(View.GONE);
+            imageNext.hide();
             recyclerAddedUsers.setVisibility(View.GONE);
         }
     }

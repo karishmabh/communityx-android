@@ -36,7 +36,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:background="@drawable/circle_active"
-                android:src="@drawable/ic_send_location_recenter"
+                android:src="@drawable/ic_send_location_icon"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"/>
 
@@ -75,7 +75,7 @@
             app:elevation="@dimen/_7sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_15sdp"
-            app:fabCustomSize="@dimen/_40sdp"
+            app:fabCustomSize="@dimen/_36sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/constraint_location"
             android:src="@drawable/ic_send_location_recenter"
