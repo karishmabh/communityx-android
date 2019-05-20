@@ -62,11 +62,11 @@
 
         <TextView
                 android:id="@+id/text_raised"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_10ssp"
                 android:textColor="@color/colorLightGrey"
-                android:text="Raised amount for"
+                android:text="Raised amount so far"
                 android:fontFamily="@font/poppins_regular"
                 app:layout_constraintTop_toBottomOf="@+id/text_raised_amount"
                 app:layout_constraintStart_toEndOf="@+id/image_raised"
@@ -132,9 +132,9 @@
                 android:textSize="@dimen/_10ssp"
                 android:textColor="@color/colorLightGrey"
                 android:text="by"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:fontFamily="@font/poppins_regular"
                 app:layout_constraintTop_toBottomOf="@+id/text_crowdfunding_content"
-                android:layout_marginTop="24dp"
                 app:layout_constraintStart_toEndOf="@+id/circleImageView"
                 android:layout_marginStart="8dp"/>
 
@@ -147,7 +147,7 @@
                 android:text="Charity Life"
                 android:fontFamily="@font/poppins_semibold"
                 app:layout_constraintTop_toBottomOf="@+id/text_crowdfunding_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/_8sdp"
                 app:layout_constraintStart_toEndOf="@+id/text_by"
                 android:layout_marginStart="4dp"/>
 
@@ -162,7 +162,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/text_crowdfunding_content"
                 app:layout_constraintStart_toEndOf="@+id/text_fund_amount"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="24dp"/>
+                android:layout_marginTop="@dimen/_8sdp"/>
 
         <TextView
                 android:id="@+id/text_fund_date"
@@ -174,7 +174,7 @@
                 android:fontFamily="@font/poppins_medium"
                 app:layout_constraintTop_toBottomOf="@+id/text_crowdfunding_content"
                 app:layout_constraintStart_toEndOf="@+id/text_fund_collected"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginStart="4dp"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -321,6 +321,8 @@
                     android:layout_width="@dimen/_31sdp"
                     android:layout_height="@dimen/_31sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
+                    app:civ_border_color="@color/colorLightestGrey"
+                    app:civ_border_width="1dp"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/profile_placeholder"/>
 
@@ -328,6 +330,8 @@
                     android:layout_width="@dimen/_31sdp"
                     android:layout_height="@dimen/_31sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
+                    app:civ_border_color="@color/colorLightestGrey"
+                    app:civ_border_width="1dp"
                     android:src="@drawable/profile_placeholder"/>
 
             <FrameLayout
