@@ -48,10 +48,11 @@
             android:layout_width="0dp"
             android:layout_height="0dp"/>
 
-    <ImageView
+    <android.support.design.widget.FloatingActionButton
             android:id="@+id/image_next"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:fabCustomSize="@dimen/_48sdp"
             android:paddingLeft="@dimen/_10sdp"
             android:paddingTop="@dimen/_8sdp"
             android:paddingRight="@dimen/_8sdp"
@@ -62,6 +63,6 @@
             android:layout_marginBottom="@dimen/_15sdp"
             android:background="@drawable/circle_active"
             android:src="@drawable/ic_new_group_nex_arrow"
-            android:layout_width="@dimen/_35sdp"
-            android:layout_height="@dimen/_35sdp"/>
+            android:layout_width="@dimen/_48sdp"
+            android:layout_height="@dimen/_48sdp"/>
 </android.support.constraint.ConstraintLayout>

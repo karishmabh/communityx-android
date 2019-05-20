@@ -34,7 +34,7 @@ public class EventDetailActivity extends AppCompatActivity {
     @BindView(R.id.image_like)
     ImageView imageLike;
 
-    @BindDrawable(R.drawable.ic_event_details_gray_star)
+    @BindDrawable(R.drawable.drawable_star)
     Drawable drawableStar;
     @BindDrawable(R.drawable.ic_interested_popup_going_select)
     Drawable drawableGoing;

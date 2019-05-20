@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.communityx.R;
+import com.communityx.utils.CustomToolBarHelper;
 import com.communityx.utils.MyLocation;
 import com.communityx.utils.PermissionHelper;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -39,9 +40,17 @@ public class SendLocationActivity extends FragmentActivity implements OnMapReady
         setContentView(R.layout.activity_send_location);
         ButterKnife.bind(this);
 
+        setUpToolbar();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         initLocationPermission();
+    }
+
+    private void setUpToolbar() {
+        CustomToolBarHelper customToolBarHelper = new CustomToolBarHelper(this);
+        customToolBarHelper.setTitle("Send Location");
+        customToolBarHelper.enableBackPress();
+        customToolBarHelper.setImageTail(R.drawable.ic_send_location_nav_search);
     }
 
     @Override

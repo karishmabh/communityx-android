@@ -29,7 +29,7 @@
     <string name="please_select_a_category">Please select a category.</string>
     <string name="student">I am a Student</string>
     <string name="professional">I am a Professional</string>
-    <string name="organization">I am a Organization</string>
+    <string name="organization">I am an Organization</string>
     <string name="continue_button">Continue</string>
     <string name="postal_code">Postal Code</string>
     <string name="birthday">Birthday</string>
@@ -135,9 +135,10 @@
     <string name="i_am_interested_in">I am Interested In</string>
     <string name="activity">Activity</string>
     <string name="title_activity_send_location">Map</string>
-    <string name="accurate_to_18_metres">Accurate to 18 metres</string>
+    <string name="accurate_to_18_metres">Accurate to 18 meters</string>
     <string name="send_your_current_location">Send your current location</string>
     <string name="group_admin">Group Admin</string>
     <string name="reply">Reply</string>
     <string name="view_replies">View Replies</string>
+    <string name="tag_this_event_post_with_a_cause_or_movement">Tag this event post with a cause or movement.</string>
 </resources>
