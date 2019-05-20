@@ -2,11 +2,13 @@ package com.communityx.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,12 +29,38 @@ public class CreateEventFragment extends Fragment {
     EditText editStartDate;
     @BindView(R.id.edit_end_date)
     EditText editEndDate;
+    @BindView(R.id.edit_title)
+    EditText editTitle;
+
+    @BindView(R.id.button_post)
+    Button buttonPost;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.fragment_create_event, container, false);
         ButterKnife.bind(this, view);
+
         setSuggestedCause();
+        editTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() > 0) {
+                    buttonPost.setBackground(getResources().getDrawable(R.drawable.button_active));
+                } else {
+                    buttonPost.setBackground(getResources().getDrawable(R.drawable.button_inactive));
+                }
+            }
+        });
         return view;
     }
 

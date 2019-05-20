@@ -17,6 +17,7 @@
     <string name="send_otp">Send OTP</string>
     <string name="change_number">Change</string>
     <string name="add_profile_image">Add Profile Image</string>
+    <string name="edit_profile_image">Edit Profile Image</string>
     <string name="enter_otp">Enter OTP</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="signup">Sign Up</string>
@@ -68,6 +69,7 @@
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="tag_this_post_with_a_cause_or_movement">Tag this post with a cause or movement.</string>
+    <string name="tag_this_event_post_with_a_cause_or_movement">Tag this event post with a cause or movement.</string>
     <string name="post">Post</string>
     <string name="create_post">Create Post</string>
     <string name="report_to_communityx">Report to CommunityX</string>
@@ -128,7 +130,7 @@
     <string name="email_address">Email Address</string>
     <string name="website">Website</string>
     <string name="recent_job_title">Recent Job Title</string>
-    <string name="recent_compnay">Recent Compnay</string>
+    <string name="recent_compnay">Recent Company</string>
     <string name="share_your_work_history">Share your work history.</string>
     <string name="read_more">Read more</string>
     <string name="my_hosted_events">My Hosted Events</string>
@@ -140,4 +142,5 @@
     <string name="group_admin">Group Admin</string>
     <string name="reply">Reply</string>
     <string name="view_replies">View Replies</string>
+    <string name="select_up_to_5">(Select up to 5)</string>
 </resources>
