@@ -53,6 +53,7 @@
                 android:paddingRight="@dimen/_8sdp"
                 android:paddingBottom="@dimen/_8sdp"
                 android:scaleType="fitCenter"
+                android:layout_gravity="center"
                 android:background="@drawable/circle_active"
                 android:src="@drawable/ic_person_chat_send"
                 android:layout_width="@dimen/_35sdp"
