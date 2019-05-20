@@ -14,7 +14,7 @@
 
         <TextView
                 android:id="@+id/text_heading"
-                android:layout_width="@dimen/_241sdp"
+                android:layout_width="wrap_content"
                 android:text="@string/what_causes_do_you_care_about"
                 style="@style/text_size_small"
                 android:layout_height="wrap_content"
@@ -23,7 +23,24 @@
                 android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginStart="@dimen/_15sdp"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/text_subtitle"
                 app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+                android:id="@+id/text_subtitle"
+                android:layout_width="0dp"
+                android:text="@string/select_up_to_5"
+                android:textSize="@dimen/_9ssp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlackTitle"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/text_heading"
+                app:layout_constraintStart_toEndOf="@id/text_heading"/>
 
         <TextView
                 android:id="@+id/text_civil_right"
