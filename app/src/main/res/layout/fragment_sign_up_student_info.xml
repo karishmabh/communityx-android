@@ -58,6 +58,7 @@
                            android:layout_height="@dimen/_20sdp"/>
 
                 <TextView
+                        android:id="@+id/text_profile"
                         android:layout_width="wrap_content"
                         android:text="@string/add_profile_image"
                         style="@style/text_size_small"

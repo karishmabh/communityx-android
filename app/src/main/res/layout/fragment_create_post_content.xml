@@ -23,7 +23,7 @@
 
     <EditText
             android:id="@+id/edit_cause"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_interest_inactive"
             android:hint="Type here..."
@@ -35,20 +35,23 @@
             android:layout_marginEnd="@dimen/_15sdp"
             android:fontFamily="@font/poppins_medium"
             app:layout_constraintTop_toBottomOf="@id/text_cause"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:drawablePadding="@dimen/_8sdp"
             android:drawableEnd="@drawable/ic_signup_add_interest_deselect"/>
 
     <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/flex_layout_cause"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4sdp"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
             app:flexWrap="wrap"
             app:alignItems="stretch"
             app:alignContent="stretch"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_cause">
 
     </com.google.android.flexbox.FlexboxLayout>

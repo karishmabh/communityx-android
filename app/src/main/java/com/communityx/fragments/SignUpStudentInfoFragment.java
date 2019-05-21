@@ -70,6 +70,8 @@ public class SignUpStudentInfoFragment extends Fragment implements AppConstant, 
     ImageView imageProfile;
     @BindView(R.id.image_add_edit)
     ImageView imageAddEdit;
+    @BindView(R.id.text_profile)
+    TextView textProfile;
 
     @Nullable
     @Override
@@ -136,6 +138,7 @@ public class SignUpStudentInfoFragment extends Fragment implements AppConstant, 
     @Override
     public void onMediaSelected(String imagePath, Uri uri, boolean isImage) {
         imageProfile.setImageURI(uri);
+        textProfile.setText(getResources().getString(R.string.edit_profile_image));
         imageAddEdit.setImageResource(R.drawable.ic_signup_edit_image);
     }
 

@@ -100,6 +100,8 @@ public class SendLocationActivity extends FragmentActivity implements OnMapReady
 
     @OnClick(R.id.constraint_location)
     void sendLocation() {
+        if(mMap == null) return;
+
         GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
 
             Bitmap bitmap;
