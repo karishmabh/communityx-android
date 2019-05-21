@@ -8,7 +8,7 @@
         tools:context=".fragments.SignUpMemberOfClub">
 
     <TextView android:id="@+id/text_heading"
-              android:layout_width="@dimen/_241sdp"
+              android:layout_width="0dp"
               android:text="@string/are_you_a_member_of_any_clubs"
               style="@style/text_size_small"
               android:layout_height="wrap_content"
@@ -16,7 +16,9 @@
               android:fontFamily="@font/poppins_semibold"
               android:layout_marginTop="@dimen/_12sdp"
               android:layout_marginStart="@dimen/_15sdp"
+              android:layout_marginEnd="@dimen/_15sdp"
               app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
@@ -36,8 +38,7 @@
             android:id="@+id/spinner_club_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:background="@drawable/spinner_dropdown"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,8 +71,7 @@
             android:id="@+id/spinner_role"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:background="@drawable/spinner_dropdown"
             app:layout_constraintStart_toStartOf="parent"

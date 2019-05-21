@@ -101,17 +101,17 @@
             app:layout_constraintStart_toEndOf="@+id/text_traget"
             app:layout_constraintTop_toBottomOf="@+id/image_cover" />
 
-        <SeekBar
-            android:id="@+id/seekBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="@dimen/_12sdp"
-            android:progress="50"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_traget" />
+        <SeekBar android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="15dp"
+                 android:layout_marginStart="@dimen/_12sdp"
+                 android:layout_marginEnd="@dimen/_12sdp"
+                 android:progress="50"
+                 app:layout_constraintTop_toBottomOf="@+id/text_traget"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 android:thumb="@drawable/thumb_seekbar"
+                 android:id="@+id/seekBar"/>
 
         <TextView
             android:id="@+id/text_crowdfunding_content"
@@ -193,16 +193,15 @@
             app:layout_constraintTop_toBottomOf="@+id/text_crowdfunding_content" />
 
         <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/flexboxLayout2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="65dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_by">
-
-            <include layout="@layout/item_interest_feed" />
-
-            <include layout="@layout/item_interest_feed" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/text_crowdfunding_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="65dp"
+                android:layout_marginTop="@dimen/_21sdp"
+                android:id="@+id/flexboxLayout2">
+            <include layout="@layout/item_interest_feed"/>
+            <include layout="@layout/item_interest_feed"/>
         </com.google.android.flexbox.FlexboxLayout>
 
         <ImageView
