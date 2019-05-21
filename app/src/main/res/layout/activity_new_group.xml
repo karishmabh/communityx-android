@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             tools:context=".fragments.MessageFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.MessageFragment">
 
     <include
-            app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/view_toolbar"
-            layout="@layout/toolbar_group"/>
+        android:id="@+id/view_toolbar"
+        layout="@layout/toolbar_group"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-            app:layout_constraintTop_toBottomOf="@+id/view_toolbar"
-            android:id="@+id/edit_search"
-            android:drawableLeft="@drawable/ic_all_friend_search_bar_search"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_12sdp"
-            android:layout_marginRight="@dimen/_12sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:background="@drawable/bg_stroke_grey"
-            android:layout_width="0dp"
-            android:drawablePadding="@dimen/_5sdp"
-            android:textColor="@color/colorLightGrey"
-            android:fontFamily="@font/poppins_medium"
-            android:text="@string/search"
-            android:textSize="@dimen/_10ssp"
-            android:padding="@dimen/_5sdp"
-            android:layout_height="@dimen/_30sdp"/>
+        android:id="@+id/edit_search"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginLeft="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_12sdp"
+        android:background="@drawable/bg_stroke_grey"
+        android:drawableLeft="@drawable/ic_all_friend_search_bar_search"
+        android:drawablePadding="@dimen/_5sdp"
+        android:fontFamily="@font/poppins_medium"
+        android:padding="@dimen/_5sdp"
+        android:text="@string/search"
+        android:textColor="@color/colorLightGrey"
+        android:textSize="@dimen/_10ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_toolbar" />
 
     <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_added_users"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/recycler_added_users"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_search" />
 
     <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_user_list"
-            android:layout_marginTop="@dimen/_5sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recycler_added_users"
-            android:layout_width="0dp"
-            android:layout_height="0dp"/>
+        android:id="@+id/recycler_user_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_added_users" />
 
     <android.support.design.widget.FloatingActionButton
-            android:id="@+id/image_next"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:fabCustomSize="@dimen/_48sdp"
-            android:paddingLeft="@dimen/_10sdp"
-            android:paddingTop="@dimen/_8sdp"
-            android:paddingRight="@dimen/_8sdp"
-            android:paddingBottom="@dimen/_8sdp"
-            android:scaleType="fitCenter"
-            android:visibility="gone"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:layout_marginBottom="@dimen/_15sdp"
-            android:background="@drawable/circle_active"
-            android:src="@drawable/ic_new_group_nex_arrow"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"/>
+        android:id="@+id/image_next"
+        android:layout_width="@dimen/_48sdp"
+        android:layout_height="@dimen/_48sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:background="@drawable/circle_active"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingTop="@dimen/_8sdp"
+        android:paddingRight="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_8sdp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_new_group_nex_arrow"
+        android:visibility="gone"
+        app:fabCustomSize="@dimen/_48sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </android.support.constraint.ConstraintLayout>

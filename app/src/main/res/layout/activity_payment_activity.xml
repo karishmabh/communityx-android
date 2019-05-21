@@ -1,155 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".activity.PaymentActivity">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.PaymentActivity">
 
-    <include layout="@layout/toolbar"
-             android:id="@+id/tool_bar"/>
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/toolbar" />
 
     <TextView
-            android:id="@+id/text_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/tool_bar"
-            android:text="@string/select_options_to_pay"
-            android:textSize="@dimen/_14ssp"
-            android:layout_margin="@dimen/_10ssp"
-            android:fontFamily="@font/poppins_semibold"
-            android:textColor="@color/colorBlackTitle"/>
+        android:id="@+id/text_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10ssp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/select_options_to_pay"
+        android:textColor="@color/colorBlackTitle"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintTop_toBottomOf="@+id/tool_bar" />
 
     <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_cards"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_margin="@dimen/_5sdp"
-            app:layout_constraintTop_toBottomOf="@+id/text_title">
+        android:id="@+id/recycler_cards"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintTop_toBottomOf="@+id/text_title">
 
     </android.support.v7.widget.RecyclerView>
 
-    <View android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:id="@+id/view_1"
-          android:layout_margin="@dimen/_10sdp"
-          app:layout_constraintTop_toBottomOf="@+id/recycler_cards"
-          android:background="@color/colorLightestGrey"/>
+    <View
+        android:id="@+id/view_1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@color/colorLightestGrey"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_cards" />
 
     <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraint_debit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@+id/view_1">
+        android:id="@+id/constraint_debit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/view_1">
 
-    <RadioButton
+        <RadioButton
             android:id="@+id/radio_debit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            android:checked="false"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:checked="false"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+        <TextView
             android:id="@+id/text_debit_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@+id/radio_debit_button"
-            android:textSize="@dimen/_14ssp"
-            app:layout_constraintTop_toTopOf="@id/radio_debit_button"
-            android:text="Debit Card"
-            android:layout_marginTop="@dimen/_3sdp"
             android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_3sdp"
             android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/colorBlackTitle"/>
+            android:text="Debit Card"
+            android:textColor="@color/colorBlackTitle"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintLeft_toRightOf="@+id/radio_debit_button"
+            app:layout_constraintTop_toTopOf="@id/radio_debit_button" />
 
-    <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="vertical"
-                  android:id="@+id/linear_debit_card"
-                  android:visibility="gone"
-                  android:layout_marginTop="@dimen/_6sdp"
-                  app:layout_constraintTop_toBottomOf="@+id/text_debit_card">
+        <LinearLayout
+            android:id="@+id/linear_debit_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/text_debit_card">
 
-        <include layout="@layout/layout_paymnet_info"/>
+            <include layout="@layout/layout_paymnet_info" />
 
-    </LinearLayout>
+        </LinearLayout>
 
-    <TextView
+        <TextView
             android:id="@+id/text_debit_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_16ssp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:fontFamily="@font/poppins_bold"
             android:text="$100.00"
+            android:textColor="@color/colorBlackTitle"
+            android:textSize="@dimen/_16ssp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            android:fontFamily="@font/poppins_bold"
-            android:layout_marginEnd="@dimen/_5sdp"
-            android:textColor="@color/colorBlackTitle"/>
-</android.support.constraint.ConstraintLayout>
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 
-    <View android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:id="@+id/view_2"
-          android:layout_margin="@dimen/_10sdp"
-          app:layout_constraintTop_toBottomOf="@+id/constraint_debit"
-          android:background="@color/colorLightestGrey"/>
+    <View
+        android:id="@+id/view_2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@color/colorLightestGrey"
+        app:layout_constraintTop_toBottomOf="@+id/constraint_debit" />
 
     <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@+id/view_2">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/view_2">
 
-    <RadioButton
+        <RadioButton
             android:id="@+id/radio_credit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="false"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:checked="false"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+        <TextView
             android:id="@+id/text_credit_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@+id/radio_credit_button"
-            android:textSize="@dimen/_14ssp"
-            app:layout_constraintTop_toTopOf="@id/radio_credit_button"
-            android:text="Credit Card"
-            android:layout_marginTop="@dimen/_3sdp"
             android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_3sdp"
             android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/colorBlackTitle"/>
+            android:text="Credit Card"
+            android:textColor="@color/colorBlackTitle"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintLeft_toRightOf="@+id/radio_credit_button"
+            app:layout_constraintTop_toTopOf="@id/radio_credit_button" />
 
-    <LinearLayout
+        <LinearLayout
             android:id="@+id/linear_credit_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
             android:orientation="vertical"
             android:visibility="gone"
-            android:layout_marginTop="@dimen/_6sdp"
             app:layout_constraintTop_toBottomOf="@+id/text_credit_card">
 
-        <include layout="@layout/layout_paymnet_info"/>
+            <include layout="@layout/layout_paymnet_info" />
+        </LinearLayout>
 
-    </LinearLayout>
-
-    <TextView
+        <TextView
             android:id="@+id/text_credit_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_16ssp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:fontFamily="@font/poppins_bold"
             android:text="$100.00"
+            android:textColor="@color/colorBlackTitle"
+            android:textSize="@dimen/_16ssp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            android:fontFamily="@font/poppins_bold"
-            android:layout_marginEnd="@dimen/_5sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textColor="@color/colorBlackTitle"/>
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

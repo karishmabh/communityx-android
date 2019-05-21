@@ -7,14 +7,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.*;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.TextView;
+
 import com.communityx.R;
 import com.communityx.adapters.PaymentAdapter;
-import com.communityx.utils.Utils;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class PaymentActivity extends AppCompatActivity implements PaymentAdapter.OnCardCheckedListener {
     @BindView(R.id.text_title)
@@ -67,8 +71,8 @@ public class PaymentActivity extends AppCompatActivity implements PaymentAdapter
         radioDebitButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
             radioCreditButton.setChecked(!isChecked);
             paymentAdapter.notifyDataSetChanged();
-            makeActive(isChecked,textDebitCard);
-            showPannel(isChecked,linearDebitCard,textDebitAmount);
+            makeActive(isChecked, textDebitCard);
+            showPannel(isChecked, linearDebitCard, textDebitAmount);
         });
     }
 
@@ -76,36 +80,36 @@ public class PaymentActivity extends AppCompatActivity implements PaymentAdapter
         radioCreditButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
             radioDebitButton.setChecked(!isChecked);
             paymentAdapter.notifyDataSetChanged();
-            makeActive(isChecked,textCreditCard);
-            showPannel(isChecked,linearCreditCard,textCreditAmount);
+            makeActive(isChecked, textCreditCard);
+            showPannel(isChecked, linearCreditCard, textCreditAmount);
         });
     }
 
-    private void makeActive(boolean isChecked, TextView textView){
-        textView.setTypeface(isChecked ? Typeface.createFromAsset(getAssets(),"fonts/poppins_semibold.ttf")
-                : Typeface.createFromAsset(getAssets(),"fonts/poppins_regular.ttf"));
+    private void makeActive(boolean isChecked, TextView textView) {
+        textView.setTypeface(isChecked ? Typeface.createFromAsset(getAssets(), "fonts/poppins_semibold.ttf")
+                : Typeface.createFromAsset(getAssets(), "fonts/poppins_regular.ttf"));
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                isChecked ? getResources().getDimension(R.dimen._16ssp) : getResources().getDimension(R.dimen._14ssp) );
+                isChecked ? getResources().getDimension(R.dimen._16ssp) : getResources().getDimension(R.dimen._14ssp));
     }
 
     @Override
     public void onCardChecked(boolean isChecked, RadioButton radioButton) {
-        if(!isChecked) return;
+        if (!isChecked) return;
         radioDebitButton.setOnCheckedChangeListener(null);
         radioDebitButton.setChecked(false);
         radioCreditButton.setOnCheckedChangeListener(null);
         radioCreditButton.setChecked(false);
 
-        showPannel(false,linearCreditCard,textCreditAmount);
-        showPannel(false,linearDebitCard,textDebitAmount);
-        makeActive(false,textDebitCard);
-        makeActive(false,textCreditCard);
+        showPannel(false, linearCreditCard, textCreditAmount);
+        showPannel(false, linearDebitCard, textDebitAmount);
+        makeActive(false, textDebitCard);
+        makeActive(false, textCreditCard);
 
         setCreditCard();
         setDebitCard();
     }
 
-    private void showPannel(boolean shouldShow, LinearLayout linearLayout, TextView textView){
+    private void showPannel(boolean shouldShow, LinearLayout linearLayout, TextView textView) {
         linearLayout.setVisibility(shouldShow ? View.VISIBLE : View.GONE);
         textView.setVisibility(shouldShow ? View.VISIBLE : View.GONE);
     }
