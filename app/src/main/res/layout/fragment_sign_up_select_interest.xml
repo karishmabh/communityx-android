@@ -36,7 +36,7 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/text_heading"
