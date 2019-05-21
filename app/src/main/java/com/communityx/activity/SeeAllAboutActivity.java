@@ -28,6 +28,7 @@ public class SeeAllAboutActivity extends BaseActivity implements AppConstant {
         ButterKnife.bind(this);
 
         isOtherProfile = getIntent().getBooleanExtra(IS_OTHER_PROFILE, false);
+        setToolBar(this,getString(R.string.experiences),true);
         setAllInfo();
         setFloatingButtonVisibility();
     }
