@@ -1,7 +1,8 @@
 package com.communityx.activity;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,13 +13,15 @@ import android.widget.TextView;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.communityx.R;
 import com.communityx.adapters.CommunityFeedAdapter;
 import com.communityx.adapters.ProfileInfoAdapter;
 import com.communityx.database.FakeDatabase;
+import com.communityx.utils.AppConstant;
 import com.communityx.utils.Utils;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements AppConstant {
 
     @BindView(R.id.recycler_post)
     RecyclerView recyclerPost;
@@ -58,6 +61,14 @@ public class ProfileActivity extends AppCompatActivity {
         showAddHeadlines(false && !isOtherProfile);
         setPostLabel(isOtherProfile);
         showAddAndMessageButton(isOtherProfile);
+    }
+
+    @OnClick(R.id.text_see_all)
+    void tappedSeeAll() {
+        Intent intent = new Intent(this,SeeAllAboutActivity.class);
+        intent.putExtra(IS_OTHER_PROFILE, isOtherProfile);
+        startActivity(intent);
+        overridePendingTransition(R.anim.anim_next_slide_in,R.anim.anim_next_slide_out);
     }
 
     private void setAboutInfo() {

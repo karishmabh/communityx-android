@@ -8,6 +8,7 @@ public interface AppConstant {
     String ACTION_SIGN_UP_STUDENT = "action.sign_up.STUDENT";
     String ACTION_SIGN_UP_PROFESSIONAL = "action.sign_up.PROFESSIONAL";
     String ACTION_SIGN_UP_ORGANIZATION = "action.sign_up.ORGANIZATION";
+    String IS_OTHER_PROFILE = "is_other_profile";
 
     int PICK_FROM_CAMERA = 0;
     int PICK_FROM_GALLERY = 1;

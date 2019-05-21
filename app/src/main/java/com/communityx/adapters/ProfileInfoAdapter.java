@@ -8,21 +8,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.communityx.R;
 import com.communityx.database.fakemodels.ProfileAboutModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class ProfileInfoAdapter extends RecyclerView.Adapter<ProfileInfoAdapter.ViewHolder> {
+
+    final int NORMAL_ITEM = 0;
+    final int EXPANDED_ITEM = 1;
 
     private Context mContext;
     private List<ProfileAboutModel> list;
     private LayoutInflater mInflater;
     private boolean isOtherProfile = false;
+    private boolean fromDetialActivity =false;
 
     public ProfileInfoAdapter(Context mContext, List<ProfileAboutModel> list) {
         this.mContext = mContext;
@@ -34,9 +37,16 @@ public class ProfileInfoAdapter extends RecyclerView.Adapter<ProfileInfoAdapter.
         isOtherProfile = otherProfile;
     }
 
+    public void setFromDetialActivity(boolean fromDetialActivity) {
+        this.fromDetialActivity = fromDetialActivity;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        if(i == EXPANDED_ITEM){
+            return new ExpandedViewHolder(mInflater.inflate(R.layout.item_profile_info_expanded,viewGroup,false));
+        }
         return new ViewHolder(mInflater.inflate(R.layout.item_profile_info,viewGroup,false));
     }
 
@@ -48,9 +58,13 @@ public class ProfileInfoAdapter extends RecyclerView.Adapter<ProfileInfoAdapter.
 
     @Override
     public int getItemCount() {
-        return 4;
+        return fromDetialActivity ? list.size() : 4;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+       return position == 0 && fromDetialActivity ? EXPANDED_ITEM : NORMAL_ITEM;
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -67,14 +81,28 @@ public class ProfileInfoAdapter extends RecyclerView.Adapter<ProfileInfoAdapter.
         @BindView(R.id.image_edit)
         ImageView imageEdit;
 
+        private List<String> addedAboutHeading = new ArrayList<>();
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
+            validateEditIconVisibility();
+        }
+
+        private void validateEditIconVisibility() {
             imageEdit.setVisibility(isOtherProfile ? View.GONE : View.VISIBLE);
         }
 
         public void bindData(ProfileAboutModel model){
-            textHeading.setText(model.getHeading());
+            if (!addedAboutHeading.contains(model.getHeading())) {
+                textHeading.setVisibility(View.VISIBLE);
+                textHeading.setText(model.getHeading());
+                addedAboutHeading.add(model.getHeading());
+                validateEditIconVisibility();
+            } else {
+                textHeading.setVisibility(View.GONE);
+                imageEdit.setVisibility(View.GONE);
+            }
             textTitle.setText(model.getTitle());
             textSibTitle.setText(model.getSubtitle());
             if(model.getDuration() != null){
@@ -82,6 +110,18 @@ public class ProfileInfoAdapter extends RecyclerView.Adapter<ProfileInfoAdapter.
             }
             textDuration.setVisibility(model.getDuration() != null ? View.VISIBLE : View.GONE);
             imageLogo.setImageResource(model.getLogo() != -1 ? model.getLogo() : R.drawable.profile_placeholder);
+        }
+    }
+
+    class ExpandedViewHolder extends ViewHolder {
+
+        public ExpandedViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+
+        @Override
+        public void bindData(ProfileAboutModel model) {
+            super.bindData(model);
         }
     }
 }
