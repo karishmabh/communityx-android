@@ -2,6 +2,7 @@ package com.communityx.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -23,18 +24,10 @@ public class ProfileActivity extends AppCompatActivity {
     RecyclerView recyclerPost;
     @BindView(R.id.view_add_headline)
     View viewAddHeadLine;
-   /* @BindView(R.id.view_add_about)
-    View viewAddExperience;*/
     @BindView(R.id.view_add_msg_other)
     View viewAddAndMsg;
     @BindView(R.id.edit_profile)
     ImageView editProfile;
-   /* @BindView(R.id.edit_education)
-    ImageView editEducation;*/
-  /*  @BindView(R.id.edit_club)
-    ImageView editClub;
-    @BindView(R.id.edit_about)
-    ImageView editAbout;*/
     @BindView(R.id.text_headline)
     TextView textHeadline;
     @BindView(R.id.text_my_post)
@@ -63,32 +56,30 @@ public class ProfileActivity extends AppCompatActivity {
         setMyPost();
         showEditIcon(!isOtherProfile);
         showAddHeadlines(false && !isOtherProfile);
-        showAddExperience(true && !isOtherProfile);
         setPostLabel(isOtherProfile);
         showAddAndMessageButton(isOtherProfile);
     }
 
     private void setAboutInfo() {
-        recyclerAbout.setLayoutManager(new LinearLayoutManager(this));
-        recyclerAbout.setAdapter(new ProfileInfoAdapter(this, FakeDatabase.get().getProfileInfoDao().getProfileInfo()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerAbout.setLayoutManager(linearLayoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerAbout.getContext(),linearLayoutManager.getOrientation());
+        recyclerAbout.addItemDecoration(dividerItemDecoration);
+        ProfileInfoAdapter adapter = new ProfileInfoAdapter(this, FakeDatabase.get().getProfileInfoDao().getProfileInfo());
+        adapter.setOtherProfile(isOtherProfile);
+        recyclerAbout.setAdapter(adapter);
     }
 
     private void setMyPost() {
         recyclerPost.setLayoutManager(new LinearLayoutManager(this));
         CommunityFeedAdapter communityFeedAdapter = new CommunityFeedAdapter(this);
         communityFeedAdapter.setFromProfile(true);
+        communityFeedAdapter.setOtherProfile(isOtherProfile);
         recyclerPost.setAdapter(communityFeedAdapter);
     }
 
     private void showEditIcon(boolean shouldShow){
         Utils.showHideView(editProfile,shouldShow);
-       // Utils.showHideView(editEducation,shouldShow);
-        //Utils.showHideView(editClub,shouldShow);
-        //Utils.showHideView(editAbout,shouldShow);
-    }
-
-    private void showAddExperience(boolean shoulShow){
-       // Utils.showHideView(viewAddExperience,shoulShow);
     }
 
     private void showAddHeadlines(boolean shoulShow){

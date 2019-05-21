@@ -18,15 +18,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:tint="?colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:padding="@dimen/_8sdp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:src="@drawable/ic_create_crowdfunding_edit"/>
+            android:id="@+id/image_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="?colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="@dimen/_8sdp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:src="@drawable/ic_create_crowdfunding_edit"/>
 
     <ImageView
         android:id="@+id/image_logo"

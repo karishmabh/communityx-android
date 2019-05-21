@@ -22,11 +22,16 @@ public class ProfileInfoAdapter extends RecyclerView.Adapter<ProfileInfoAdapter.
     private Context mContext;
     private List<ProfileAboutModel> list;
     private LayoutInflater mInflater;
+    private boolean isOtherProfile = false;
 
     public ProfileInfoAdapter(Context mContext, List<ProfileAboutModel> list) {
         this.mContext = mContext;
         this.list = list;
         mInflater = LayoutInflater.from(mContext);
+    }
+
+    public void setOtherProfile(boolean otherProfile) {
+        isOtherProfile = otherProfile;
     }
 
     @NonNull
@@ -43,7 +48,7 @@ public class ProfileInfoAdapter extends RecyclerView.Adapter<ProfileInfoAdapter.
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 4;
     }
 
 
@@ -59,21 +64,24 @@ public class ProfileInfoAdapter extends RecyclerView.Adapter<ProfileInfoAdapter.
         TextView textDuration;
         @BindView(R.id.image_logo)
         ImageView imageLogo;
+        @BindView(R.id.image_edit)
+        ImageView imageEdit;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
+            imageEdit.setVisibility(isOtherProfile ? View.GONE : View.VISIBLE);
         }
 
         public void bindData(ProfileAboutModel model){
             textHeading.setText(model.getHeading());
             textTitle.setText(model.getTitle());
-            textSibTitle.setText(model.getTitle());
+            textSibTitle.setText(model.getSubtitle());
             if(model.getDuration() != null){
                 textDuration.setText(model.getDuration());
             }
             textDuration.setVisibility(model.getDuration() != null ? View.VISIBLE : View.GONE);
-
+            imageLogo.setImageResource(model.getLogo() != -1 ? model.getLogo() : R.drawable.profile_placeholder);
         }
     }
 }

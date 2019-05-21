@@ -30,6 +30,7 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private LayoutInflater inflater;
     private boolean fromProfile;
+    private boolean isOtherProfile;
 
     public CommunityFeedAdapter(Context context) {
         this.mContext = context;
@@ -38,6 +39,10 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
 
     public void setFromProfile(boolean fromProfile) {
         this.fromProfile = fromProfile;
+    }
+
+    public void setOtherProfile(boolean otherProfile) {
+        isOtherProfile = otherProfile;
     }
 
     @NonNull
@@ -85,10 +90,15 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
         FlexboxLayout flexboxLayout;
         @BindView(R.id.image_like)
         ImageView imageLike;
+        @BindView(R.id.image_more)
+        ImageView imageMore;
+        @BindView(R.id.view_more)
+        View viewMore;
 
         public BaseFeedViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            viewMore.setVisibility(fromProfile && !isOtherProfile ? View.VISIBLE : View.GONE);
         }
 
         @OnClick(R.id.view_comment)
@@ -131,7 +141,7 @@ public class CommunityFeedAdapter extends RecyclerView.Adapter {
         public ViewHolderEventFeed(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            buttonInterested.setVisibility(View.VISIBLE);
+            buttonInterested.setVisibility(fromProfile && !isOtherProfile ? View.GONE : View.VISIBLE);
             itemView.setOnClickListener(v -> mContext.startActivity(new Intent(mContext, EventDetailActivity.class)));
         }
     }
