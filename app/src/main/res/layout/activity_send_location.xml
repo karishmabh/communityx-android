@@ -1,86 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context=".activity.SendLocationActivity">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.SendLocationActivity">
 
     <include
-            android:id="@+id/topView"
-            app:layout_constraintTop_toTopOf="parent"
-            layout="@layout/toolbar"/>
+        android:id="@+id/topView"
+        layout="@layout/toolbar"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="0dp"
-              android:id="@+id/map"
-              app:layout_constraintTop_toBottomOf="@+id/topView"
-              app:layout_constraintBottom_toTopOf="@id/constraint_location"
-              tools:context=".activity.SendLocationActivity"
-              android:name="com.google.android.gms.maps.SupportMapFragment"/>
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/constraint_location"
+        app:layout_constraintTop_toBottomOf="@+id/topView"
+        tools:context=".activity.SendLocationActivity" />
 
     <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraint_location"
-            android:background="@android:drawable/list_selector_background"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_60sdp">
+        android:id="@+id/constraint_location"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_60sdp"
+        android:background="@android:drawable/list_selector_background"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
-                android:id="@+id/image_user_profile"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:background="@drawable/circle_active"
-                android:src="@drawable/ic_send_location_icon"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"/>
+            android:id="@+id/image_user_profile"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/circle_active"
+            android:src="@drawable/ic_send_location_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-                app:layout_constraintTop_toTopOf="@id/image_user_profile"
-                app:layout_constraintBottom_toBottomOf="@id/image_user_profile"
-                app:layout_constraintStart_toEndOf="@id/image_user_profile"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/image_user_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image_user_profile"
+            app:layout_constraintTop_toTopOf="@id/image_user_profile">
 
             <TextView
-                    android:id="@+id/text_user_name"
-                    android:text="@string/send_your_current_location"
-                    android:textSize="@dimen/_12ssp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:textColor="@color/colorBlackTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:id="@+id/text_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/send_your_current_location"
+                android:textColor="@color/colorBlackTitle"
+                android:textSize="@dimen/_12ssp" />
 
             <TextView
-                    android:text="@string/accurate_to_18_metres"
-                    android:textSize="@dimen/_10ssp"
-                    android:layout_marginTop="-5dp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textColor="@color/colorLightGrey"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-5dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/accurate_to_18_metres"
+                android:textColor="@color/colorLightGrey"
+                android:textSize="@dimen/_10ssp" />
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_current_location"
-            app:elevation="@dimen/_7sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:layout_marginBottom="@dimen/_15sdp"
-            app:fabCustomSize="@dimen/_36sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/constraint_location"
-            android:src="@drawable/ic_send_location_recenter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/fab_current_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:src="@drawable/ic_send_location_recenter"
+        app:elevation="@dimen/_7sdp"
+        app:fabCustomSize="@dimen/_36sdp"
+        app:layout_constraintBottom_toTopOf="@id/constraint_location"
+        app:layout_constraintEnd_toEndOf="parent" />
 </android.support.constraint.ConstraintLayout>
