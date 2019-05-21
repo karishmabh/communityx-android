@@ -13,6 +13,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.communityx.R;
 import com.communityx.adapters.CommunityFeedAdapter;
+import com.communityx.adapters.ProfileInfoAdapter;
+import com.communityx.database.FakeDatabase;
 import com.communityx.utils.Utils;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -21,24 +23,26 @@ public class ProfileActivity extends AppCompatActivity {
     RecyclerView recyclerPost;
     @BindView(R.id.view_add_headline)
     View viewAddHeadLine;
-    @BindView(R.id.view_add_about)
-    View viewAddExperience;
+   /* @BindView(R.id.view_add_about)
+    View viewAddExperience;*/
     @BindView(R.id.view_add_msg_other)
     View viewAddAndMsg;
     @BindView(R.id.edit_profile)
     ImageView editProfile;
-    @BindView(R.id.edit_education)
-    ImageView editEducation;
-    @BindView(R.id.edit_club)
+   /* @BindView(R.id.edit_education)
+    ImageView editEducation;*/
+  /*  @BindView(R.id.edit_club)
     ImageView editClub;
     @BindView(R.id.edit_about)
-    ImageView editAbout;
+    ImageView editAbout;*/
     @BindView(R.id.text_headline)
     TextView textHeadline;
     @BindView(R.id.text_my_post)
     TextView textMyPost;
     @BindView(R.id.edit_search)
     EditText editPost;
+    @BindView(R.id.recycler_about)
+    RecyclerView recyclerAbout;
 
     @BindString(R.string.my_posts)
     String myPost;
@@ -55,12 +59,18 @@ public class ProfileActivity extends AppCompatActivity {
         editPost.setHint(R.string.write_something_here);
         editPost.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
 
+        setAboutInfo();
         setMyPost();
         showEditIcon(!isOtherProfile);
         showAddHeadlines(false && !isOtherProfile);
         showAddExperience(true && !isOtherProfile);
         setPostLabel(isOtherProfile);
         showAddAndMessageButton(isOtherProfile);
+    }
+
+    private void setAboutInfo() {
+        recyclerAbout.setLayoutManager(new LinearLayoutManager(this));
+        recyclerAbout.setAdapter(new ProfileInfoAdapter(this, FakeDatabase.get().getProfileInfoDao().getProfileInfo()));
     }
 
     private void setMyPost() {
@@ -72,13 +82,13 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void showEditIcon(boolean shouldShow){
         Utils.showHideView(editProfile,shouldShow);
-        Utils.showHideView(editEducation,shouldShow);
-        Utils.showHideView(editClub,shouldShow);
-        Utils.showHideView(editAbout,shouldShow);
+       // Utils.showHideView(editEducation,shouldShow);
+        //Utils.showHideView(editClub,shouldShow);
+        //Utils.showHideView(editAbout,shouldShow);
     }
 
     private void showAddExperience(boolean shoulShow){
-        Utils.showHideView(viewAddExperience,shoulShow);
+       // Utils.showHideView(viewAddExperience,shoulShow);
     }
 
     private void showAddHeadlines(boolean shoulShow){
