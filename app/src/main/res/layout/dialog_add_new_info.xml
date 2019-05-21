@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_12ssp"
+            android:id="@+id/text_heading"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/colorBlackTitle"
+            android:text="@string/add_new_info_to_your_profile"
+            android:fontFamily="@font/poppins_regular"/>
+
+    <ImageView
+            android:id="@+id/image_cross"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:src="@drawable/ic_posting_content_image_cross"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"/>
+
+    <View
+            android:id="@+id/view_line"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/text_heading"
+            android:background="@color/colorLightGrey"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"/>
+
+    <ImageView
+            android:id="@+id/image_work_icon"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:padding="@dimen/_2sdp"
+            android:background="@color/colorLighterGrey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_work_experience"
+            app:layout_constraintBottom_toBottomOf="@id/text_experience_subtitle"
+            android:src="@drawable/ic_profile_work_experience"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_12ssp"
+            android:id="@+id/text_work_experience"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            app:layout_constraintStart_toEndOf="@id/image_work_icon"
+            app:layout_constraintTop_toBottomOf="@id/view_line"
+            android:textColor="@color/colorBlackTitle"
+            android:text="@string/work_experience"
+            android:fontFamily="@font/poppins_semibold"/>
+
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10ssp"
+            android:id="@+id/text_experience_subtitle"
+            app:layout_constraintStart_toStartOf="@id/text_work_experience"
+            app:layout_constraintTop_toBottomOf="@id/text_work_experience"
+            app:layout_constraintEnd_toStartOf="@+id/image_add_work"
+            android:layout_marginEnd="@dimen/_7sdp"
+            android:textColor="@color/colorLightGrey"
+            android:text="2 position on your profile"
+            android:fontFamily="@font/poppins_regular"/>
+
+    <ImageView
+            android:id="@+id/image_add_work"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_work_experience"
+            app:layout_constraintBottom_toBottomOf="@id/text_experience_subtitle"
+            android:src="@drawable/ic_profile_add"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"/>
+
+    <View
+            android:id="@+id/view_line_1"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/text_experience_subtitle"
+            android:background="@color/colorLightGrey"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"/>
+
+    <ImageView
+            android:id="@+id/image_volunteer"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:padding="@dimen/_2sdp"
+            android:background="@color/colorLighterGrey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_volunteer_experience"
+            app:layout_constraintBottom_toBottomOf="@id/text_volunteer_subtitle"
+            android:src="@drawable/ic_profile_volunteer"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_12ssp"
+            android:id="@+id/text_volunteer_experience"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            app:layout_constraintStart_toEndOf="@id/image_volunteer"
+            app:layout_constraintTop_toBottomOf="@id/view_line_1"
+            android:textColor="@color/colorBlackTitle"
+            android:text="Volunteer Experience"
+            android:fontFamily="@font/poppins_semibold"/>
+
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10ssp"
+            android:id="@+id/text_volunteer_subtitle"
+            app:layout_constraintStart_toStartOf="@id/text_volunteer_experience"
+            app:layout_constraintTop_toBottomOf="@id/text_volunteer_experience"
+            app:layout_constraintEnd_toStartOf="@id/image_add_volunteer"
+            android:layout_marginEnd="@dimen/_7sdp"
+            android:textColor="@color/colorLightGrey"
+            android:text="Highlight your passions and how you like to give back"
+            android:fontFamily="@font/poppins_regular"/>
+
+    <ImageView
+            android:id="@+id/image_add_volunteer"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_volunteer_experience"
+            app:layout_constraintBottom_toBottomOf="@id/text_volunteer_subtitle"
+            android:src="@drawable/ic_profile_add"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"/>
+
+    <View
+            android:id="@+id/view_line_2"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/text_volunteer_subtitle"
+            android:background="@color/colorLightGrey"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"/>
+
+    <ImageView
+            android:id="@+id/image_education"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:padding="@dimen/_2sdp"
+            android:background="@color/colorLighterGrey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_education"
+            app:layout_constraintBottom_toBottomOf="@id/text_education_subtitle"
+            android:src="@drawable/ic_profile_education"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_12ssp"
+            android:id="@+id/text_education"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            app:layout_constraintStart_toEndOf="@id/image_education"
+            app:layout_constraintTop_toBottomOf="@id/view_line_2"
+            android:textColor="@color/colorBlackTitle"
+            android:text="@string/education"
+            android:fontFamily="@font/poppins_semibold"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10ssp"
+            android:id="@+id/text_education_subtitle"
+            app:layout_constraintStart_toStartOf="@id/text_education"
+            app:layout_constraintTop_toBottomOf="@id/text_education"
+            android:textColor="@color/colorLightGrey"
+            android:text="1 school on your profile"
+            android:fontFamily="@font/poppins_regular"/>
+
+    <ImageView
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_education"
+            app:layout_constraintBottom_toBottomOf="@id/text_education_subtitle"
+            android:src="@drawable/ic_profile_add"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"/>
+
+    <View
+            android:id="@+id/view_line_3"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/text_education_subtitle"
+            android:background="@color/colorLightGrey"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"/>
+
+    <ImageView
+            android:id="@+id/image_club"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:padding="@dimen/_2sdp"
+            android:background="@color/colorLighterGrey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_club"
+            app:layout_constraintBottom_toBottomOf="@id/text_club_subtitle"
+            android:src="@drawable/ic_profile_club_organization"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_12ssp"
+            android:id="@+id/text_club"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            app:layout_constraintStart_toEndOf="@id/image_club"
+            app:layout_constraintTop_toBottomOf="@id/view_line_3"
+            android:textColor="@color/colorBlackTitle"
+            android:text="@string/club_organization"
+            android:fontFamily="@font/poppins_semibold"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10ssp"
+            android:id="@+id/text_club_subtitle"
+            app:layout_constraintStart_toStartOf="@id/text_club"
+            app:layout_constraintTop_toBottomOf="@id/text_club"
+            android:textColor="@color/colorLightGrey"
+            android:text="1 club on your profile"
+            android:fontFamily="@font/poppins_regular"/>
+
+    <ImageView
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_club"
+            app:layout_constraintBottom_toBottomOf="@id/text_club_subtitle"
+            android:src="@drawable/ic_profile_add"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"/>
+
+    <View
+            android:id="@+id/view_line_4"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/text_club_subtitle"
+            android:background="@color/colorLightGrey"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"/>
+</android.support.constraint.ConstraintLayout>

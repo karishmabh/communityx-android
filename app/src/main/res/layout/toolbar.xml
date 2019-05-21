@@ -1,45 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                            xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-                                            android:layout_height="@dimen/_70sdp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_70sdp">
 
-    <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  >
-        <ImageView android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:src="@drawable/ic_allfriend_logo"
-                   app:layout_constraintTop_toTopOf="parent"
-                   android:background="?attr/selectableItemBackgroundBorderless"
-                   android:clickable="true"
-                   android:layout_marginTop="56dp" app:layout_constraintStart_toStartOf="parent"
-                   android:layout_marginStart="16dp" android:id="@+id/imageView"
-                   app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="16dp"/>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="My Allies"
-                  android:id="@+id/text_title"
-                  android:textColor="@android:color/white"
-                  android:textSize="@dimen/_16ssp"
-                  android:fontFamily="@font/poppins_semibold"
-                  app:layout_constraintStart_toEndOf="@+id/imageView" android:layout_marginStart="12dp"
-                  android:layout_marginTop="56dp" app:layout_constraintTop_toTopOf="parent"
-                  android:layout_marginBottom="14dp" app:layout_constraintBottom_toBottomOf="parent"/>
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginBottom="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:src="@drawable/ic_allfriend_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:src="@drawable/ic_allfriend_logo"
-                   app:layout_constraintTop_toTopOf="parent"
-                   android:layout_marginTop="56dp"
-                   app:layout_constraintEnd_toEndOf="parent"
-                   android:layout_marginEnd="16dp"
-                   android:id="@+id/image_tail_toolbar"
-                   android:visibility="gone"
-                   tools:visibility="visible"
-                   android:background="?attr/selectableItemBackgroundBorderless"
-                   android:clickable="true"
-                   app:layout_constraintBottom_toBottomOf="parent"
-                   android:layout_marginBottom="16dp"/>
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginBottom="14dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="My Allies"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_tail_toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:src="@drawable/ic_allfriend_logo"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
     </android.support.constraint.ConstraintLayout>
 </android.support.design.widget.AppBarLayout>

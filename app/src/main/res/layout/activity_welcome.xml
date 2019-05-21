@@ -1,92 +1,92 @@
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <include
-            android:id="@+id/topView"
-            app:layout_constraintTop_toTopOf="parent"
-            layout="@layout/layout_top_view"/>
+        android:id="@+id/topView"
+        layout="@layout/layout_top_view"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            app:layout_constraintTop_toBottomOf="@+id/topView"
-            android:layout_width="match_parent"
-            android:background="@color/colorWhite"
-            android:layout_height="wrap_content">
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        app:layout_constraintTop_toBottomOf="@+id/topView">
 
         <LinearLayout
-                android:id="@+id/view_logo"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_marginStart="@dimen/_15sdp"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            android:id="@+id/view_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                    android:src="@drawable/ic_welcome_logo"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_width="@dimen/_30sdp"/>
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:src="@drawable/ic_welcome_logo" />
 
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:textColor="@color/colorPrimary"
-                      android:layout_marginTop="@dimen/_5sdp"
-                      android:textAllCaps="true"
-                      android:fontFamily="@font/josefinsans_regular"
-                      style="@style/text_size_normal"
-                      android:text="@string/communityx"/>
+            <TextView
+                style="@style/text_size_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="@string/communityx"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary" />
 
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:textColor="@color/colorLightGrey"
-                      android:fontFamily="@font/poppins_regular"
-                      style="@style/text_size_smaller"
-                      android:text="@string/your_global_community"/>
+            <TextView
+                style="@style/text_size_smaller"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/your_global_community"
+                android:textColor="@color/colorLightGrey" />
         </LinearLayout>
 
         <ImageView
-                android:id="@+id/image_welcome_logo"
-                app:layout_constraintTop_toBottomOf="@+id/view_logo"
-                android:src="@drawable/ic_welcome_illustration"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:layout_width="wrap_content"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="@dimen/_120sdp"/>
-
+            android:id="@+id/image_welcome_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_120sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_welcome_illustration"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_logo" />
     </android.support.constraint.ConstraintLayout>
 
     <Button
-            android:id="@+id/button_login"
-            android:layout_width="match_parent"
-            android:background="@drawable/button_active"
-            android:text="@string/login"
-            android:layout_marginBottom="@dimen/_15sdp"
-            android:textColor="@android:color/white"
-            style="@style/style_button"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            app:layout_constraintBottom_toTopOf="@+id/text_signup"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/button_login"
+        style="@style/style_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:background="@drawable/button_active"
+        android:text="@string/login"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/text_signup" />
 
-    <TextView android:id="@+id/text_signup"
-              android:layout_width="wrap_content"
-              android:text="@string/sign_up"
-              style="@style/text_size_small"
-              android:layout_marginBottom="@dimen/_20sdp"
-              app:layout_constraintBottom_toBottomOf="parent"
-              android:layout_height="wrap_content"
-              android:textAllCaps="true"
-              android:textColor="@color/colorPrimary"
-              app:layout_constraintEnd_toEndOf="parent"
-              android:layout_marginEnd="@dimen/_10sdp"
-              android:fontFamily="@font/poppins_semibold"
-              app:layout_constraintStart_toStartOf="parent"
-              android:layout_marginStart="@dimen/_10sdp"/>
-
+    <TextView
+        android:id="@+id/text_signup"
+        style="@style/text_size_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/sign_up"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>
