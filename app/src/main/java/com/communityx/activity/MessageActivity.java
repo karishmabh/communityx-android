@@ -80,7 +80,6 @@ public class MessageActivity extends AppCompatActivity {
 
     @OnClick(R.id.image_send)
     void sendMessageTapped() {
-        openNewInfoDialog(MessageActivity.this);
     }
 
     private void setRecyclerViewChat() {
@@ -103,20 +102,5 @@ public class MessageActivity extends AppCompatActivity {
     @OnClick(R.id.topView)
     void tappedToolbar() {
         startActivity(new Intent(this, GroupInfoActivity.class));
-    }
-
-    public static void openNewInfoDialog(Activity activity) {
-        View dialogView = LayoutInflater.from(activity).inflate(R.layout.dialog_add_new_info, null);
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
-        bottomSheetDialog.setContentView(dialogView);
-
-        bottomSheetDialog.findViewById(R.id.image_cross).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetDialog.dismiss();
-            }
-        });
-
-        bottomSheetDialog.show();
     }
 }
