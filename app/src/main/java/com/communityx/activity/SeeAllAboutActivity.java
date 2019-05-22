@@ -1,12 +1,18 @@
 package com.communityx.activity;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.communityx.R;
 import com.communityx.adapters.ProfileInfoAdapter;
 import com.communityx.database.FakeDatabase;
@@ -33,6 +39,11 @@ public class SeeAllAboutActivity extends BaseActivity implements AppConstant {
         setFloatingButtonVisibility();
     }
 
+    @OnClick(R.id.fab_add)
+    void tappedAddInfo(){
+        openNewInfoDialog(this);
+    }
+
     private void setFloatingButtonVisibility() {
         if (isOtherProfile) {
             fabAdd.hide();
@@ -48,5 +59,27 @@ public class SeeAllAboutActivity extends BaseActivity implements AppConstant {
         adapter.setOtherProfile(isOtherProfile);
         adapter.setFromDetialActivity(true);
         recyclerView.setAdapter(adapter);
+    }
+
+    private void openNewInfoDialog(Activity activity) {
+        fabAdd.hide();
+        View dialogView = LayoutInflater.from(activity).inflate(R.layout.dialog_add_new_info, null);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
+        bottomSheetDialog.setContentView(dialogView);
+
+        bottomSheetDialog.findViewById(R.id.image_cross).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetDialog.dismiss();
+            }
+        });
+        bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                fabAdd.show();
+            }
+        });
+
+        bottomSheetDialog.show();
     }
 }
