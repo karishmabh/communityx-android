@@ -69,7 +69,7 @@ public class SignUpStudentInfoActivity extends AppCompatActivity implements AppC
 
             @Override
             public void onPageChange(int position) {
-                if(!selectedCategory.equals(ACTION_SIGN_UP_STUDENT)){
+                if(!selectedCategory.equals(ACTION_SIGN_UP_STUDENT)) {
                     return;
                 }
                 enableButton(pagerAdapter.isButtonEnabled(position));
@@ -94,6 +94,7 @@ public class SignUpStudentInfoActivity extends AppCompatActivity implements AppC
             sendToActivity();
             return;
         }
+
         viewPager.setCurrentItem(viewPager.getCurrentItem() + 1,true);
         if(!selectedCategory.equals(ACTION_SIGN_UP_STUDENT)){
             return;
@@ -117,16 +118,14 @@ public class SignUpStudentInfoActivity extends AppCompatActivity implements AppC
             fragments.add(new SignUpSchoolCollegeFragment());
             fragments.add(new SignUpRoleFragment());
             fragments.add(new SignUpMemberOfClub());
-        }
-        else if (selectedCategory.equals(ACTION_SIGN_UP_PROFESSIONAL)) {
+        } else if (selectedCategory.equals(ACTION_SIGN_UP_PROFESSIONAL)) {
             fragments.add(new SignUpStudentInfoFragment());
             fragments.add(new SignUpProfessional());
             fragments.add(new SignUpMemberOfClub());
-        }
-        else if(selectedCategory.equals(ACTION_SIGN_UP_ORGANIZATION)) {
+        } else if(selectedCategory.equals(ACTION_SIGN_UP_ORGANIZATION)) {
             fragments.add(new SignUpOrganizationFragment());
-
         }
+
         fragments.add(new SignUpSelectInterest());
         return fragments;
     }
