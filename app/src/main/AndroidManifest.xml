@@ -24,6 +24,7 @@
                 android:value="@string/google_maps_key"/>
 
         <activity android:name=".activity.SendLocationActivity"/>
+        <activity android:name=".activity.SignUpStudentInfoActivity"/>
         <activity android:name=".activity.GroupInfoActivity">
         </activity>
         <activity android:name=".activity.CreateGroupActivity"/>
@@ -35,6 +36,7 @@
                 android:windowSoftInputMode="stateHidden|adjustResize">
         </activity>
         <activity android:name=".activity.MessageActivity"/>
+        <activity android:name=".activity.SignupCategoryActivity"/>
         <activity android:name=".activity.ProfileActivity">
         </activity>
         <activity android:name=".activity.EventDetailActivity">
@@ -77,13 +79,6 @@
         <activity
                 android:name=".activity.LoginActivity"
                 android:screenOrientation="portrait"/>
-        <activity
-                android:name=".activity.SignupCategoryActivity"
-                android:screenOrientation="portrait"/>
-        <activity
-                android:name=".activity.SignUpStudentInfoActivity"
-                android:screenOrientation="portrait"
-                android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".activity.PraiseActivity"/>
         <activity android:name=".activity.DonatedByActivity"/>
     </application>

@@ -72,12 +72,10 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     }
 
     private fun goToLogin() {
-        this@SignUpStudentInfoActivity.startActivity(
-            Intent(this@SignUpStudentInfoActivity, LoginActivity::class.java)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        )
-        this@SignUpStudentInfoActivity.overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
-        this@SignUpStudentInfoActivity.finish()
+       startActivity(Intent(this@SignUpStudentInfoActivity, LoginActivity::class.java)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+       overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
+       finish()
     }
 
     private fun tappedContinue() {
