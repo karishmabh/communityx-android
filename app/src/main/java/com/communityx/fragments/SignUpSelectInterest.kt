@@ -22,8 +22,7 @@ class SignUpSelectInterest : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_sign_up_select_interest, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_sign_up_select_interest, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -43,7 +42,7 @@ class SignUpSelectInterest : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                onCauseTyping(s!!)
+                onCauseTyping(s)
             }
 
         })
@@ -65,12 +64,12 @@ class SignUpSelectInterest : Fragment() {
             val checkBox = LayoutInflater.from(context).inflate(R.layout.item_interest, null) as CheckBox
             checkBox.text = civilRight
             checkBox.performClick()
-            checkBox.setOnCheckedChangeListener { buttonView, isChecked -> checkBox.setBackgroundResource(if (isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive) }
+            checkBox.setOnCheckedChangeListener { _, isChecked -> checkBox.setBackgroundResource(if (isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive) }
 
             val lp =
                 ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             lp.setMargins(10, 10, 10, 10)
-            flex_layout_civil_right!!.addView(checkBox, lp)
+            flex_layout_civil_right.addView(checkBox, lp)
         }
     }
 
@@ -91,12 +90,12 @@ class SignUpSelectInterest : Fragment() {
             val checkBox = LayoutInflater.from(context).inflate(R.layout.item_interest, null) as CheckBox
             checkBox.text = civilRight
             checkBox.performClick()
-            checkBox.setOnCheckedChangeListener { buttonView, isChecked -> checkBox.setBackgroundResource(if (isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive) }
+            checkBox.setOnCheckedChangeListener { _, isChecked -> checkBox.setBackgroundResource(if (isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive) }
 
             val lp =
                 ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             lp.setMargins(10, 10, 10, 10)
-            flex_layout_human_right!!.addView(checkBox, lp)
+            flex_layout_human_right.addView(checkBox, lp)
         }
     }
 
@@ -117,35 +116,35 @@ class SignUpSelectInterest : Fragment() {
             val checkBox = LayoutInflater.from(context).inflate(R.layout.item_interest, null) as CheckBox
             checkBox.text = civilRight
             checkBox.performClick()
-            checkBox.setOnCheckedChangeListener { buttonView, isChecked -> checkBox.setBackgroundResource(if (isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive) }
+            checkBox.setOnCheckedChangeListener { _, isChecked -> checkBox.setBackgroundResource(if (isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive) }
 
             val lp =
                 ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             lp.setMargins(10, 10, 10, 10)
-            flex_layout_health!!.addView(checkBox, lp)
+            flex_layout_health.addView(checkBox, lp)
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun setSuggestedCause(): Boolean {
-        edit_cause!!.setOnTouchListener { _, event ->
+        edit_cause.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
-                if (event.rawX >= edit_cause!!.right - edit_cause!!.totalPaddingRight) {
-                    val suggestedCause = edit_cause!!.text.toString()
+                if (event.rawX >= edit_cause.right - edit_cause.totalPaddingRight) {
+                    val suggestedCause = edit_cause.text.toString()
                     if (!suggestedCause.isEmpty()) {
                         val view = LayoutInflater.from(context).inflate(R.layout.item_suggest_cause, null)
                         val textView = view.findViewById<TextView>(R.id.text_suggest_cause)
                         val imageCross = view.findViewById<ImageView>(R.id.image_cross)
                         textView.text = suggestedCause
-                        imageCross.setOnClickListener { v1 -> flex_layout_cause!!.removeView(view) }
+                        imageCross.setOnClickListener { v1 -> flex_layout_cause.removeView(view) }
                         val lp = ViewGroup.MarginLayoutParams(
                             ViewGroup.LayoutParams.WRAP_CONTENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT
                         )
                         lp.setMargins(10, 10, 10, 10)
-                        flex_layout_cause!!.addView(view, lp)
-                        edit_cause!!.setText("")
-                        scrollView!!.post { scrollView!!.scrollTo(0, scrollView!!.height) }
+                        flex_layout_cause.addView(view, lp)
+                        edit_cause.setText("")
+                        scrollView.post { scrollView.scrollTo(0, scrollView.height) }
                     }
                 }
             }
@@ -154,10 +153,10 @@ class SignUpSelectInterest : Fragment() {
         return false
     }
 
-    internal fun onCauseTyping(s: CharSequence) {
-        edit_cause!!.setCompoundDrawablesWithIntrinsicBounds(
+    internal fun onCauseTyping(s: CharSequence?) {
+        edit_cause.setCompoundDrawablesWithIntrinsicBounds(
             0, 0,
-            if (s.length != 0) R.drawable.ic_signup_add_interest else R.drawable.ic_signup_add_interest_deselect, 0
+            if (s?.length != 0) R.drawable.ic_signup_add_interest else R.drawable.ic_signup_add_interest_deselect, 0
         )
     }
 }

@@ -51,10 +51,10 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     private fun setUpViewPager() {
         pagerAdapter = SignUpPagerAdapter(supportFragmentManager)
-        pagerAdapter!!.setFragments(getFragments(selectedCategory!!))
-        view_pager!!.adapter = pagerAdapter
-        view_pager!!.setAllowedSwipeDirection(CustomViewPager.SwipeDirection.left)
-        view_pager!!.setmSwipeDirectionListener(object : CustomViewPager.SwipeDirectionListener {
+        pagerAdapter?.setFragments(getFragments(selectedCategory!!))
+        view_pager.adapter = pagerAdapter
+        view_pager.setAllowedSwipeDirection(CustomViewPager.SwipeDirection.left)
+        view_pager.setmSwipeDirectionListener(object : CustomViewPager.SwipeDirectionListener {
             override fun onSwipe(direction: CustomViewPager.SwipeDirection) {
 
             }
@@ -72,29 +72,29 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     }
 
     private fun goToLogin() {
-        this@SignUpStudentInfoActivity.startActivity(
-            Intent(this@SignUpStudentInfoActivity, LoginActivity::class.java)
+        startActivity(
+            Intent(this, LoginActivity::class.java)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         )
-        this@SignUpStudentInfoActivity.overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
-        this@SignUpStudentInfoActivity.finish()
+        overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
+        finish()
     }
 
     private fun tappedContinue() {
-        if (view_pager!!.currentItem == pagerAdapter!!.totalItems - 1) {
+        if (view_pager.currentItem == pagerAdapter!!.totalItems - 1) {
             sendToActivity()
             return
         }
-        view_pager!!.setCurrentItem(view_pager!!.currentItem + 1, true)
+        view_pager?.setCurrentItem(view_pager!!.currentItem + 1, true)
         if (selectedCategory != AppConstant.ACTION_SIGN_UP_STUDENT) {
             return
         }
-        val isEnabled = pagerAdapter!!.isButtonEnabled(view_pager!!.currentItem)
+        val isEnabled = pagerAdapter?.isButtonEnabled(view_pager!!.currentItem)
         enableButton(isEnabled)
     }
 
-    fun enableButton(enable: Boolean) {
-        Utils.enableButton(button_continue!!, enable)
+    fun enableButton(enable: Boolean?) {
+        enable?.let { Utils.enableButton(button_continue, it) }
     }
 
     private fun sendToActivity() {

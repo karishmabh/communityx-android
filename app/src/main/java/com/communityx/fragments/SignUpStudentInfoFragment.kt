@@ -54,7 +54,7 @@ class SignUpStudentInfoFragment : Fragment(), AppConstant, View.OnClickListener,
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                onMobileNumberChange(s!!)
+                onMobileNumberChange(s)
             }
 
         })
@@ -64,7 +64,7 @@ class SignUpStudentInfoFragment : Fragment(), AppConstant, View.OnClickListener,
         super.onActivityCreated(savedInstanceState)
 
         initOtpBox()
-        view_password!!.visibility = View.GONE
+        view_password.visibility = View.GONE
     }
 
     override fun onClick(v: View?) {
@@ -74,18 +74,18 @@ class SignUpStudentInfoFragment : Fragment(), AppConstant, View.OnClickListener,
         }
     }
 
-    internal fun onMobileNumberChange(s: CharSequence) {
-        edit_mobile!!.setOnKeyListener { v, keyCode, _ ->
+    internal fun onMobileNumberChange(s: CharSequence?) {
+        edit_mobile.setOnKeyListener { _, keyCode, _ ->
             isDelKeyPressed = keyCode == KeyEvent.KEYCODE_DEL
             false
         }
 
-        if (s.length < 3) {
-            edit_mobile!!.setText("+91")
-            edit_mobile!!.setSelection(3)
+        if (s?.length!! < 3) {
+            edit_mobile.setText("+91")
+            edit_mobile.setSelection(3)
         } else if (s.length == 4 && !isDelKeyPressed) {
-            edit_mobile!!.setText(s.toString().substring(0, 3) + "-" + s.toString().substring(3))
-            edit_mobile!!.setSelection(5)
+            edit_mobile.setText(s.toString().substring(0, 3) + "-" + s.toString().substring(3))
+            edit_mobile.setSelection(5)
         }
     }
 
@@ -95,7 +95,7 @@ class SignUpStudentInfoFragment : Fragment(), AppConstant, View.OnClickListener,
 
     private fun tappedSentOtp() {
         visibleOtpField(true)
-        scrollView!!.post { scrollView!!.scrollTo(0, scrollView!!.height) }
+        scrollView.post { scrollView.scrollTo(0, scrollView.height) }
     }
 
     private fun tappedEditBirth() {
@@ -104,23 +104,23 @@ class SignUpStudentInfoFragment : Fragment(), AppConstant, View.OnClickListener,
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK) galleryPicker!!.fetch(requestCode, data)
+        if (resultCode == RESULT_OK) galleryPicker?.fetch(requestCode, data)
     }
 
     override fun onMediaSelected(imagePath: String, uri: Uri, isImage: Boolean) {
-        image_profile!!.setImageURI(uri)
-        text_profile!!.text = resources.getString(R.string.edit_profile_image)
-        image_add_edit!!.setImageResource(R.drawable.ic_signup_edit_image)
+        image_profile.setImageURI(uri)
+        text_profile.text = resources.getString(R.string.edit_profile_image)
+        image_add_edit.setImageResource(R.drawable.ic_signup_edit_image)
     }
 
     private fun initOtpBox() {
         visibleOtpField(false)
-        initOtpTextWatcher(edit_otp_one!!, edit_otp_two, null)
-        initOtpTextWatcher(edit_otp_two!!, edit_otp_three, edit_otp_one)
-        initOtpTextWatcher(edit_otp_three!!, edit_otp_four, edit_otp_two)
-        initOtpTextWatcher(edit_otp_four!!, edit_otp_five, edit_otp_three)
-        initOtpTextWatcher(edit_otp_five!!, edit_otp_six, edit_otp_four)
-        initOtpTextWatcher(edit_otp_six!!, null, edit_otp_five)
+        initOtpTextWatcher(edit_otp_one, edit_otp_two, null)
+        initOtpTextWatcher(edit_otp_two, edit_otp_three, edit_otp_one)
+        initOtpTextWatcher(edit_otp_three, edit_otp_four, edit_otp_two)
+        initOtpTextWatcher(edit_otp_four, edit_otp_five, edit_otp_three)
+        initOtpTextWatcher(edit_otp_five, edit_otp_six, edit_otp_four)
+        initOtpTextWatcher(edit_otp_six, null, edit_otp_five)
     }
 
     private fun initOtpTextWatcher(currentEditText: EditText, nextEditText: EditText?, prevEditText: EditText?) {
@@ -135,8 +135,8 @@ class SignUpStudentInfoFragment : Fragment(), AppConstant, View.OnClickListener,
 
             override fun afterTextChanged(s: Editable) {
                 if (currentEditText == edit_otp_six) {
-                    view_password!!.visibility = View.VISIBLE
-                    scrollView!!.post { scrollView!!.scrollTo(0, scrollView!!.height) }
+                    view_password.visibility = View.VISIBLE
+                    scrollView.post { scrollView.scrollTo(0, scrollView.height) }
                     visibleOtpField(false)
                 }
             }
@@ -180,14 +180,14 @@ class SignUpStudentInfoFragment : Fragment(), AppConstant, View.OnClickListener,
 
     private fun visibleOtpField(visible: Boolean) {
         if (visible) {
-            text_send_otp!!.text = "Change"
-            text_enter_otp!!.visibility = View.VISIBLE
-            view_otp!!.visibility = View.VISIBLE
-            resend_otp!!.visibility = View.VISIBLE
+            text_send_otp.text = "Change"
+            text_enter_otp.visibility = View.VISIBLE
+            view_otp.visibility = View.VISIBLE
+            resend_otp.visibility = View.VISIBLE
         } else {
-            text_enter_otp!!.visibility = View.GONE
-            view_otp!!.visibility = View.GONE
-            resend_otp!!.visibility = View.GONE
+            text_enter_otp.visibility = View.GONE
+            view_otp.visibility = View.GONE
+            resend_otp.visibility = View.GONE
         }
     }
 
