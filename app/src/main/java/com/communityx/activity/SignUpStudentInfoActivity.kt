@@ -21,6 +21,9 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     private var pagerAdapter: SignUpPagerAdapter? = null
     private var selectedCategory: String? = null
     var signUpRequest : StudentSignUpRequest? = null
+    public var selectedClubNameIndex = 0
+    public var selectedRole = 0
+    var manaualInterest: MutableList<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,7 +96,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     fun goToNextPage(){
         view_pager?.setCurrentItem(view_pager!!.currentItem + 1, true)
-        enableButton(false)
+        //enableButton(false)
     }
 
     fun enableButton(enable: Boolean?) {

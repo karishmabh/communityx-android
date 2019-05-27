@@ -6,7 +6,7 @@ data class StudentSignUpRequest(
     var dob: String? = null,
     var email: String? = null,
     var full_name: String? = null,
-    var interests: List<String>? = null,
+    var interests: MutableList<String>? = mutableListOf(),
     var password: String? = null,
     var phone: String? = null,
     var postal_code: String? = null,

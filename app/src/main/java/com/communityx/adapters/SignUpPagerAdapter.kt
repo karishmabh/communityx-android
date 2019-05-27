@@ -13,7 +13,7 @@ class SignUpPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     val totalItems: Int
         get() = fragments!!.size
 
-    private val buttonEnabledPos = booleanArrayOf(true, false, false, true, true)
+    private val buttonEnabledPos = booleanArrayOf(true, true, true, true, true)
 
     fun setFragments(fragments: List<Fragment>) {
         this.fragments = fragments

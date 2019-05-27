@@ -97,7 +97,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         signUpRequest?.phone = edit_mobile.text.toString()
         signUpRequest?.password = edit_confirm_password.text.toString()
 
-        return !validateEmpty(signUpRequest)
+        return validateEmpty(signUpRequest)
     }
 
     //todo : hard coded string

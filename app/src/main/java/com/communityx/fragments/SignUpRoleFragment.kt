@@ -53,7 +53,7 @@ class SignUpRoleFragment : BaseSignUpFragment(), View.OnClickListener {
 
     override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
         val b = !TextUtils.isEmpty(requestData?.standard_year)
-        if(b && showSnackbar) SnackBarFactory.createSnackBar(context,constraint_layout, "Please select your classification")
+        if(!b && showSnackbar) SnackBarFactory.createSnackBar(context,constraint_layout, "Please select your classification")
         return  b
     }
 

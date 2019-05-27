@@ -68,6 +68,8 @@ class SignUpMemberOfClub : BaseSignUpFragment() {
     override fun setFieldsData(): Boolean {
         signUpRequest?.club_name = spinner_club_name.selectedItem as String
         signUpRequest?.club_role = spinner_role.selectedItem as String
+        signUpActivity?.selectedClubNameIndex = spinner_club_name.selectedItemPosition
+        signUpActivity?.selectedRole = spinner_role.selectedItemPosition
 
         return validateEmpty(signUpRequest)
     }
@@ -84,8 +86,8 @@ class SignUpMemberOfClub : BaseSignUpFragment() {
 
     private fun initField() {
         if(validateEmpty(signUpRequest, false)) {
-            spinner_club_name.setSelection(1)
-            spinner_role.setSelection(2)
+            spinner_club_name.setSelection(signUpActivity?.selectedClubNameIndex!!)
+            spinner_role.setSelection(signUpActivity?.selectedRole!!)
         }
     }
 
