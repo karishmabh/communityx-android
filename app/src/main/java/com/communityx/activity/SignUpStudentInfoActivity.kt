@@ -9,7 +9,7 @@ import com.communityx.R
 import com.communityx.adapters.SignUpPagerAdapter
 import com.communityx.custom_views.CustomViewPager
 import com.communityx.fragments.*
-import com.communityx.models.SignUpRequest
+import com.communityx.models.signup.StudentSignUpRequest
 import com.communityx.utils.AppConstant
 import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.activity_sign_up_student_info.*
@@ -20,12 +20,13 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     private var pagerAdapter: SignUpPagerAdapter? = null
     private var selectedCategory: String? = null
-    var signUpRequest : SignUpRequest? = null
+    var signUpRequest : StudentSignUpRequest? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_student_info)
 
+        getIntentData()
         initActivity()
         setUpViewPager()
 
@@ -34,8 +35,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     }
 
     private fun initActivity() {
-        signUpRequest = SignUpRequest()
-        getIntentData()
+        signUpRequest = selectedCategory?.let { StudentSignUpRequest(role = it) }
         text_subtitle.text = "Build your social impact identity on CommunityX."
         button_continue.tag = true
         button_continue.setBackgroundResource(R.drawable.button_active)
@@ -89,16 +89,9 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
             return
         }
         pagerAdapter?.getCurrentFragment(view_pager.currentItem)?.onContinueButtonClicked()
-        //goToNextPage()
-        /*view_pager?.setCurrentItem(view_pager!!.currentItem + 1, true)
-        if (selectedCategory != AppConstant.ACTION_SIGN_UP_STUDENT) {
-            return
-        }
-        val isEnabled = pagerAdapter?.isButtonEnabled(view_pager!!.currentItem)
-        enableButton(isEnabled)*/
     }
 
-    public fun goToNextPage(){
+    fun goToNextPage(){
         view_pager?.setCurrentItem(view_pager!!.currentItem + 1, true)
         enableButton(false)
     }

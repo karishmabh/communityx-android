@@ -13,7 +13,7 @@ import android.view.*
 import android.widget.EditText
 import com.communityx.R
 import com.communityx.base.BaseSignUpFragment
-import com.communityx.models.SignUpRequest
+import com.communityx.models.signup.StudentSignUpRequest
 import com.communityx.utils.*
 import kotlinx.android.synthetic.main.fragment_sign_up_student_info.*
 
@@ -35,6 +35,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initAllField()
         image_profile.setOnClickListener(this)
         text_send_otp.setOnClickListener(this)
         edit_birthday.setOnTouchListener { _, event ->
@@ -72,11 +73,22 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) galleryPicker?.fetch(requestCode, data)
+    }
+
+    override fun onMediaSelected(imagePath: String, uri: Uri, isImage: Boolean) {
+        image_profile.setImageURI(uri)
+        text_profile.text = resources.getString(R.string.edit_profile_image)
+        image_add_edit.setImageResource(R.drawable.ic_signup_edit_image)
+    }
+
     override fun onContinueButtonClicked() {
         if(setFieldsData()) goToNextPage()
     }
 
-    private fun setFieldsData(): Boolean {
+    override fun setFieldsData(): Boolean {
 
         signUpRequest?.full_name = edit_email_username.text.toString()
         signUpRequest?.email = edit_email.text.toString()
@@ -85,27 +97,26 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         signUpRequest?.phone = edit_mobile.text.toString()
         signUpRequest?.password = edit_confirm_password.text.toString()
 
-        if (!validateEmpty(signUpRequest)) {
-            return false
-        }
-
-        return true
+        return !validateEmpty(signUpRequest)
     }
 
-
-    internal fun onMobileNumberChange(s: CharSequence?) {
-        edit_mobile.setOnKeyListener { _, keyCode, _ ->
-            isDelKeyPressed = keyCode == KeyEvent.KEYCODE_DEL
-            false
+    //todo : hard coded string
+    override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
+        var msg = "Fields are empty"
+        var b = true
+        when {
+            TextUtils.isEmpty(requestData?.full_name) -> b = false
+            TextUtils.isEmpty(requestData?.email) -> b = false
+            TextUtils.isEmpty(requestData?.dob) -> b = false
+            TextUtils.isEmpty(requestData?.postal_code) -> b = false
+            TextUtils.isEmpty(requestData?.password) -> b = false
+            edit_confirm_password?.text.toString() != edit_create_password.text.toString() -> {
+                b = false
+                msg = "Password not matched !!"
+            }
         }
-
-        if (s?.length!! < 3) {
-            edit_mobile.setText("+91")
-            edit_mobile.setSelection(3)
-        } else if (s.length == 4 && !isDelKeyPressed) {
-            edit_mobile.setText(s.toString().substring(0, 3) + "-" + s.toString().substring(3))
-            edit_mobile.setSelection(5)
-        }
+        if (!b && showSnackbar) SnackBarFactory.createSnackBar(context, scrollView, msg)
+        return b
     }
 
     private fun chooseImage() {
@@ -124,17 +135,6 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
 
     private fun tappedEditBirth() {
         Utils.datePicker(signUpActivity, edit_birthday)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK) galleryPicker?.fetch(requestCode, data)
-    }
-
-    override fun onMediaSelected(imagePath: String, uri: Uri, isImage: Boolean) {
-        image_profile.setImageURI(uri)
-        text_profile.text = resources.getString(R.string.edit_profile_image)
-        image_add_edit.setImageResource(R.drawable.ic_signup_edit_image)
     }
 
     private fun initOtpBox() {
@@ -173,23 +173,6 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             .showDialog()
     }
 
-    private fun validateEmpty(requestData: SignUpRequest?): Boolean {
-        var msg = "Fields are empty"
-        var b = true
-        when {
-            TextUtils.isEmpty(requestData?.full_name) -> b = false
-            TextUtils.isEmpty(requestData?.email) -> b = false
-            TextUtils.isEmpty(requestData?.dob) -> b = false
-            TextUtils.isEmpty(requestData?.postal_code) -> b = false
-            TextUtils.isEmpty(requestData?.password) -> b = false
-            edit_confirm_password?.text.toString() != edit_create_password.text.toString() -> {
-                b = false
-                msg = "Password not matched !!"
-            }
-        }
-        if (!b) SnackBarFactory.createSnackBar(context, scrollView, msg)
-        return b
-    }
 
     private fun visibleOtpField(visible: Boolean) {
         if (visible) {
@@ -201,6 +184,33 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             text_enter_otp.visibility = View.GONE
             view_otp.visibility = View.GONE
             resend_otp.visibility = View.GONE
+        }
+    }
+
+    private fun initAllField() {
+        if (validateEmpty(signUpRequest, false)) {
+            edit_email_username.setText(signUpRequest?.full_name)
+            edit_email.setText(signUpRequest?.email)
+            edit_birthday.setText(signUpRequest?.dob)
+            edit_postalcode.setText(signUpRequest?.postal_code)
+            edit_mobile.setText(signUpRequest?.phone)
+            edit_create_password.setText(signUpRequest?.phone)
+            edit_confirm_password.setText(signUpRequest?.password)
+        }
+    }
+
+    internal fun onMobileNumberChange(s: CharSequence?) {
+        edit_mobile.setOnKeyListener { _, keyCode, _ ->
+            isDelKeyPressed = keyCode == KeyEvent.KEYCODE_DEL
+            false
+        }
+
+        if (s?.length!! < 3) {
+            edit_mobile.setText("+91")
+            edit_mobile.setSelection(3)
+        } else if (s.length == 4 && !isDelKeyPressed) {
+            edit_mobile.setText(s.toString().substring(0, 3) + "-" + s.toString().substring(3))
+            edit_mobile.setSelection(5)
         }
     }
 

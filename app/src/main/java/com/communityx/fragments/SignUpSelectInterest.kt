@@ -14,9 +14,13 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import com.communityx.R
+import com.communityx.base.BaseSignUpFragment
+import com.communityx.models.signup.StudentSignUpRequest
 import kotlinx.android.synthetic.main.fragment_sign_up_select_interest.*
 
-class SignUpSelectInterest : Fragment() {
+class SignUpSelectInterest : BaseSignUpFragment() {
+
+    private lateinit var listInterest: List<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +50,18 @@ class SignUpSelectInterest : Fragment() {
             }
 
         })
+    }
+
+    override fun setFieldsData(): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onContinueButtonClicked() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun setCivilRights() {
@@ -151,6 +167,10 @@ class SignUpSelectInterest : Fragment() {
             true
         }
         return false
+    }
+
+    private fun validateSelectedItem() : Boolean{
+        return listInterest.size <= 5
     }
 
     internal fun onCauseTyping(s: CharSequence?) {

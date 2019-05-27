@@ -3,15 +3,21 @@ package com.communityx.fragments
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.communityx.R
 import com.communityx.activity.SignUpStudentInfoActivity
+import com.communityx.base.BaseSignUpFragment
+import com.communityx.models.signup.StudentSignUpRequest
+import com.communityx.utils.SnackBarFactory
 import kotlinx.android.synthetic.main.fragment_sign_up_select_role.*
 import java.util.*
 
-class SignUpRoleFragment : Fragment(), View.OnClickListener {
+class SignUpRoleFragment : BaseSignUpFragment(), View.OnClickListener {
+
+    private var standardYear: String? =null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_sign_up_select_role, null)
@@ -20,6 +26,8 @@ class SignUpRoleFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initField()
+        enableButton(true)
         view_freshman_main.setOnClickListener(this)
         view_sophomore_main.setOnClickListener(this)
         view_junior_main.setOnClickListener(this)
@@ -28,6 +36,32 @@ class SignUpRoleFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         tappedRole(v)
+    }
+
+    override fun onContinueButtonClicked() {
+        if(setFieldsData()) {
+            goToNextPage()
+            enableButton(true)
+        }
+
+    }
+
+    override fun setFieldsData(): Boolean {
+        signUpRequest?.standard_year = standardYear
+        return validateEmpty(signUpRequest)
+    }
+
+    override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
+        val b = !TextUtils.isEmpty(requestData?.standard_year)
+        if(b && showSnackbar) SnackBarFactory.createSnackBar(context,constraint_layout, "Please select your classification")
+        return  b
+    }
+
+    private fun initField() {
+        if(validateEmpty(signUpRequest,false)) {
+            selectRole(Role.valueOf(signUpRequest?.standard_year!!))
+            enableButton(true)
+        }
     }
 
     private fun tappedRole(view: View?) {
@@ -39,10 +73,10 @@ class SignUpRoleFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun selectRole(freshman: Role) {
+    private fun selectRole(role: Role) {
         (Objects.requireNonNull<FragmentActivity>(activity) as SignUpStudentInfoActivity).enableButton(true)
-
-        when (freshman) {
+        standardYear = role.name
+        when (role) {
             SignUpRoleFragment.Role.FRESHMAN -> {
                 view_freshman_main.background = resources.getDrawable(R.drawable.border_orange_bg)
                 view_sophomore_main.background = resources.getDrawable(R.drawable.bordered_bg)
