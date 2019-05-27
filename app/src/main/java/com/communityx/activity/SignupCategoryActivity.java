@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -71,16 +70,16 @@ public class SignupCategoryActivity extends AppCompatActivity implements AppCons
     void letsContinue(){
         Intent intent = new Intent(this,SignUpStudentInfoActivity.class);
         intent.setAction(selectedCategory);
-        SignupCategoryActivity.this.startActivity(intent);
-        SignupCategoryActivity.this.overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out);
+        startActivity(intent);
+        overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out);
     }
 
     @OnClick(id.text_login)
     void goToLogin(){
-        SignupCategoryActivity.this.startActivity((new Intent(SignupCategoryActivity.this, LoginActivity.class))
+        startActivity((new Intent(SignupCategoryActivity.this, LoginActivity.class))
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        SignupCategoryActivity.this.overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out);
-        SignupCategoryActivity.this.finish();
+        overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out);
+        finish();
     }
 
     private final void categorySelected(String category) {
