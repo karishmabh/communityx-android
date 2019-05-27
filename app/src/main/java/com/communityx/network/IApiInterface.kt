@@ -6,6 +6,7 @@ import com.communityx.models.signup.MajorMinorResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface IApiInterface {
@@ -14,5 +15,5 @@ interface IApiInterface {
     fun getBasicAuth(@Body oAuthRequest: OAuthRequest): Call<OAuthResponse>
 
     @GET("major")
-    fun getMajorMinor(): Call<MajorMinorResponse>
+    fun getMajorMinor(@Header("token") token:String): Call<MajorMinorResponse>
 }
