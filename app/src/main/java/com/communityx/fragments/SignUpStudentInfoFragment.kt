@@ -6,21 +6,19 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.*
 import android.widget.EditText
 import com.communityx.R
-import com.communityx.utils.AppConstant
-import com.communityx.utils.GalleryPicker
-import com.communityx.utils.PermissionHelper
-import com.communityx.utils.Utils
+import com.communityx.base.BaseSignUpFragment
+import com.communityx.models.SignUpRequest
+import com.communityx.utils.*
 import kotlinx.android.synthetic.main.fragment_sign_up_student_info.*
 
-class SignUpStudentInfoFragment : Fragment(), AppConstant, View.OnClickListener, GalleryPicker.GalleryPickerListener {
+class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClickListener,
+    GalleryPicker.GalleryPickerListener {
 
     private var galleryPicker: GalleryPicker? = null
     private var isDelKeyPressed = false
@@ -29,7 +27,7 @@ class SignUpStudentInfoFragment : Fragment(), AppConstant, View.OnClickListener,
         val view = inflater.inflate(R.layout.fragment_sign_up_student_info, null)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val permission = PermissionHelper(activity)
+            val permission = PermissionHelper(signUpActivity)
             if (!permission.checkPermission(*permissions))
                 requestPermissions(permissions, AppConstant.REQUEST_PERMISSION_CODE)
         }
@@ -74,6 +72,27 @@ class SignUpStudentInfoFragment : Fragment(), AppConstant, View.OnClickListener,
         }
     }
 
+    override fun onContinueButtonClicked() {
+        if(setFieldsData()) goToNextPage()
+    }
+
+    private fun setFieldsData(): Boolean {
+
+        signUpRequest?.full_name = edit_email_username.text.toString()
+        signUpRequest?.email = edit_email.text.toString()
+        signUpRequest?.dob = edit_birthday.text.toString()
+        signUpRequest?.postal_code = edit_postalcode.text.toString()
+        signUpRequest?.phone = edit_mobile.text.toString()
+        signUpRequest?.password = edit_confirm_password.text.toString()
+
+        if (!validateEmpty(signUpRequest)) {
+            return false
+        }
+
+        return true
+    }
+
+
     internal fun onMobileNumberChange(s: CharSequence?) {
         edit_mobile.setOnKeyListener { _, keyCode, _ ->
             isDelKeyPressed = keyCode == KeyEvent.KEYCODE_DEL
@@ -93,13 +112,18 @@ class SignUpStudentInfoFragment : Fragment(), AppConstant, View.OnClickListener,
         showImageChooserDialog()
     }
 
+    //todo : hard coded string
     private fun tappedSentOtp() {
+        if(edit_mobile.text.toString().isEmpty()){
+            SnackBarFactory.createSnackBar(context,scrollView,"Mobile number is empty")
+            return
+        }
         visibleOtpField(true)
         scrollView.post { scrollView.scrollTo(0, scrollView.height) }
     }
 
     private fun tappedEditBirth() {
-        Utils.datePicker(activity, edit_birthday)
+        Utils.datePicker(signUpActivity, edit_birthday)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -144,38 +168,27 @@ class SignUpStudentInfoFragment : Fragment(), AppConstant, View.OnClickListener,
     }
 
     private fun showImageChooserDialog() {
-        galleryPicker = GalleryPicker.with(activity, this)
+        galleryPicker = GalleryPicker.with(signUpActivity, this)
             .setListener(this)
             .showDialog()
     }
 
-    //TODO: HARD CODED STRING
-    private fun validateField(firstName: String, email: String, birthDate: String, postalCode: String): Boolean {
-
-        if (TextUtils.isEmpty(firstName)) {
-            val snackbar = Snackbar.make(constraintLayout!!, "Please Enter First Name", Snackbar.LENGTH_LONG)
-            snackbar.show()
-            return false
+    private fun validateEmpty(requestData: SignUpRequest?): Boolean {
+        var msg = "Fields are empty"
+        var b = true
+        when {
+            TextUtils.isEmpty(requestData?.full_name) -> b = false
+            TextUtils.isEmpty(requestData?.email) -> b = false
+            TextUtils.isEmpty(requestData?.dob) -> b = false
+            TextUtils.isEmpty(requestData?.postal_code) -> b = false
+            TextUtils.isEmpty(requestData?.password) -> b = false
+            edit_confirm_password?.text.toString() != edit_create_password.text.toString() -> {
+                b = false
+                msg = "Password not matched !!"
+            }
         }
-
-        if (TextUtils.isEmpty(email)) {
-            val snackbar = Snackbar.make(constraintLayout!!, "Please Enter Email", Snackbar.LENGTH_LONG)
-            snackbar.show()
-            return false
-        }
-
-        if (TextUtils.isEmpty(birthDate)) {
-            val snackbar = Snackbar.make(constraintLayout!!, "Please Enter Birthdate", Snackbar.LENGTH_LONG)
-            snackbar.show()
-            return false
-        }
-
-        if (TextUtils.isEmpty(postalCode)) {
-            val snackbar = Snackbar.make(constraintLayout!!, "Please Enter Postal Code", Snackbar.LENGTH_LONG)
-            snackbar.show()
-            return false
-        }
-        return true
+        if (!b) SnackBarFactory.createSnackBar(context, scrollView, msg)
+        return b
     }
 
     private fun visibleOtpField(visible: Boolean) {

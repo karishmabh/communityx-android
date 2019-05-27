@@ -8,11 +8,11 @@ import com.communityx.R
 
 object SnackBarFactory {
 
-    fun createSnackBar(context: Context, view: View, message: String): Snackbar {
+    fun createSnackBar(context: Context?, view: View, message: String): Snackbar {
         val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
         val sbView = snackbar.view
         val textView = sbView.findViewById<View>(android.support.design.R.id.snackbar_text) as TextView
-        textView.setTextColor(context.resources.getColor(R.color.colorWhite))
+        textView.setTextColor(context?.resources!!.getColor(R.color.colorWhite))
         snackbar.show()
         return snackbar
     }

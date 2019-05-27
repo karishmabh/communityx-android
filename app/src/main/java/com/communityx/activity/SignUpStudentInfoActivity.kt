@@ -9,6 +9,7 @@ import com.communityx.R
 import com.communityx.adapters.SignUpPagerAdapter
 import com.communityx.custom_views.CustomViewPager
 import com.communityx.fragments.*
+import com.communityx.models.SignUpRequest
 import com.communityx.utils.AppConstant
 import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.activity_sign_up_student_info.*
@@ -19,6 +20,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     private var pagerAdapter: SignUpPagerAdapter? = null
     private var selectedCategory: String? = null
+    var signUpRequest : SignUpRequest? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     }
 
     private fun initActivity() {
+        signUpRequest = SignUpRequest()
         getIntentData()
         text_subtitle.text = "Build your social impact identity on CommunityX."
         button_continue.tag = true
@@ -85,12 +88,19 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
             sendToActivity()
             return
         }
-        view_pager?.setCurrentItem(view_pager!!.currentItem + 1, true)
+        pagerAdapter?.getCurrentFragment(view_pager.currentItem)?.onContinueButtonClicked()
+        //goToNextPage()
+        /*view_pager?.setCurrentItem(view_pager!!.currentItem + 1, true)
         if (selectedCategory != AppConstant.ACTION_SIGN_UP_STUDENT) {
             return
         }
         val isEnabled = pagerAdapter?.isButtonEnabled(view_pager!!.currentItem)
-        enableButton(isEnabled)
+        enableButton(isEnabled)*/
+    }
+
+    public fun goToNextPage(){
+        view_pager?.setCurrentItem(view_pager!!.currentItem + 1, true)
+        enableButton(false)
     }
 
     fun enableButton(enable: Boolean?) {

@@ -80,12 +80,9 @@
         <activity
                 android:name=".activity.SignupCategoryActivity"
                 android:screenOrientation="portrait"/>
-        <activity
-                android:name=".activity.SignUpStudentInfoActivity"
-                android:screenOrientation="portrait"
-                android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".activity.PraiseActivity"/>
         <activity android:name=".activity.DonatedByActivity"/>
+        <activity android:name=".activity.SignUpStudentInfoActivity"/>
     </application>
 
 </manifest>
