@@ -183,7 +183,7 @@
                             android:layout_height="wrap_content"
                             android:text="+91"
                             android:inputType="number"
-                            android:maxLength="13"
+                            android:maxLength="14"
                             android:fontFamily="@font/poppins_medium"/>
                 </android.support.design.widget.TextInputLayout>
 

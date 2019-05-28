@@ -11,8 +11,12 @@ public interface AppConstant {
     String IS_OTHER_PROFILE = "is_other_profile";
     String ACCESS_TOKEN_KEY = "access_token_key";
     String STATUS_SUCCESS = "Success";
+    String STATUS_FAILURE = "Failure";
     String HIGH_SCHOOL = "HIGH_SCHOOL";
     String COLLEGE = "COLLEGE";
+    String MILTI_PART_FORM_DATA = "multipart/form-data";
+    String IMAGE_PARAM = "image";
+    String TYPE = "type";
 
 
     int PICK_FROM_CAMERA = 0;
