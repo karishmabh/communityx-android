@@ -34,6 +34,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     private var galleryPicker: GalleryPicker? = null
     private var isDelKeyPressed = false
     private var hasOtpOrPasswordFieldVisible = false
+    private var shouldChangeNumber = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up_student_info, null)
@@ -55,6 +56,11 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                 tappedEditBirth()
             };true
         }
+        edit_birthday.setOnFocusChangeListener { _, isFocused ->
+            if (isFocused) {
+                tappedEditBirth()
+            }
+        }
         edit_mobile.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
@@ -75,14 +81,22 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         super.onActivityCreated(savedInstanceState)
 
         initOtpBox()
-        view_password.visibility = View.GONE
+        view_password.visibility = if (signUpActivity?.isOtpVerifed!!) View.VISIBLE else View.GONE
     }
 
     override fun onClick(v: View?) {
         Utils.hideSoftKeyboard(activity!!)
         when {
             v?.id == R.id.image_profile -> chooseImage()
-            v?.id == R.id.text_send_otp -> tappedSentOtp()
+            v?.id == R.id.text_send_otp -> {
+                if (!shouldChangeNumber) {
+                    tappedSentOtp()
+                } else {
+                    edit_mobile.isEnabled = true
+                    shouldChangeNumber = false
+                    text_send_otp.text = getString(R.string.send_otp)
+                }
+            }
         }
 
     }
@@ -116,28 +130,56 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         return validateEmpty(signUpRequest)
     }
 
-    //todo : hard coded string
     override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
-        var msg = "Fields are empty"
-        var b = true
+        var msg = ""
+        var isValidate = true
         when {
-            TextUtils.isEmpty(requestData?.full_name) -> b = false
-            TextUtils.isEmpty(requestData?.email) -> b = false
-            TextUtils.isEmpty(requestData?.dob) -> b = false
-            TextUtils.isEmpty(requestData?.postal_code) -> b = false
-            edit_mobile.text.toString() == "+91" -> b = false
-            !hasOtpOrPasswordFieldVisible -> {
-                b = false
-                msg = "Click on SEND OTP !!"
+            TextUtils.isEmpty(requestData?.full_name) -> {
+                isValidate = false
+                msg = getString(R.string.name_field_empty)
+                if (showSnackbar) edit_email_username.requestFocus()
             }
-            TextUtils.isEmpty(requestData?.password) -> b = false
+            TextUtils.isEmpty(requestData?.email) -> {
+                isValidate = false
+                msg = getString(R.string.email_field_empty)
+                edit_email.requestFocus()
+            }
+            TextUtils.isEmpty(requestData?.dob) -> {
+                isValidate = false
+                msg = getString(R.string.dob_empty)
+            }
+            TextUtils.isEmpty(requestData?.postal_code) -> {
+                isValidate = false
+                msg = getString(R.string.postal_field_empty)
+                edit_postalcode.requestFocus()
+            }
+
+            edit_mobile.text.toString() == "+91" -> {
+                isValidate = false
+                msg = getString(R.string.mobile_field_empty)
+                edit_mobile.requestFocus()
+                edit_mobile.setSelection(3)
+            }
+            !hasOtpOrPasswordFieldVisible -> {
+                isValidate = false
+                msg = getString(R.string.click_on_send_otp)
+            }
+            signUpActivity?.isOtpVerifed == false && TextUtils.isEmpty(edit_create_password.text.toString()) -> {
+                isValidate = false
+                msg = getString(R.string.please_verify_otp)
+            }
+            TextUtils.isEmpty(requestData?.password) -> {
+                isValidate = false
+                msg = getString(R.string.password_field_empty)
+                edit_create_password.requestFocus()
+            }
             edit_confirm_password?.text.toString() != edit_create_password.text.toString() -> {
-                b = false
-                msg = "Password not matched !!"
+                isValidate = false
+                msg = getString(R.string.password_not_matched)
             }
         }
-        if (!b && showSnackbar) SnackBarFactory.createSnackBar(context, scrollView, msg)
-        return b
+        if (!isValidate && showSnackbar) SnackBarFactory.createSnackBar(context, scrollView, msg)
+        return isValidate
     }
 
     private fun chooseImage() {
@@ -146,17 +188,18 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
 
     //todo : hard coded string
     private fun tappedSentOtp() {
-        hasOtpOrPasswordFieldVisible = true
         if (edit_mobile.text.toString() == "+91") {
-            SnackBarFactory.createSnackBar(context,scrollView,"Mobile number is empty")
+            SnackBarFactory.createSnackBar(context, scrollView, getString(R.string.mobile_field_empty))
             return
         }
         val number = edit_mobile.text.toString().substring(4)
         if (number.length != 10) {
-            SnackBarFactory.createSnackBar(context,scrollView,"Mobile number is not valid")
+            SnackBarFactory.createSnackBar(context, scrollView, getString(R.string.mobiel_number_not_valid))
             return
         }
+        hasOtpOrPasswordFieldVisible = true
         val otpRequest = OtpRequest(phone = number)
+        shouldChangeNumber = true
         generateOtp(otpRequest)
 
     }
@@ -186,11 +229,11 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             }
 
             override fun afterTextChanged(s: Editable) {
-                if (currentEditText == edit_otp_six) {
+                if (currentEditText == edit_otp_six && !TextUtils.isEmpty(edit_otp_six.text.toString())) {
                     val verifyOtpRequest =
                         VerifyOtpRequest(otp = getOtp(), phone = edit_mobile.text.toString().substring(4))
                     Utils.hideSoftKeyboard(activity)
-                    verifyOtp(verifyOtpRequest)
+                    if (signUpActivity?.isOtpVerifed == false) verifyOtp(verifyOtpRequest)
                     hasOtpOrPasswordFieldVisible = true
                 }
             }
@@ -218,7 +261,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
 
     private fun visibleOtpField(visible: Boolean) {
         if (visible) {
-            text_send_otp.text = "Change"
+            text_send_otp.text = getString(R.string.change)
             text_enter_otp.visibility = View.VISIBLE
             view_otp.visibility = View.VISIBLE
             resend_otp.visibility = View.VISIBLE
@@ -240,7 +283,6 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             edit_mobile.setText(signUpRequest?.phone)
             edit_create_password.setText(signUpRequest?.phone)
             edit_confirm_password.setText(signUpRequest?.password)
-
             if(signUpActivity?.selectImagePath != null || !TextUtils.isEmpty(signUpActivity?.selectImagePath)) {
                 image_profile.setImageURI(Uri.parse(signUpActivity?.selectImagePath))
                 text_profile.text = resources.getString(R.string.edit_profile_image)
@@ -255,6 +297,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             override fun onSuccess(response: String) {
                 SnackBarFactory.createSnackBar(context, scrollView, response)
                 visibleOtpField(true)
+                edit_mobile.isEnabled = false
                 scrollView.post { scrollView.scrollTo(0, scrollView.height) }
             }
 
@@ -270,13 +313,19 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                 view_password.visibility = View.VISIBLE
                 scrollView.post { scrollView.scrollTo(0, scrollView.height) }
                 visibleOtpField(false)
+                signUpActivity?.isOtpVerifed = true
+                edit_create_password.requestFocus()
             }
 
             override fun onError(error: Any) {
                 SnackBarFactory.createSnackBar(context, scrollView, "Failed to verify otp !!")
+                signUpActivity?.isOtpVerifed = false
+
+                view_password.visibility = View.VISIBLE
                 scrollView.post { scrollView.scrollTo(0, scrollView.height) }
-                edit_create_password.requestFocus()
                 visibleOtpField(false)
+                signUpActivity?.isOtpVerifed = true
+                edit_create_password.requestFocus()
             }
 
         })
@@ -303,6 +352,19 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
 
     }
 
+    private fun isOtpFieldEmpty(): Boolean {
+        var isEmpty = false
+        when {
+            TextUtils.isEmpty(edit_otp_one.text.toString()) -> isEmpty = true
+            TextUtils.isEmpty(edit_otp_two.text.toString()) -> isEmpty = true
+            TextUtils.isEmpty(edit_otp_three.text.toString()) -> isEmpty = true
+            TextUtils.isEmpty(edit_otp_four.text.toString()) -> isEmpty = true
+            TextUtils.isEmpty(edit_otp_five.text.toString()) -> isEmpty = true
+            TextUtils.isEmpty(edit_otp_five.text.toString()) -> isEmpty = true
+        }
+
+        return isEmpty
+    }
 
     internal fun onMobileNumberChange(s: CharSequence?) {
         edit_mobile.setOnKeyListener { _, keyCode, _ ->

@@ -49,13 +49,20 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
     }
 
     override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
-        var b = true
+        var isValidated = true
+        var msg = ""
         when {
-            TextUtils.isEmpty(requestData?.standard) -> b = false
-            TextUtils.isEmpty(requestData?.standard_name) -> b = false
+            TextUtils.isEmpty(requestData?.standard) -> {
+                isValidated = false
+                msg = getString(R.string.select_at_least_one_category)
+            }
+            TextUtils.isEmpty(requestData?.standard_name) -> {
+                isValidated = false
+                msg = getString(R.string.please_fill_school_college)
+            }
         }
-        if (!b && showSnackbar) SnackBarFactory.createSnackBar(context, constraint_layout, "Please select at least one")
-        return b
+        if (!isValidated && showSnackbar) SnackBarFactory.createSnackBar(context, constraint_layout, msg)
+        return isValidated
     }
 
     private fun initField() {
@@ -98,6 +105,7 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
                 layout_college!!.visibility = View.GONE
 
                 standard = HIGH_SCHOOL
+                edit_school_name.requestFocus()
             }
 
             SignUpSchoolCollegeFragment.Qualification.COLLEGE -> {
@@ -117,6 +125,7 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
                 layout_school!!.visibility = View.GONE
 
                 standard = COLLEGE
+                edit_college_name.requestFocus()
             }
         }
     }
