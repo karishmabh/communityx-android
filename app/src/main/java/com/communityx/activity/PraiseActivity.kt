@@ -12,15 +12,9 @@ import butterknife.OnTextChanged
 import com.communityx.R
 import com.communityx.adapters.PraiseAdapter
 import com.communityx.utils.CustomToolBarHelper
+import kotlinx.android.synthetic.main.activity_praise.*
 
 class PraiseActivity : AppCompatActivity() {
-
-    @BindView(R.id.recycler_view_praise)
-    internal var recyclerView: RecyclerView? = null
-    @BindView(R.id.image_send)
-    internal var imageSend: ImageView? = null
-    @BindView(R.id.edit_type)
-    internal var editType: EditText? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,12 +27,12 @@ class PraiseActivity : AppCompatActivity() {
 
     @OnTextChanged(R.id.edit_type)
     internal fun onTyping(s: CharSequence) {
-        imageSend!!.setImageResource(if (s.length != 0) R.drawable.ic_praise_share_select else R.drawable.ic_praise_share_deselect)
+        image_send!!.setImageResource(if (s.isNotEmpty()) R.drawable.ic_praise_share_select else R.drawable.ic_praise_share_deselect)
     }
 
     private fun setPraiseData() {
-        recyclerView!!.layoutManager = LinearLayoutManager(this)
-        recyclerView!!.adapter = PraiseAdapter(this)
+        recycler_view_praise!!.layoutManager = LinearLayoutManager(this)
+        recycler_view_praise!!.adapter = PraiseAdapter(this)
     }
 
     private fun setUpToolbar() {

@@ -19,15 +19,9 @@ import com.communityx.fragments.*
 import com.communityx.utils.AnimationUtils
 import com.communityx.utils.DialogHelper
 import com.communityx.utils.Utils
+import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
-
-    @BindView(R.id.nav_view)
-    var bottomNavigationView: BottomNavigationView? = null
-    @BindView(R.id.image_feed)
-    internal var imageFeed: ImageView? = null
-    @BindString(R.string.earthquake_reported)
-    internal var stringReporting: String? = null
 
     var hasGoneToProfileViewImage = false
     private var isBackPressClick = false
@@ -37,8 +31,8 @@ class DashboardActivity : AppCompatActivity(), BottomNavigationView.OnNavigation
         setContentView(R.layout.activity_dashboard)
         ButterKnife.bind(this)
 
-        bottomNavigationView!!.setOnNavigationItemSelectedListener(this)
-        bottomNavigationView!!.selectedItemId = R.id.navigation_community
+        nav_view!!.setOnNavigationItemSelectedListener(this)
+        nav_view!!.selectedItemId = R.id.navigation_community
     }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
@@ -53,7 +47,7 @@ class DashboardActivity : AppCompatActivity(), BottomNavigationView.OnNavigation
                     onBackPressed()
                     return true
                 }
-                AnimationUtils.rotateView(imageFeed!!, 0, 800)
+                AnimationUtils.rotateView(image_feed!!, 0, 800)
                 replceFragment(CommunityFeedFragment(), "fragment_community")
             }
             R.id.navigation_message -> replceFragment(MessageFragment(), "fragment_message")
@@ -70,7 +64,7 @@ class DashboardActivity : AppCompatActivity(), BottomNavigationView.OnNavigation
 
     @OnClick(R.id.view_community_btn)
     internal fun tappedCommunityFeed() {
-        bottomNavigationView!!.selectedItemId = R.id.navigation_community
+        nav_view!!.selectedItemId = R.id.navigation_community
     }
 
     private fun replceFragment(fragment: Fragment, tag: String) {
@@ -80,7 +74,7 @@ class DashboardActivity : AppCompatActivity(), BottomNavigationView.OnNavigation
     override fun onBackPressed() {
         if (hasGoneToProfileViewImage) {
             isBackPressClick = true
-            bottomNavigationView!!.selectedItemId = R.id.navigation_community
+            nav_view!!.selectedItemId = R.id.navigation_community
         }
         super.onBackPressed()
     }

@@ -20,26 +20,19 @@ import com.communityx.R
 import com.communityx.activity.CreatePostActivity
 import com.communityx.activity.DashboardActivity
 import com.communityx.adapters.CommunityFeedAdapter
+import com.communityx.utils.AppConstant
+import com.communityx.utils.AppConstant.FRAGMENT_PROFILE
 import com.communityx.utils.CustomToolBarHelper
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.activity_dashboard.*
+import kotlinx.android.synthetic.main.fragment_community_feed.*
+import kotlinx.android.synthetic.main.view_search.*
 
 import java.util.Objects
 
 class CommunityFeedFragment : Fragment() {
 
-    @BindView(R.id.recycler_view_feed)
-    internal var recyclerView: RecyclerView? = null
-    @BindView(R.id.edit_search)
-    internal var editPost: EditText? = null
-    @BindView(R.id.image_user_profile)
-    internal var imageUser: CircleImageView? = null
-    @BindView(R.id.card)
-    internal var cardPost: CardView? = null
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_community_feed, container, false)
         ButterKnife.bind(this, view)
         setUpToolbar(view)
@@ -48,12 +41,12 @@ class CommunityFeedFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        editPost!!.setHint(R.string.write_something_here)
-        editPost!!.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+        edit_search!!.setHint(R.string.write_something_here)
+        edit_search!!.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
 
-        recyclerView!!.layoutManager = LinearLayoutManager(context)
+        recycler_view_feed!!.layoutManager = LinearLayoutManager(context)
         val communityFeedAdapter = CommunityFeedAdapter(context)
-        recyclerView!!.adapter = communityFeedAdapter
+        recycler_view_feed!!.adapter = communityFeedAdapter
     }
 
     @OnTouch(R.id.edit_search)
@@ -74,14 +67,14 @@ class CommunityFeedFragment : Fragment() {
         assert(fragmentManager != null)
         fragmentManager!!
             .beginTransaction()
-            .addSharedElement(imageUser!!, Objects.requireNonNull<String>(ViewCompat.getTransitionName(imageUser!!)))
-            .addSharedElement(cardPost!!, Objects.requireNonNull<String>(ViewCompat.getTransitionName(cardPost!!)))
+            .addSharedElement(image_user_profile!!, Objects.requireNonNull<String>(ViewCompat.getTransitionName(image_user_profile!!)))
+            .addSharedElement(card!!, Objects.requireNonNull<String>(ViewCompat.getTransitionName(card!!)))
             .replace(R.id.frame_root, profileFragment)
-            .addToBackStack("fragment_profile")
+            .addToBackStack(FRAGMENT_PROFILE)
             .commit()
         val activity = activity as DashboardActivity?
         activity!!.hasGoneToProfileViewImage = true
-        activity.getBottomNavigationView().setSelectedItemId(R.id.navigation_profile)
+        activity.nav_view.setSelectedItemId(R.id.navigation_profile)
     }
 
     private fun setUpToolbar(view: View) {

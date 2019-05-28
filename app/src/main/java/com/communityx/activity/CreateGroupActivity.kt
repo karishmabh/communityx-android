@@ -11,17 +11,13 @@ import butterknife.OnClick
 import com.communityx.R
 import com.communityx.adapters.SelectedMembersAdapter
 import com.communityx.utils.AppConstant
+import kotlinx.android.synthetic.main.activity_create_group.*
 
 import java.util.ArrayList
 
 class CreateGroupActivity : AppCompatActivity(), AppConstant, SelectedMembersAdapter.IUserRemoved {
 
-    @BindView(R.id.recycler_added_users)
-    internal var recyclerAddedUsers: RecyclerView? = null
-    @BindView(R.id.text_participant)
-    internal var textParticipant: TextView? = null
-
-    private var mUsersList: ArrayList<*>? = null
+    private var mUsersList: ArrayList<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +36,11 @@ class CreateGroupActivity : AppCompatActivity(), AppConstant, SelectedMembersAda
         mUsersList = intent.extras!!.get(AppConstant.INTENT_USERLIST) as ArrayList<String>
 
         if (mUsersList == null) return
-        recyclerAddedUsers!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recycler_added_users!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         val selectedMembersAdapter = SelectedMembersAdapter(mUsersList, this, this)
-        recyclerAddedUsers!!.adapter = selectedMembersAdapter
+        recycler_added_users!!.adapter = selectedMembersAdapter
 
-        textParticipant!!.text = "Participants: " + mUsersList!!.size
+        text_participant!!.text = "Participants: " + mUsersList!!.size
     }
 
     override fun onUserRemoved(userName: String) {

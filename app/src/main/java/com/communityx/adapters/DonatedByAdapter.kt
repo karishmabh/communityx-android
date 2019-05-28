@@ -16,15 +16,12 @@ import java.util.Arrays
 
 class DonatedByAdapter(private val mLikesList: ArrayList<String>, private val mActvity: Activity) :
     RecyclerView.Adapter<DonatedByAdapter.EventHolder>() {
-    private val mLayoutInflater: LayoutInflater
 
-    init {
-        this.mLayoutInflater = LayoutInflater.from(mActvity)
-    }
+    private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mActvity)
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): EventHolder {
         val view = mLayoutInflater.inflate(R.layout.item_connect_allies, viewGroup, false)
-        return DonatedByAdapter.EventHolder(view)
+        return EventHolder(view)
     }
 
     override fun onBindViewHolder(eventHolder: EventHolder, i: Int) {
@@ -37,9 +34,9 @@ class DonatedByAdapter(private val mLikesList: ArrayList<String>, private val mA
         return 10
     }
 
-    inner class EventHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class EventHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         @BindView(R.id.flex_layout_allies)
-        internal var flexboxLayout: FlexboxLayout? = null
+        lateinit var flexboxLayout: FlexboxLayout
 
         init {
             ButterKnife.bind(this, itemView)

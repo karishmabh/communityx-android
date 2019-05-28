@@ -14,35 +14,9 @@ import butterknife.OnClick
 import com.communityx.R
 import com.communityx.R.id
 import com.communityx.utils.AppConstant
+import kotlinx.android.synthetic.main.activity_signup_category.*
 
 class SignupCategoryActivity : AppCompatActivity(), AppConstant {
-
-    @BindView(id.view_student)
-    internal var viewStudent: RelativeLayout? = null
-    @BindView(id.view_professional)
-    internal var viewProfessional: RelativeLayout? = null
-    @BindView(id.view_organisation)
-    internal var viewOrganisation: RelativeLayout? = null
-    @BindView(id.image_organisation)
-    internal var imageOrganisation: ImageView? = null
-    @BindView(id.image_student)
-    internal var imageStudent: ImageView? = null
-    @BindView(id.image_professional)
-    internal var imageProfessional: ImageView? = null
-    @BindView(id.image_organisation_tick)
-    internal var tickOrganisation: ImageView? = null
-    @BindView(id.image_student_tick)
-    internal var tickStudent: ImageView? = null
-    @BindView(R.id.image_professional_tick)
-    internal var tickProfessional: ImageView? = null
-    @BindView(id.text_organisation)
-    internal var textOrganisation: TextView? = null
-    @BindView(id.text_student)
-    internal var textStudent: TextView? = null
-    @BindView(id.text_professional)
-    internal var textProfessional: TextView? = null
-    @BindView(id.button_continue)
-    internal var buttonContinue: Button? = null
 
     private var selectedCategory: String? = null
 
@@ -52,18 +26,18 @@ class SignupCategoryActivity : AppCompatActivity(), AppConstant {
         ButterKnife.bind(this)
 
         val textSubTitle = findViewById<TextView>(id.text_subtitle)
-        textSubTitle.text = "Build your social impact identity on CommunityX."
-        buttonContinue!!.isClickable = false
-        buttonContinue!!.alpha = 0.5f
+        textSubTitle.text = getString(R.string.string_build_social_impact)
+        button_continue!!.isClickable = false
+        button_continue!!.alpha = 0.5f
     }
 
     @OnClick(id.view_student, id.view_professional, id.view_organisation)
     internal fun selectCategory(it: View) {
-        if (it == viewStudent)
+        if (it == view_student)
             categorySelected(AppConstant.ACTION_SIGN_UP_STUDENT)
-        else if (it == viewProfessional)
+        else if (it == view_professional)
             categorySelected(AppConstant.ACTION_SIGN_UP_PROFESSIONAL)
-        else if (it == viewOrganisation) categorySelected(AppConstant.ACTION_SIGN_UP_ORGANIZATION)
+        else if (it == view_organisation) categorySelected(AppConstant.ACTION_SIGN_UP_ORGANIZATION)
     }
 
 
@@ -77,68 +51,70 @@ class SignupCategoryActivity : AppCompatActivity(), AppConstant {
 
     @OnClick(id.text_login)
     internal fun goToLogin() {
-        startActivity(Intent(this@SignupCategoryActivity, LoginActivity::class.java)
+        startActivity(Intent(this, LoginActivity::class.java)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
         finish()
     }
 
     private fun categorySelected(category: String) {
-        buttonContinue!!.isClickable = true
-        buttonContinue!!.alpha = 1.0f
+        button_continue!!.isClickable = true
+        button_continue!!.alpha = 1.0f
         selectedCategory = category
 
         when (category) {
             AppConstant.ACTION_SIGN_UP_STUDENT -> {
-                viewStudent!!.background = this.resources.getDrawable(R.drawable.border_orange_bg)
-                viewProfessional!!.background = this.resources.getDrawable(R.drawable.bordered_bg)
-                viewOrganisation!!.background = this.resources.getDrawable(R.drawable.bordered_bg)
+                view_student!!.background = this.resources.getDrawable(R.drawable.border_orange_bg)
+                view_professional!!.background = this.resources.getDrawable(R.drawable.bordered_bg)
+                view_organisation!!.background = this.resources.getDrawable(R.drawable.bordered_bg)
 
-                imageStudent!!.setImageResource(R.drawable.ic_signup_student_select)
-                imageProfessional!!.setImageResource(R.drawable.ic_signup_professional_deselect)
-                imageOrganisation!!.setImageResource(R.drawable.ic_signup_organization_deselect)
+                image_student!!.setImageResource(R.drawable.ic_signup_student_select)
+                image_professional!!.setImageResource(R.drawable.ic_signup_professional_deselect)
+                image_organisation!!.setImageResource(R.drawable.ic_signup_organization_deselect)
 
-                textStudent!!.setTextColor(this.resources.getColor(R.color.colorBlackTitle))
-                textProfessional!!.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
-                textOrganisation!!.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
+                text_student!!.setTextColor(this.resources.getColor(R.color.colorBlackTitle))
+                text_professional!!.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
+                text_organisation!!.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
 
-                tickStudent!!.visibility = View.VISIBLE
-                tickProfessional!!.visibility = View.GONE
-                tickOrganisation!!.visibility = View.GONE
+                image_student_tick!!.visibility = View.VISIBLE
+                image_professional_tick!!.visibility = View.GONE
+                image_organisation_tick!!.visibility = View.GONE
             }
+
             AppConstant.ACTION_SIGN_UP_PROFESSIONAL -> {
-                viewStudent!!.background = this.resources.getDrawable(R.drawable.bordered_bg)
-                viewProfessional!!.background = this.resources.getDrawable(R.drawable.border_orange_bg)
-                viewOrganisation!!.background = this.resources.getDrawable(R.drawable.bordered_bg)
+                view_student!!.background = this.resources.getDrawable(R.drawable.bordered_bg)
+                view_professional!!.background = this.resources.getDrawable(R.drawable.border_orange_bg)
+                view_organisation!!.background = this.resources.getDrawable(R.drawable.bordered_bg)
 
-                imageStudent!!.setImageResource(R.drawable.ic_signup_student_deselect)
-                imageProfessional!!.setImageResource(R.drawable.ic_signup_professional_select)
-                imageOrganisation!!.setImageResource(R.drawable.ic_signup_organization_deselect)
+                image_student!!.setImageResource(R.drawable.ic_signup_student_deselect)
+                image_professional!!.setImageResource(R.drawable.ic_signup_professional_select)
+                image_organisation!!.setImageResource(R.drawable.ic_signup_organization_deselect)
 
-                textStudent!!.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
-                textProfessional!!.setTextColor(this.resources.getColor(R.color.colorBlackTitle))
-                textOrganisation!!.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
+                text_student!!.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
+                text_professional!!.setTextColor(this.resources.getColor(R.color.colorBlackTitle))
+                text_organisation!!.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
 
-                tickStudent!!.visibility = View.GONE
-                tickProfessional!!.visibility = View.VISIBLE
-                tickOrganisation!!.visibility = View.GONE
+                image_student_tick!!.visibility = View.GONE
+                image_professional_tick!!.visibility = View.VISIBLE
+                image_organisation_tick!!.visibility = View.GONE
             }
+
             AppConstant.ACTION_SIGN_UP_ORGANIZATION -> {
-                viewStudent!!.background = this.resources.getDrawable(R.drawable.bordered_bg)
-                viewProfessional!!.background = this.resources.getDrawable(R.drawable.bordered_bg)
-                viewOrganisation!!.background = this.resources.getDrawable(R.drawable.border_orange_bg)
+                view_student!!.background = this.resources.getDrawable(R.drawable.bordered_bg)
+                view_professional!!.background = this.resources.getDrawable(R.drawable.bordered_bg)
+                view_organisation!!.background = this.resources.getDrawable(R.drawable.border_orange_bg)
 
-                imageStudent!!.setImageResource(R.drawable.ic_signup_student_deselect)
-                imageProfessional!!.setImageResource(R.drawable.ic_signup_professional_deselect)
-                imageOrganisation!!.setImageResource(R.drawable.ic_signup_organization_select)
+                image_student!!.setImageResource(R.drawable.ic_signup_student_deselect)
+                image_professional!!.setImageResource(R.drawable.ic_signup_professional_deselect)
+                image_organisation!!.setImageResource(R.drawable.ic_signup_organization_select)
 
-                textStudent!!.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
-                textProfessional!!.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
-                textOrganisation!!.setTextColor(this.resources.getColor(R.color.colorBlackTitle))
+                text_student!!.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
+                text_professional!!.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
+                text_organisation!!.setTextColor(this.resources.getColor(R.color.colorBlackTitle))
 
-                tickStudent!!.visibility = View.GONE
-                tickProfessional!!.visibility = View.GONE
-                tickOrganisation!!.visibility = View.VISIBLE
+                image_student_tick!!.visibility = View.GONE
+                image_professional_tick!!.visibility = View.GONE
+                image_organisation_tick!!.visibility = View.VISIBLE
                 return
             }
         }

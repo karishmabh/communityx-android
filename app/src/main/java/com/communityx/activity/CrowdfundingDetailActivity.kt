@@ -17,27 +17,9 @@ import butterknife.OnClick
 import butterknife.OnTextChanged
 import butterknife.OnTouch
 import com.communityx.R
+import kotlinx.android.synthetic.main.activity_crowdfunding_detail.*
 
 class CrowdfundingDetailActivity : AppCompatActivity() {
-
-    @BindView(R.id.edit_amount)
-    internal var editAmount: TextInputEditText? = null
-    @BindView(R.id.radioGroup)
-    internal var radioGroupDonation: RadioGroup? = null
-    @BindView(R.id.textinput_amount)
-    internal var inputLayoutAmount: TextInputLayout? = null
-    @BindView(R.id.text_other_amount)
-    internal var radioOtherAmount: RadioButton? = null
-    @BindView(R.id.text_dollor_one)
-    internal var radioDollorOne: RadioButton? = null
-    @BindView(R.id.text_dollor_two)
-    internal var radioDollorTwo: RadioButton? = null
-    @BindView(R.id.button_pay)
-    internal var buttonPay: Button? = null
-    @BindView(R.id.scrollView)
-    internal var scrollView: ScrollView? = null
-    @BindView(R.id.seekBar)
-    internal var seekDonationProgess: SeekBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,20 +29,20 @@ class CrowdfundingDetailActivity : AppCompatActivity() {
     }
 
     private fun radioListener() {
-        radioDollorOne!!.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) buttonPay!!.setBackgroundResource(R.drawable.button_active)
-            radioDollorOne!!.setBackgroundResource(if (isChecked) R.drawable.bg_stroke_active else R.drawable.bg_stroke_grey)
+        text_dollor_one!!.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) button_pay!!.setBackgroundResource(R.drawable.button_active)
+            text_dollor_one!!.setBackgroundResource(if (isChecked) R.drawable.bg_stroke_active else R.drawable.bg_stroke_grey)
         }
 
-        radioDollorTwo!!.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) buttonPay!!.setBackgroundResource(R.drawable.button_active)
-            radioDollorTwo!!.setBackgroundResource(if (isChecked) R.drawable.bg_stroke_active else R.drawable.bg_stroke_grey)
+        text_dollor_two!!.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) button_pay!!.setBackgroundResource(R.drawable.button_active)
+            text_dollor_two!!.setBackgroundResource(if (isChecked) R.drawable.bg_stroke_active else R.drawable.bg_stroke_grey)
         }
 
-        radioOtherAmount!!.setOnCheckedChangeListener { buttonView, isChecked ->
-            inputLayoutAmount!!.visibility = if (isChecked) View.VISIBLE else View.GONE
-            if (isChecked) buttonPay!!.setBackgroundResource(R.drawable.button_active)
-            radioOtherAmount!!.setBackgroundResource(if (isChecked) R.drawable.bg_stroke_active else R.drawable.bg_stroke_grey)
+        text_other_amount!!.setOnCheckedChangeListener { buttonView, isChecked ->
+            textinput_amount!!.visibility = if (isChecked) View.VISIBLE else View.GONE
+            if (isChecked) button_pay!!.setBackgroundResource(R.drawable.button_active)
+            text_other_amount!!.setBackgroundResource(if (isChecked) R.drawable.bg_stroke_active else R.drawable.bg_stroke_grey)
             scrollView!!.post { scrollView!!.scrollTo(0, scrollView!!.height) }
         }
     }
@@ -78,14 +60,14 @@ class CrowdfundingDetailActivity : AppCompatActivity() {
     @OnTextChanged(R.id.edit_amount)
     internal fun onAmountTyping(s: CharSequence) {
         if (s.length < 1) {
-            editAmount!!.setText("$")
-            editAmount!!.setSelection(1)
+            edit_amount!!.setText("$")
+            edit_amount!!.setSelection(1)
         }
     }
 
     @OnClick(R.id.view_donated_by)
     internal fun tappedViewDonatedBy() {
-        startActivity(Intent(this@CrowdfundingDetailActivity, DonatedByActivity::class.java))
+        startActivity(Intent(this, DonatedByActivity::class.java))
     }
 
     @OnTouch(R.id.seekBar)

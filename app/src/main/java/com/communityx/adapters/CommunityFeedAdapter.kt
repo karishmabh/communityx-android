@@ -18,7 +18,7 @@ import com.communityx.activity.PraiseActivity
 import com.communityx.utils.AnimationUtils
 import com.google.android.flexbox.FlexboxLayout
 
-class CommunityFeedAdapter(private val mContext: Context) : RecyclerView.Adapter<*>() {
+class CommunityFeedAdapter(val mContext: Context?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val POST_FEED = 0
     private val POST_EVENT_FEED = 1
@@ -53,7 +53,7 @@ class CommunityFeedAdapter(private val mContext: Context) : RecyclerView.Adapter
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, i: Int) {
         if (viewHolder is ViewHolderPostFeed) {
-            viewHolder.viewPostMedia!!.visibility = if (i % 3 == 0 && i != 0) View.VISIBLE else View.GONE
+            viewHolder.viewPostMedia.visibility = if (i % 3 == 0 && i != 0) View.VISIBLE else View.GONE
         } else if (viewHolder is ViewHolderShareFeed) {
             viewHolder.addDummyShare(i)
         }
@@ -77,34 +77,34 @@ class CommunityFeedAdapter(private val mContext: Context) : RecyclerView.Adapter
     internal open inner class BaseFeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         @BindView(R.id.flexboxLayout2)
-        var flexboxLayout: FlexboxLayout? = null
+        lateinit var flexboxLayout: FlexboxLayout
         @BindView(R.id.image_like)
-        var imageLike: ImageView? = null
+        lateinit var imageLike: ImageView
         @BindView(R.id.image_more)
-        var imageMore: ImageView? = null
+        lateinit var imageMore: ImageView
         @BindView(R.id.view_more)
-        var viewMore: View? = null
+        lateinit var viewMore: View
 
         var isLike = true
 
         init {
             ButterKnife.bind(this, itemView)
-            viewMore!!.visibility = if (fromProfile && !isOtherProfile) View.VISIBLE else View.GONE
+            viewMore.visibility = if (fromProfile && !isOtherProfile) View.VISIBLE else View.GONE
         }
 
         @OnClick(R.id.view_comment)
         fun praisedClicked() {
-            mContext.startActivity(Intent(mContext, PraiseActivity::class.java))
+            mContext!!.startActivity(Intent(mContext, PraiseActivity::class.java))
         }
 
         @OnClick(R.id.view_like)
         fun tappedLike() {
-            mContext.startActivity(Intent(mContext, LikesActivity::class.java))
+            mContext!!.startActivity(Intent(mContext, LikesActivity::class.java))
         }
 
         @OnClick(R.id.image_like)
         fun likeTapped() {
-            imageLike!!.setImageResource(if (isLike) R.drawable.ic_my_community_like_deselect else R.drawable.ic_my_community_like_select)
+            imageLike.setImageResource(if (isLike) R.drawable.ic_my_community_like_deselect else R.drawable.ic_my_community_like_select)
             isLike = !isLike
             AnimationUtils.pulse(imageLike, 1, 300)
         }
@@ -113,9 +113,9 @@ class CommunityFeedAdapter(private val mContext: Context) : RecyclerView.Adapter
     internal inner class ViewHolderPostFeed(itemView: View) : BaseFeedViewHolder(itemView) {
 
         @BindView(R.id.view_post_media)
-        var viewPostMedia: View? = null
+        lateinit var viewPostMedia: View
         @BindView(R.id.text_post)
-        var textPost: TextView? = null
+        lateinit var textPost: TextView
 
         init {
             ButterKnife.bind(this, itemView)
@@ -125,13 +125,13 @@ class CommunityFeedAdapter(private val mContext: Context) : RecyclerView.Adapter
     internal inner class ViewHolderEventFeed(itemView: View) : BaseFeedViewHolder(itemView) {
 
         @BindView(R.id.button_interested)
-        var buttonInterested: Button? = null
+        lateinit var buttonInterested: Button
 
         init {
             ButterKnife.bind(this, itemView)
-            buttonInterested!!.visibility = if (fromProfile && !isOtherProfile) View.GONE else View.VISIBLE
+            buttonInterested.visibility = if (fromProfile && !isOtherProfile) View.GONE else View.VISIBLE
             itemView.setOnClickListener { v ->
-                mContext.startActivity(
+                mContext!!.startActivity(
                     Intent(
                         mContext,
                         EventDetailActivity::class.java
@@ -144,19 +144,19 @@ class CommunityFeedAdapter(private val mContext: Context) : RecyclerView.Adapter
     internal inner class ViewHolderCrowdfundingFeed(itemView: View) : BaseFeedViewHolder(itemView) {
 
         @BindView(R.id.edit_amount)
-        var editAmount: TextInputEditText? = null
+        lateinit var editAmount: TextInputEditText
         @BindView(R.id.radioGroup)
-        var radioGroupDonation: RadioGroup? = null
+        lateinit var radioGroupDonation: RadioGroup
         @BindView(R.id.textinput_amount)
-        var inputLayoutAmount: TextInputLayout? = null
+        lateinit var inputLayoutAmount: TextInputLayout
         @BindView(R.id.text_other_amount)
-        var radioOtherAmount: RadioButton? = null
+        lateinit var radioOtherAmount: RadioButton
         @BindView(R.id.text_dollor_one)
-        var radioDollorOne: RadioButton? = null
+        lateinit var radioDollorOne: RadioButton
         @BindView(R.id.text_dollor_two)
-        var radioDollorTwo: RadioButton? = null
+        lateinit var radioDollorTwo: RadioButton
         @BindView(R.id.button_pay)
-        var buttonPay: Button? = null
+        lateinit var buttonPay: Button
 
         init {
             ButterKnife.bind(this, itemView)
@@ -166,14 +166,14 @@ class CommunityFeedAdapter(private val mContext: Context) : RecyclerView.Adapter
         @OnTextChanged(R.id.edit_amount)
         fun amountTypng(s: CharSequence) {
             if (s.length < 1) {
-                editAmount!!.setText("$")
-                editAmount!!.setSelection(1)
+                editAmount.setText("$")
+                editAmount.setSelection(1)
             }
         }
 
         private fun radioListener() {
             itemView.setOnClickListener { v ->
-                mContext.startActivity(
+                mContext!!.startActivity(
                     Intent(
                         mContext,
                         CrowdfundingDetailActivity::class.java
@@ -181,20 +181,20 @@ class CommunityFeedAdapter(private val mContext: Context) : RecyclerView.Adapter
                 )
             }
 
-            radioDollorOne!!.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (isChecked) buttonPay!!.setBackgroundResource(R.drawable.button_active)
-                radioDollorOne!!.setBackgroundResource(if (isChecked) R.drawable.bg_stroke_active else R.drawable.bg_stroke_grey)
+            radioDollorOne.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) buttonPay.setBackgroundResource(R.drawable.button_active)
+                radioDollorOne.setBackgroundResource(if (isChecked) R.drawable.bg_stroke_active else R.drawable.bg_stroke_grey)
             }
 
-            radioDollorTwo!!.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (isChecked) buttonPay!!.setBackgroundResource(R.drawable.button_active)
-                radioDollorTwo!!.setBackgroundResource(if (isChecked) R.drawable.bg_stroke_active else R.drawable.bg_stroke_grey)
+            radioDollorTwo.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) buttonPay.setBackgroundResource(R.drawable.button_active)
+                radioDollorTwo.setBackgroundResource(if (isChecked) R.drawable.bg_stroke_active else R.drawable.bg_stroke_grey)
             }
 
-            radioOtherAmount!!.setOnCheckedChangeListener { buttonView, isChecked ->
-                inputLayoutAmount!!.visibility = if (isChecked) View.VISIBLE else View.GONE
-                if (isChecked) buttonPay!!.setBackgroundResource(R.drawable.button_active)
-                radioOtherAmount!!.setBackgroundResource(if (isChecked) R.drawable.bg_stroke_active else R.drawable.bg_stroke_grey)
+            radioOtherAmount.setOnCheckedChangeListener { buttonView, isChecked ->
+                inputLayoutAmount.visibility = if (isChecked) View.VISIBLE else View.GONE
+                if (isChecked) buttonPay.setBackgroundResource(R.drawable.button_active)
+                radioOtherAmount.setBackgroundResource(if (isChecked) R.drawable.bg_stroke_active else R.drawable.bg_stroke_grey)
             }
         }
     }
@@ -202,7 +202,7 @@ class CommunityFeedAdapter(private val mContext: Context) : RecyclerView.Adapter
     internal inner class ViewHolderShareFeed(itemView: View) : BaseFeedViewHolder(itemView) {
 
         @BindView(R.id.container_share_post)
-        var containerSharePost: FrameLayout? = null
+        lateinit var containerSharePost: FrameLayout
 
         init {
             ButterKnife.bind(this, itemView)
@@ -216,7 +216,7 @@ class CommunityFeedAdapter(private val mContext: Context) : RecyclerView.Adapter
                 view.findViewById<View>(R.id.button_interested_share).visibility = View.VISIBLE
                 view.findViewById<View>(R.id.view_like_share_comment).visibility = View.GONE
                 view.findViewById<View>(R.id.text_miles).visibility = View.GONE
-                containerSharePost!!.addView(view)
+                containerSharePost.addView(view)
             }
         }
     }

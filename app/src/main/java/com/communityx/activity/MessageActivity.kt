@@ -17,15 +17,11 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.communityx.R
 import com.communityx.adapters.ChatAdapter
+import kotlinx.android.synthetic.main.activity_message.*
 
 import java.util.ArrayList
 
 class MessageActivity : AppCompatActivity() {
-
-    @BindView(R.id.recycler_chat)
-    internal var recyclerViewChat: RecyclerView? = null
-    @BindView(R.id.edit_chat)
-    internal var editChat: EditText? = null
 
     private var mChatList: ArrayList<String>? = null
     private var mChatAdapter: ChatAdapter? = null
@@ -40,16 +36,16 @@ class MessageActivity : AppCompatActivity() {
     }
 
     private fun setEditChatLocationClick() {
-        editChat!!.setOnTouchListener(View.OnTouchListener { v, event ->
+        edit_chat!!.setOnTouchListener(View.OnTouchListener { v, event ->
             val DRAWABLE_RIGHT = 2
 
             if (event.action == MotionEvent.ACTION_UP) {
-                if (event.rawX >= editChat!!.right - editChat!!.compoundDrawables[DRAWABLE_RIGHT].bounds.width()) {
-                    startActivityForResult(Intent(this@MessageActivity, SendLocationActivity::class.java), 101)
+                if (event.rawX >= edit_chat!!.right - edit_chat!!.compoundDrawables[DRAWABLE_RIGHT].bounds.width()) {
+                    startActivityForResult(Intent(this, SendLocationActivity::class.java), 101)
                     return@OnTouchListener true
                 }
             }
-            false
+            return@OnTouchListener false
         })
     }
 
@@ -60,7 +56,7 @@ class MessageActivity : AppCompatActivity() {
                 val filename = data!!.extras!!.getString("bitmap")
                 mChatList!!.add(filename)
                 mChatAdapter!!.notifyDataSetChanged()
-                recyclerViewChat!!.scrollToPosition(mChatList!!.size - 1)
+                recycler_chat!!.scrollToPosition(mChatList!!.size - 1)
             } catch (e: Exception) {
 
             }
@@ -89,9 +85,9 @@ class MessageActivity : AppCompatActivity() {
         mChatList!!.add("R")
         mChatList!!.add("R")
 
-        recyclerViewChat!!.layoutManager = LinearLayoutManager(this)
-        mChatAdapter = ChatAdapter(this@MessageActivity, mChatList)
-        recyclerViewChat!!.adapter = mChatAdapter
+        recycler_chat!!.layoutManager = LinearLayoutManager(this)
+        mChatAdapter = ChatAdapter(this, mChatList!!)
+        recycler_chat!!.adapter = mChatAdapter
     }
 
     @OnClick(R.id.topView)

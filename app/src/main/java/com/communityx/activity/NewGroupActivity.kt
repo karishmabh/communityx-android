@@ -16,17 +16,11 @@ import com.communityx.R
 import com.communityx.adapters.GroupAdapter
 import com.communityx.adapters.SelectedMembersAdapter
 import com.communityx.utils.AppConstant
+import kotlinx.android.synthetic.main.activity_new_group.*
 
 import java.util.ArrayList
 
 class NewGroupActivity : AppCompatActivity(), GroupAdapter.IUsersSelected, SelectedMembersAdapter.IUserRemoved, AppConstant {
-
-    @BindView(R.id.recycler_user_list)
-    internal var recyclerUsers: RecyclerView? = null
-    @BindView(R.id.recycler_added_users)
-    internal var recyclerAddedUsers: RecyclerView? = null
-    @BindView(R.id.image_next)
-    internal var imageNext: FloatingActionButton? = null
 
     private var selectedMembersAdapter: SelectedMembersAdapter? = null
     private var groupAdapter: GroupAdapter? = null
@@ -37,7 +31,7 @@ class NewGroupActivity : AppCompatActivity(), GroupAdapter.IUsersSelected, Selec
         setContentView(R.layout.activity_new_group)
         ButterKnife.bind(this)
 
-        imageNext!!.hide()
+        image_next!!.hide()
         setRecyclerViewChat()
     }
 
@@ -59,7 +53,7 @@ class NewGroupActivity : AppCompatActivity(), GroupAdapter.IUsersSelected, Selec
         //TODO hard codes strings
 
         selectedMembersAdapter = SelectedMembersAdapter(selectedUsersList, this, this)
-        recyclerAddedUsers!!.adapter = selectedMembersAdapter
+        recycler_added_users!!.adapter = selectedMembersAdapter
 
         val usersList = ArrayList<String>()
         usersList.add("Anthony")
@@ -72,31 +66,31 @@ class NewGroupActivity : AppCompatActivity(), GroupAdapter.IUsersSelected, Selec
         usersList.add("Cinthony")
 
         val linearLayoutManager = LinearLayoutManager(this)
-        recyclerUsers!!.layoutManager = linearLayoutManager
+        recycler_user_list!!.layoutManager = linearLayoutManager
 
-        val dividerItemDecoration = DividerItemDecoration(recyclerUsers!!.context, linearLayoutManager.orientation)
-        recyclerUsers!!.addItemDecoration(dividerItemDecoration)
+        val dividerItemDecoration = DividerItemDecoration(recycler_user_list!!.context, linearLayoutManager.orientation)
+        recycler_user_list!!.addItemDecoration(dividerItemDecoration)
 
-        groupAdapter = GroupAdapter(usersList, this@NewGroupActivity, this)
-        recyclerUsers!!.adapter = groupAdapter
+        groupAdapter = GroupAdapter(usersList, this, this)
+        recycler_user_list!!.adapter = groupAdapter
     }
 
     override fun updatedUsersList(mSelectedUsers: Set<String>) {
-        if (mSelectedUsers.size > 0) {
+        if (mSelectedUsers.isNotEmpty()) {
             selectedUsersList.clear()
             selectedUsersList.addAll(mSelectedUsers)
 
-            recyclerAddedUsers!!.visibility = View.VISIBLE
-            imageNext!!.show()
-            recyclerAddedUsers!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            recycler_added_users!!.visibility = View.VISIBLE
+            image_next!!.show()
+            recycler_added_users!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             selectedMembersAdapter!!.notifyDataSetChanged()
         } else {
-            imageNext!!.hide()
-            recyclerAddedUsers!!.visibility = View.GONE
+            image_next!!.hide()
+            recycler_added_users!!.visibility = View.GONE
         }
     }
 
     override fun onUserRemoved(userName: String) {
-        groupAdapter!!.uncheckUser(userName, imageNext)
+        groupAdapter!!.uncheckUser(userName, image_next)
     }
 }

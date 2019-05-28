@@ -9,12 +9,12 @@ import butterknife.ButterKnife
 import com.communityx.R
 import com.communityx.adapters.DonatedByAdapter
 import com.communityx.utils.CustomToolBarHelper
+import kotlinx.android.synthetic.main.activity_donated_by.*
 
 import java.util.ArrayList
 
 class DonatedByActivity : AppCompatActivity() {
-    @BindView(R.id.recycler_likes)
-    internal var recyclerLikes: RecyclerView? = null
+
     private val likesList = ArrayList<String>()
     private var donatedByAdapter: DonatedByAdapter? = null
 
@@ -28,14 +28,14 @@ class DonatedByActivity : AppCompatActivity() {
     }
 
     fun setAdapter(donatedByList: ArrayList<String>) {
-        recyclerLikes!!.layoutManager = LinearLayoutManager(this)
-        donatedByAdapter = DonatedByAdapter(donatedByList, this@DonatedByActivity)
-        recyclerLikes!!.adapter = donatedByAdapter
+        recycler_likes!!.layoutManager = LinearLayoutManager(this)
+        donatedByAdapter = DonatedByAdapter(donatedByList, this)
+        recycler_likes!!.adapter = donatedByAdapter
     }
 
     private fun setupToolbar() {
         val customToolBarUtils = CustomToolBarHelper(this)
-        customToolBarUtils.setTitle("Donated by (219)")
+        customToolBarUtils.setTitle(getString(R.string.string_donated_by))
         customToolBarUtils.enableBackPress()
     }
 }

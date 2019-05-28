@@ -22,24 +22,11 @@ import com.communityx.R
 import com.communityx.adapters.MultipleImagesAdapter
 import com.communityx.utils.AnimationUtils
 import com.communityx.utils.CustomToolBarHelper
+import kotlinx.android.synthetic.main.activity_event_detail.*
 
 import java.util.ArrayList
 
 class EventDetailActivity : AppCompatActivity() {
-
-    @BindView(R.id.recycler_going)
-    internal var recyclerGoing: RecyclerView? = null
-    @BindView(R.id.recycler_interested)
-    internal var recyclerInterested: RecyclerView? = null
-    @BindView(R.id.image_like)
-    internal var imageLike: ImageView? = null
-
-    @BindDrawable(R.drawable.drawable_star)
-    internal var drawableStar: Drawable? = null
-    @BindDrawable(R.drawable.ic_interested_popup_going_select)
-    internal var drawableGoing: Drawable? = null
-    @BindDrawable(R.drawable.ic_interested_popup_not_interested_select)
-    internal var drawableNotInterested: Drawable? = null
 
     internal var isLike = true
 
@@ -65,11 +52,11 @@ class EventDetailActivity : AppCompatActivity() {
         imagesArrayList.add("1")
         imagesArrayList.add("1")
 
-        recyclerGoing!!.layoutManager = LinearLayoutManager(this@EventDetailActivity, LinearLayoutManager.HORIZONTAL, false)
-        recyclerInterested!!.layoutManager = LinearLayoutManager(this@EventDetailActivity, LinearLayoutManager.HORIZONTAL, false)
+        recycler_going!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recycler_interested!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-        recyclerGoing!!.adapter = MultipleImagesAdapter(this@EventDetailActivity, imagesArrayList)
-        recyclerInterested!!.adapter = MultipleImagesAdapter(this@EventDetailActivity, imagesArrayList)
+        recycler_going!!.adapter = MultipleImagesAdapter(this, imagesArrayList)
+        recycler_interested!!.adapter = MultipleImagesAdapter(this, imagesArrayList)
     }
 
     @OnClick(R.id.button_interested)
@@ -79,9 +66,9 @@ class EventDetailActivity : AppCompatActivity() {
 
     @OnClick(R.id.image_like)
     internal fun likeTapped() {
-        imageLike!!.setImageResource(if (isLike) R.drawable.ic_my_community_like_deselect else R.drawable.ic_my_community_like_select)
+        image_like!!.setImageResource(if (isLike) R.drawable.ic_my_community_like_deselect else R.drawable.ic_my_community_like_select)
         isLike = !isLike
-        AnimationUtils.pulse(imageLike, 1, 300)
+        AnimationUtils.pulse(image_like, 1, 300)
     }
 
     fun openDialog() {
@@ -99,32 +86,33 @@ class EventDetailActivity : AppCompatActivity() {
         val radioNotInterested = dialog.findViewById<RadioButton>(R.id.radio_button_3)
 
         radioInterested.isChecked = true
-        setTint(radioGoing, resources.getColor(R.color.colorLightGrey), drawableGoing)
-        setTint(radioNotInterested, resources.getColor(R.color.colorLightGrey), drawableNotInterested)
+        setTint(radioGoing, resources.getColor(R.color.colorLightGrey), resources.getDrawable(R.drawable.ic_interested_popup_going_select))
+        setTint(radioNotInterested, resources.getColor(R.color.colorLightGrey), resources.getDrawable(R.drawable.ic_interested_popup_not_interested_select))
 
         radioInterested.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                setTint(radioInterested, resources.getColor(R.color.colorAccent), drawableStar)
+                setTint(radioInterested, resources.getColor(R.color.colorAccent), resources.getDrawable(R.drawable.drawable_star))
             } else {
-                setTint(radioInterested, resources.getColor(R.color.colorLightGrey), drawableStar)
+                setTint(radioInterested, resources.getColor(R.color.colorLightGrey), resources.getDrawable(R.drawable.drawable_star))
             }
         }
 
         radioGoing.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                setTint(radioGoing, resources.getColor(R.color.colorAccent), drawableGoing)
+                setTint(radioGoing, resources.getColor(R.color.colorAccent), resources.getDrawable(R.drawable.ic_interested_popup_going_select))
             } else {
-                setTint(radioGoing, resources.getColor(R.color.colorLightGrey), drawableGoing)
+                setTint(radioGoing, resources.getColor(R.color.colorLightGrey), resources.getDrawable(R.drawable.ic_interested_popup_going_select))
             }
         }
 
         radioNotInterested.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                setTint(radioNotInterested, resources.getColor(R.color.colorAccent), drawableNotInterested)
+                setTint(radioNotInterested, resources.getColor(R.color.colorAccent), resources.getDrawable(R.drawable.ic_interested_popup_not_interested_select))
             } else {
-                setTint(radioNotInterested, resources.getColor(R.color.colorLightGrey), drawableNotInterested)
+                setTint(radioNotInterested, resources.getColor(R.color.colorLightGrey), resources.getDrawable(R.drawable.ic_interested_popup_not_interested_select))
             }
         }
+
         dialog.show()
     }
 

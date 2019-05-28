@@ -19,30 +19,11 @@ import java.util.ArrayList
 
 import butterknife.BindView
 import butterknife.ButterKnife
+import kotlinx.android.synthetic.main.activity_payment_activity.*
+import kotlinx.android.synthetic.main.activity_payment_activity.text_title
+import kotlinx.android.synthetic.main.toolbar.*
 
 class PaymentActivity : AppCompatActivity(), PaymentAdapter.OnCardCheckedListener {
-    @BindView(R.id.text_title)
-    internal var textTitle: TextView? = null
-    @BindView(R.id.imageView)
-    internal var imageArrow: ImageView? = null
-    @BindView(R.id.recycler_cards)
-    internal var recyclerCards: RecyclerView? = null
-    @BindView(R.id.radio_debit_button)
-    internal var radioDebitButton: RadioButton? = null
-    @BindView(R.id.radio_credit_button)
-    internal var radioCreditButton: RadioButton? = null
-    @BindView(R.id.linear_debit_card)
-    internal var linearDebitCard: LinearLayout? = null
-    @BindView(R.id.linear_credit_card)
-    internal var linearCreditCard: LinearLayout? = null
-    @BindView(R.id.text_debit_amount)
-    internal var textDebitAmount: TextView? = null
-    @BindView(R.id.text_credit_amount)
-    internal var textCreditAmount: TextView? = null
-    @BindView(R.id.text_credit_card)
-    internal var textCreditCard: TextView? = null
-    @BindView(R.id.text_debit_card)
-    internal var textDebitCard: TextView? = null
 
     private var paymentAdapter: PaymentAdapter? = null
     private val mCardList = ArrayList<String>()
@@ -52,35 +33,35 @@ class PaymentActivity : AppCompatActivity(), PaymentAdapter.OnCardCheckedListene
         setContentView(R.layout.activity_payment_activity)
         ButterKnife.bind(this)
 
-        textTitle!!.text = "Payment Method"
-        imageArrow!!.setImageDrawable(resources.getDrawable(R.drawable.ic_praise_back_arrow))
+        text_title!!.text = "Payment Method"
+        imageView!!.setImageDrawable(resources.getDrawable(R.drawable.ic_praise_back_arrow))
         setAdapter(mCardList)
         setDebitCard()
         setCreditCard()
     }
 
     private fun setAdapter(cardList: ArrayList<String>) {
-        recyclerCards!!.layoutManager = LinearLayoutManager(this)
-        paymentAdapter = PaymentAdapter(cardList, this@PaymentActivity)
+        recycler_cards!!.layoutManager = LinearLayoutManager(this)
+        paymentAdapter = PaymentAdapter(cardList, this)
         paymentAdapter!!.setCardCheckedListener(this)
-        recyclerCards!!.adapter = paymentAdapter
+        recycler_cards!!.adapter = paymentAdapter
     }
 
     private fun setDebitCard() {
-        radioDebitButton!!.setOnCheckedChangeListener { buttonView, isChecked ->
-            radioCreditButton!!.isChecked = !isChecked
+        radio_debit_button!!.setOnCheckedChangeListener { buttonView, isChecked ->
+            radio_credit_button!!.isChecked = !isChecked
             paymentAdapter!!.notifyDataSetChanged()
-            makeActive(isChecked, textDebitCard!!)
-            showPannel(isChecked, linearDebitCard!!, textDebitAmount!!)
+            makeActive(isChecked, text_debit_card!!)
+            showPannel(isChecked, linear_debit_card!!, text_debit_amount!!)
         }
     }
 
     private fun setCreditCard() {
-        radioCreditButton!!.setOnCheckedChangeListener { buttonView, isChecked ->
-            radioDebitButton!!.isChecked = !isChecked
+        radio_credit_button!!.setOnCheckedChangeListener { buttonView, isChecked ->
+            radio_debit_button!!.isChecked = !isChecked
             paymentAdapter!!.notifyDataSetChanged()
-            makeActive(isChecked, textCreditCard!!)
-            showPannel(isChecked, linearCreditCard!!, textCreditAmount!!)
+            makeActive(isChecked, text_credit_card!!)
+            showPannel(isChecked, linear_credit_card!!, text_credit_amount!!)
         }
     }
 
@@ -95,15 +76,15 @@ class PaymentActivity : AppCompatActivity(), PaymentAdapter.OnCardCheckedListene
 
     override fun onCardChecked(isChecked: Boolean, radioButton: RadioButton) {
         if (!isChecked) return
-        radioDebitButton!!.setOnCheckedChangeListener(null)
-        radioDebitButton!!.isChecked = false
-        radioCreditButton!!.setOnCheckedChangeListener(null)
-        radioCreditButton!!.isChecked = false
+        radio_debit_button!!.setOnCheckedChangeListener(null)
+        radio_debit_button!!.isChecked = false
+        radio_credit_button!!.setOnCheckedChangeListener(null)
+        radio_credit_button!!.isChecked = false
 
-        showPannel(false, linearCreditCard!!, textCreditAmount!!)
-        showPannel(false, linearDebitCard!!, textDebitAmount!!)
-        makeActive(false, textDebitCard!!)
-        makeActive(false, textCreditCard!!)
+        showPannel(false, linear_credit_card!!, text_credit_amount!!)
+        showPannel(false, linear_debit_card!!, text_debit_amount!!)
+        makeActive(false, text_debit_card!!)
+        makeActive(false, text_credit_card!!)
 
         setCreditCard()
         setDebitCard()

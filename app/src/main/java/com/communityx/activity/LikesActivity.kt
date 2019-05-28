@@ -9,12 +9,12 @@ import butterknife.ButterKnife
 import com.communityx.R
 import com.communityx.adapters.LikesAdapter
 import com.communityx.utils.CustomToolBarHelper
+import kotlinx.android.synthetic.main.activity_likes.*
 
 import java.util.ArrayList
 
 class LikesActivity : AppCompatActivity() {
-    @BindView(R.id.recycler_likes)
-    internal var recyclerLikes: RecyclerView? = null
+
     private val likesList = ArrayList<String>()
     private var likesAdapter: LikesAdapter? = null
 
@@ -24,18 +24,17 @@ class LikesActivity : AppCompatActivity() {
         ButterKnife.bind(this)
         setAdapter(likesList)
         setupToolbar()
-
     }
 
     fun setAdapter(likesList: ArrayList<String>) {
-        recyclerLikes!!.layoutManager = LinearLayoutManager(this)
-        likesAdapter = LikesAdapter(likesList, this@LikesActivity)
-        recyclerLikes!!.adapter = likesAdapter
+        recycler_likes!!.layoutManager = LinearLayoutManager(this)
+        likesAdapter = LikesAdapter(likesList, this)
+        recycler_likes!!.adapter = likesAdapter
     }
 
     private fun setupToolbar() {
         val customToolBarUtils = CustomToolBarHelper(this)
-        customToolBarUtils.setTitle("Likes(1k)")
+        customToolBarUtils.setTitle(getString(R.string.string_likes))
         customToolBarUtils.enableBackPress()
     }
 }

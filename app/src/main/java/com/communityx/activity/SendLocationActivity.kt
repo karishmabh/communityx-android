@@ -54,9 +54,7 @@ class SendLocationActivity : FragmentActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        if (mLocation != null) {
-            setMarkeronMap(mLocation)
-        }
+        mLocation?.let { setMarkeronMap(it) }
     }
 
     @OnClick(R.id.fab_current_location)
@@ -86,7 +84,7 @@ class SendLocationActivity : FragmentActivity(), OnMapReadyCallback {
 
     private fun initLocationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val permission = PermissionHelper(this@SendLocationActivity)
+            val permission = PermissionHelper(this)
             if (!permission.checkPermission(*permissions))
                 requestPermissions(permissions, REQUEST_PERMISSION_CODE)
             else
@@ -102,11 +100,11 @@ class SendLocationActivity : FragmentActivity(), OnMapReadyCallback {
 
         val callback = object : GoogleMap.SnapshotReadyCallback {
 
-            internal var bitmap: Bitmap
+            lateinit var bitmap: Bitmap
             override fun onSnapshotReady(snapshot: Bitmap) {
                 bitmap = snapshot
 
-                val filename = "bitmap.png"
+                val filename = getString(R.string.string_filename)
                 try {
                     val stream = openFileOutput(filename, Context.MODE_PRIVATE)
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
@@ -120,7 +118,7 @@ class SendLocationActivity : FragmentActivity(), OnMapReadyCallback {
                 val intent = Intent()
                 intent.putExtra("bitmap", filename)
                 setResult(101, intent)
-                this@SendLocationActivity.finish()
+                finish()
             }
         }
 
