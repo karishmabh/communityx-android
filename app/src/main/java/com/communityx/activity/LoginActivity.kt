@@ -8,7 +8,6 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.OnTextChanged
 import com.communityx.R
-import com.communityx.network.DataManager
 import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlin.jvm.internal.Intrinsics
@@ -20,7 +19,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         ButterKnife.bind(this)
 
-        getOauth()
         Utils.enableButton(button_login, false)
         Intrinsics.checkExpressionValueIsNotNull(edit_password, "edit_password")
         edit_password.transformationMethod = PasswordTransformationMethod.getInstance()
@@ -46,15 +44,5 @@ class LoginActivity : AppCompatActivity() {
     @OnTextChanged(R.id.edit_password)
     internal fun onPasswordTyping(s: CharSequence) {
         Utils.enableButton(button_login, s.length != 0 && edit_email_username!!.length() != 0)
-    }
-
-    private fun getOauth() {
-        DataManager.ApiClientSingleton.INSTANCE.getBasicAuth(this, object : DataManager.DataManagerListener {
-            override fun onSuccess(response: Any) {
-            }
-
-            override fun onError(error: Any) {
-            }
-        })
     }
 }

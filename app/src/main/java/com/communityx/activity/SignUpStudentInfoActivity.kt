@@ -9,6 +9,7 @@ import com.communityx.R
 import com.communityx.adapters.SignUpPagerAdapter
 import com.communityx.custom_views.CustomViewPager
 import com.communityx.fragments.*
+import com.communityx.models.signup.StudentSignUpRequest
 import com.communityx.utils.AppConstant
 import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.activity_sign_up_student_info.*
@@ -19,11 +20,16 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     private var pagerAdapter: SignUpPagerAdapter? = null
     private var selectedCategory: String? = null
+    var signUpRequest : StudentSignUpRequest? = null
+    public var selectedClubNameIndex = 0
+    public var selectedRole = 0
+    var manaualInterest: MutableList<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_student_info)
 
+        getIntentData()
         initActivity()
         setUpViewPager()
 
@@ -32,7 +38,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     }
 
     private fun initActivity() {
-        getIntentData()
+        signUpRequest = selectedCategory?.let { StudentSignUpRequest(role = it) }
         text_subtitle.text = "Build your social impact identity on CommunityX."
         button_continue.tag = true
         button_continue.setBackgroundResource(R.drawable.button_active)
@@ -51,10 +57,10 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     private fun setUpViewPager() {
         pagerAdapter = SignUpPagerAdapter(supportFragmentManager)
-        pagerAdapter!!.setFragments(getFragments(selectedCategory!!))
-        view_pager!!.adapter = pagerAdapter
-        view_pager!!.setAllowedSwipeDirection(CustomViewPager.SwipeDirection.left)
-        view_pager!!.setmSwipeDirectionListener(object : CustomViewPager.SwipeDirectionListener {
+        pagerAdapter?.setFragments(getFragments(selectedCategory!!))
+        view_pager.adapter = pagerAdapter
+        view_pager.setAllowedSwipeDirection(CustomViewPager.SwipeDirection.left)
+        view_pager.setmSwipeDirectionListener(object : CustomViewPager.SwipeDirectionListener {
             override fun onSwipe(direction: CustomViewPager.SwipeDirection) {
 
             }
@@ -72,27 +78,29 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     }
 
     private fun goToLogin() {
-       startActivity(Intent(this@SignUpStudentInfoActivity, LoginActivity::class.java)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-       overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
-       finish()
+        startActivity(
+            Intent(this, LoginActivity::class.java)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        )
+        overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
+        finish()
     }
 
     private fun tappedContinue() {
-        if (view_pager!!.currentItem == pagerAdapter!!.totalItems - 1) {
+        if (view_pager.currentItem == pagerAdapter!!.totalItems - 1) {
             sendToActivity()
             return
         }
-        view_pager!!.setCurrentItem(view_pager!!.currentItem + 1, true)
-        if (selectedCategory != AppConstant.ACTION_SIGN_UP_STUDENT) {
-            return
-        }
-        val isEnabled = pagerAdapter!!.isButtonEnabled(view_pager!!.currentItem)
-        enableButton(isEnabled)
+        pagerAdapter?.getCurrentFragment(view_pager.currentItem)?.onContinueButtonClicked()
     }
 
-    fun enableButton(enable: Boolean) {
-        Utils.enableButton(button_continue!!, enable)
+    fun goToNextPage(){
+        view_pager?.setCurrentItem(view_pager!!.currentItem + 1, true)
+        //enableButton(false)
+    }
+
+    fun enableButton(enable: Boolean?) {
+        enable?.let { Utils.enableButton(button_continue, it) }
     }
 
     private fun sendToActivity() {

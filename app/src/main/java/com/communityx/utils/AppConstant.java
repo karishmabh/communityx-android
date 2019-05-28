@@ -5,10 +5,15 @@ public interface AppConstant {
     String SAVECARD = "saved_card";
     String DEBITCARD = "debit_card";
     String CREDITCARD = "credit_card";
-    String ACTION_SIGN_UP_STUDENT = "action.sign_up.STUDENT";
-    String ACTION_SIGN_UP_PROFESSIONAL = "action.sign_up.PROFESSIONAL";
-    String ACTION_SIGN_UP_ORGANIZATION = "action.sign_up.ORGANIZATION";
+    String ACTION_SIGN_UP_STUDENT = "STUDENT";
+    String ACTION_SIGN_UP_PROFESSIONAL = "PROFESSIONAL";
+    String ACTION_SIGN_UP_ORGANIZATION = "ORGANIZATION";
     String IS_OTHER_PROFILE = "is_other_profile";
+    String ACCESS_TOKEN_KEY = "access_token_key";
+    String STATUS_SUCCESS = "Success";
+    String HIGH_SCHOOL = "HIGH_SCHOOL";
+    String COLLEGE = "COLLEGE";
+
 
     int PICK_FROM_CAMERA = 0;
     int PICK_FROM_GALLERY = 1;
