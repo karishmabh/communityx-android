@@ -22,7 +22,6 @@ import java.util.Objects
 
 class SignUpMemberOfClub : BaseSignUpFragment() {
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

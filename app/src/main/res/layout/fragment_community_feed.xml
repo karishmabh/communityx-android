@@ -1,49 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".fragments.CommunityFeedFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.CommunityFeedFragment">
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <include
-                android:id="@+id/view_toolbar"
-                layout="@layout/toolbar"/>
+            android:id="@+id/view_toolbar"
+            layout="@layout/toolbar" />
 
         <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:transitionName="card"
-                android:id="@+id/card"
-                android:layout_marginBottom="1dp"
-                app:cardElevation="@dimen/_5sdp">
+            android:id="@+id/card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:transitionName="card"
+            app:cardElevation="@dimen/_5sdp">
 
             <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/image_user_profile"
-                        android:layout_width="@dimen/_35sdp"
-                        android:layout_height="@dimen/_35sdp"
-                        android:layout_marginStart="15dp"
-                        android:transitionName="user_image"
-                        android:src="@drawable/profile_placeholder"/>
-                <include layout="@layout/view_search"/>
+                    android:id="@+id/image_user_profile"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/profile_placeholder"
+                    android:transitionName="user_image" />
+
+                <include layout="@layout/view_search" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view_feed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:itemCount="6"
-                tools:listitem="@layout/item_community_feeds"/>
+            android:id="@+id/recycler_view_feed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:itemCount="6"
+            tools:listitem="@layout/item_community_feeds" />
     </LinearLayout>
 </ScrollView>

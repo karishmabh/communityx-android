@@ -14,6 +14,7 @@ public interface AppConstant {
     String STATUS_FAILURE = "Failure";
     String HIGH_SCHOOL = "HIGH_SCHOOL";
     String COLLEGE = "COLLEGE";
+    String FRAGMENT_PROFILE = "fragment_profile";
     String MILTI_PART_FORM_DATA = "multipart/form-data";
     String IMAGE_PARAM = "image";
     String TYPE = "type";

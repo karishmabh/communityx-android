@@ -41,7 +41,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     private fun initActivity() {
         signUpRequest = selectedCategory?.let { StudentSignUpRequest(role = it) }
-        text_subtitle.text = "Build your social impact identity on CommunityX."
+        text_subtitle.text = getString(R.string.string_build_social_impact)
         button_continue.tag = true
         button_continue.setBackgroundResource(R.drawable.button_active)
     }
@@ -71,6 +71,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
                 if (selectedCategory != AppConstant.ACTION_SIGN_UP_STUDENT) {
                     return
                 }
+
                 enableButton(pagerAdapter!!.isButtonEnabled(position))
                 button_continue!!.setText(if (position == pagerAdapter!!.totalItems - 1) R.string.submit else R.string.continue_button)
             }
