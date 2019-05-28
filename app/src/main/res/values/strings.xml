@@ -147,4 +147,10 @@
     <string name="add_new_info_to_your_profile">Add new info to your profile</string>
     <string name="work_experience">Work Experience</string>
     <string name="club_organization"><![CDATA[Club & Organization]]></string>
+    <string name="string_donated_by">"Donated by (219)"</string>
+    <string name="string_charity_life">Charity Life</string>
+    <string name="string_created_by_you">Created by You, today at 7:15 pm</string>
+    <string name="string_likes">Likes(1k)</string>
+    <string name="string_filename">bitmap.png</string>
+    <string name="string_build_social_impact">Build your social impact identity on CommunityX.</string>
 </resources>

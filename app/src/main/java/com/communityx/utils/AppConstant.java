@@ -13,6 +13,7 @@ public interface AppConstant {
     String STATUS_SUCCESS = "Success";
     String HIGH_SCHOOL = "HIGH_SCHOOL";
     String COLLEGE = "COLLEGE";
+    String FRAGMENT_PROFILE = "fragment_profile";
 
 
     int PICK_FROM_CAMERA = 0;
