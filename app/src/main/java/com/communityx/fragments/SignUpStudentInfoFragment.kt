@@ -17,6 +17,7 @@ import com.communityx.models.signup.OtpRequest
 import com.communityx.models.signup.StudentSignUpRequest
 import com.communityx.models.signup.VerifyOtpRequest
 import com.communityx.models.signup.image.ImageUploadRequest
+import com.communityx.models.signup.image.ImageUploadResponse
 import com.communityx.network.ResponseListener
 import com.communityx.network.ServiceRepo.SignUpRepo
 import com.communityx.utils.*
@@ -95,7 +96,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         image_profile.setImageURI(uri)
         text_profile.text = resources.getString(R.string.edit_profile_image)
         image_add_edit.setImageResource(R.drawable.ic_signup_edit_image)
-        signUpRequest?.profile_image = imagePath
+        signUpActivity?.selectImagePath = imagePath
         uploadImage(imagePath)
     }
 
@@ -240,8 +241,8 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             edit_create_password.setText(signUpRequest?.phone)
             edit_confirm_password.setText(signUpRequest?.password)
 
-            if(signUpRequest?.profile_image != null || !TextUtils.isEmpty(signUpRequest?.profile_image)) {
-                image_profile.setImageURI(Uri.parse(signUpRequest?.profile_image))
+            if(signUpActivity?.selectImagePath != null || !TextUtils.isEmpty(signUpActivity?.selectImagePath)) {
+                image_profile.setImageURI(Uri.parse(signUpActivity?.selectImagePath))
                 text_profile.text = resources.getString(R.string.edit_profile_image)
                 image_add_edit.setImageResource(R.drawable.ic_signup_edit_image)
             }
@@ -289,7 +290,16 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         val type = MultipartBody.Part.createFormData(TYPE, "USER")
 
         val imageUploadRequest = ImageUploadRequest(body,type)
-        SignUpRepo.uploadImage(context!!,imageUploadRequest)
+        SignUpRepo.uploadImage(context!!,imageUploadRequest, object: ResponseListener<ImageUploadResponse> {
+            override fun onSuccess(response: ImageUploadResponse) {
+
+            }
+
+            override fun onError(error: Any) {
+
+            }
+
+        })
 
     }
 

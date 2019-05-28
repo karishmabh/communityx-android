@@ -8,8 +8,6 @@ import com.communityx.models.signup.image.ImageUploadResponse
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
 import com.communityx.utils.AppConstant
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -80,14 +78,47 @@ object SignUpRepo : BaseRepo {
             })
     }
 
-    fun uploadImage(context: Context, imageUploadRequest: ImageUploadRequest) {
+    fun uploadImage(context: Context, imageUploadRequest: ImageUploadRequest, responseListener: ResponseListener<ImageUploadResponse>) {
         DataManager.getService().uploadImage(AuthRepo.getAccessToken(context),imageUploadRequest.image, imageUploadRequest.type).enqueue(object :Callback<ImageUploadResponse>{
             override fun onFailure(call: Call<ImageUploadResponse>, t: Throwable) {
-                Log.d("sign", "error")
+                responseListener.onError(t)
             }
 
             override fun onResponse(call: Call<ImageUploadResponse>, response: Response<ImageUploadResponse>) {
-                Log.d("sign", "success :" + response.body().toString())
+                if (!response.isSuccessful) {
+                    response.errorBody()?.let { responseListener.onError(it) }
+                    return
+                }
+                if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                    responseListener.onSuccess(response.body()!!)
+                } else {
+                    responseListener.onError(response.body()!!.error)
+                }
+            }
+
+        })
+    }
+
+    fun studentSignUp(
+        context: Context,
+        studentSignUpRequest: StudentSignUpRequest,
+        responseListener: ResponseListener<StudentSignUpResponse>
+    ) {
+        DataManager.getService().signUpStudent(AuthRepo.getAccessToken(context),studentSignUpRequest).enqueue(object :Callback<StudentSignUpResponse>{
+            override fun onFailure(call: Call<StudentSignUpResponse>, t: Throwable) {
+                responseListener.onError(t)
+            }
+
+            override fun onResponse(call: Call<StudentSignUpResponse>, response: Response<StudentSignUpResponse>) {
+                if (!response.isSuccessful) {
+                    response.errorBody()?.let { responseListener.onError(it) }
+                    return
+                }
+                if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                    responseListener.onSuccess(response.body()!!)
+                } else {
+                    responseListener.onError(response.body()!!.error)
+                }
             }
 
         })
