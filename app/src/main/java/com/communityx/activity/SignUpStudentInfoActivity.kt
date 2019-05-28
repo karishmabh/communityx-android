@@ -23,7 +23,9 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     var signUpRequest : StudentSignUpRequest? = null
     public var selectedClubNameIndex = 0
     public var selectedRole = 0
+    var selectImagePath: String? = null
     var manaualInterest: MutableList<String>? = null
+    var isOtpVerifed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

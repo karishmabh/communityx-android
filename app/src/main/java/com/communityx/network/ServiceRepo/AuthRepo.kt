@@ -15,7 +15,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object AuthRepo : AppConstant {
+object AuthRepo : BaseRepo {
 
     fun getBasicAuth(activity: Activity, listener: ResponseListener<List<OauthData>>) {
         val call = DataManager.getService().getBasicAuth(OAuthRequest())
