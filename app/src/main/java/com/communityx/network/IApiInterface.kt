@@ -2,12 +2,11 @@ package com.communityx.network
 
 import com.communityx.models.oauth.OAuthRequest
 import com.communityx.models.oauth.OAuthResponse
-import com.communityx.models.signup.MajorMinorResponse
+import com.communityx.models.signup.*
+import com.communityx.models.signup.image.ImageUploadResponse
+import okhttp3.MultipartBody
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface IApiInterface {
 
@@ -16,4 +15,17 @@ interface IApiInterface {
 
     @GET("major")
     fun getMajorMinor(@Header("token") token:String): Call<MajorMinorResponse>
+
+    @POST("otp")
+    fun generateOtp(@Header("token") token: String, @Body otpRequest: OtpRequest): Call<OtpResponse>
+
+    @POST("otp-verify")
+    fun verifyOtp(@Header("token") token: String, @Body verifyOtpRequest: VerifyOtpRequest): Call<OtpResponse>
+
+    @Multipart
+    @POST("upload")
+    fun uploadImage(@Header("token") token: String, @Part image: MultipartBody.Part, @Part type: MultipartBody.Part): Call<ImageUploadResponse>
+
+    @POST("signup")
+    fun signUpStudent(@Header("token") token: String, @Body studentSignUpRequest: StudentSignUpRequest) : Call<StudentSignUpResponse>
 }

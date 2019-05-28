@@ -153,4 +153,17 @@
     <string name="string_likes">Likes(1k)</string>
     <string name="string_filename">bitmap.png</string>
     <string name="string_build_social_impact">Build your social impact identity on CommunityX.</string>
+    <string name="change">Change</string>
+    <string name="name_field_empty">Name field is empty</string>
+    <string name="email_field_empty">Email field is empty</string>
+    <string name="dob_empty">Date of birth is empty</string>
+    <string name="postal_field_empty">Postal field code is empty</string>
+    <string name="mobile_field_empty">Mobile field number is empty</string>
+    <string name="click_on_send_otp">Click on SEND OTP !!</string>
+    <string name="password_field_empty">Password field is empty</string>
+    <string name="password_not_matched">Password not matched !!</string>
+    <string name="mobiel_number_not_valid">Mobile number is not valid</string>
+    <string name="please_verify_otp">Please verify OTP</string>
+    <string name="select_at_least_one_category">Please select at least one category</string>
+    <string name="please_fill_school_college">Please fill School/College name</string>
 </resources>

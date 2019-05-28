@@ -13,10 +13,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
 import com.communityx.R;
 
 import java.io.ByteArrayOutputStream;
@@ -24,6 +24,7 @@ import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class Utils {
 
@@ -139,5 +140,17 @@ public class Utils {
 
     public static void showHideView(@NonNull View view, boolean show){
         view.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    public static void hideSoftKeyboard(Activity activity) {
+        try {
+            InputMethodManager inputMethodManager =
+                    (InputMethodManager) activity.getSystemService(
+                            Activity.INPUT_METHOD_SERVICE);
+            if (Objects.requireNonNull(inputMethodManager).isActive()) {
+                inputMethodManager.hideSoftInputFromWindow(
+                        Objects.requireNonNull(activity.getCurrentFocus()).getWindowToken(), 0);
+            }
+        }catch (Exception ignored) {}
     }
 }

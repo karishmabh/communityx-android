@@ -21,9 +21,11 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     private var pagerAdapter: SignUpPagerAdapter? = null
     private var selectedCategory: String? = null
     var signUpRequest : StudentSignUpRequest? = null
-    var selectedClubNameIndex = 0
-    var selectedRole = 0
+    public var selectedClubNameIndex = 0
+    public var selectedRole = 0
+    var selectImagePath: String? = null
     var manaualInterest: MutableList<String>? = null
+    var isOtpVerifed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
