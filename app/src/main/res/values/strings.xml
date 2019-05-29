@@ -166,4 +166,9 @@
     <string name="please_verify_otp">Please verify OTP</string>
     <string name="select_at_least_one_category">Please select at least one category</string>
     <string name="please_fill_school_college">Please fill School/College name</string>
+    <string name="postal_code_should_be_six_character">The postal code must be at least 6 characters</string>
+    <string name="email_is_not_valid">Email is not valid</string>
+    <string name="password_leght_error">Password length should minimum 6</string>
+    <string name="job_title_required">Job title field is empty</string>
+    <string name="company_field_required">Company field is empty</string>
 </resources>

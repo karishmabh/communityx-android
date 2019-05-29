@@ -15,18 +15,6 @@ import kotlinx.android.synthetic.main.fragment_sign_up_professional.*
 
 class SignUpProfessional : BaseSignUpFragment() {
 
-    override fun setFieldsData(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onContinueButtonClicked() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_sign_up_professional, container, false)
     }
@@ -39,5 +27,32 @@ class SignUpProfessional : BaseSignUpFragment() {
         if(TextUtils.isEmpty(edit_recent_company.text.toString())) {
             SnackBarFactory.createSnackBar(activity!!, coordinator_main, "Please enter recent company")
         }
+    }
+
+    override fun setFieldsData(): Boolean {
+        signUpStudent?.job_title = edit_job_title.text.toString()
+        signUpStudent?.company_name = edit_recent_company.text.toString()
+        return validateEmpty(signUpStudent)
+    }
+
+    override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
+        var isValidated = true
+        var msg = ""
+        when {
+            TextUtils.isEmpty(requestData?.job_title) -> {
+                msg = getString(R.string.job_title_required)
+                isValidated = false
+            }
+            TextUtils.isEmpty(requestData?.company_name) -> {
+                msg = getString(R.string.company_field_required)
+                isValidated = false
+            }
+        }
+        if(!isValidated && showSnackbar) SnackBarFactory.createSnackBar(context,coordinator_main,msg)
+        return  isValidated
+    }
+
+    override fun onContinueButtonClicked() {
+        if(setFieldsData()) goToNextPage()
     }
 }
