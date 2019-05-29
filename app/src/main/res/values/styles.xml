@@ -11,7 +11,6 @@
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="p">shortEdges</item>
     </style>
 
-
     <style name="text_size_heading">
         <item name="android:textSize">@dimen/_16ssp</item>
     </style>

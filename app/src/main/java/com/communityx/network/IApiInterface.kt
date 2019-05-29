@@ -28,4 +28,7 @@ interface IApiInterface {
 
     @POST("signup")
     fun signUpStudent(@Header("token") token: String, @Body studentSignUpRequest: StudentSignUpRequest) : Call<StudentSignUpResponse>
+
+    @POST("signup")
+    fun signUpOrganization(@Header("token") token: String, @Body studentSignUpRequest: StudentSignUpRequest) : Call<OrganizationSignupResponse>
 }

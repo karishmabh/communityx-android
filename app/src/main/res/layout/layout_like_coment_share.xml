@@ -1,118 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_25sdp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_25sdp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
 
-   <LinearLayout
-            android:id="@+id/view_like"
-            android:layout_width="@dimen/_60sdp"
+    <LinearLayout
+        android:id="@+id/view_like"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/image_like"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:gravity="center">
-        <ImageView android:id="@+id/image_like"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   app:srcCompat="@drawable/ic_my_community_like_select"/>
+            app:srcCompat="@drawable/ic_my_community_like_select" />
 
-        <TextView android:id="@+id/text_like"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="@dimen/_12ssp"
-                  android:layout_marginStart="@dimen/_5sdp"
-                  android:textColor="@color/colorBlackTitle"
-                  android:text="1K"
-                  android:fontFamily="@font/poppins_semibold"
-                  />
+        <TextView
+            android:id="@+id/text_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="1K"
+            android:textColor="@color/colorBlackTitle"
+            android:textSize="@dimen/_12ssp" />
     </LinearLayout>
 
-   <LinearLayout
-           android:id="@+id/view_comment"
-           android:layout_width="@dimen/_60sdp"
-           android:layout_height="wrap_content"
-           android:background="?attr/selectableItemBackgroundBorderless"
-           android:clickable="true"
-           android:gravity="center">
-       <ImageView android:id="@+id/image_comment"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  app:srcCompat="@drawable/ic_my_community_comment"/>
+    <LinearLayout
+        android:id="@+id/view_comment"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:gravity="center">
 
-       <TextView android:id="@+id/text_comment"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:textSize="@dimen/_12ssp"
-                 android:layout_marginStart="@dimen/_5sdp"
-                 android:textColor="@color/colorBlackTitle"
-                 android:text="175"
-                 android:fontFamily="@font/poppins_semibold"/>
+        <ImageView
+            android:id="@+id/image_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_my_community_comment" />
 
-   </LinearLayout>
+        <TextView
+            android:id="@+id/text_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="175"
+            android:textColor="@color/colorBlackTitle"
+            android:textSize="@dimen/_12ssp" />
 
-   <LinearLayout
-           android:id="@+id/view_share"
-           android:layout_width="@dimen/_60sdp"
-           android:layout_height="wrap_content"
-           android:background="?attr/selectableItemBackgroundBorderless"
-           android:clickable="true"
-           android:gravity="center">
-       <ImageView android:id="@+id/image_share"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  app:srcCompat="@drawable/ic_my_community_share"
-                 />
+    </LinearLayout>
 
-       <TextView android:id="@+id/text_share"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:textSize="@dimen/_12ssp"
-                 android:layout_marginStart="@dimen/_5sdp"
-                 android:textColor="@color/colorBlackTitle"
-                 android:text="1.2k"
-                 android:fontFamily="@font/poppins_semibold"/>
-   </LinearLayout>
+    <LinearLayout
+        android:id="@+id/view_share"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/image_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_my_community_share" />
+
+        <TextView
+            android:id="@+id/text_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="1.2k"
+            android:textColor="@color/colorBlackTitle"
+            android:textSize="@dimen/_12ssp" />
+    </LinearLayout>
 
     <Button
-            android:id="@+id/button_interested"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_25sdp"
-            android:drawableStart="@drawable/ic_community_interested_star"
-            android:drawableEnd="@drawable/ic_community_event_interested_down_arrow"
-            android:drawablePadding="@dimen/_3sdp"
-            android:text="@string/interested"
-            android:paddingEnd="@dimen/_5sdp"
-            android:paddingStart="@dimen/_5sdp"
-            android:layout_gravity="end"
-            android:fontFamily="@font/poppins_semibold"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_10ssp"
-            android:background="@drawable/button_active"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:visibility="gone"
-            android:layout_weight="1"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginEnd="11dp"/>
+        android:id="@+id/button_interested"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_gravity="end"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginEnd="11dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_active"
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_community_interested_star"
+        android:drawableEnd="@drawable/ic_community_event_interested_down_arrow"
+        android:drawablePadding="@dimen/_3sdp"
+        android:fontFamily="@font/poppins_semibold"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:paddingStart="@dimen/_5sdp"
+        android:paddingEnd="@dimen/_5sdp"
+        android:text="@string/interested"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/_10ssp"
+        android:visibility="gone" />
 
- <FrameLayout
-         android:id="@+id/view_more"
-         android:layout_width="0dp"
-         android:layout_height="match_parent"
-         android:layout_weight="1">
-     <ImageView
-             android:id="@+id/image_more"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:src="@drawable/ic_my_profile_more"
-             android:paddingStart="@dimen/_6sdp"
-             android:paddingEnd="@dimen/_6sdp"
-             android:layout_marginEnd="@dimen/_6sdp"
-             android:clickable="true"
-             android:background="?attr/selectableItemBackgroundBorderless"
-             android:layout_gravity="center|end"/>
- </FrameLayout>
+    <FrameLayout
+        android:id="@+id/view_more"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/image_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|end"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:paddingStart="@dimen/_6sdp"
+            android:paddingEnd="@dimen/_6sdp"
+            android:src="@drawable/ic_my_profile_more" />
+    </FrameLayout>
 </LinearLayout>

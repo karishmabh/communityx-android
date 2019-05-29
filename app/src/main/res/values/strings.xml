@@ -171,4 +171,10 @@
     <string name="password_leght_error">Password length should minimum 6</string>
     <string name="job_title_required">Job title field is empty</string>
     <string name="company_field_required">Company field is empty</string>
+
+    <string name="string_organization_cannot_be_empty">Organization cannot be empty</string>
+    <string name="string_email_cannot_be_empty">Email Address cannot be empty</string>
+    <string name="string_website_cannot_be_empty">Website cannot be empty</string>
+    <string name="string_postalcode_cannot_be_empty">Postal code cannot be empty</string>
+    <string name="string_enter_valid_email_address">Email address is not valid</string>
 </resources>

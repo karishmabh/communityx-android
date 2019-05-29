@@ -17,4 +17,7 @@ data class StudentSignUpRequest(
     var profile_image: String? = "default_image.jpeg",
     var company_name: String? =null,
     var job_title: String? =null
+
+    var organization_name: String? = null,
+    var organization_website: String? = null
 )
