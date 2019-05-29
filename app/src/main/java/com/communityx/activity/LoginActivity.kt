@@ -14,12 +14,15 @@ import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
+import com.communityx.utils.AppConstant
+import com.communityx.utils.AppConstant.*
+import com.communityx.utils.AppPreference
 import com.communityx.utils.SnackBarFactory
 import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlin.jvm.internal.Intrinsics
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() , AppConstant {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +42,8 @@ class LoginActivity : AppCompatActivity() {
 
     @OnClick(R.id.button_login)
     internal fun loginClicked() {
-        startActivity(Intent(this, DashboardActivity::class.java))
-        overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
+        Utils.hideSoftKeyboard(this)
+        startLogin()
     }
 
     @OnTextChanged(R.id.edit_email_username)
@@ -53,6 +56,11 @@ class LoginActivity : AppCompatActivity() {
         Utils.enableButton(button_login, s.length != 0 && edit_email_username!!.length() != 0)
     }
 
+    private fun navigateActivity() {
+        startActivity(Intent(this, DashboardActivity::class.java))
+        overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
+    }
+
     private fun startLogin() {
         val phone = edit_email_username.text.toString().trim()
         val password = edit_password.text.toString().trim()
@@ -63,7 +71,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun validate(loginrequest: LoginRequest) : Boolean {
+    private fun validate(loginrequest: LoginRequest): Boolean {
         val phone = loginrequest.phone
         val password = loginrequest.password
 
@@ -89,13 +97,22 @@ class LoginActivity : AppCompatActivity() {
     private fun getLogin(loginrequest: LoginRequest) {
         DataManager.doLogin(this, loginrequest, object : ResponseListener<LoginResponse> {
             override fun onSuccess(response: LoginResponse) {
-                val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
-                startActivity(intent)
+                if (response.data == null) return
+
+                val loginData = response.data.get(0)
+                saveUserData(loginData)
             }
 
             override fun onError(error: Any) {
-
+                Utils.showError(this@LoginActivity, constraint_top, error)
             }
         })
+    }
+
+    private fun saveUserData(loginData: Data) {
+        AppPreference.getInstance(this).setString(PREF_SESSION_ID, loginData.session.session_id)
+        AppPreference.getInstance(this).setBoolean(PREF_IS_LOGIN, true)
+
+        navigateActivity()
     }
 }
