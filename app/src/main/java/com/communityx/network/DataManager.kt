@@ -21,7 +21,6 @@ object DataManager : AppConstant {
     private var retrofit: Retrofit? = null
     private val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     private val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
-    private var mContext: Context? = null
 
     private val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(2, TimeUnit.MINUTES)
@@ -41,13 +40,12 @@ object DataManager : AppConstant {
         return retrofit
     }
 
-    fun getService(context: Context): IApiInterface {
-        mContext = context
+    fun getService(): IApiInterface {
         return getDataManager()!!.create(IApiInterface::class.java)
     }
 
     fun doLogin(activity: Activity, loginRequest: LoginRequest, listener: ResponseListener<LoginResponse>) {
-        val call = DataManager.getService(activity).doLogin(AuthRepo.getAccessToken(activity), loginRequest)
+        val call = DataManager.getService().doLogin(AuthRepo.getAccessToken(activity), loginRequest)
         call.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (!response.isSuccessful) {
