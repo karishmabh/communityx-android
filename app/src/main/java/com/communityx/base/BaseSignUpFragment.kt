@@ -1,7 +1,6 @@
 package com.communityx.base
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import com.communityx.activity.SignUpStudentInfoActivity
 import com.communityx.models.signup.StudentSignUpRequest
@@ -10,12 +9,14 @@ import com.communityx.utils.AppConstant
 abstract class BaseSignUpFragment : Fragment(), AppConstant {
 
     protected var signUpActivity : SignUpStudentInfoActivity? = null
-    protected var signUpRequest : StudentSignUpRequest? = null
+    protected var signUpStudent : StudentSignUpRequest? = null
+    protected var category: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         signUpActivity = activity as SignUpStudentInfoActivity
-        signUpRequest = signUpActivity?.studentSignUpRequest
+        signUpStudent = signUpActivity?.signUpRequest
+        category = signUpActivity?.selectedCategory
     }
 
     protected fun goToNextPage(){

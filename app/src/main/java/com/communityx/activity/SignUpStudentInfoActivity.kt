@@ -15,8 +15,7 @@ import com.communityx.models.signup.StudentSignUpResponse
 import com.communityx.network.ResponseListener
 import com.communityx.network.ServiceRepo.SignUpRepo
 import com.communityx.utils.AppConstant
-import com.communityx.utils.AppConstant.ACTION_SIGN_UP_STUDENT
-import com.communityx.utils.AppConstant.USER_ID
+import com.communityx.utils.AppConstant.*
 import com.communityx.utils.SnackBarFactory
 import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.activity_sign_up_student_info.*
@@ -26,8 +25,8 @@ import java.util.*
 class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClickListener {
 
     private var pagerAdapter: SignUpPagerAdapter? = null
-    private var selectedCategory: String? = null
-    var studentSignUpRequest : StudentSignUpRequest? = null
+    public var selectedCategory: String? = null
+    var signUpRequest : StudentSignUpRequest? = null
     public var selectedClubNameIndex = 0
     public var selectedRole = 0
     var selectImagePath: String? = null
@@ -47,7 +46,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     }
 
     private fun initActivity() {
-        studentSignUpRequest = selectedCategory?.let { StudentSignUpRequest(role = it) }
+        signUpRequest = selectedCategory?.let { StudentSignUpRequest(role = it) }
         text_subtitle.text = getString(R.string.string_build_social_impact)
         button_continue.tag = true
         button_continue.setBackgroundResource(R.drawable.button_active)
@@ -106,7 +105,6 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     fun goToNextPage(){
         view_pager?.setCurrentItem(view_pager!!.currentItem + 1, true)
-        //enableButton(false)
     }
 
     fun enableButton(enable: Boolean?) {
@@ -138,13 +136,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     }
 
     private fun completedSignUp() {
-        when(selectedCategory) {
-           ACTION_SIGN_UP_STUDENT -> studentSignUp()
-        }
-    }
-
-    private fun studentSignUp() {
-        SignUpRepo.studentSignUp(this,studentSignUpRequest!!,object: ResponseListener<StudentSignUpResponse> {
+        SignUpRepo.studentSignUp(this,signUpRequest!!,object: ResponseListener<StudentSignUpResponse> {
             override fun onSuccess(response: StudentSignUpResponse) {
                 val intent =  Intent(this@SignUpStudentInfoActivity, ConnectAlliesActivity::class.java)
                 intent.putExtra(USER_ID, response.data[0].id)
@@ -152,11 +144,10 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
             }
 
             override fun onError(error: Any) {
-               if(error is Error) {
-                   SnackBarFactory.createSnackBar(this@SignUpStudentInfoActivity,constraint_layout,error.error_message.toString())
-               }
+                if(error is Error) {
+                    SnackBarFactory.createSnackBar(this@SignUpStudentInfoActivity,constraint_layout,error.error_message.toString())
+                }
             }
-
         })
     }
 }
