@@ -37,7 +37,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     private var isDelKeyPressed = false
     private var hasOtpOrPasswordFieldVisible = false
     private var shouldChangeNumber = false
-    private var dialog: Dialog? = null;
+    private var dialog: Dialog? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up_student_info, null)
@@ -123,14 +123,14 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
 
     override fun setFieldsData(): Boolean {
 
-        signUpRequest?.full_name = edit_email_username.text.toString()
-        signUpRequest?.email = edit_email.text.toString()
-        signUpRequest?.dob = edit_birthday.text.toString()
-        signUpRequest?.postal_code = edit_postalcode.text.toString()
-        signUpRequest?.phone = edit_mobile.text.toString()
-        signUpRequest?.password = edit_confirm_password.text.toString()
+        signUpStudent?.full_name = edit_email_username.text.toString()
+        signUpStudent?.email = edit_email.text.toString()
+        signUpStudent?.dob = edit_birthday.text.toString()
+        signUpStudent?.postal_code = edit_postalcode.text.toString()
+        signUpStudent?.phone = edit_mobile.text.toString()
+        signUpStudent?.password = edit_confirm_password.text.toString()
 
-        return validateEmpty(signUpRequest)
+        return validateEmpty(signUpStudent)
     }
 
     override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
@@ -147,6 +147,11 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                 msg = getString(R.string.email_field_empty)
                 edit_email.requestFocus()
             }
+            !TextUtils.isEmpty(requestData?.email) && !requestData?.email!!.contains("@") -> {
+                isValidate = false
+                msg = getString(R.string.email_is_not_valid)
+                edit_email.requestFocus()
+            }
             TextUtils.isEmpty(requestData?.dob) -> {
                 isValidate = false
                 msg = getString(R.string.dob_empty)
@@ -156,7 +161,11 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                 msg = getString(R.string.postal_field_empty)
                 edit_postalcode.requestFocus()
             }
-
+            !TextUtils.isEmpty(requestData?.postal_code) && requestData?.postal_code?.length!! < 6 -> {
+                isValidate = false
+                msg = getString(R.string.postal_code_should_be_six_character)
+                edit_postalcode.requestFocus()
+            }
             edit_mobile.text.toString() == "+91" -> {
                 isValidate = false
                 msg = getString(R.string.mobile_field_empty)
@@ -180,6 +189,11 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                 isValidate = false
                 msg = getString(R.string.password_not_matched)
             }
+            !TextUtils.isEmpty(requestData?.password) && requestData?.password!!.length < 6 -> {
+                isValidate = false
+                msg = getString(R.string.password_leght_error)
+                edit_create_password.requestFocus()
+            }
         }
         if (!isValidate && showSnackbar) SnackBarFactory.createSnackBar(context, scrollView, msg)
         return isValidate
@@ -189,7 +203,6 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         showImageChooserDialog()
     }
 
-    //todo : hard coded string
     private fun tappedSentOtp() {
         if (edit_mobile.text.toString() == "+91") {
             SnackBarFactory.createSnackBar(context, scrollView, getString(R.string.mobile_field_empty))
@@ -236,7 +249,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                     val verifyOtpRequest =
                         VerifyOtpRequest(otp = getOtp(), phone = edit_mobile.text.toString().substring(4))
                     Utils.hideSoftKeyboard(activity)
-                    if (signUpActivity?.isOtpVerifed == false) verifyOtp(verifyOtpRequest)
+                    verifyOtp(verifyOtpRequest)
                     hasOtpOrPasswordFieldVisible = true
                 }
             }
@@ -279,14 +292,14 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     }
 
     private fun initAllField() {
-        if (validateEmpty(signUpRequest, false)) {
-            edit_email_username.setText(signUpRequest?.full_name)
-            edit_email.setText(signUpRequest?.email)
-            edit_birthday.setText(signUpRequest?.dob)
-            edit_postalcode.setText(signUpRequest?.postal_code)
-            edit_mobile.setText(signUpRequest?.phone)
-            edit_create_password.setText(signUpRequest?.phone)
-            edit_confirm_password.setText(signUpRequest?.password)
+        if (validateEmpty(signUpStudent, false)) {
+            edit_email_username.setText(signUpStudent?.full_name)
+            edit_email.setText(signUpStudent?.email)
+            edit_birthday.setText(signUpStudent?.dob)
+            edit_postalcode.setText(signUpStudent?.postal_code)
+            edit_mobile.setText(signUpStudent?.phone)
+            edit_create_password.setText(signUpStudent?.phone)
+            edit_confirm_password.setText(signUpStudent?.password)
             if(signUpActivity?.selectImagePath != null || !TextUtils.isEmpty(signUpActivity?.selectImagePath)) {
                 image_profile.setImageURI(Uri.parse(signUpActivity?.selectImagePath))
                 text_profile.text = resources.getString(R.string.edit_profile_image)
@@ -352,7 +365,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         val imageUploadRequest = ImageUploadRequest(body,type)
         SignUpRepo.uploadImage(context!!,imageUploadRequest, object: ResponseListener<ImageUploadResponse> {
             override fun onSuccess(response: ImageUploadResponse) {
-                signUpRequest?.profile_image = response.data[0].name
+                signUpStudent?.profile_image = response.data[0].name
             }
 
             override fun onError(error: Any) {
@@ -405,5 +418,4 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         private val permissions =
             arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
-
 }
