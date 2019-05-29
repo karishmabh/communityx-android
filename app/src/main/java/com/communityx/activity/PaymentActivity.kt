@@ -74,7 +74,7 @@ class PaymentActivity : AppCompatActivity(), PaymentAdapter.OnCardCheckedListene
                 if (isChecked) resources.getDimension(R.dimen._16ssp) else resources.getDimension(R.dimen._14ssp))
     }
 
-    override fun onCardChecked(isChecked: Boolean, radioButton: RadioButton) {
+    override fun onCardChecked(isChecked: Boolean, radioButton: RadioButton?) {
         if (!isChecked) return
         radio_debit_button!!.setOnCheckedChangeListener(null)
         radio_debit_button!!.isChecked = false

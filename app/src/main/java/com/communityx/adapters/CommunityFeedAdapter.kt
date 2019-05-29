@@ -76,8 +76,6 @@ class CommunityFeedAdapter(val mContext: Context?) : RecyclerView.Adapter<Recycl
 
     internal open inner class BaseFeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        @BindView(R.id.flexboxLayout2)
-        lateinit var flexboxLayout: FlexboxLayout
         @BindView(R.id.image_like)
         lateinit var imageLike: ImageView
         @BindView(R.id.image_more)

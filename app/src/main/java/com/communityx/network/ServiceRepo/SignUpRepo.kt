@@ -99,11 +99,27 @@ object SignUpRepo : BaseRepo {
         })
     }
 
-    fun studentSignUp(
-        context: Context,
-        studentSignUpRequest: StudentSignUpRequest,
-        responseListener: ResponseListener<StudentSignUpResponse>
-    ) {
+    fun organizationSignup(context: Context, organizationSignupRequest: StudentSignUpRequest, responseListener: ResponseListener<OrganizationSignupResponse>) {
+        DataManager.getService().signUpOrganization(AuthRepo.getAccessToken(context), organizationSignupRequest).enqueue(object : Callback<OrganizationSignupResponse> {
+            override fun onFailure(call: Call<OrganizationSignupResponse>, t: Throwable) {
+                responseListener.onError(t)
+            }
+
+            override fun onResponse(call: Call<OrganizationSignupResponse>, response: Response<OrganizationSignupResponse>) {
+                if (!response.isSuccessful) {
+                    response.errorBody()?.let { responseListener.onError(it) }
+                    return
+                }
+                if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                    responseListener.onSuccess(response.body()!!)
+                } else {
+                    responseListener.onError(response.body()!!.error)
+                }
+            }
+        })
+    }
+
+    fun studentSignUp(context: Context, studentSignUpRequest: StudentSignUpRequest, responseListener: ResponseListener<StudentSignUpResponse>) {
         DataManager.getService().signUpStudent(AuthRepo.getAccessToken(context),studentSignUpRequest).enqueue(object :Callback<StudentSignUpResponse>{
             override fun onFailure(call: Call<StudentSignUpResponse>, t: Throwable) {
                 responseListener.onError(t)

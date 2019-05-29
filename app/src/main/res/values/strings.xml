@@ -166,4 +166,10 @@
     <string name="please_verify_otp">Please verify OTP</string>
     <string name="select_at_least_one_category">Please select at least one category</string>
     <string name="please_fill_school_college">Please fill School/College name</string>
+
+    <string name="string_organization_cannot_be_empty">Organization cannot be empty</string>
+    <string name="string_email_cannot_be_empty">Email Address cannot be empty</string>
+    <string name="string_website_cannot_be_empty">Website cannot be empty</string>
+    <string name="string_postalcode_cannot_be_empty">Postal code cannot be empty</string>
+    <string name="string_enter_valid_email_address">Email address is not valid</string>
 </resources>

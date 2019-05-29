@@ -14,5 +14,8 @@ data class StudentSignUpRequest(
     var standard: String? = null,
     var standard_name: String? = null,
     var standard_year: String? = null,
-    var profile_image: String? = null
+    var profile_image: String? = null,
+
+    var organization_name: String? = null,
+    var organization_website: String? = null
 )
