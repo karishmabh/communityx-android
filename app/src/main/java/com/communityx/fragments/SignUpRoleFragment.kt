@@ -1,7 +1,6 @@
 package com.communityx.fragments
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -43,12 +42,11 @@ class SignUpRoleFragment : BaseSignUpFragment(), View.OnClickListener {
             goToNextPage()
             enableButton(true)
         }
-
     }
 
     override fun setFieldsData(): Boolean {
-        signUpRequest?.standard_year = standardYear
-        return validateEmpty(signUpRequest)
+        signUpStudent?.standard_year = standardYear
+        return validateEmpty(signUpStudent)
     }
 
     override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
@@ -58,8 +56,8 @@ class SignUpRoleFragment : BaseSignUpFragment(), View.OnClickListener {
     }
 
     private fun initField() {
-        if(validateEmpty(signUpRequest,false)) {
-            selectRole(Role.valueOf(signUpRequest?.standard_year!!))
+        if(validateEmpty(signUpStudent,false)) {
+            selectRole(Role.valueOf(signUpStudent?.standard_year!!))
             enableButton(true)
         }
     }

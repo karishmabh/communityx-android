@@ -9,8 +9,14 @@ import com.communityx.R
 import com.communityx.adapters.SignUpPagerAdapter
 import com.communityx.custom_views.CustomViewPager
 import com.communityx.fragments.*
+import com.communityx.models.signup.Error
 import com.communityx.models.signup.StudentSignUpRequest
+import com.communityx.models.signup.StudentSignUpResponse
+import com.communityx.network.ResponseListener
+import com.communityx.network.ServiceRepo.SignUpRepo
 import com.communityx.utils.AppConstant
+import com.communityx.utils.AppConstant.*
+import com.communityx.utils.SnackBarFactory
 import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.activity_sign_up_student_info.*
 import kotlinx.android.synthetic.main.layout_top_view_logo.*
@@ -19,7 +25,7 @@ import java.util.*
 class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClickListener {
 
     private var pagerAdapter: SignUpPagerAdapter? = null
-    private var selectedCategory: String? = null
+    public var selectedCategory: String? = null
     var signUpRequest : StudentSignUpRequest? = null
     public var selectedClubNameIndex = 0
     public var selectedRole = 0
@@ -91,7 +97,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     private fun tappedContinue() {
         if (view_pager.currentItem == pagerAdapter!!.totalItems - 1) {
-            sendToActivity()
+            completedSignUp()
             return
         }
         pagerAdapter?.getCurrentFragment(view_pager.currentItem)?.onContinueButtonClicked()
@@ -99,15 +105,14 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     fun goToNextPage(){
         view_pager?.setCurrentItem(view_pager!!.currentItem + 1, true)
-        //enableButton(false)
     }
 
     fun enableButton(enable: Boolean?) {
         enable?.let { Utils.enableButton(button_continue, it) }
     }
 
-    private fun sendToActivity() {
-        startActivity(Intent(this, ConnectAlliesActivity::class.java))
+    private fun navigateToConnectAlies(intent: Intent) {
+        startActivity(intent)
     }
 
     private fun getFragments(selectedCategory: String): List<Fragment> {
@@ -128,5 +133,21 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
         }
         fragments.add(SignUpSelectInterest())
         return fragments
+    }
+
+    private fun completedSignUp() {
+        SignUpRepo.studentSignUp(this,signUpRequest!!,object: ResponseListener<StudentSignUpResponse> {
+            override fun onSuccess(response: StudentSignUpResponse) {
+                val intent =  Intent(this@SignUpStudentInfoActivity, ConnectAlliesActivity::class.java)
+                intent.putExtra(USER_ID, response.data[0].id)
+                navigateToConnectAlies(intent)
+            }
+
+            override fun onError(error: Any) {
+                if(error is Error) {
+                    SnackBarFactory.createSnackBar(this@SignUpStudentInfoActivity,constraint_layout,error.error_message.toString())
+                }
+            }
+        })
     }
 }

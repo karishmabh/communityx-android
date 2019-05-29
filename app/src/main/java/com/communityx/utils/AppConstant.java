@@ -18,6 +18,9 @@ public interface AppConstant {
     String MILTI_PART_FORM_DATA = "multipart/form-data";
     String IMAGE_PARAM = "image";
     String TYPE = "type";
+    String SESSION_KEY = "session_key";
+    String USER_ID = "user_key";
+
     String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
     int PICK_FROM_CAMERA = 0;

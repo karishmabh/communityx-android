@@ -41,11 +41,11 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
     }
 
     override fun setFieldsData(): Boolean {
-        signUpRequest?.standard = standard
-        signUpRequest?.standard_name =
+        signUpStudent?.standard = standard
+        signUpStudent?.standard_name =
             if (standard == HIGH_SCHOOL) edit_school_name.text.toString() else edit_college_name.text.toString()
 
-        return validateEmpty(signUpRequest)
+        return validateEmpty(signUpStudent)
     }
 
     override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
@@ -66,12 +66,12 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
     }
 
     private fun initField() {
-        if (validateEmpty(signUpRequest, false)) {
+        if (validateEmpty(signUpStudent, false)) {
             if (standard == HIGH_SCHOOL) {
-                edit_school_name.setText(signUpRequest?.standard_name)
+                edit_school_name.setText(signUpStudent?.standard_name)
                 tappedQualificationInfo(view_school)
             } else if (standard == COLLEGE) {
-                edit_college_name.setText(signUpRequest?.standard_name)
+                edit_college_name.setText(signUpStudent?.standard_name)
                 tappedQualificationInfo(view_college)
             }
             enableButton(false)

@@ -61,13 +61,12 @@ class SignUpSelectInterest : BaseSignUpFragment() {
     }
 
     override fun setFieldsData(): Boolean {
-       // signUpRequest?.interests = listInterest
-        return validateEmpty(signUpRequest)
+        return validateEmpty(signUpStudent)
     }
 
     //todo : hard coded string
     override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
-       if(signUpRequest?.interests.isNullOrEmpty()){
+       if(signUpStudent?.interests.isNullOrEmpty()){
            if(showSnackbar) SnackBarFactory.createSnackBar(context,scrollView,"Please select at lease 1 interest")
            return false
        }
@@ -83,8 +82,8 @@ class SignUpSelectInterest : BaseSignUpFragment() {
             val checkBox = LayoutInflater.from(context).inflate(R.layout.item_interest, null) as CheckBox
             checkBox.text = civilRight.name
             checkBox.performClick()
-            if(validateEmpty(signUpRequest, false)) {
-                checkBox.isChecked = signUpRequest?.interests!!.contains(civilRight.id)
+            if(validateEmpty(signUpStudent, false)) {
+                checkBox.isChecked = signUpStudent?.interests!!.contains(civilRight.id)
                 checkBox.setBackgroundResource(if(checkBox.isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive)
             }
             checkBox.setOnCheckedChangeListener { _, isChecked ->
@@ -93,9 +92,9 @@ class SignUpSelectInterest : BaseSignUpFragment() {
                 }
                 checkBox.setBackgroundResource(if (isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive)
                 if (isChecked) {
-                    signUpRequest?.interests?.add(civilRight.id)
+                    signUpStudent?.interests?.add(civilRight.id)
                 }else {
-                    signUpRequest?.interests?.remove(civilRight.id)
+                    signUpStudent?.interests?.remove(civilRight.id)
                 }
             }
 
@@ -111,8 +110,8 @@ class SignUpSelectInterest : BaseSignUpFragment() {
             val checkBox = LayoutInflater.from(context).inflate(R.layout.item_interest, null) as CheckBox
             checkBox.text = humanRight.name
             checkBox.performClick()
-            if(validateEmpty(signUpRequest, false)) {
-                checkBox.isChecked = signUpRequest?.interests!!.contains(humanRight.id)
+            if(validateEmpty(signUpStudent, false)) {
+                checkBox.isChecked = signUpStudent?.interests!!.contains(humanRight.id)
                 checkBox.setBackgroundResource(if(checkBox.isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive)
             }
             checkBox.setOnCheckedChangeListener { _, isChecked ->
@@ -121,9 +120,9 @@ class SignUpSelectInterest : BaseSignUpFragment() {
                 }
                 checkBox.setBackgroundResource(if (isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive)
                 if (isChecked) {
-                    signUpRequest?.interests?.add(humanRight.id)
+                    signUpStudent?.interests?.add(humanRight.id)
                 }else {
-                    signUpRequest?.interests?.remove(humanRight.id)
+                    signUpStudent?.interests?.remove(humanRight.id)
                 }
             }
 
@@ -140,8 +139,8 @@ class SignUpSelectInterest : BaseSignUpFragment() {
             val checkBox = LayoutInflater.from(context).inflate(R.layout.item_interest, null) as CheckBox
             checkBox.text = health.name
             checkBox.performClick()
-            if(validateEmpty(signUpRequest, false)) {
-                checkBox.isChecked = signUpRequest?.interests!!.contains(health.id)
+            if(validateEmpty(signUpStudent, false)) {
+                checkBox.isChecked = signUpStudent?.interests!!.contains(health.id)
                 checkBox.setBackgroundResource(if(checkBox.isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive)
             }
             checkBox.setOnCheckedChangeListener { _, isChecked ->
@@ -150,9 +149,9 @@ class SignUpSelectInterest : BaseSignUpFragment() {
                 }
                 checkBox.setBackgroundResource(if (isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive)
                 if (isChecked) {
-                    signUpRequest?.interests?.add(health.id)
+                    signUpStudent?.interests?.add(health.id)
                 }else {
-                    signUpRequest?.interests?.remove(health.id)
+                    signUpStudent?.interests?.remove(health.id)
                 }
             }
 
@@ -180,7 +179,7 @@ class SignUpSelectInterest : BaseSignUpFragment() {
                         textView.text = suggestedCause
                         imageCross.setOnClickListener { v1 ->
                             flex_layout_cause.removeView(view)
-                            signUpRequest?.interests?.remove(textView.text.toString())
+                            signUpStudent?.interests?.remove(textView.text.toString())
                             signUpActivity?.manaualInterest?.remove(textView.text.toString())
                         }
                         val lp = ViewGroup.MarginLayoutParams(
@@ -192,7 +191,7 @@ class SignUpSelectInterest : BaseSignUpFragment() {
                             return@setOnTouchListener false
                         }
                         signUpActivity?.manaualInterest?.add(suggestedCause)
-                        signUpRequest?.interests?.add(suggestedCause)
+                        signUpStudent?.interests?.add(suggestedCause)
                         flex_layout_cause.addView(view, lp)
                         edit_cause.setText("")
                         scrollView.post { scrollView.scrollTo(0, scrollView.height) }
@@ -205,7 +204,7 @@ class SignUpSelectInterest : BaseSignUpFragment() {
 
     //todo : hard coded string
     private fun validateSelectedItem() : Boolean{
-        var b = signUpRequest?.interests?.size!! < 5
+        var b = signUpStudent?.interests?.size!! < 5
         if(!b) SnackBarFactory.createSnackBar(context,scrollView,"You can select maximum 5")
         return b
     }
@@ -239,7 +238,7 @@ class SignUpSelectInterest : BaseSignUpFragment() {
                 textView.text = it
                 imageCross.setOnClickListener { v1 ->
                     flex_layout_cause.removeView(view)
-                    signUpRequest?.interests?.remove(textView.text.toString())
+                    signUpStudent?.interests?.remove(textView.text.toString())
                     signUpActivity?.manaualInterest?.remove(textView.text.toString())
                 }
                 val lp = ViewGroup.MarginLayoutParams(
@@ -260,6 +259,4 @@ class SignUpSelectInterest : BaseSignUpFragment() {
             if (s?.length != 0) R.drawable.ic_signup_add_interest else R.drawable.ic_signup_add_interest_deselect, 0
         )
     }
-
-
 }

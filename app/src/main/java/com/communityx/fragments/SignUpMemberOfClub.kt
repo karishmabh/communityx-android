@@ -3,14 +3,11 @@ package com.communityx.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.AppCompatSpinner
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import butterknife.BindView
 import butterknife.ButterKnife
 import com.communityx.R
 import com.communityx.base.BaseSignUpFragment
@@ -65,29 +62,28 @@ class SignUpMemberOfClub : BaseSignUpFragment() {
     }
 
     override fun setFieldsData(): Boolean {
-        signUpRequest?.club_name = spinner_club_name.selectedItem as String
-        signUpRequest?.club_role = spinner_role.selectedItem as String
+        signUpStudent?.club_name = spinner_club_name.selectedItem as String
+        signUpStudent?.club_role = spinner_role.selectedItem as String
         signUpActivity?.selectedClubNameIndex = spinner_club_name.selectedItemPosition
         signUpActivity?.selectedRole = spinner_role.selectedItemPosition
 
-        return validateEmpty(signUpRequest)
+        return validateEmpty(signUpStudent)
     }
 
     override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
         var b = true
         when {
-            TextUtils.isEmpty(signUpRequest?.club_name) -> b = false
-            TextUtils.isEmpty(signUpRequest?.club_role) -> b = false
+            TextUtils.isEmpty(signUpStudent?.club_name) -> b = false
+            TextUtils.isEmpty(signUpStudent?.club_role) -> b = false
         }
         if(!b && showSnackbar) SnackBarFactory.createSnackBar(context,constraint_layout,"Please select any club or organization")
         return b
     }
 
     private fun initField() {
-        if(validateEmpty(signUpRequest, false)) {
+        if(validateEmpty(signUpStudent, false)) {
             spinner_club_name.setSelection(signUpActivity?.selectedClubNameIndex!!)
             spinner_role.setSelection(signUpActivity?.selectedRole!!)
         }
     }
-
 }

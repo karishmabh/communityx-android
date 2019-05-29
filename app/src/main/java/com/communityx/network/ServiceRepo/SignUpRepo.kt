@@ -1,7 +1,6 @@
 package com.communityx.network.ServiceRepo
 
 import android.content.Context
-import android.util.Log
 import com.communityx.models.signup.*
 import com.communityx.models.signup.image.ImageUploadRequest
 import com.communityx.models.signup.image.ImageUploadResponse
