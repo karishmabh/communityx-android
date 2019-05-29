@@ -5,6 +5,7 @@
     <string name="please_select_your_classification">Please select your classification.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="mobile_digits">0123456789</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="civil_rights">Civil Rights</string>
     <string name="human_rights">Human Rights</string>
@@ -106,6 +107,7 @@
     <string name="interested">Interested</string>
     <string name="end_time">End Time</string>
     <string name="not_interested">not interested</string>
+    <string name="no_internet">No internet connection!</string>
     <string name="events">Events</string>
     <string name="logout">Logout</string>
     <string name="my_profile">My Profile</string>

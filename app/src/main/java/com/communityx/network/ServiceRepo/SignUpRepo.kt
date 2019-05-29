@@ -15,7 +15,7 @@ import retrofit2.Response
 object SignUpRepo : BaseRepo {
 
     fun getMajorMinorData(context: Context, responseListener: ResponseListener<List<MinorsData>>) {
-        DataManager.getService().getMajorMinor(AuthRepo.getAccessToken(context)).enqueue(object : Callback<MajorMinorResponse> {
+        DataManager.getService(context).getMajorMinor(AuthRepo.getAccessToken(context)).enqueue(object : Callback<MajorMinorResponse> {
             override fun onFailure(call: Call<MajorMinorResponse>, t: Throwable) {
                 responseListener.onError(t)
             }
@@ -35,7 +35,7 @@ object SignUpRepo : BaseRepo {
     }
 
     fun generateOtp(context: Context, otpRequest: OtpRequest, responseListener: ResponseListener<String>) {
-        DataManager.getService().generateOtp(AuthRepo.getAccessToken(context), otpRequest)
+        DataManager.getService(context).generateOtp(AuthRepo.getAccessToken(context), otpRequest)
             .enqueue(object : Callback<OtpResponse> {
 
                 override fun onFailure(call: Call<OtpResponse>, t: Throwable) {
@@ -57,7 +57,7 @@ object SignUpRepo : BaseRepo {
     }
 
     fun verifyOtp(context: Context, verifyOtpRequest: VerifyOtpRequest, responseListener: ResponseListener<String>) {
-        DataManager.getService().verifyOtp(AuthRepo.getAccessToken(context), verifyOtpRequest)
+        DataManager.getService(context).verifyOtp(AuthRepo.getAccessToken(context), verifyOtpRequest)
             .enqueue(object : Callback<OtpResponse> {
 
                 override fun onFailure(call: Call<OtpResponse>, t: Throwable) {
@@ -79,7 +79,7 @@ object SignUpRepo : BaseRepo {
     }
 
     fun uploadImage(context: Context, imageUploadRequest: ImageUploadRequest, responseListener: ResponseListener<ImageUploadResponse>) {
-        DataManager.getService().uploadImage(AuthRepo.getAccessToken(context),imageUploadRequest.image, imageUploadRequest.type).enqueue(object :Callback<ImageUploadResponse>{
+        DataManager.getService(context).uploadImage(AuthRepo.getAccessToken(context),imageUploadRequest.image, imageUploadRequest.type).enqueue(object :Callback<ImageUploadResponse>{
             override fun onFailure(call: Call<ImageUploadResponse>, t: Throwable) {
                 responseListener.onError(t)
             }
@@ -104,7 +104,7 @@ object SignUpRepo : BaseRepo {
         studentSignUpRequest: StudentSignUpRequest,
         responseListener: ResponseListener<StudentSignUpResponse>
     ) {
-        DataManager.getService().signUpStudent(AuthRepo.getAccessToken(context),studentSignUpRequest).enqueue(object :Callback<StudentSignUpResponse>{
+        DataManager.getService(context).signUpStudent(AuthRepo.getAccessToken(context),studentSignUpRequest).enqueue(object :Callback<StudentSignUpResponse>{
             override fun onFailure(call: Call<StudentSignUpResponse>, t: Throwable) {
                 responseListener.onError(t)
             }

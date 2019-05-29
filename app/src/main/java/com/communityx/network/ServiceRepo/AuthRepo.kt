@@ -18,7 +18,7 @@ import retrofit2.Response
 object AuthRepo : BaseRepo {
 
     fun getBasicAuth(activity: Activity, listener: ResponseListener<List<OauthData>>) {
-        val call = DataManager.getService().getBasicAuth(OAuthRequest())
+        val call = DataManager.getService(activity).getBasicAuth(OAuthRequest())
         call.enqueue(object : Callback<OAuthResponse> {
             override fun onResponse(call: Call<OAuthResponse>, response: Response<OAuthResponse>) {
                 if (!response.isSuccessful) {

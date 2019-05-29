@@ -1,11 +1,12 @@
 package com.communityx.network
 
 import android.app.Activity
+import android.content.Context
 import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
-import com.communityx.models.oauth.OauthData
 import com.communityx.network.ServiceRepo.AuthRepo
 import com.communityx.utils.AppConstant
+import com.communityx.utils.CxApplication
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -20,10 +21,12 @@ object DataManager : AppConstant {
     private var retrofit: Retrofit? = null
     private val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     private val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+    private var mContext: Context? = null
 
     private val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(2, TimeUnit.MINUTES)
         .readTimeout(2, TimeUnit.MINUTES)
+        .addInterceptor(NetworkConnectionInterceptor())
         .addInterceptor(interceptor)
         .build()
 
@@ -38,12 +41,13 @@ object DataManager : AppConstant {
         return retrofit
     }
 
-    fun getService(): IApiInterface {
+    fun getService(context: Context): IApiInterface {
+        mContext = context
         return getDataManager()!!.create(IApiInterface::class.java)
     }
 
     fun doLogin(activity: Activity, loginRequest: LoginRequest, listener: ResponseListener<LoginResponse>) {
-        val call = DataManager.getService().doLogin(AuthRepo.getAccessToken(activity), loginRequest)
+        val call = DataManager.getService(activity).doLogin(AuthRepo.getAccessToken(activity), loginRequest)
         call.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (!response.isSuccessful) {
@@ -52,7 +56,7 @@ object DataManager : AppConstant {
                 }
 
                 if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS)
-                    listener.onSuccess(response.body()!!.data)
+                    listener.onSuccess(response.body()!!)
                 else
                     listener.onError(response.body()!!.error)
             }

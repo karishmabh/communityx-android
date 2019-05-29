@@ -2,6 +2,12 @@ package com.communityx.utils;
 
 public interface AppConstant {
 
+    String PREF_USER_ID  = "pref_user_id";
+    String PREF_SESSION_ID  = "pref_session_id";
+    String PREF_IS_LOGIN  = "pref_is_login";
+    String PREF_CATEGORY  = "pref_category";
+    String PREF_EMAIL = "pref_email";
+
     String SAVECARD = "saved_card";
     String DEBITCARD = "debit_card";
     String CREDITCARD = "credit_card";

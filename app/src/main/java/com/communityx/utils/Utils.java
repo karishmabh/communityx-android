@@ -24,9 +24,9 @@ import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Objects;
 
 public class Utils {
 
@@ -43,6 +43,11 @@ public class Utils {
         Pattern pattern = Pattern.compile(PHONE_REGEX, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(phone);
         return matcher.matches();
+    }
+
+    public static void showError(Activity activity, View view, Object error) {
+        ErrorManager errorManager = new ErrorManager(activity, view, error);
+        errorManager.handleErrorResponse();
     }
 
     public static void datePicker(Activity activity, EditText editText) {

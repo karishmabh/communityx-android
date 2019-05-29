@@ -1,6 +1,6 @@
 package com.communityx.models.login
 
-data class Error(
+data class Error (
     val error_code: Any,
-    val error_message: Any
+    val error_message: List<String>
 )
