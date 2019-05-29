@@ -1,5 +1,7 @@
 package com.communityx.network
 
+import com.communityx.models.login.LoginRequest
+import com.communityx.models.login.LoginResponse
 import com.communityx.models.oauth.OAuthRequest
 import com.communityx.models.oauth.OAuthResponse
 import com.communityx.models.signup.*
@@ -16,6 +18,8 @@ interface IApiInterface {
     @GET("major")
     fun getMajorMinor(@Header("token") token:String): Call<MajorMinorResponse>
 
+    @POST("login")
+    fun doLogin(@Header("token") token: String, @Body loginRequest: LoginRequest): Call<LoginResponse>
     @POST("otp")
     fun generateOtp(@Header("token") token: String, @Body otpRequest: OtpRequest): Call<OtpResponse>
 

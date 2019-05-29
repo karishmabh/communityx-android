@@ -25,8 +25,30 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Utils {
+
+    private static final String EMAIL_REGEX = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
+    private static final String PHONE_REGEX = "^[0-9\\+]*$";
+
+    public static boolean validateEmail(String email) {
+        Pattern pattern = Pattern.compile(EMAIL_REGEX, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    public static boolean validatePhone(String phone) {
+        Pattern pattern = Pattern.compile(PHONE_REGEX, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(phone);
+        return matcher.matches();
+    }
+
+    public static void showError(Activity activity, View view, Object error) {
+        ErrorManager errorManager = new ErrorManager(activity, view, error);
+        errorManager.handleErrorResponse();
+    }
 
     public static void datePicker(Activity activity, EditText editText) {
         int mYear, mMonth, mDay;

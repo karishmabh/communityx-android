@@ -5,6 +5,7 @@
     <string name="please_select_your_classification">Please select your classification.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="mobile_digits">0123456789</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="civil_rights">Civil Rights</string>
     <string name="human_rights">Human Rights</string>
@@ -106,6 +107,7 @@
     <string name="interested">Interested</string>
     <string name="end_time">End Time</string>
     <string name="not_interested">not interested</string>
+    <string name="no_internet">No internet connection!</string>
     <string name="events">Events</string>
     <string name="logout">Logout</string>
     <string name="my_profile">My Profile</string>
@@ -147,6 +149,11 @@
     <string name="add_new_info_to_your_profile">Add new info to your profile</string>
     <string name="work_experience">Work Experience</string>
     <string name="club_organization"><![CDATA[Club & Organization]]></string>
+
+    <string name="please_enter_mobile">Please enter your Mobile number.</string>
+    <string name="please_enter_password">Please enter your password.</string>
+    <string name="please_enter_correct_mobile">Please enter correct mobile number.</string>
+    <string name="password_length_mismatch">password length cannot be less than 6 characters.</string>
     <string name="string_donated_by">"Donated by (219)"</string>
     <string name="string_charity_life">Charity Life</string>
     <string name="string_created_by_you">Created by You, today at 7:15 pm</string>
