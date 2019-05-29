@@ -18,6 +18,8 @@ public interface AppConstant {
     String MILTI_PART_FORM_DATA = "multipart/form-data";
     String IMAGE_PARAM = "image";
     String TYPE = "type";
+    String SESSION_KEY = "session_key";
+    String USER_ID = "user_key";
 
 
     int PICK_FROM_CAMERA = 0;

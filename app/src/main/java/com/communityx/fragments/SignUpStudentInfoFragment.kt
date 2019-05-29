@@ -2,6 +2,7 @@ package com.communityx.fragments
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
+import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -13,6 +14,7 @@ import android.view.*
 import android.widget.EditText
 import com.communityx.R
 import com.communityx.base.BaseSignUpFragment
+import com.communityx.models.signup.Error
 import com.communityx.models.signup.OtpRequest
 import com.communityx.models.signup.StudentSignUpRequest
 import com.communityx.models.signup.VerifyOtpRequest
@@ -35,6 +37,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     private var isDelKeyPressed = false
     private var hasOtpOrPasswordFieldVisible = false
     private var shouldChangeNumber = false
+    private var dialog: Dialog? = null;
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up_student_info, null)
@@ -266,6 +269,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             view_otp.visibility = View.VISIBLE
             resend_otp.visibility = View.VISIBLE
             view_password.visibility = View.GONE
+            edit_otp_one.requestFocus()
         } else {
             text_enter_otp.visibility = View.GONE
             view_otp.visibility = View.GONE
@@ -289,9 +293,12 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                 image_add_edit.setImageResource(R.drawable.ic_signup_edit_image)
             }
         }
+        edit_mobile.isEnabled = !signUpActivity?.isOtpVerifed!!
+        text_send_otp.text = if(signUpActivity?.isOtpVerifed!!) getString(R.string.change) else getString(R.string.send_otp)
     }
 
     private fun generateOtp(otpRequest: OtpRequest) {
+        dialog = DialogHelper.showProgressDialog(context,"Please wait, sending OTP...")
         SignUpRepo.generateOtp(context!!, otpRequest, object : ResponseListener<String> {
 
             override fun onSuccess(response: String) {
@@ -299,15 +306,20 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                 visibleOtpField(true)
                 edit_mobile.isEnabled = false
                 scrollView.post { scrollView.scrollTo(0, scrollView.height) }
+                dialog?.dismiss()
             }
 
             override fun onError(error: Any) {
-                SnackBarFactory.createSnackBar(context, scrollView, "Failed to send otp !!")
+                if(error is Error) {
+                    SnackBarFactory.createSnackBar(context, scrollView, error.error_message.toString())
+                }
+                dialog?.dismiss()
             }
         })
     }
 
     private fun verifyOtp(verifyOtpRequest: VerifyOtpRequest) {
+        dialog = DialogHelper.showProgressDialog(context, "Verifying OTP...")
         SignUpRepo.verifyOtp(context!!, verifyOtpRequest, object : ResponseListener<String> {
             override fun onSuccess(response: String) {
                 view_password.visibility = View.VISIBLE
@@ -315,17 +327,16 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                 visibleOtpField(false)
                 signUpActivity?.isOtpVerifed = true
                 edit_create_password.requestFocus()
+                clearOtp()
+                dialog?.dismiss()
             }
 
             override fun onError(error: Any) {
-                SnackBarFactory.createSnackBar(context, scrollView, "Failed to verify otp !!")
-                signUpActivity?.isOtpVerifed = false
-
-                view_password.visibility = View.VISIBLE
-                scrollView.post { scrollView.scrollTo(0, scrollView.height) }
-                visibleOtpField(false)
-                signUpActivity?.isOtpVerifed = true
-                edit_create_password.requestFocus()
+                if(error is Error) {
+                    SnackBarFactory.createSnackBar(context, scrollView, error.error_message.toString())
+                    signUpActivity?.isOtpVerifed = false
+                }
+                dialog?.dismiss()
             }
 
         })
@@ -341,7 +352,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         val imageUploadRequest = ImageUploadRequest(body,type)
         SignUpRepo.uploadImage(context!!,imageUploadRequest, object: ResponseListener<ImageUploadResponse> {
             override fun onSuccess(response: ImageUploadResponse) {
-
+                signUpRequest?.profile_image = response.data[0].name
             }
 
             override fun onError(error: Any) {
@@ -364,6 +375,15 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         }
 
         return isEmpty
+    }
+
+    private fun clearOtp() {
+            edit_otp_one.setText("")
+            edit_otp_two.setText("")
+            edit_otp_three.setText("")
+            edit_otp_four.setText("")
+            edit_otp_five.setText("")
+            edit_otp_six.setText("")
     }
 
     internal fun onMobileNumberChange(s: CharSequence?) {

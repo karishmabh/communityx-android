@@ -9,8 +9,15 @@ import com.communityx.R
 import com.communityx.adapters.SignUpPagerAdapter
 import com.communityx.custom_views.CustomViewPager
 import com.communityx.fragments.*
+import com.communityx.models.signup.Error
 import com.communityx.models.signup.StudentSignUpRequest
+import com.communityx.models.signup.StudentSignUpResponse
+import com.communityx.network.ResponseListener
+import com.communityx.network.ServiceRepo.SignUpRepo
 import com.communityx.utils.AppConstant
+import com.communityx.utils.AppConstant.ACTION_SIGN_UP_STUDENT
+import com.communityx.utils.AppConstant.USER_ID
+import com.communityx.utils.SnackBarFactory
 import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.activity_sign_up_student_info.*
 import kotlinx.android.synthetic.main.layout_top_view_logo.*
@@ -20,7 +27,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     private var pagerAdapter: SignUpPagerAdapter? = null
     private var selectedCategory: String? = null
-    var signUpRequest : StudentSignUpRequest? = null
+    var studentSignUpRequest : StudentSignUpRequest? = null
     public var selectedClubNameIndex = 0
     public var selectedRole = 0
     var selectImagePath: String? = null
@@ -40,7 +47,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     }
 
     private fun initActivity() {
-        signUpRequest = selectedCategory?.let { StudentSignUpRequest(role = it) }
+        studentSignUpRequest = selectedCategory?.let { StudentSignUpRequest(role = it) }
         text_subtitle.text = getString(R.string.string_build_social_impact)
         button_continue.tag = true
         button_continue.setBackgroundResource(R.drawable.button_active)
@@ -91,7 +98,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     private fun tappedContinue() {
         if (view_pager.currentItem == pagerAdapter!!.totalItems - 1) {
-            sendToActivity()
+            completedSignUp()
             return
         }
         pagerAdapter?.getCurrentFragment(view_pager.currentItem)?.onContinueButtonClicked()
@@ -106,8 +113,8 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
         enable?.let { Utils.enableButton(button_continue, it) }
     }
 
-    private fun sendToActivity() {
-        startActivity(Intent(this, ConnectAlliesActivity::class.java))
+    private fun navigateToConnectAlies(intent: Intent) {
+        startActivity(intent)
     }
 
     private fun getFragments(selectedCategory: String): List<Fragment> {
@@ -128,5 +135,28 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
         }
         fragments.add(SignUpSelectInterest())
         return fragments
+    }
+
+    private fun completedSignUp() {
+        when(selectedCategory) {
+           ACTION_SIGN_UP_STUDENT -> studentSignUp()
+        }
+    }
+
+    private fun studentSignUp() {
+        SignUpRepo.studentSignUp(this,studentSignUpRequest!!,object: ResponseListener<StudentSignUpResponse> {
+            override fun onSuccess(response: StudentSignUpResponse) {
+                val intent =  Intent(this@SignUpStudentInfoActivity, ConnectAlliesActivity::class.java)
+                intent.putExtra(USER_ID, response.data[0].id)
+                navigateToConnectAlies(intent)
+            }
+
+            override fun onError(error: Any) {
+               if(error is Error) {
+                   SnackBarFactory.createSnackBar(this@SignUpStudentInfoActivity,constraint_layout,error.error_message.toString())
+               }
+            }
+
+        })
     }
 }

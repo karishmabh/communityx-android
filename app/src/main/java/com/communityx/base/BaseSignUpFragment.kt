@@ -15,7 +15,7 @@ abstract class BaseSignUpFragment : Fragment(), AppConstant {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         signUpActivity = activity as SignUpStudentInfoActivity
-        signUpRequest = signUpActivity?.signUpRequest
+        signUpRequest = signUpActivity?.studentSignUpRequest
     }
 
     protected fun goToNextPage(){
