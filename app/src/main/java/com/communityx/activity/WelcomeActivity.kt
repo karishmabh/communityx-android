@@ -31,7 +31,6 @@ class WelcomeActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-
     private fun setClickListener() {
         button_login.setOnClickListener(this)
         text_signup.setOnClickListener(this)
@@ -57,9 +56,5 @@ class WelcomeActivity : AppCompatActivity(), View.OnClickListener {
 
             }
         })
-    }
-
-    companion object {
-        private val TAG = "WelcomeActivity"
     }
 }
