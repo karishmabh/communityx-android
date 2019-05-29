@@ -18,15 +18,11 @@ import com.communityx.utils.AppConstant
 
 import java.util.ArrayList
 
-class PaymentAdapter(private val mCardList: ArrayList<String>, private val mActivity: Activity) :
-    RecyclerView.Adapter<PaymentAdapter.EventHolder>(), AppConstant {
-    private val mLayoutInflater: LayoutInflater
+class PaymentAdapter(private val mCardList: ArrayList<String>, private val mActivity: Activity) : RecyclerView.Adapter<PaymentAdapter.EventHolder>(), AppConstant {
+
+    private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mActivity)
     private var cardCheckedListener: OnCardCheckedListener? = null
     private var isFirstTime = true
-
-    init {
-        this.mLayoutInflater = LayoutInflater.from(mActivity)
-    }
 
     fun setCardCheckedListener(cardCheckedListener: OnCardCheckedListener) {
         this.cardCheckedListener = cardCheckedListener
@@ -34,7 +30,7 @@ class PaymentAdapter(private val mCardList: ArrayList<String>, private val mActi
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): EventHolder {
         val view = mLayoutInflater.inflate(R.layout.item_saved_card, viewGroup, false)
-        return PaymentAdapter.EventHolder(view)
+        return EventHolder(view)
     }
 
     override fun onBindViewHolder(eventHolder: EventHolder, viewType: Int) {
@@ -51,13 +47,13 @@ class PaymentAdapter(private val mCardList: ArrayList<String>, private val mActi
 
     inner class EventHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         @BindView(R.id.radio_saved_card_button)
-        internal var radioSavedButton: RadioButton? = null
+        lateinit var radioSavedButton: RadioButton
         @BindView(R.id.linear_saved_card)
-        internal var linearSavedCard: LinearLayout? = null
+        lateinit var linearSavedCard: LinearLayout
         @BindView(R.id.text_saved_amount)
-        internal var textSavedCard: TextView? = null
+        lateinit var textSavedCard: TextView
         @BindView(R.id.text_debit_card)
-        internal var textCardName: TextView? = null
+        lateinit var textCardName: TextView
 
         init {
             ButterKnife.bind(this, itemView)

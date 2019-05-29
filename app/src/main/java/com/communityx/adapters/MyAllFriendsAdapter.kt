@@ -11,13 +11,9 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.communityx.R
 
-class MyAllFriendsAdapter(private val mContext: Context, private val friendList: List<String>) :
-    RecyclerView.Adapter<MyAllFriendsAdapter.ViewHolder>() {
-    private val inflater: LayoutInflater
+class MyAllFriendsAdapter(private val mContext: Context, private val friendList: List<String>) : RecyclerView.Adapter<MyAllFriendsAdapter.ViewHolder>() {
 
-    init {
-        inflater = LayoutInflater.from(mContext)
-    }
+    private val inflater: LayoutInflater = LayoutInflater.from(mContext)
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         return ViewHolder(inflater.inflate(R.layout.item_my_all_friend, viewGroup, false))
@@ -35,44 +31,44 @@ class MyAllFriendsAdapter(private val mContext: Context, private val friendList:
         return name.substring(0, 1)
     }
 
-    internal inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         @BindView(R.id.image_user)
-        var imageUser: ImageView? = null
+        lateinit var imageUser: ImageView
         @BindView(R.id.text_name)
-        var textName: TextView? = null
+        lateinit var textName: TextView
         @BindView(R.id.text_location)
-        var textLocation: TextView? = null
+        lateinit var textLocation: TextView
         @BindView(R.id.image_message)
-        var imageMesage: ImageView? = null
+        lateinit var imageMesage: ImageView
         @BindView(R.id.image_option)
-        var imageOption: ImageView? = null
+        lateinit var imageOption: ImageView
         @BindView(R.id.text_letter)
-        var textLetter: TextView? = null
+        lateinit var textLetter: TextView
 
         init {
             ButterKnife.bind(this, itemView)
         }
 
         fun bindData(name: String) {
-            textName!!.text = name
+            textName.text = name
 
             setDividerText(name)
         }
 
         private fun setDividerText(name: String) {
-            textLetter!!.text = getFirstLetter(name)
+            textLetter.text = getFirstLetter(name)
 
             var prevStr: String? = null
             if (adapterPosition > 0 && friendList.size > adapterPosition) {
                 prevStr = getFirstLetter(friendList[adapterPosition - 1])
             }
             if (prevStr == null) {
-                textLetter!!.visibility = View.VISIBLE
+                textLetter.visibility = View.VISIBLE
             } else if (prevStr == getFirstLetter(name) && adapterPosition != 0) {
-                textLetter!!.visibility = View.GONE
+                textLetter.visibility = View.GONE
             } else {
-                textLetter!!.visibility = View.VISIBLE
+                textLetter.visibility = View.VISIBLE
             }
         }
     }

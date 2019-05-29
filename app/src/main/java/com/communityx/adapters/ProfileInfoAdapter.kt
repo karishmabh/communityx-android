@@ -18,13 +18,10 @@ class ProfileInfoAdapter(private val mContext: Context, private val list: List<P
 
     internal val NORMAL_ITEM = 0
     internal val EXPANDED_ITEM = 1
-    private val mInflater: LayoutInflater
     private var isOtherProfile = false
     private var fromDetialActivity = false
 
-    init {
-        mInflater = LayoutInflater.from(mContext)
-    }
+    private val mInflater: LayoutInflater = LayoutInflater.from(mContext)
 
     fun setOtherProfile(otherProfile: Boolean) {
         isOtherProfile = otherProfile
@@ -53,20 +50,20 @@ class ProfileInfoAdapter(private val mContext: Context, private val list: List<P
         return if (position == 0 && fromDetialActivity) EXPANDED_ITEM else NORMAL_ITEM
     }
 
-    internal open inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    open inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         @BindView(R.id.text_heading)
-        var textHeading: TextView? = null
+        lateinit var textHeading: TextView
         @BindView(R.id.text_title)
-        var textTitle: TextView? = null
+        lateinit var textTitle: TextView
         @BindView(R.id.text_subtitle)
-        var textSibTitle: TextView? = null
+        lateinit var textSibTitle: TextView
         @BindView(R.id.text_duration)
-        var textDuration: TextView? = null
+        lateinit var textDuration: TextView
         @BindView(R.id.image_logo)
-        var imageLogo: ImageView? = null
+        lateinit var imageLogo: ImageView
         @BindView(R.id.image_edit)
-        var imageEdit: ImageView? = null
+        lateinit var imageEdit: ImageView
 
         private val addedAboutHeading = ArrayList<String>()
 
@@ -76,30 +73,30 @@ class ProfileInfoAdapter(private val mContext: Context, private val list: List<P
         }
 
         private fun validateEditIconVisibility() {
-            imageEdit!!.visibility = if (isOtherProfile) View.GONE else View.VISIBLE
+            imageEdit.visibility = if (isOtherProfile) View.GONE else View.VISIBLE
         }
 
         open fun bindData(model: ProfileAboutModel) {
             if (!addedAboutHeading.contains(model.heading)) {
-                textHeading!!.visibility = View.VISIBLE
-                textHeading!!.text = model.heading
+                textHeading.visibility = View.VISIBLE
+                textHeading.text = model.heading
                 addedAboutHeading.add(model.heading)
                 validateEditIconVisibility()
             } else {
-                textHeading!!.visibility = View.GONE
-                imageEdit!!.visibility = View.GONE
+                textHeading.visibility = View.GONE
+                imageEdit.visibility = View.GONE
             }
-            textTitle!!.text = model.title
-            textSibTitle!!.text = model.subtitle
+            textTitle.text = model.title
+            textSibTitle.text = model.subtitle
             if (model.duration != null) {
-                textDuration!!.text = model.duration
+                textDuration.text = model.duration
             }
-            textDuration!!.visibility = if (model.duration != null) View.VISIBLE else View.GONE
-            imageLogo!!.setImageResource(if (model.logo != -1) model.logo else R.drawable.profile_placeholder)
+            textDuration.visibility = if (model.duration != null) View.VISIBLE else View.GONE
+            imageLogo.setImageResource(if (model.logo != -1) model.logo else R.drawable.profile_placeholder)
         }
     }
 
-    internal inner class ExpandedViewHolder(itemView: View) : ViewHolder(itemView) {
+    inner class ExpandedViewHolder(itemView: View) : ViewHolder(itemView) {
 
         override fun bindData(model: ProfileAboutModel) {
             super.bindData(model)

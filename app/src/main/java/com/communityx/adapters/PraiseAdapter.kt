@@ -16,11 +16,8 @@ import com.communityx.utils.AnimationUtils
 import com.communityx.utils.Utils
 
 class PraiseAdapter(private val mContext: Context) : RecyclerView.Adapter<PraiseAdapter.ViewHolder>() {
-    private val inflater: LayoutInflater
 
-    init {
-        inflater = LayoutInflater.from(mContext)
-    }
+    private val inflater: LayoutInflater = LayoutInflater.from(mContext)
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         return ViewHolder(inflater.inflate(R.layout.item_praise, viewGroup, false))
@@ -34,17 +31,17 @@ class PraiseAdapter(private val mContext: Context) : RecyclerView.Adapter<Praise
         return 7
     }
 
-    internal inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         @BindView(R.id.underline)
-        var viewUnderline: View? = null
+        lateinit var viewUnderline: View
         @BindView(R.id.text_all_replies)
-        var textAllReplies: TextView? = null
+        lateinit var textAllReplies: TextView
         @BindView(R.id.image_like)
-        var imageLike: ImageView? = null
+        lateinit var imageLike: ImageView
 
         @BindString(R.string.view_replies)
-        var viewReplies: String? = null
+        lateinit var viewReplies: String
 
         var isLike = true
 
@@ -54,14 +51,14 @@ class PraiseAdapter(private val mContext: Context) : RecyclerView.Adapter<Praise
         }
 
         fun showViewAllReplies(repliesCount: String, shouldShow: Boolean) {
-            Utils.showHideView(viewUnderline!!, shouldShow)
-            Utils.showHideView(textAllReplies!!, shouldShow)
-            if (shouldShow) textAllReplies!!.text = "$viewReplies ($repliesCount)"
+            Utils.showHideView(viewUnderline, shouldShow)
+            Utils.showHideView(textAllReplies, shouldShow)
+            if (shouldShow) textAllReplies.text = "$viewReplies ($repliesCount)"
         }
 
         @OnClick(R.id.image_like)
         fun likeTapped() {
-            imageLike!!.setImageResource(if (isLike) R.drawable.ic_my_community_like_deselect else R.drawable.ic_my_community_like_select)
+            imageLike.setImageResource(if (isLike) R.drawable.ic_my_community_like_deselect else R.drawable.ic_my_community_like_select)
             isLike = !isLike
             AnimationUtils.pulse(imageLike, 1, 300)
         }

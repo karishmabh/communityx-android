@@ -4,11 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
-import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.communityx.R
@@ -27,22 +23,23 @@ class SignupCategoryActivity : AppCompatActivity(), AppConstant {
 
         val textSubTitle = findViewById<TextView>(id.text_subtitle)
         textSubTitle.text = getString(R.string.string_build_social_impact)
-        button_continue!!.isClickable = false
-        button_continue!!.alpha = 0.5f
+        button_continue.isClickable = false
+        button_continue.alpha = 0.5f
     }
 
     @OnClick(id.view_student, id.view_professional, id.view_organisation)
-    internal fun selectCategory(it: View) {
-        if (it == view_student)
+    internal fun selectCategory(view: View) {
+        if (view == view_student)
             categorySelected(AppConstant.ACTION_SIGN_UP_STUDENT)
-        else if (it == view_professional)
+        else if (view == view_professional)
             categorySelected(AppConstant.ACTION_SIGN_UP_PROFESSIONAL)
-        else if (it == view_organisation) categorySelected(AppConstant.ACTION_SIGN_UP_ORGANIZATION)
+        else if (view == view_organisation)
+            categorySelected(AppConstant.ACTION_SIGN_UP_ORGANIZATION)
     }
 
 
     @OnClick(id.button_continue)
-    internal fun letsContinue() {
+    internal fun continueTapped() {
         val intent = Intent(this, SignUpStudentInfoActivity::class.java)
         intent.action = selectedCategory
         startActivity(intent)
@@ -50,7 +47,7 @@ class SignupCategoryActivity : AppCompatActivity(), AppConstant {
     }
 
     @OnClick(id.text_login)
-    internal fun goToLogin() {
+    internal fun loginTapped() {
         startActivity(Intent(this, LoginActivity::class.java)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)

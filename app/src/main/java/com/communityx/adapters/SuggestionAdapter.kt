@@ -10,24 +10,19 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.communityx.R
 import com.google.android.flexbox.FlexboxLayout
-
-import java.util.ArrayList
-import java.util.Arrays
+import java.util.*
 
 class SuggestionAdapter(private val mSuggestionList: ArrayList<String>, private val mActvity: Activity) : RecyclerView.Adapter<SuggestionAdapter.EventHolder>() {
-    private val mLayoutInflater: LayoutInflater
 
-    init {
-        this.mLayoutInflater = LayoutInflater.from(mActvity)
-    }
+    private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mActvity)
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): EventHolder {
         val view = mLayoutInflater.inflate(R.layout.item_connect_allies, viewGroup, false)
-        return SuggestionAdapter.EventHolder(view)
+        return EventHolder(view)
     }
 
     override fun onBindViewHolder(eventHolder: EventHolder, i: Int) {
-        val list = Arrays.asList(*arrayOf("School Safety", "Immigration", "LGBTQ+", "Mental Health", "Prisom Reform"))
+        val list = Arrays.asList("School Safety", "Immigration", "LGBTQ+", "Mental Health", "Prisom Reform")
         setFLexLayout(eventHolder.flexboxLayout, list)
     }
 
@@ -38,7 +33,7 @@ class SuggestionAdapter(private val mSuggestionList: ArrayList<String>, private 
     inner class EventHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         @BindView(R.id.flex_layout_allies)
-        internal var flexboxLayout: FlexboxLayout? = null
+        lateinit var flexboxLayout: FlexboxLayout
 
         init {
             ButterKnife.bind(this, itemView)

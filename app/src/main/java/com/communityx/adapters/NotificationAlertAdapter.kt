@@ -10,19 +10,15 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.communityx.R
 
-class NotificationAlertAdapter(private val mContext: Context) : RecyclerView.Adapter<*>() {
+class NotificationAlertAdapter(private val mContext: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val ALERT_NORMAL = 0
     private val ALERT_BIG = 1
-    private val inflater: LayoutInflater
-
-    init {
-        inflater = LayoutInflater.from(mContext)
-    }
+    private val inflater: LayoutInflater = LayoutInflater.from(mContext)
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): RecyclerView.ViewHolder {
         return if (i == ALERT_BIG) {
-            ExpandedAlertViewHoleder(inflater.inflate(R.layout.item_notification_expanded, viewGroup, false))
+            ExpandedAlertViewHolder(inflater.inflate(R.layout.item_notification_expanded, viewGroup, false))
         } else NormalAlertViewHolder(
             inflater.inflate(
                 R.layout.item_message_recipient,
@@ -49,10 +45,10 @@ class NotificationAlertAdapter(private val mContext: Context) : RecyclerView.Ada
         } else ALERT_NORMAL
     }
 
-    internal open inner class NormalAlertViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    open inner class NormalAlertViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         @BindView(R.id.badge)
-        var textBadge: TextView? = null
+        lateinit var textBadge: TextView
 
         init {
             ButterKnife.bind(this, itemView)
@@ -65,10 +61,10 @@ class NotificationAlertAdapter(private val mContext: Context) : RecyclerView.Ada
         }
     }
 
-    internal inner class ExpandedAlertViewHoleder(itemView: View) : NormalAlertViewHolder(itemView) {
+    inner class ExpandedAlertViewHolder(itemView: View) : NormalAlertViewHolder(itemView) {
 
         @BindView(R.id.view_divider_one)
-        var divider: View? = null
+        lateinit var divider: View
 
         init {
             ButterKnife.bind(this, itemView)

@@ -15,15 +15,12 @@ import com.communityx.activity.CreateGroupActivity
 import java.util.ArrayList
 
 class SelectedMembersAdapter(private val mUsersList: ArrayList<String>, private val mActvity: Activity, private val iUserRemoved: IUserRemoved) : RecyclerView.Adapter<SelectedMembersAdapter.MessageHolder>() {
-    private val mLayoutInflater: LayoutInflater
 
-    init {
-        this.mLayoutInflater = LayoutInflater.from(mActvity)
-    }
+    private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mActvity)
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MessageHolder {
         val view = mLayoutInflater.inflate(R.layout.item_added_user, viewGroup, false)
-        return SelectedMembersAdapter.MessageHolder(view)
+        return MessageHolder(view)
     }
 
     override fun onBindViewHolder(messageHolder: MessageHolder, i: Int) {
@@ -37,9 +34,9 @@ class SelectedMembersAdapter(private val mUsersList: ArrayList<String>, private 
     inner class MessageHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         @BindView(R.id.image_remove)
-        internal var imageRemove: ImageView? = null
+        lateinit var imageRemove: ImageView
         @BindView(R.id.text_name)
-        internal var textName: TextView? = null
+        lateinit  var textName: TextView
 
         init {
             ButterKnife.bind(this, itemView)
@@ -47,13 +44,13 @@ class SelectedMembersAdapter(private val mUsersList: ArrayList<String>, private 
 
         fun setData(position: Int) {
             if (mActvity is CreateGroupActivity) {
-                imageRemove!!.visibility = View.GONE
+                imageRemove.visibility = View.GONE
             } else {
-                imageRemove!!.visibility = View.VISIBLE
+                imageRemove.visibility = View.VISIBLE
             }
 
-            textName!!.text = mUsersList[position]
-            imageRemove!!.setOnClickListener {
+            textName.text = mUsersList[position]
+            imageRemove.setOnClickListener {
                 iUserRemoved.onUserRemoved(mUsersList[position])
                 mUsersList.removeAt(adapterPosition)
                 notifyDataSetChanged()
