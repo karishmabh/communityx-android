@@ -31,8 +31,5 @@ interface IApiInterface {
     fun uploadImage(@Header("token") token: String, @Part image: MultipartBody.Part, @Part type: MultipartBody.Part): Call<ImageUploadResponse>
 
     @POST("signup")
-    fun signUpStudent(@Header("token") token: String, @Body studentSignUpRequest: StudentSignUpRequest) : Call<StudentSignUpResponse>
-
-    @POST("signup")
-    fun signUpOrganization(@Header("token") token: String, @Body studentSignUpRequest: StudentSignUpRequest) : Call<OrganizationSignupResponse>
+    fun signUp(@Header("token") token: String, @Body studentSignUpRequest: StudentSignUpRequest) : Call<StudentSignUpResponse>
 }

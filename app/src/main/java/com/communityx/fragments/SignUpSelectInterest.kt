@@ -18,7 +18,7 @@ import com.communityx.models.signup.Minor
 import com.communityx.models.signup.MinorsData
 import com.communityx.models.signup.StudentSignUpRequest
 import com.communityx.network.ResponseListener
-import com.communityx.network.ServiceRepo.SignUpRepo
+import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.SnackBarFactory
 import kotlinx.android.synthetic.main.fragment_sign_up_select_interest.*
 

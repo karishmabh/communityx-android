@@ -3,7 +3,7 @@ package com.communityx.utils
 import android.app.Activity
 import android.view.View
 import com.communityx.R
-import com.communityx.models.login.Error
+import com.communityx.models.Error
 import com.communityx.network.NetworkConnectionInterceptor
 
 class ErrorManager(private val mActivity: Activity, private val mView: View, private val mObject: Any?) {
@@ -20,8 +20,8 @@ class ErrorManager(private val mActivity: Activity, private val mView: View, pri
 
         if (mObject is Error) {
             val response = mObject as Error?
-            if (response?.error_message != null && response.error_message.size > 0)
-                SnackBarFactory.createSnackBar(mActivity, mView, response.error_message.get(0))
+            if (response?.error_message != null && response.error_message.isNotEmpty())
+                SnackBarFactory.createSnackBar(mActivity, mView, response.error_message[0])
         }
     }
 }

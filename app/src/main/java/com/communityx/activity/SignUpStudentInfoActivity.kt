@@ -9,14 +9,13 @@ import com.communityx.R
 import com.communityx.adapters.SignUpPagerAdapter
 import com.communityx.custom_views.CustomViewPager
 import com.communityx.fragments.*
-import com.communityx.models.signup.Error
 import com.communityx.models.signup.StudentSignUpRequest
 import com.communityx.models.signup.StudentSignUpResponse
 import com.communityx.network.ResponseListener
-import com.communityx.network.ServiceRepo.SignUpRepo
+import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.AppConstant
-import com.communityx.utils.AppConstant.*
-import com.communityx.utils.SnackBarFactory
+import com.communityx.utils.AppConstant.USER_ID
+import com.communityx.utils.DialogHelper
 import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.activity_sign_up_student_info.*
 import kotlinx.android.synthetic.main.layout_top_view_logo.*
@@ -113,6 +112,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     private fun navigateToConnectAlies(intent: Intent) {
         startActivity(intent)
+        finish()
     }
 
     private fun getFragments(selectedCategory: String): List<Fragment> {
@@ -135,18 +135,20 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
         return fragments
     }
 
+    //todo : hard coded string
     private fun completedSignUp() {
-        SignUpRepo.studentSignUp(this,signUpRequest!!,object: ResponseListener<StudentSignUpResponse> {
+        var dialog = DialogHelper.showProgressDialog(this, "Please wait... Registering you")
+        SignUpRepo.createSignUp(this, signUpRequest!!, object : ResponseListener<StudentSignUpResponse> {
             override fun onSuccess(response: StudentSignUpResponse) {
                 val intent =  Intent(this@SignUpStudentInfoActivity, ConnectAlliesActivity::class.java)
-                intent.putExtra(USER_ID, response.data[0].id)
+                intent.putExtra(USER_ID, response.data[0].user_id)
                 navigateToConnectAlies(intent)
+                dialog.dismiss()
             }
 
             override fun onError(error: Any) {
-                if(error is Error) {
-                    SnackBarFactory.createSnackBar(this@SignUpStudentInfoActivity,constraint_layout,error.error_message.toString())
-                }
+                Utils.showError(this@SignUpStudentInfoActivity, constraint_layout, error)
+                dialog.dismiss()
             }
         })
     }

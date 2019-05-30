@@ -1,4 +1,4 @@
-package com.communityx.network.ServiceRepo
+package com.communityx.network.serviceRepo
 
 import android.app.Activity
 import android.content.Context
@@ -7,7 +7,6 @@ import com.communityx.models.oauth.OAuthResponse
 import com.communityx.models.oauth.OauthData
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
-import com.communityx.utils.AppConstant
 import com.communityx.utils.AppConstant.ACCESS_TOKEN_KEY
 import com.communityx.utils.AppConstant.STATUS_SUCCESS
 import com.communityx.utils.AppPreference

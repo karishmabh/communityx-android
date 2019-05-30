@@ -14,14 +14,13 @@ import android.view.*
 import android.widget.EditText
 import com.communityx.R
 import com.communityx.base.BaseSignUpFragment
-import com.communityx.models.signup.Error
 import com.communityx.models.signup.OtpRequest
 import com.communityx.models.signup.StudentSignUpRequest
 import com.communityx.models.signup.VerifyOtpRequest
 import com.communityx.models.signup.image.ImageUploadRequest
 import com.communityx.models.signup.image.ImageUploadResponse
 import com.communityx.network.ResponseListener
-import com.communityx.network.ServiceRepo.SignUpRepo
+import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.*
 import com.communityx.utils.AppConstant.*
 import kotlinx.android.synthetic.main.fragment_sign_up_student_info.*
@@ -127,7 +126,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         signUpStudent?.email = edit_email.text.toString()
         signUpStudent?.dob = edit_birthday.text.toString()
         signUpStudent?.postal_code = edit_postalcode.text.toString()
-        signUpStudent?.phone = edit_mobile.text.toString()
+        signUpStudent?.phone = edit_mobile.text.toString().substring(4)
         signUpStudent?.password = edit_confirm_password.text.toString()
 
         return validateEmpty(signUpStudent)
@@ -323,9 +322,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             }
 
             override fun onError(error: Any) {
-                if(error is Error) {
-                    SnackBarFactory.createSnackBar(context, scrollView, error.error_message.toString())
-                }
+                Utils.showError(activity, scrollView, error)
                 dialog?.dismiss()
             }
         })
@@ -335,6 +332,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         dialog = DialogHelper.showProgressDialog(context, "Verifying OTP...")
         SignUpRepo.verifyOtp(context!!, verifyOtpRequest, object : ResponseListener<String> {
             override fun onSuccess(response: String) {
+                SnackBarFactory.createSnackBar(context, scrollView, response)
                 view_password.visibility = View.VISIBLE
                 scrollView.post { scrollView.scrollTo(0, scrollView.height) }
                 visibleOtpField(false)
@@ -345,16 +343,12 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             }
 
             override fun onError(error: Any) {
-                if(error is Error) {
-                    SnackBarFactory.createSnackBar(context, scrollView, error.error_message.toString())
-                    signUpActivity?.isOtpVerifed = false
-                }
+                Utils.showError(activity, scrollView, error)
+                signUpActivity?.isOtpVerifed = false
                 dialog?.dismiss()
             }
-
         })
     }
-
 
     private fun uploadImage(imagePath: String) {
         val file =File(imagePath)
@@ -369,11 +363,9 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             }
 
             override fun onError(error: Any) {
-
+                Utils.showError(activity, scrollView, error)
             }
-
         })
-
     }
 
     private fun isOtpFieldEmpty(): Boolean {

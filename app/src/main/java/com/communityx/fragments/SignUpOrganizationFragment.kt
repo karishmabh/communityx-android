@@ -5,14 +5,12 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.communityx.R
 import com.communityx.base.BaseSignUpFragment
 import com.communityx.models.signup.StudentSignUpRequest
 import com.communityx.utils.AppConstant.EMAIL_PATTERN
 import com.communityx.utils.SnackBarFactory
 import kotlinx.android.synthetic.main.fragment_sign_up_organization.*
-import java.util.regex.Pattern
 
 class SignUpOrganizationFragment : BaseSignUpFragment() {
 
@@ -22,7 +20,7 @@ class SignUpOrganizationFragment : BaseSignUpFragment() {
     }
 
     override fun setFieldsData(): Boolean {
-        signUpActivity?.signUpRequest?.organization_name = edit_organization.text.toString()
+        signUpActivity?.signUpRequest?.name = edit_organization.text.toString()
         signUpActivity?.signUpRequest?.email = edit_email.text.toString()
         signUpActivity?.signUpRequest?.organization_website = edit_website.text.toString()
         signUpActivity?.signUpRequest?.postal_code = edit_postalcode.text.toString()
