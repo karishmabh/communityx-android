@@ -2,6 +2,7 @@ package com.communityx.network
 
 import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
+import com.communityx.models.logout.LogoutResponse
 import com.communityx.models.oauth.OAuthRequest
 import com.communityx.models.oauth.OAuthResponse
 import com.communityx.models.signup.*
@@ -16,10 +17,14 @@ interface IApiInterface {
     fun getBasicAuth(@Body oAuthRequest: OAuthRequest): Call<OAuthResponse>
 
     @GET("major")
-    fun getMajorMinor(@Header("token") token:String): Call<MajorMinorResponse>
+    fun getMajorMinor(@Header("token") token: String): Call<MajorMinorResponse>
+
+    @GET("user/logout")
+    fun logout(@Header("token") token: String, @Header("session") session: String): Call<LogoutResponse>
 
     @POST("login")
     fun doLogin(@Header("token") token: String, @Body loginRequest: LoginRequest): Call<LoginResponse>
+
     @POST("otp")
     fun generateOtp(@Header("token") token: String, @Body otpRequest: OtpRequest): Call<OtpResponse>
 
@@ -31,8 +36,8 @@ interface IApiInterface {
     fun uploadImage(@Header("token") token: String, @Part image: MultipartBody.Part, @Part type: MultipartBody.Part): Call<ImageUploadResponse>
 
     @POST("signup")
-    fun signUpStudent(@Header("token") token: String, @Body studentSignUpRequest: StudentSignUpRequest) : Call<StudentSignUpResponse>
+    fun signUpStudent(@Header("token") token: String, @Body studentSignUpRequest: StudentSignUpRequest): Call<StudentSignUpResponse>
 
     @POST("signup")
-    fun signUpOrganization(@Header("token") token: String, @Body studentSignUpRequest: StudentSignUpRequest) : Call<OrganizationSignupResponse>
+    fun signUpOrganization(@Header("token") token: String, @Body studentSignUpRequest: StudentSignUpRequest): Call<OrganizationSignupResponse>
 }
