@@ -1,12 +1,10 @@
 package com.communityx.network
 
 import android.app.Activity
-import android.content.Context
 import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
-import com.communityx.network.ServiceRepo.AuthRepo
+import com.communityx.network.serviceRepo.AuthRepo
 import com.communityx.utils.AppConstant
-import com.communityx.utils.CxApplication
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call

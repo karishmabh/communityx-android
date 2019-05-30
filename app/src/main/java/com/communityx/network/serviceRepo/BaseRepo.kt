@@ -1,4 +1,4 @@
-package com.communityx.network.ServiceRepo
+package com.communityx.network.serviceRepo
 
 import com.communityx.utils.AppConstant
 

@@ -1,4 +1,4 @@
-package com.communityx.models.login
+package com.communityx.models
 
 data class Error (
     val error_code: Any,

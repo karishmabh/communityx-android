@@ -3,13 +3,13 @@ package com.communityx.activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.os.Message
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.Toast
 import com.communityx.R
 import com.communityx.models.oauth.OauthData
 import com.communityx.network.ResponseListener
-import com.communityx.network.ServiceRepo.AuthRepo
+import com.communityx.network.serviceRepo.AuthRepo
 import com.communityx.utils.AppConstant
 import com.communityx.utils.AppConstant.PREF_IS_LOGIN
 import com.communityx.utils.AppPreference

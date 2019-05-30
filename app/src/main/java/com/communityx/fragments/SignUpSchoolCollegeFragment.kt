@@ -9,8 +9,7 @@ import android.view.ViewGroup
 import com.communityx.R
 import com.communityx.activity.SignUpStudentInfoActivity
 import com.communityx.base.BaseSignUpFragment
-import com.communityx.models.signup.StudentSignUpRequest
-import com.communityx.utils.AppConstant.COLLEGE
+import com.communityx.models.signup.SignUpRequest
 import com.communityx.utils.AppConstant.HIGH_SCHOOL
 import com.communityx.utils.SnackBarFactory
 import kotlinx.android.synthetic.main.fragment_sign_up_school_college.*
@@ -48,7 +47,7 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
         return validateEmpty(signUpStudent)
     }
 
-    override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
+    override fun validateEmpty(requestData: SignUpRequest?, showSnackbar: Boolean): Boolean {
         var isValidated = true
         var msg = ""
         when {
@@ -56,9 +55,13 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
                 isValidated = false
                 msg = getString(R.string.select_at_least_one_category)
             }
-            TextUtils.isEmpty(requestData?.standard_name) -> {
+            requestData?.standard == Qualification.HIGH_SCHOOL.name && TextUtils.isEmpty(requestData.standard_name) -> {
                 isValidated = false
-                msg = getString(R.string.please_fill_school_college)
+                msg = getString(R.string.please_fill_school)
+            }
+            requestData?.standard == Qualification.COLLEGE_UNIVERSITY.name && TextUtils.isEmpty(requestData.standard_name) -> {
+                isValidated = false
+                msg = getString(R.string.please_fill_college)
             }
         }
         if (!isValidated && showSnackbar) SnackBarFactory.createSnackBar(context, constraint_layout, msg)
@@ -67,10 +70,10 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
 
     private fun initField() {
         if (validateEmpty(signUpStudent, false)) {
-            if (standard == HIGH_SCHOOL) {
+            if (standard == Qualification.HIGH_SCHOOL.name) {
                 edit_school_name.setText(signUpStudent?.standard_name)
                 tappedQualificationInfo(view_school)
-            } else if (standard == COLLEGE) {
+            } else if (standard == Qualification.COLLEGE_UNIVERSITY.name) {
                 edit_college_name.setText(signUpStudent?.standard_name)
                 tappedQualificationInfo(view_college)
             }
@@ -80,15 +83,15 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
 
     private fun tappedQualificationInfo(it: View) {
         if (it == view_school)
-            selectQualificationInfo(Qualification.SCHOOL)
-        else if (it == view_college) selectQualificationInfo(Qualification.COLLEGE)
+            selectQualificationInfo(Qualification.HIGH_SCHOOL)
+        else if (it == view_college) selectQualificationInfo(Qualification.COLLEGE_UNIVERSITY)
     }
 
     private fun selectQualificationInfo(qualification: Qualification) {
         (Objects.requireNonNull<FragmentActivity>(activity) as SignUpStudentInfoActivity).enableButton(true)
-
+        standard = qualification.name
         when (qualification) {
-            SignUpSchoolCollegeFragment.Qualification.SCHOOL -> {
+            SignUpSchoolCollegeFragment.Qualification.HIGH_SCHOOL -> {
                 view_school!!.background = resources.getDrawable(R.drawable.border_orange_bg)
                 view_college!!.background = resources.getDrawable(R.drawable.bordered_bg)
 
@@ -104,11 +107,10 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
                 layout_school!!.visibility = View.VISIBLE
                 layout_college!!.visibility = View.GONE
 
-                standard = HIGH_SCHOOL
                 edit_school_name.requestFocus()
             }
 
-            SignUpSchoolCollegeFragment.Qualification.COLLEGE -> {
+            SignUpSchoolCollegeFragment.Qualification.COLLEGE_UNIVERSITY -> {
                 view_college!!.background = resources.getDrawable(R.drawable.border_orange_bg)
                 view_school!!.background = resources.getDrawable(R.drawable.bordered_bg)
 
@@ -124,14 +126,13 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
                 layout_college!!.visibility = View.VISIBLE
                 layout_school!!.visibility = View.GONE
 
-                standard = COLLEGE
                 edit_college_name.requestFocus()
             }
         }
     }
 
     private enum class Qualification {
-        SCHOOL,
-        COLLEGE
+        HIGH_SCHOOL,
+        COLLEGE_UNIVERSITY
     }
 }

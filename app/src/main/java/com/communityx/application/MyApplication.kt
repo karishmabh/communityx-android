@@ -1,8 +1,8 @@
-package com.communityx.utils
+package com.communityx.application
 
 import android.app.Application
 
-class CxApplication : Application() {
+class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -10,7 +10,8 @@ class CxApplication : Application() {
     }
 
     companion object {
-        var application: CxApplication? = null
-          private set
+
+        var application: MyApplication? = null
+            private set
     }
 }
