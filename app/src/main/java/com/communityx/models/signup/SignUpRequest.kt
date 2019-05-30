@@ -1,6 +1,6 @@
 package com.communityx.models.signup
 
-data class StudentSignUpRequest(
+data class SignUpRequest(
     var club_name: String? = null,
     var club_role: String? = null,
     var dob: String? = null,
@@ -16,8 +16,7 @@ data class StudentSignUpRequest(
     var standard_year: String? = null,
     var profile_image: String? = "default_image.jpeg",
     var company_name: String? =null,
-    var job_title: String? =null,
-
-    var organization_name: String? = null,
-    var organization_website: String? = null
+    var job_title: String? = null,
+    var name: String? = null,
+    var website: String? = null
 )

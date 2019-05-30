@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.communityx.R
 import com.communityx.activity.SignUpStudentInfoActivity
 import com.communityx.base.BaseSignUpFragment
-import com.communityx.models.signup.StudentSignUpRequest
+import com.communityx.models.signup.SignUpRequest
 import com.communityx.utils.SnackBarFactory
 import kotlinx.android.synthetic.main.fragment_sign_up_select_role.*
 import java.util.*
@@ -49,9 +49,13 @@ class SignUpRoleFragment : BaseSignUpFragment(), View.OnClickListener {
         return validateEmpty(signUpStudent)
     }
 
-    override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
+    override fun validateEmpty(requestData: SignUpRequest?, showSnackbar: Boolean): Boolean {
         val b = !TextUtils.isEmpty(requestData?.standard_year)
-        if(!b && showSnackbar) SnackBarFactory.createSnackBar(context,constraint_layout, "Please select your classification")
+        if (!b && showSnackbar) SnackBarFactory.createSnackBar(
+            context,
+            constraint_layout,
+            getString(R.string.please_select_qualification)
+        )
         return  b
     }
 
