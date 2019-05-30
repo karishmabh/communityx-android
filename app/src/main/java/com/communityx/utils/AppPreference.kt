@@ -70,5 +70,4 @@ class AppPreference  private constructor(context: Context) {
             return instance!!
         }
     }
-
 }

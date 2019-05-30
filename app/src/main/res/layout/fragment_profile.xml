@@ -1,223 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              tools:context=".fragments.ProfileFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear_top"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.ProfileFragment">
 
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar" />
 
-    <android.support.v7.widget.CardView android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:transitionName="card"
-                                        android:id="@+id/card"
-                                        android:layout_marginBottom="@dimen/_4sdp"
-                                        app:cardElevation="@dimen/_5sdp">
+    <android.support.v7.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:transitionName="card"
+        app:cardElevation="@dimen/_5sdp">
+
         <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="@dimen/_30sdp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/_30sdp">
+
             <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/image_user_profile"
-                    android:layout_width="@dimen/_60sdp"
-                    android:layout_height="@dimen/_60sdp"
-                    android:transitionName="user_image"
-                    android:src="@drawable/profile_placeholder"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="31dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="25dp"/>
+                android:id="@+id/image_user_profile"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="31dp"
+                android:src="@drawable/profile_placeholder"
+                android:transitionName="user_image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                    android:id="@+id/text_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorBlackTitle"
-                    android:textSize="@dimen/_16ssp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="Amanda Blake "
-                    android:layout_marginTop="31dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/image_user_profile"
-                    android:layout_marginStart="@dimen/_12sdp"/>
+                android:id="@+id/text_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="31dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Amanda Blake "
+                android:textColor="@color/colorBlackTitle"
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintStart_toEndOf="@+id/image_user_profile"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                    android:id="@+id/text_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorLightGrey"
-                    android:textSize="@dimen/_11ssp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="School Student, New York"
-                    app:layout_constraintTop_toBottomOf="@+id/text_name"
-                    app:layout_constraintStart_toEndOf="@+id/image_user_profile"
-                    android:layout_marginStart="@dimen/_12sdp"/>
+                android:id="@+id/text_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="School Student, New York"
+                android:textColor="@color/colorLightGrey"
+                android:textSize="@dimen/_11ssp"
+                app:layout_constraintStart_toEndOf="@+id/image_user_profile"
+                app:layout_constraintTop_toBottomOf="@+id/text_name" />
 
-            <Button android:id="@+id/button_view_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_25sdp"
-                    android:background="@drawable/button_active"
-                    android:text="@string/view_profile"
-                    android:textColor="@android:color/white"
-                    android:paddingStart="@dimen/_8sdp"
-                    android:paddingEnd="@dimen/_8sdp"
-                    android:drawablePadding="@dimen/_8sdp"
-                    android:drawableEnd="@drawable/ic_my_profile_list_next_arrow"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:layout_constraintTop_toBottomOf="@id/text_title"
-                    app:layout_constraintStart_toEndOf="@id/image_user_profile"
-                    android:layout_marginStart="@dimen/_12sdp"/>
+            <Button
+                android:id="@+id/button_view_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/button_active"
+                android:drawableEnd="@drawable/ic_my_profile_list_next_arrow"
+                android:drawablePadding="@dimen/_8sdp"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:text="@string/view_profile"
+                android:textColor="@android:color/white"
+                app:layout_constraintStart_toEndOf="@id/image_user_profile"
+                app:layout_constraintTop_toBottomOf="@id/text_title" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
     <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="25dp"
-            android:paddingEnd="15dp"
-            android:paddingTop="25dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="25dp"
+        android:paddingTop="25dp"
+        android:paddingEnd="15dp">
 
-        <ImageView
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraint_events"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
                 android:id="@+id/image_event"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_8sdp"
                 android:background="@drawable/circle_active"
+                android:padding="@dimen/_8sdp"
                 android:src="@drawable/ic_my_profile_list_event"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+            <TextView
                 android:id="@+id/text_event"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorBlackTitle"
-                android:fontFamily="@font/poppins_semibold"
-                android:textSize="@dimen/_12sdp"
-                android:layout_marginBottom="@dimen/_12sdp"
                 android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_semibold"
                 android:text="@string/events"
-                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/colorBlackTitle"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toTopOf="@id/view_divider_one"
                 app:layout_constraintStart_toEndOf="@id/image_event"
-                app:layout_constraintBottom_toTopOf="@id/view_divider_one"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <View
+            <ImageView
+                android:id="@+id/image_event_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="22dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:padding="@dimen/_8sdp"
+                android:rotation="-90"
+                android:src="@drawable/ic_signup_drop_down"
+                app:layout_constraintBottom_toTopOf="@+id/view_divider_one"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <View
                 android:id="@+id/view_divider_one"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:background="@color/colorLightestGrey"
-                app:layout_constraintTop_toBottomOf="@id/image_event"/>
+                app:layout_constraintTop_toBottomOf="@id/image_event" />
+        </android.support.constraint.ConstraintLayout>
 
-        <ImageView
-                android:id="@+id/image_event_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:rotation="-90"
-                android:padding="@dimen/_8sdp"
-                android:clickable="true"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_signup_drop_down"
-                android:layout_marginBottom="22dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/view_divider_one"/>
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraint_crowdfunding"
+            app:layout_constraintTop_toBottomOf="@+id/constraint_events"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
+            <ImageView
                 android:id="@+id/image_crowdfunding"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_8sdp"
-                android:background="@drawable/circle_active"
                 android:layout_marginTop="@dimen/_12sdp"
+                android:background="@drawable/circle_active"
+                android:padding="@dimen/_8sdp"
                 android:src="@drawable/ic_crowdfuding_detail_raised_amount"
-                app:layout_constraintTop_toTopOf="@id/view_divider_one"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+            <TextView
                 android:id="@+id/text_crowdfunding"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorBlackTitle"
-                android:fontFamily="@font/poppins_semibold"
-                android:textSize="@dimen/_12sdp"
                 android:layout_marginStart="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_semibold"
                 android:text="@string/crowdfunding"
+                android:textColor="@color/colorBlackTitle"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintBottom_toTopOf="@id/view_divider_two"
-                app:layout_constraintTop_toBottomOf="@id/view_divider_one"
-                app:layout_constraintStart_toEndOf="@id/image_crowdfunding"/>
+                app:layout_constraintStart_toEndOf="@id/image_crowdfunding"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <View
+            <View
                 android:id="@+id/view_divider_two"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:background="@color/colorLightestGrey"
-                app:layout_constraintTop_toBottomOf="@id/image_crowdfunding"/>
+                app:layout_constraintTop_toBottomOf="@id/image_crowdfunding" />
 
 
-        <ImageView
+            <ImageView
                 android:id="@+id/image_crowdfunding_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:rotation="-90"
-                android:padding="@dimen/_8sdp"
-                android:clickable="true"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_signup_drop_down"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginBottom="22dp"
-                app:layout_constraintBottom_toTopOf="@+id/view_divider_two"/>
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:padding="@dimen/_8sdp"
+                android:rotation="-90"
+                android:src="@drawable/ic_signup_drop_down"
+                app:layout_constraintBottom_toTopOf="@+id/view_divider_two"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraint_logout"
+            app:layout_constraintTop_toBottomOf="@+id/constraint_crowdfunding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
+            <ImageView
                 android:id="@+id/image_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_8sdp"
-                android:background="@drawable/circle_active"
                 android:layout_marginTop="@dimen/_12sdp"
+                android:background="@drawable/circle_active"
+                android:padding="@dimen/_8sdp"
                 android:src="@drawable/ic_my_profile_list_logout"
-                app:layout_constraintTop_toTopOf="@id/view_divider_two"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+            <TextView
                 android:id="@+id/text_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorBlackTitle"
-                android:fontFamily="@font/poppins_semibold"
-                android:textSize="@dimen/_12sdp"
                 android:layout_marginStart="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_semibold"
                 android:text="@string/logout"
+                android:textColor="@color/colorBlackTitle"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintBottom_toTopOf="@id/view_divider_three"
-                app:layout_constraintTop_toBottomOf="@id/view_divider_two"
-                app:layout_constraintStart_toEndOf="@id/image_logout"/>
+                app:layout_constraintStart_toEndOf="@id/image_logout"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-        <View
+            <View
                 android:id="@+id/view_divider_three"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:background="@color/colorLightestGrey"
-                app:layout_constraintTop_toBottomOf="@id/image_logout"/>
+                app:layout_constraintTop_toBottomOf="@id/image_logout" />
 
 
-        <ImageView
+            <ImageView
                 android:id="@+id/image_logout_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:rotation="-90"
-                android:padding="@dimen/_8sdp"
-                android:clickable="true"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_signup_drop_down"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginBottom="22dp"
-                app:layout_constraintBottom_toTopOf="@+id/view_divider_three"/>
-
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:padding="@dimen/_8sdp"
+                android:rotation="-90"
+                android:src="@drawable/ic_signup_drop_down"
+                app:layout_constraintBottom_toTopOf="@+id/view_divider_three"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
-
 </LinearLayout>

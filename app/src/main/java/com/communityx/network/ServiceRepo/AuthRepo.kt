@@ -8,8 +8,7 @@ import com.communityx.models.oauth.OauthData
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
 import com.communityx.utils.AppConstant
-import com.communityx.utils.AppConstant.ACCESS_TOKEN_KEY
-import com.communityx.utils.AppConstant.STATUS_SUCCESS
+import com.communityx.utils.AppConstant.*
 import com.communityx.utils.AppPreference
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,5 +43,9 @@ object AuthRepo : BaseRepo {
 
     fun getAccessToken(context: Context) :String {
         return AppPreference.getInstance(context).getString(ACCESS_TOKEN_KEY)
+    }
+
+    fun getSessionId(context: Context) :String {
+        return AppPreference.getInstance(context).getString(PREF_SESSION_ID)
     }
 }
