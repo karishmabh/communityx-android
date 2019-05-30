@@ -9,8 +9,8 @@ import com.communityx.R
 import com.communityx.adapters.SignUpPagerAdapter
 import com.communityx.custom_views.CustomViewPager
 import com.communityx.fragments.*
-import com.communityx.models.signup.StudentSignUpRequest
-import com.communityx.models.signup.StudentSignUpResponse
+import com.communityx.models.signup.SignUpRequest
+import com.communityx.models.signup.SignUpResponse
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.AppConstant
@@ -25,7 +25,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     private var pagerAdapter: SignUpPagerAdapter? = null
     public var selectedCategory: String? = null
-    var signUpRequest : StudentSignUpRequest? = null
+    var signUpRequest : SignUpRequest? = null
     public var selectedClubNameIndex = 0
     public var selectedRole = 0
     var selectImagePath: String? = null
@@ -45,7 +45,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     }
 
     private fun initActivity() {
-        signUpRequest = selectedCategory?.let { StudentSignUpRequest(role = it) }
+        signUpRequest = selectedCategory?.let { SignUpRequest(role = it) }
         text_subtitle.text = getString(R.string.string_build_social_impact)
         button_continue.tag = true
         button_continue.setBackgroundResource(R.drawable.button_active)
@@ -134,8 +134,8 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     //todo : hard coded string
     private fun completedSignUp() {
         var dialog = DialogHelper.showProgressDialog(this, "Please wait... Registering you")
-        SignUpRepo.createSignUp(this, signUpRequest!!, object : ResponseListener<StudentSignUpResponse> {
-            override fun onSuccess(response: StudentSignUpResponse) {
+        SignUpRepo.createSignUp(this, signUpRequest!!, object : ResponseListener<SignUpResponse> {
+            override fun onSuccess(response: SignUpResponse) {
                 val intent =  Intent(this@SignUpStudentInfoActivity, ConnectAlliesActivity::class.java)
                 intent.putExtra(USER_ID, response.data[0].user_id)
                 navigateToConnectAlies(intent)

@@ -100,16 +100,16 @@ object SignUpRepo : BaseRepo {
 
     fun createSignUp(
         context: Context,
-        studentSignUpRequest: StudentSignUpRequest,
-        responseListener: ResponseListener<StudentSignUpResponse>
+        studentSignUpRequest: SignUpRequest,
+        responseListener: ResponseListener<SignUpResponse>
     ) {
         DataManager.getService().signUp(AuthRepo.getAccessToken(context), studentSignUpRequest)
-            .enqueue(object : Callback<StudentSignUpResponse> {
-            override fun onFailure(call: Call<StudentSignUpResponse>, t: Throwable) {
+            .enqueue(object : Callback<SignUpResponse> {
+            override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
                 responseListener.onError(t)
             }
 
-            override fun onResponse(call: Call<StudentSignUpResponse>, response: Response<StudentSignUpResponse>) {
+            override fun onResponse(call: Call<SignUpResponse>, response: Response<SignUpResponse>) {
                 if (!response.isSuccessful) {
                     response.errorBody()?.let { responseListener.onError(it) }
                     return

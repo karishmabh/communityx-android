@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter
 import butterknife.ButterKnife
 import com.communityx.R
 import com.communityx.base.BaseSignUpFragment
-import com.communityx.models.signup.StudentSignUpRequest
+import com.communityx.models.signup.SignUpRequest
 import com.communityx.utils.SnackBarFactory
 import kotlinx.android.synthetic.main.fragment_sign_up_member_of_club.*
 import java.util.*
@@ -69,7 +69,7 @@ class SignUpMemberOfClub : BaseSignUpFragment() {
         return validateEmpty(signUpStudent)
     }
 
-    override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
+    override fun validateEmpty(requestData: SignUpRequest?, showSnackbar: Boolean): Boolean {
         var b = true
         when {
             TextUtils.isEmpty(signUpStudent?.club_name) -> b = false

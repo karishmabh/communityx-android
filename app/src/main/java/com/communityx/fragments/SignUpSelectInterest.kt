@@ -16,7 +16,7 @@ import com.communityx.R
 import com.communityx.base.BaseSignUpFragment
 import com.communityx.models.signup.Minor
 import com.communityx.models.signup.MinorsData
-import com.communityx.models.signup.StudentSignUpRequest
+import com.communityx.models.signup.SignUpRequest
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.SnackBarFactory
@@ -65,7 +65,7 @@ class SignUpSelectInterest : BaseSignUpFragment() {
     }
 
     //todo : hard coded string
-    override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
+    override fun validateEmpty(requestData: SignUpRequest?, showSnackbar: Boolean): Boolean {
         if (signUpStudent?.interests.isNullOrEmpty() && signUpActivity?.manaualInterest.isNullOrEmpty()) {
            if(showSnackbar) SnackBarFactory.createSnackBar(context,scrollView,"Please select at lease 1 interest")
            return false

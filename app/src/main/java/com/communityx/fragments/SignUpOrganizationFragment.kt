@@ -1,5 +1,7 @@
 package com.communityx.fragments
 
+import android.app.Activity
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
@@ -10,7 +12,7 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.communityx.R
 import com.communityx.base.BaseSignUpFragment
-import com.communityx.models.signup.StudentSignUpRequest
+import com.communityx.models.signup.SignUpRequest
 import com.communityx.utils.AppConstant.EMAIL_PATTERN
 import com.communityx.utils.GalleryPicker
 import com.communityx.utils.SnackBarFactory
@@ -35,7 +37,7 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
         return validateEmpty(signUpActivity?.signUpRequest)
     }
 
-    override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
+    override fun validateEmpty(requestData: SignUpRequest?, showSnackbar: Boolean): Boolean {
         var errorMessage = ""
         var isValidate = true
 
@@ -85,6 +87,11 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
         text_profile.text = resources.getString(R.string.edit_profile_image)
         signUpActivity?.selectImagePath = imagePath
         uploadImage(imagePath)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) galleryPicker?.fetch(requestCode, data)
     }
 
     @OnClick(R.id.view_add_image)

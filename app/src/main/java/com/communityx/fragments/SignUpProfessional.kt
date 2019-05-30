@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.communityx.R
 import com.communityx.base.BaseSignUpFragment
-import com.communityx.models.signup.StudentSignUpRequest
+import com.communityx.models.signup.SignUpRequest
 import com.communityx.utils.SnackBarFactory
 import kotlinx.android.synthetic.main.fragment_sign_up_professional.*
 
@@ -23,7 +23,7 @@ class SignUpProfessional : BaseSignUpFragment() {
         return validateEmpty(signUpStudent)
     }
 
-    override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
+    override fun validateEmpty(requestData: SignUpRequest?, showSnackbar: Boolean): Boolean {
         var isValidated = true
         var msg = ""
         when {

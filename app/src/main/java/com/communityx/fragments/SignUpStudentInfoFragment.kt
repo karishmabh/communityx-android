@@ -15,7 +15,7 @@ import android.widget.EditText
 import com.communityx.R
 import com.communityx.base.BaseSignUpFragment
 import com.communityx.models.signup.OtpRequest
-import com.communityx.models.signup.StudentSignUpRequest
+import com.communityx.models.signup.SignUpRequest
 import com.communityx.models.signup.VerifyOtpRequest
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
@@ -131,7 +131,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         return validateEmpty(signUpStudent)
     }
 
-    override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
+    override fun validateEmpty(requestData: SignUpRequest?, showSnackbar: Boolean): Boolean {
         var msg = ""
         var isValidate = true
         when {

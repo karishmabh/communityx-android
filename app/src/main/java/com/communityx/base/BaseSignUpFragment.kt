@@ -3,7 +3,7 @@ package com.communityx.base
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.communityx.activity.SignUpStudentInfoActivity
-import com.communityx.models.signup.StudentSignUpRequest
+import com.communityx.models.signup.SignUpRequest
 import com.communityx.models.signup.image.ImageUploadRequest
 import com.communityx.models.signup.image.ImageUploadResponse
 import com.communityx.network.ResponseListener
@@ -17,7 +17,7 @@ import java.io.File
 abstract class BaseSignUpFragment : Fragment(), AppConstant {
 
     protected var signUpActivity : SignUpStudentInfoActivity? = null
-    protected var signUpStudent : StudentSignUpRequest? = null
+    protected var signUpStudent : SignUpRequest? = null
     protected var category: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +55,7 @@ abstract class BaseSignUpFragment : Fragment(), AppConstant {
 
     protected abstract fun setFieldsData(): Boolean
 
-    protected abstract fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean = true): Boolean
+    protected abstract fun validateEmpty(requestData: SignUpRequest?, showSnackbar: Boolean = true): Boolean
 
     abstract fun onContinueButtonClicked()
 
