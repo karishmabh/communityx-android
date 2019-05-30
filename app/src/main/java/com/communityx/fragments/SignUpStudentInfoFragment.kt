@@ -119,12 +119,13 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     }
 
     override fun setFieldsData(): Boolean {
-
+        // if(edit_mobile.text.toString() == "+91") edit_mobile.text.toString() else edit_mobile.text.toString().substring(4)
         signUpStudent?.full_name = edit_email_username.text.toString()
         signUpStudent?.email = edit_email.text.toString()
         signUpStudent?.dob = edit_birthday.text.toString()
         signUpStudent?.postal_code = edit_postalcode.text.toString()
-        signUpStudent?.phone = edit_mobile.text.toString().substring(4)
+        if(edit_mobile.text.toString().length > 4)
+            signUpStudent?.phone = edit_mobile.text.toString().substring(4)
         signUpStudent?.password = edit_confirm_password.text.toString()
 
         return validateEmpty(signUpStudent)

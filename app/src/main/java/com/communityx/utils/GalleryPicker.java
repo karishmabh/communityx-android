@@ -113,8 +113,8 @@ public class GalleryPicker {
     }
 
     private void initViews(View view) {
-        ImageView imageCamera = view.findViewById(R.id.image_camera);
-        ImageView imageGallery = view.findViewById(R.id.image_gallery);
+        View imageCamera = view.findViewById(R.id.layout_camera);
+        View imageGallery = view.findViewById(R.id.layout_gallery);
 
         imageCamera.setOnClickListener(v -> {
             bottomSheetDialog.dismiss();

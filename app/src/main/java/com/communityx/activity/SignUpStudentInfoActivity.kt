@@ -73,10 +73,6 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
             }
 
             override fun onPageChange(position: Int) {
-                if (selectedCategory != AppConstant.ACTION_SIGN_UP_STUDENT) {
-                    return
-                }
-
                 enableButton(pagerAdapter!!.isButtonEnabled(position))
                 button_continue!!.setText(if (position == pagerAdapter!!.totalItems - 1) R.string.submit else R.string.continue_button)
             }
@@ -95,14 +91,14 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     }
 
     private fun tappedContinue() {
-        if (view_pager.currentItem == pagerAdapter!!.totalItems - 1) {
-            completedSignUp()
-            return
-        }
         pagerAdapter?.getCurrentFragment(view_pager.currentItem)?.onContinueButtonClicked()
     }
 
     fun goToNextPage(){
+        if (view_pager.currentItem == pagerAdapter!!.totalItems - 1) {
+            completedSignUp()
+            return
+        }
         view_pager?.setCurrentItem(view_pager!!.currentItem + 1, true)
     }
 

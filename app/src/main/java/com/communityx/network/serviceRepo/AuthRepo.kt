@@ -2,6 +2,7 @@ package com.communityx.network.serviceRepo
 
 import android.app.Activity
 import android.content.Context
+import com.communityx.application.MyApplication
 import com.communityx.models.oauth.OAuthRequest
 import com.communityx.models.oauth.OAuthResponse
 import com.communityx.models.oauth.OauthData
@@ -37,11 +38,11 @@ object AuthRepo : BaseRepo {
         })
     }
 
-    fun saveAccessToken(context: Context, accessToken: String) {
+    fun saveAccessToken(context: Context = MyApplication.application!!, accessToken: String) {
         AppPreference.getInstance(context).setString(ACCESS_TOKEN_KEY, accessToken)
     }
 
-    fun getAccessToken(context: Context) :String {
+    fun getAccessToken(context: Context = MyApplication.application!!): String {
         return AppPreference.getInstance(context).getString(ACCESS_TOKEN_KEY)
     }
 }

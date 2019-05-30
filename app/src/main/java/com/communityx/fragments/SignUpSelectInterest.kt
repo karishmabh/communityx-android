@@ -66,7 +66,7 @@ class SignUpSelectInterest : BaseSignUpFragment() {
 
     //todo : hard coded string
     override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
-        if (signUpStudent?.interests.isNullOrEmpty() || signUpActivity?.manaualInterest.isNullOrEmpty()) {
+        if (signUpStudent?.interests.isNullOrEmpty() && signUpActivity?.manaualInterest.isNullOrEmpty()) {
            if(showSnackbar) SnackBarFactory.createSnackBar(context,scrollView,"Please select at lease 1 interest")
            return false
        }

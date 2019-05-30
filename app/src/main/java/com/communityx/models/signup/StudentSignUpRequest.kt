@@ -18,5 +18,5 @@ data class StudentSignUpRequest(
     var company_name: String? =null,
     var job_title: String? = null,
     var name: String? = null,
-    var organization_website: String? = null
+    var website: String? = null
 )

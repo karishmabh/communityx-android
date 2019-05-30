@@ -29,7 +29,7 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
     override fun setFieldsData(): Boolean {
         signUpActivity?.signUpRequest?.name = edit_organization.text.toString()
         signUpActivity?.signUpRequest?.email = edit_email.text.toString()
-        signUpActivity?.signUpRequest?.organization_website = edit_website.text.toString()
+        signUpActivity?.signUpRequest?.website = edit_website.text.toString()
         signUpActivity?.signUpRequest?.postal_code = edit_postalcode.text.toString()
 
         return validateEmpty(signUpActivity?.signUpRequest)
