@@ -14,11 +14,8 @@ import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
-import com.communityx.utils.AppConstant
+import com.communityx.utils.*
 import com.communityx.utils.AppConstant.*
-import com.communityx.utils.AppPreference
-import com.communityx.utils.SnackBarFactory
-import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlin.jvm.internal.Intrinsics
 
@@ -59,6 +56,7 @@ class LoginActivity : AppCompatActivity() , AppConstant {
     private fun navigateActivity() {
         startActivity(Intent(this, DashboardActivity::class.java))
         overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
+        finish()
     }
 
     private fun startLogin() {
@@ -95,15 +93,18 @@ class LoginActivity : AppCompatActivity() , AppConstant {
     }
 
     private fun getLogin(loginrequest: LoginRequest) {
+        val dialog = CustomProgressBar.getInstance(this).showProgressDialog("Logging in...")
         DataManager.doLogin(this, loginrequest, object : ResponseListener<LoginResponse> {
             override fun onSuccess(response: LoginResponse) {
                 if (response.data == null) return
 
+                dialog.dismiss()
                 val loginData = response.data.get(0)
                 saveUserData(loginData)
             }
 
             override fun onError(error: Any) {
+                dialog.dismiss()
                 Utils.showError(this@LoginActivity, constraint_top, error)
             }
         })
@@ -111,6 +112,8 @@ class LoginActivity : AppCompatActivity() , AppConstant {
 
     private fun saveUserData(loginData: Data) {
         AppPreference.getInstance(this).setString(PREF_SESSION_ID, loginData.session.session_id)
+        AppPreference.getInstance(this).setString(PREF_EMAIL, loginData.profile.email)
+
         AppPreference.getInstance(this).setBoolean(PREF_IS_LOGIN, true)
 
         navigateActivity()
