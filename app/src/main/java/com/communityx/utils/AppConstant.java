@@ -7,6 +7,7 @@ public interface AppConstant {
     String PREF_IS_LOGIN  = "pref_is_login";
     String PREF_CATEGORY  = "pref_category";
     String PREF_EMAIL = "pref_email";
+    String PREF_USERNAME = "pref_username";
 
     String SAVECARD = "saved_card";
     String DEBITCARD = "debit_card";

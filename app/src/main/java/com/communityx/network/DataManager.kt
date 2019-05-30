@@ -3,7 +3,8 @@ package com.communityx.network
 import android.app.Activity
 import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
-import com.communityx.network.serviceRepo.AuthRepo
+import com.communityx.models.logout.LogoutResponse
+import com.communityx.network.ServiceRepo.AuthRepo
 import com.communityx.utils.AppConstant
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -58,6 +59,27 @@ object DataManager : AppConstant {
             }
 
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                listener.onError(t)
+            }
+        })
+    }
+
+    fun doLogOut(activity: Activity, listener: ResponseListener<LogoutResponse>) {
+        val call = DataManager.getService().logout(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
+        call.enqueue(object : Callback<LogoutResponse> {
+            override fun onResponse(call: Call<LogoutResponse>, response: Response<LogoutResponse>) {
+                if (!response.isSuccessful) {
+                    response.errorBody()?.let { listener.onError(it) }
+                    return
+                }
+
+                if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS)
+                    listener.onSuccess(response.body()!!)
+                else
+                    listener.onError(response.body()!!.error)
+            }
+
+            override fun onFailure(call: Call<LogoutResponse>, t: Throwable) {
                 listener.onError(t)
             }
         })
