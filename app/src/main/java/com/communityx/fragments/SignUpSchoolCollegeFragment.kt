@@ -55,9 +55,13 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
                 isValidated = false
                 msg = getString(R.string.select_at_least_one_category)
             }
-            TextUtils.isEmpty(requestData?.standard_name) -> {
+            requestData?.standard == Qualification.HIGH_SCHOOL.name && TextUtils.isEmpty(requestData.standard_name) -> {
                 isValidated = false
-                msg = getString(R.string.please_fill_school_college)
+                msg = getString(R.string.please_fill_school)
+            }
+            requestData?.standard == Qualification.COLLEGE_UNIVERSITY.name && TextUtils.isEmpty(requestData.standard_name) -> {
+                isValidated = false
+                msg = getString(R.string.please_fill_college)
             }
         }
         if (!isValidated && showSnackbar) SnackBarFactory.createSnackBar(context, constraint_layout, msg)

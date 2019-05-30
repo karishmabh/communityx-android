@@ -117,12 +117,13 @@ public class GalleryPicker {
         ImageView imageGallery = view.findViewById(R.id.image_gallery);
 
         imageCamera.setOnClickListener(v -> {
+            bottomSheetDialog.dismiss();
             if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 Log.e(TAG, "Camera Permission Required");
+                ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.CAMERA}, 101);
                 return;
             }
             fireIntent(Option.CAMERA, CAPTURE_IMAGE);
-            bottomSheetDialog.dismiss();
         });
         imageGallery.setOnClickListener(v -> {
             fireIntent(Option.GALLERY, PICK_GALLERY);

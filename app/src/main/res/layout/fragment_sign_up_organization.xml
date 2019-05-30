@@ -51,17 +51,18 @@
             android:src="@drawable/ic_signup_add_image" />
 
         <TextView
-            style="@style/text_size_small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_toRightOf="@+id/image_profile"
-            android:fontFamily="@font/poppins_medium"
-            android:text="Add Organization Logo"
-            android:textColor="@color/colorBlackTitle"
-            app:layout_constraintStart_toStartOf="parent" />
+                android:id="@+id/text_profile"
+                style="@style/text_size_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_toRightOf="@+id/image_profile"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Add Organization Logo"
+                android:textColor="@color/colorBlackTitle"
+                app:layout_constraintStart_toStartOf="parent" />
 
     </RelativeLayout>
 
@@ -76,11 +77,13 @@
         app:layout_constraintTop_toBottomOf="@+id/view_add_image">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/edit_organization"
-            style="@style/textInputEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium" />
+                android:id="@+id/edit_organization"
+                style="@style/textInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:maxLength="50"
+                android:fontFamily="@font/poppins_medium" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -93,11 +96,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textinput_organization">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/edit_email"
-            style="@style/textInputEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium" />
+                android:id="@+id/edit_email"
+                style="@style/textInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:maxLength="50"
+                android:inputType="textEmailAddress"
+                android:fontFamily="@font/poppins_medium" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -110,11 +116,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textinput_email">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/edit_website"
-            style="@style/textInputEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium" />
+                android:id="@+id/edit_website"
+                style="@style/textInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:maxLength="50"
+                android:inputType="textWebEditText"
+                android:fontFamily="@font/poppins_medium" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -127,12 +136,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textinput_website">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/edit_postalcode"
-            style="@style/textInputEditText"
-            android:layout_width="match_parent"
-            android:maxLength="10"
-            android:inputType="number"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium" />
+                android:id="@+id/edit_postalcode"
+                style="@style/textInputEditText"
+                android:layout_width="match_parent"
+                android:maxLength="6"
+                android:maxLines="1"
+                android:inputType="number"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium" />
     </android.support.design.widget.TextInputLayout>
 </android.support.constraint.ConstraintLayout>

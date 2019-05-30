@@ -20,11 +20,10 @@ import com.communityx.models.signup.StudentSignUpRequest
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.SnackBarFactory
+import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.fragment_sign_up_select_interest.*
 
 class SignUpSelectInterest : BaseSignUpFragment() {
-
-   // private lateinit var listInterest: MutableList<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,9 +34,10 @@ class SignUpSelectInterest : BaseSignUpFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //listInterest = mutableListOf()
         loadInterest()
-        //initData()
+        if (signUpActivity?.manaualInterest == null) {
+            signUpActivity?.manaualInterest = mutableListOf()
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -66,7 +66,7 @@ class SignUpSelectInterest : BaseSignUpFragment() {
 
     //todo : hard coded string
     override fun validateEmpty(requestData: StudentSignUpRequest?, showSnackbar: Boolean): Boolean {
-       if(signUpStudent?.interests.isNullOrEmpty()){
+        if (signUpStudent?.interests.isNullOrEmpty() || signUpActivity?.manaualInterest.isNullOrEmpty()) {
            if(showSnackbar) SnackBarFactory.createSnackBar(context,scrollView,"Please select at lease 1 interest")
            return false
        }
@@ -179,7 +179,6 @@ class SignUpSelectInterest : BaseSignUpFragment() {
                         textView.text = suggestedCause
                         imageCross.setOnClickListener { v1 ->
                             flex_layout_cause.removeView(view)
-                            signUpStudent?.interests?.remove(textView.text.toString())
                             signUpActivity?.manaualInterest?.remove(textView.text.toString())
                         }
                         val lp = ViewGroup.MarginLayoutParams(
@@ -191,10 +190,10 @@ class SignUpSelectInterest : BaseSignUpFragment() {
                             return@setOnTouchListener false
                         }
                         signUpActivity?.manaualInterest?.add(suggestedCause)
-                        signUpStudent?.interests?.add(suggestedCause)
                         flex_layout_cause.addView(view, lp)
                         edit_cause.setText("")
                         scrollView.post { scrollView.scrollTo(0, scrollView.height) }
+                        Utils.hideSoftKeyboard(activity)
                     }
                 }
             }
@@ -202,10 +201,9 @@ class SignUpSelectInterest : BaseSignUpFragment() {
         }
     }
 
-    //todo : hard coded string
     private fun validateSelectedItem() : Boolean{
-        var b = signUpStudent?.interests?.size!! < 5
-        if(!b) SnackBarFactory.createSnackBar(context,scrollView,"You can select maximum 5")
+        var b = signUpStudent?.interests?.size!! + signUpActivity?.manaualInterest?.size!! < 5
+        if (!b) SnackBarFactory.createSnackBar(context, scrollView, getString(R.string.limit_interest))
         return b
     }
 
@@ -219,9 +217,8 @@ class SignUpSelectInterest : BaseSignUpFragment() {
                 }
 
                 override fun onError(error: Any) {
-
+                    Utils.showError(activity, scrollView, error)
                 }
-
             })
         }
     }

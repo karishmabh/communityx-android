@@ -14,8 +14,7 @@ import com.communityx.base.BaseSignUpFragment
 import com.communityx.models.signup.StudentSignUpRequest
 import com.communityx.utils.SnackBarFactory
 import kotlinx.android.synthetic.main.fragment_sign_up_member_of_club.*
-
-import java.util.Objects
+import java.util.*
 
 class SignUpMemberOfClub : BaseSignUpFragment() {
 
@@ -54,7 +53,7 @@ class SignUpMemberOfClub : BaseSignUpFragment() {
             )
         )
         spinner_role!!.adapter =
-            ArrayAdapter(context!!, R.layout.item_member_of_club, R.id.text_item, arrayOf("President", "President"))
+            ArrayAdapter(context!!, R.layout.item_member_of_club, R.id.text_item, arrayOf("President"))
     }
 
     override fun onContinueButtonClicked() {
@@ -76,7 +75,11 @@ class SignUpMemberOfClub : BaseSignUpFragment() {
             TextUtils.isEmpty(signUpStudent?.club_name) -> b = false
             TextUtils.isEmpty(signUpStudent?.club_role) -> b = false
         }
-        if(!b && showSnackbar) SnackBarFactory.createSnackBar(context,constraint_layout,"Please select any club or organization")
+        if (!b && showSnackbar) SnackBarFactory.createSnackBar(
+            context,
+            constraint_layout,
+            getString(R.string.select_club_organization)
+        )
         return b
     }
 
