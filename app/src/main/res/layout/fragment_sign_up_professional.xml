@@ -37,7 +37,7 @@
                 style="@style/textInputEditText"
                 android:layout_width="match_parent"
                 tools:text="UI/UX Designer"
-                android:maxLines="1"
+                android:singleLine="true"
                 android:maxLength="50"
                 android:fontFamily="@font/poppins_medium"
                 android:layout_height="wrap_content"/>
@@ -57,7 +57,8 @@
                 style="@style/textInputEditText"
                 android:layout_width="match_parent"
                 tools:text="Abc Design Tech"
-                android:maxLines="1"
+                android:inputType="text"
+                android:singleLine="true"
                 android:maxLength="50"
                 android:fontFamily="@font/poppins_medium"
                 android:layout_height="wrap_content"/>

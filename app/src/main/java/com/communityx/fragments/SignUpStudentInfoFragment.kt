@@ -12,6 +12,8 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.*
 import android.widget.EditText
+import butterknife.ButterKnife
+import butterknife.OnClick
 import com.communityx.R
 import com.communityx.base.BaseSignUpFragment
 import com.communityx.models.signup.OtpRequest
@@ -34,7 +36,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up_student_info, null)
-
+        ButterKnife.bind(this, view)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val permission = PermissionHelper(signUpActivity)
             if (!permission.checkPermission(*permissions))
@@ -175,8 +177,8 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             }
             signUpActivity?.isOtpVerifed == false && TextUtils.isEmpty(edit_create_password.text.toString()) -> {
                 isValidate = false
-                //msg = getString(R.string.please_verify_otp)
                 createOtpAndVerify()
+                return isValidate
             }
             TextUtils.isEmpty(edit_create_password.text.toString()) -> {
                 isValidate = false
@@ -185,7 +187,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             }
             TextUtils.isEmpty(requestData?.password) -> {
                 isValidate = false
-                msg = getString(R.string.password_field_empty)
+                msg = getString(R.string.confirm_password_field_empty)
                 edit_confirm_password.requestFocus()
             }
             !TextUtils.isEmpty(requestData?.password) && requestData?.password!!.length < 6 -> {
@@ -200,6 +202,11 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         }
         if (!isValidate && showSnackbar) SnackBarFactory.createSnackBar(context, scrollView, msg)
         return isValidate
+    }
+
+    @OnClick(R.id.resend_otp)
+    fun tappedResend() {
+        tappedSentOtp()
     }
 
     private fun chooseImage() {
@@ -224,7 +231,10 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     }
 
     private fun tappedEditBirth() {
-        Utils.datePicker(signUpActivity, edit_birthday)
+        Utils.datePicker(signUpActivity) {
+            edit_birthday.setText(it)
+            edit_postalcode.requestFocus()
+        }
     }
 
     private fun initOtpBox() {
@@ -383,7 +393,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     }
 
     private fun disabledMobileField(disable: Boolean) {
-        edit_mobile.isEnabled = disable
+        edit_mobile.isEnabled = !disable
         text_send_otp.text = if (!disable) getString(R.string.send_otp) else getString(R.string.change)
     }
 
