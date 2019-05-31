@@ -39,6 +39,7 @@
                 tools:text="UI/UX Designer"
                 android:singleLine="true"
                 android:maxLength="50"
+                android:inputType="textCapWords"
                 android:fontFamily="@font/poppins_medium"
                 android:layout_height="wrap_content"/>
     </android.support.design.widget.TextInputLayout>
@@ -57,9 +58,9 @@
                 style="@style/textInputEditText"
                 android:layout_width="match_parent"
                 tools:text="Abc Design Tech"
-                android:inputType="text"
                 android:singleLine="true"
                 android:maxLength="50"
+                android:inputType="textCapWords"
                 android:fontFamily="@font/poppins_medium"
                 android:layout_height="wrap_content"/>
     </android.support.design.widget.TextInputLayout>
