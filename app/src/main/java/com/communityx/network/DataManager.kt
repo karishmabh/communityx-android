@@ -4,7 +4,7 @@ import android.app.Activity
 import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
 import com.communityx.models.logout.LogoutResponse
-import com.communityx.network.ServiceRepo.AuthRepo
+import com.communityx.network.serviceRepo.AuthRepo
 import com.communityx.utils.AppConstant
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

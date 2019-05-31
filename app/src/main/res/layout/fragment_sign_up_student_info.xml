@@ -135,6 +135,8 @@
                         android:layout_width="match_parent"
                         tools:text="12/07/2018"
                         android:inputType="date"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:fontFamily="@font/poppins_medium"
                         android:layout_height="wrap_content"/>
             </android.support.design.widget.TextInputLayout>

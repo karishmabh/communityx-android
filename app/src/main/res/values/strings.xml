@@ -154,6 +154,7 @@
     <string name="please_enter_password">Please enter your password.</string>
     <string name="please_enter_correct_mobile">Please enter correct mobile number.</string>
     <string name="password_length_mismatch">password length cannot be less than 6 characters.</string>
+    <string name="mobile_length_mismatch">mobile number cannot be less than 10 digits.</string>
     <string name="string_donated_by">"Donated by (219)"</string>
     <string name="string_charity_life">Charity Life</string>
     <string name="string_created_by_you">Created by You, today at 7:15 pm</string>
@@ -161,6 +162,7 @@
     <string name="string_filename">bitmap.png</string>
     <string name="string_build_social_impact">Build your social impact identity on CommunityX.</string>
     <string name="change">Change</string>
+    <string name="logout_success">You have been Logout successfully!</string>
     <string name="name_field_empty">Please enter name</string>
     <string name="email_field_empty">Please enter email</string>
     <string name="dob_empty">Please enter Date of birth</string>
