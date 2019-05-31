@@ -1,20 +1,17 @@
 package com.communityx.fragments
 
-
-import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
 import android.support.v4.view.ViewCompat
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
-import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.communityx.R
@@ -26,29 +23,27 @@ import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
 import com.communityx.utils.*
 import com.squareup.picasso.Picasso
-import de.hdodenhof.circleimageview.CircleImageView
-
-import java.util.Objects
+import kotlinx.android.synthetic.main.fragment_profile.*
+import java.util.*
 
 class ProfileFragment : Fragment(), AppConstant {
-
-    @BindView(R.id.image_user_profile)
-    internal var imageUser: CircleImageView? = null
-    @BindView(R.id.linear_top)
-    internal var linearTop: LinearLayout? = null
-    @BindView(R.id.text_name)
-    internal var textName: TextView? = null
-    @BindView(R.id.text_title)
-    internal var textTitle: TextView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
         ButterKnife.bind(this, view)
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setToolbar(view)
+        initializeProfileData()
+    }
+
+    private fun setToolbar(view: View) {
         val customToolBarHelper = CustomToolBarHelper(view)
         customToolBarHelper.setTitle(R.string.my_profile)
-
-        initializeProfileData()
-        return view
     }
 
     @OnClick(R.id.button_view_profile, R.id.image_user_profile)
@@ -56,8 +51,8 @@ class ProfileFragment : Fragment(), AppConstant {
         val intent = Intent(context, ProfileActivity::class.java)
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
             Objects.requireNonNull<FragmentActivity>(activity),
-            imageUser!!,
-            Objects.requireNonNull<String>(ViewCompat.getTransitionName(imageUser!!))
+            image_user_profile,
+            Objects.requireNonNull<String>(ViewCompat.getTransitionName(image_user_profile))
         )
         Objects.requireNonNull<Context>(context).startActivity(intent, options.toBundle())
     }
@@ -83,15 +78,15 @@ class ProfileFragment : Fragment(), AppConstant {
     }
 
     private fun initializeProfileData() {
-        if (!isAdded) return
+        if (activity == null) return
 
         val image = AppPreference.getInstance(activity!!).getString(AppConstant.PREF_USERIMAGE)
         if (!TextUtils.isEmpty(image)) {
-            Picasso.get().load(image).into(imageUser)
+            Picasso.get().load(image).into(image_user_profile)
         }
 
-        textName!!.text = AppPreference.getInstance(activity!!).getString(AppConstant.PREF_EMAIL)
-        textTitle!!.text = AppPreference.getInstance(activity!!).getString(AppConstant.PREF_PROFESSION)
+        text_name.text = AppPreference.getInstance(activity!!).getString(AppConstant.PREF_USERNAME)
+        text_sub_title.text = AppPreference.getInstance(activity!!).getString(AppConstant.PREF_PROFESSION)
     }
 
     private fun doLogout() {
@@ -101,19 +96,19 @@ class ProfileFragment : Fragment(), AppConstant {
             override fun onSuccess(response: LogoutResponse) {
                 dialog.dismiss()
 
+                AppPreference.getInstance(activity!!).setBoolean(AppConstant.PREF_IS_LOGIN, false)
                 AppPreference.getInstance(activity!!).clearSession()
                 startActivity(
-                    Intent(
-                        activity,
-                        LoginActivity::class.java
-                    ).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    Intent(activity, LoginActivity::class.java)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 )
-                Toast.makeText(activity, "You have been Logout successfully!", Toast.LENGTH_SHORT).show()
+                activity!!.overridePendingTransition(R.anim.anim_prev_slide_in, R.anim.anim_prev_slide_out)
+                Toast.makeText(activity, resources.getString(R.string.logout_success), Toast.LENGTH_SHORT).show()
             }
 
             override fun onError(error: Any) {
                 dialog.dismiss()
-                Utils.showError(activity, linearTop, error)
+                Utils.showError(activity, linear_top, error)
             }
         })
     }
