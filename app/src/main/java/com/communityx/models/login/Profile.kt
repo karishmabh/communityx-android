@@ -1,13 +1,16 @@
 package com.communityx.models.login
 
 data class Profile(
-    val admin: List<Admin>,
-    val student: List<Student>,
-    val professional: List<Professional>,
-    val organisation: List<Organisation>,
-    val category: String,
-    val email: String,
+    val club_name: String,
+    val club_role: String,
+    val dob: String,
+    val full_name: String,
     val id: String,
-    val last_login: String,
-    val phone: String
+    val interests: List<Interest>,
+    val postal_code: String,
+    val profile_image: String,
+    val standard: String,
+    val standard_name: String,
+    val standard_year: String,
+    val user_id: String
 )

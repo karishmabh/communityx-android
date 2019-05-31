@@ -22,7 +22,7 @@ class WelcomeActivity : AppCompatActivity(), View.OnClickListener , AppConstant 
         super.onCreate(savedInstanceState)
         this.setContentView(R.layout.activity_welcome)
 
-        //isLogin()
+        isLogin()
         getBasicAuth()
         setClickListener()
     }

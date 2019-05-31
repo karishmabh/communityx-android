@@ -79,6 +79,9 @@ class LoginActivity : AppCompatActivity() , AppConstant {
         } else if (!Utils.validatePhone(phone)) {
             SnackBarFactory.createSnackBar(this, constraint_top, resources.getString(R.string.please_enter_correct_mobile))
             return false
+        } else if (phone.length < 10) {
+            SnackBarFactory.createSnackBar(this, constraint_top, resources.getString(R.string.mobile_length_mismatch))
+            return false
         }
 
         if (TextUtils.isEmpty(password)) {
@@ -112,8 +115,10 @@ class LoginActivity : AppCompatActivity() , AppConstant {
 
     private fun saveUserData(loginData: Data) {
         AppPreference.getInstance(this).setString(PREF_SESSION_ID, loginData.session.session_id)
-        AppPreference.getInstance(this).setString(PREF_EMAIL, loginData.profile.email)
-
+        AppPreference.getInstance(this).setString(PREF_EMAIL, loginData.user.email)
+        AppPreference.getInstance(this).setString(PREF_USERNAME, loginData.user.profile.full_name)
+        AppPreference.getInstance(this).setString(PREF_PROFESSION, loginData.user.profile.standard)
+        AppPreference.getInstance(this).setString(PREF_USERIMAGE, loginData.user.profile.profile_image)
         AppPreference.getInstance(this).setBoolean(PREF_IS_LOGIN, true)
 
         navigateActivity()
