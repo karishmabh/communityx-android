@@ -1,6 +1,6 @@
 package com.communityx.models.logout
 
-import com.communityx.models.login.Error
+import com.communityx.models.Error
 
 data class LogoutResponse(
         val data: List<String>,
