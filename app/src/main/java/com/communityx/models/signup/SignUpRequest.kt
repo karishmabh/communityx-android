@@ -1,7 +1,7 @@
 package com.communityx.models.signup
 
 data class SignUpRequest(
-    var club_name: String? = null,
+    var club_id: String? = null,
     var club_role: String? = null,
     var dob: String? = null,
     var email: String? = null,

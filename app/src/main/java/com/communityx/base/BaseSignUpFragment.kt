@@ -1,7 +1,10 @@
 package com.communityx.base
 
+import android.Manifest
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.View
 import com.communityx.activity.SignUpStudentInfoActivity
 import com.communityx.models.signup.SignUpRequest
 import com.communityx.models.signup.image.ImageUploadRequest
@@ -9,6 +12,8 @@ import com.communityx.models.signup.image.ImageUploadResponse
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.AppConstant
+import com.communityx.utils.PermissionHelper
+import com.communityx.utils.Utils
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -22,9 +27,23 @@ abstract class BaseSignUpFragment : Fragment(), AppConstant {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        initBaseData()
+        checkRequiredPermission()
+    }
+
+    private fun initBaseData() {
         signUpActivity = activity as SignUpStudentInfoActivity
         signUpStudent = signUpActivity?.signUpRequest
         category = signUpActivity?.selectedCategory
+    }
+
+    private fun checkRequiredPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val permission = PermissionHelper(signUpActivity)
+            if (!permission.checkPermission(*permissions))
+                requestPermissions(permissions, AppConstant.REQUEST_PERMISSION_CODE)
+        }
     }
 
     protected fun goToNextPage(){
@@ -35,7 +54,7 @@ abstract class BaseSignUpFragment : Fragment(), AppConstant {
         signUpActivity?.enableButton(enable)
     }
 
-    protected fun uploadImage(imagePath: String) {
+    protected fun uploadImage(imagePath: String, view: View) {
         val file = File(imagePath)
         val requestFile = RequestBody.create(MediaType.parse(AppConstant.MILTI_PART_FORM_DATA), file)
         val body = MultipartBody.Part.createFormData(AppConstant.IMAGE_PARAM, file.name, requestFile)
@@ -48,7 +67,7 @@ abstract class BaseSignUpFragment : Fragment(), AppConstant {
             }
 
             override fun onError(error: Any) {
-
+                Utils.showError(activity, view, error)
             }
         })
     }
@@ -59,5 +78,9 @@ abstract class BaseSignUpFragment : Fragment(), AppConstant {
 
     abstract fun onContinueButtonClicked()
 
+    companion object {
+        private val permissions =
+            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    }
 
 }

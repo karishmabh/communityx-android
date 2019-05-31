@@ -120,7 +120,28 @@ object SignUpRepo : BaseRepo {
                     responseListener.onError(response.body()!!.error)
                 }
             }
-
         })
+    }
+
+    fun getClubAndRoles(responseListener: ResponseListener<ClubAndRoleData>) {
+        DataManager.getService().getClubsAndRoles(AuthRepo.getAccessToken())
+            .enqueue(object : Callback<ClubAndRoleResponse> {
+                override fun onFailure(call: Call<ClubAndRoleResponse>, t: Throwable) {
+                    responseListener.onError(t)
+                }
+
+                override fun onResponse(call: Call<ClubAndRoleResponse>, response: Response<ClubAndRoleResponse>) {
+                    if (!response.isSuccessful) {
+                        response.errorBody()?.let { responseListener.onError(it) }
+                        return
+                    }
+                    if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                        responseListener.onSuccess(response.body()!!.data[0])
+                    } else {
+                        responseListener.onError(response.body()!!.error)
+                    }
+                }
+
+            })
     }
 }

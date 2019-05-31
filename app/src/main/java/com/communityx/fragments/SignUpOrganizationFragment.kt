@@ -54,7 +54,7 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
                 edit_mobile.setSelection(3)
             }
         }
-        view_password.visibility = if (signUpActivity?.isOtpVerifed!!) View.VISIBLE else View.GONE
+        view_password.visibility = if (signUpActivity?.isOtpVerified!!) View.VISIBLE else View.GONE
     }
 
     override fun setFieldsData(): Boolean {
@@ -103,6 +103,11 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
                 errorMessage = getString(R.string.string_postalcode_cannot_be_empty)
                 if (showSnackbar) edit_postalcode.requestFocus()
             }
+            !TextUtils.isEmpty(requestData?.postal_code) && requestData?.postal_code?.length!! < 6 -> {
+                isValidate = false
+                errorMessage = getString(R.string.postal_code_should_be_six_character)
+                edit_postalcode.requestFocus()
+            }
             edit_mobile.text.toString() == "+91" -> {
                 isValidate = false
                 errorMessage = getString(R.string.mobile_field_empty)
@@ -113,7 +118,7 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
                 isValidate = false
                 errorMessage = getString(R.string.click_on_send_otp)
             }
-            signUpActivity?.isOtpVerifed == false && TextUtils.isEmpty(edit_create_password.text.toString()) -> {
+            signUpActivity?.isOtpVerified == false -> {
                 isValidate = false
                 createOtpAndVerify()
                 return isValidate
@@ -152,7 +157,7 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
         image_add_edit.setImageResource(R.drawable.ic_signup_edit_image)
         text_profile.text = resources.getString(R.string.edit_profile_image)
         signUpActivity?.selectImagePath = imagePath
-        uploadImage(imagePath)
+        uploadImage(imagePath, constraint_root)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -168,6 +173,7 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
 
     @OnClick(R.id.text_send_otp)
     fun tappedSentOtp() {
+        signUpActivity?.isOtpVerified == false
         Utils.hideSoftKeyboard(activity)
         if (edit_mobile.text.toString() == "+91") {
             SnackBarFactory.createSnackBar(context, constraint_root, getString(R.string.mobile_field_empty))
@@ -300,7 +306,7 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
                 view_password.visibility = View.VISIBLE
                 constraint_root.post { constraint_root.scrollTo(0, constraint_root.height) }
                 visibleOtpField(false)
-                signUpActivity?.isOtpVerifed = true
+                signUpActivity?.isOtpVerified = true
                 edit_create_password.requestFocus()
                 clearOtp()
                 dialog?.dismiss()
@@ -309,7 +315,7 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
 
             override fun onError(error: Any) {
                 Utils.showError(activity, constraint_root, error)
-                signUpActivity?.isOtpVerifed = false
+                signUpActivity?.isOtpVerified = false
                 dialog?.dismiss()
             }
         })

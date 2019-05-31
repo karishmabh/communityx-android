@@ -14,7 +14,7 @@ import com.communityx.models.signup.SignUpResponse
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.AppConstant
-import com.communityx.utils.AppConstant.USER_ID
+import com.communityx.utils.AppConstant.*
 import com.communityx.utils.DialogHelper
 import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.activity_sign_up_student_info.*
@@ -30,7 +30,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     public var selectedRole = 0
     var selectImagePath: String? = null
     var manaualInterest: MutableList<String>? = null
-    var isOtpVerifed = false
+    var isOtpVerified = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,7 +106,11 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
         enable?.let { Utils.enableButton(button_continue, it) }
     }
 
-    private fun navigateToConnectAlies(intent: Intent) {
+    private fun navigateToConnectAlies(userId: String) {
+        val intent = Intent(this@SignUpStudentInfoActivity, ConnectAlliesActivity::class.java)
+        intent.putExtra(USER_ID, userId)
+        intent.putExtra(PHONE_KEY, signUpRequest?.phone)
+        intent.putExtra(PASSWORD_KEY, signUpRequest?.password)
         startActivity(intent)
         finish()
     }
@@ -136,9 +140,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
         var dialog = DialogHelper.showProgressDialog(this, "Please wait... Registering you")
         SignUpRepo.createSignUp(this, signUpRequest!!, object : ResponseListener<SignUpResponse> {
             override fun onSuccess(response: SignUpResponse) {
-                val intent =  Intent(this@SignUpStudentInfoActivity, ConnectAlliesActivity::class.java)
-                intent.putExtra(USER_ID, response.data[0].user_id)
-                navigateToConnectAlies(intent)
+                navigateToConnectAlies(response.data[0].user_id)
                 dialog.dismiss()
             }
 
@@ -147,5 +149,13 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
                 dialog.dismiss()
             }
         })
+    }
+
+    override fun onBackPressed() {
+        if (view_pager.currentItem > 0) {
+            view_pager?.setCurrentItem(view_pager!!.currentItem - 1, true)
+            return
+        }
+        super.onBackPressed()
     }
 }
