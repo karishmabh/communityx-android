@@ -12,6 +12,8 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.*
 import android.widget.EditText
+import butterknife.ButterKnife
+import butterknife.OnClick
 import com.communityx.R
 import com.communityx.base.BaseSignUpFragment
 import com.communityx.models.signup.OtpRequest
@@ -34,7 +36,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up_student_info, null)
-
+        ButterKnife.bind(this, view)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val permission = PermissionHelper(signUpActivity)
             if (!permission.checkPermission(*permissions))
@@ -81,7 +83,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         super.onActivityCreated(savedInstanceState)
 
         initOtpBox()
-        view_password.visibility = if (signUpActivity?.isOtpVerifed!!) View.VISIBLE else View.GONE
+        view_password.visibility = if (signUpActivity?.isOtpVerified!!) View.VISIBLE else View.GONE
     }
 
     override fun onClick(v: View?) {
@@ -111,7 +113,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         text_profile.text = resources.getString(R.string.edit_profile_image)
         image_add_edit.setImageResource(R.drawable.ic_signup_edit_image)
         signUpActivity?.selectImagePath = imagePath
-        uploadImage(imagePath)
+        uploadImage(imagePath, scrollView)
     }
 
     override fun onContinueButtonClicked() {
@@ -119,7 +121,6 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     }
 
     override fun setFieldsData(): Boolean {
-        // if(edit_mobile.text.toString() == "+91") edit_mobile.text.toString() else edit_mobile.text.toString().substring(4)
         signUpStudent?.full_name = edit_email_username.text.toString()
         signUpStudent?.email = edit_email.text.toString()
         signUpStudent?.dob = edit_birthday.text.toString()
@@ -174,10 +175,10 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                 isValidate = false
                 msg = getString(R.string.click_on_send_otp)
             }
-            signUpActivity?.isOtpVerifed == false && TextUtils.isEmpty(edit_create_password.text.toString()) -> {
+            signUpActivity?.isOtpVerified == false -> {
                 isValidate = false
-                //msg = getString(R.string.please_verify_otp)
                 createOtpAndVerify()
+                return isValidate
             }
             TextUtils.isEmpty(edit_create_password.text.toString()) -> {
                 isValidate = false
@@ -186,7 +187,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             }
             TextUtils.isEmpty(requestData?.password) -> {
                 isValidate = false
-                msg = getString(R.string.password_field_empty)
+                msg = getString(R.string.confirm_password_field_empty)
                 edit_confirm_password.requestFocus()
             }
             !TextUtils.isEmpty(requestData?.password) && requestData?.password!!.length < 6 -> {
@@ -203,11 +204,17 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         return isValidate
     }
 
+    @OnClick(R.id.resend_otp)
+    fun tappedResend() {
+        tappedSentOtp()
+    }
+
     private fun chooseImage() {
         showImageChooserDialog()
     }
 
     private fun tappedSentOtp() {
+        signUpActivity?.isOtpVerified = false
         if (edit_mobile.text.toString() == "+91") {
             SnackBarFactory.createSnackBar(context, scrollView, getString(R.string.mobile_field_empty))
             return
@@ -225,7 +232,10 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     }
 
     private fun tappedEditBirth() {
-        Utils.datePicker(signUpActivity, edit_birthday)
+        Utils.datePicker(signUpActivity) {
+            edit_birthday.setText(it)
+            edit_postalcode.requestFocus()
+        }
     }
 
     private fun initOtpBox() {
@@ -314,8 +324,9 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                 image_add_edit.setImageResource(R.drawable.ic_signup_edit_image)
             }
         }
-        edit_mobile.isEnabled = !signUpActivity?.isOtpVerifed!!
-        text_send_otp.text = if(signUpActivity?.isOtpVerifed!!) getString(R.string.change) else getString(R.string.send_otp)
+        edit_mobile.isEnabled = !signUpActivity?.isOtpVerified!!
+        text_send_otp.text =
+            if (signUpActivity?.isOtpVerified!!) getString(R.string.change) else getString(R.string.send_otp)
     }
 
     private fun generateOtp(otpRequest: OtpRequest) {
@@ -345,7 +356,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                 view_password.visibility = View.VISIBLE
                 scrollView.post { scrollView.scrollTo(0, scrollView.height) }
                 visibleOtpField(false)
-                signUpActivity?.isOtpVerifed = true
+                signUpActivity?.isOtpVerified = true
                 edit_create_password.requestFocus()
                 clearOtp()
                 dialog?.dismiss()
@@ -354,7 +365,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
 
             override fun onError(error: Any) {
                 Utils.showError(activity, scrollView, error)
-                signUpActivity?.isOtpVerifed = false
+                signUpActivity?.isOtpVerified = false
                 dialog?.dismiss()
             }
         })
@@ -383,9 +394,9 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             edit_otp_six.setText("")
     }
 
-    private fun disabledMobileField(enable: Boolean) {
-        edit_mobile.isEnabled = !enable
-        text_send_otp.text = if (enable) getString(R.string.send_otp) else getString(R.string.change)
+    private fun disabledMobileField(disable: Boolean) {
+        edit_mobile.isEnabled = !disable
+        text_send_otp.text = if (!disable) getString(R.string.send_otp) else getString(R.string.change)
     }
 
     internal fun onMobileNumberChange(s: CharSequence?) {

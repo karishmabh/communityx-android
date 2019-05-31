@@ -1,12 +1,13 @@
 package com.communityx.models.signup
 
 data class SignUpRequest(
-    var club_name: String? = null,
+    var club_id: String? = null,
     var club_role: String? = null,
     var dob: String? = null,
     var email: String? = null,
     var full_name: String? = null,
     var interests: MutableList<String>? = mutableListOf(),
+    var suggested_minors: MutableList<String>? = mutableListOf(),
     var password: String? = null,
     var phone: String? = null,
     var postal_code: String? = null,

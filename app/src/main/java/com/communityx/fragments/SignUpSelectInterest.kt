@@ -61,13 +61,18 @@ class SignUpSelectInterest : BaseSignUpFragment() {
     }
 
     override fun setFieldsData(): Boolean {
+        signUpStudent?.suggested_minors = signUpActivity?.manaualInterest
         return validateEmpty(signUpStudent)
     }
 
     //todo : hard coded string
     override fun validateEmpty(requestData: SignUpRequest?, showSnackbar: Boolean): Boolean {
-        if (signUpStudent?.interests.isNullOrEmpty() && signUpActivity?.manaualInterest.isNullOrEmpty()) {
-           if(showSnackbar) SnackBarFactory.createSnackBar(context,scrollView,"Please select at lease 1 interest")
+        if (signUpStudent?.interests.isNullOrEmpty()) {
+            if (showSnackbar) SnackBarFactory.createSnackBar(
+                context,
+                scrollView,
+                "Please select at lease 1 interest above."
+            )
            return false
        }
         return true
@@ -192,8 +197,11 @@ class SignUpSelectInterest : BaseSignUpFragment() {
                         signUpActivity?.manaualInterest?.add(suggestedCause)
                         flex_layout_cause.addView(view, lp)
                         edit_cause.setText("")
-                        scrollView.post { scrollView.scrollTo(0, scrollView.height) }
-                        Utils.hideSoftKeyboard(activity)
+                        scrollView.post {
+                            scrollView.scrollTo(0, scrollView.height)
+                            Utils.hideSoftKeyboard(activity)
+                        }
+
                     }
                 }
             }
@@ -203,7 +211,10 @@ class SignUpSelectInterest : BaseSignUpFragment() {
 
     private fun validateSelectedItem() : Boolean{
         var b = signUpStudent?.interests?.size!! + signUpActivity?.manaualInterest?.size!! < 5
-        if (!b) SnackBarFactory.createSnackBar(context, scrollView, getString(R.string.limit_interest))
+        if (!b) {
+            scrollView.post { Utils.hideSoftKeyboard(activity) }
+            SnackBarFactory.createSnackBar(context, scrollView, getString(R.string.limit_interest))
+        }
         return b
     }
 
