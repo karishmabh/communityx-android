@@ -108,6 +108,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     private fun navigateToConnectAlies(userId: String) {
         val intent = Intent(this@SignUpStudentInfoActivity, ConnectAlliesActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         intent.putExtra(USER_ID, userId)
         intent.putExtra(PHONE_KEY, signUpRequest?.phone)
         intent.putExtra(PASSWORD_KEY, signUpRequest?.password)
