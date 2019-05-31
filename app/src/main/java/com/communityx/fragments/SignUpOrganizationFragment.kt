@@ -172,6 +172,16 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
     }
 
     @OnClick(R.id.text_send_otp)
+    fun tappedSendOrChangeText() {
+        if (!shouldChangeNumber) {
+            tappedSentOtp()
+        } else {
+            edit_mobile.isEnabled = true
+            shouldChangeNumber = false
+            text_send_otp.text = getString(R.string.send_otp)
+        }
+    }
+
     fun tappedSentOtp() {
         signUpActivity?.isOtpVerified == false
         Utils.hideSoftKeyboard(activity)
