@@ -119,7 +119,6 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     }
 
     override fun setFieldsData(): Boolean {
-        // if(edit_mobile.text.toString() == "+91") edit_mobile.text.toString() else edit_mobile.text.toString().substring(4)
         signUpStudent?.full_name = edit_email_username.text.toString()
         signUpStudent?.email = edit_email.text.toString()
         signUpStudent?.dob = edit_birthday.text.toString()
@@ -383,9 +382,9 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             edit_otp_six.setText("")
     }
 
-    private fun disabledMobileField(enable: Boolean) {
-        edit_mobile.isEnabled = !enable
-        text_send_otp.text = if (enable) getString(R.string.send_otp) else getString(R.string.change)
+    private fun disabledMobileField(disable: Boolean) {
+        edit_mobile.isEnabled = disable
+        text_send_otp.text = if (!disable) getString(R.string.send_otp) else getString(R.string.change)
     }
 
     internal fun onMobileNumberChange(s: CharSequence?) {

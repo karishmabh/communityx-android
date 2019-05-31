@@ -61,6 +61,7 @@ class SignUpSelectInterest : BaseSignUpFragment() {
     }
 
     override fun setFieldsData(): Boolean {
+        signUpStudent?.suggested_minors = signUpActivity?.manaualInterest
         return validateEmpty(signUpStudent)
     }
 
