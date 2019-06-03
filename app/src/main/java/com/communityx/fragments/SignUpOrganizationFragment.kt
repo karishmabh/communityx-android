@@ -22,11 +22,8 @@ import com.communityx.models.signup.SignUpRequest
 import com.communityx.models.signup.VerifyOtpRequest
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
+import com.communityx.utils.*
 import com.communityx.utils.AppConstant.EMAIL_PATTERN
-import com.communityx.utils.DialogHelper
-import com.communityx.utils.GalleryPicker
-import com.communityx.utils.SnackBarFactory
-import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.fragment_sign_up_organization.*
 
 class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPickerListener {
@@ -128,15 +125,15 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
                 errorMessage = getString(R.string.password_field_empty)
                 edit_create_password.requestFocus()
             }
+            !TextUtils.isEmpty(edit_create_password?.text) && edit_create_password?.text!!.length < 6 -> {
+                isValidate = false
+                errorMessage = getString(R.string.password_leght_error)
+                edit_create_password.requestFocus()
+            }
             TextUtils.isEmpty(requestData?.password) -> {
                 isValidate = false
                 errorMessage = getString(R.string.confirm_password_field_empty)
                 edit_confirm_password.requestFocus()
-            }
-            !TextUtils.isEmpty(requestData?.password) && requestData?.password!!.length < 6 -> {
-                isValidate = false
-                errorMessage = getString(R.string.password_leght_error)
-                edit_create_password.requestFocus()
             }
             edit_confirm_password?.text.toString() != edit_create_password.text.toString() -> {
                 isValidate = false
@@ -163,6 +160,11 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) galleryPicker?.fetch(requestCode, data)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        galleryPicker?.onResultPermission(requestCode,grantResults)
     }
 
     @OnClick(R.id.view_add_image)
@@ -222,7 +224,7 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
     }
 
     private fun generateOtp(otpRequest: OtpRequest) {
-        var dialog = DialogHelper.showProgressDialog(context, "Please wait, sending OTP...")
+        var dialog = CustomProgressBar.getInstance(context!!).showProgressDialog("Please wait, sending OTP...")
         SignUpRepo.generateOtp(context!!, otpRequest, object : ResponseListener<String> {
 
             override fun onSuccess(response: String) {
@@ -230,12 +232,12 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
                 visibleOtpField(true)
                 edit_mobile.isEnabled = false
                 constraint_root.post { constraint_root.scrollTo(0, constraint_root.height) }
-                dialog?.dismiss()
+                dialog.dismiss()
             }
 
             override fun onError(error: Any) {
                 Utils.showError(activity, constraint_root, error)
-                dialog?.dismiss()
+                dialog.dismiss()
             }
         })
     }
@@ -309,7 +311,7 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
     }
 
     private fun verifyOtp(verifyOtpRequest: VerifyOtpRequest) {
-        var dialog = DialogHelper.showProgressDialog(context, "Verifying OTP...")
+        var dialog = CustomProgressBar.getInstance(context!!).showProgressDialog("Verifying otp...")
         SignUpRepo.verifyOtp(context!!, verifyOtpRequest, object : ResponseListener<String> {
             override fun onSuccess(response: String) {
                 SnackBarFactory.createSnackBar(context, constraint_root, response)
@@ -319,14 +321,14 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
                 signUpActivity?.isOtpVerified = true
                 edit_create_password.requestFocus()
                 clearOtp()
-                dialog?.dismiss()
+                dialog.dismiss()
                 disabledMobileField(true)
             }
 
             override fun onError(error: Any) {
                 Utils.showError(activity, constraint_root, error)
                 signUpActivity?.isOtpVerified = false
-                dialog?.dismiss()
+                dialog.dismiss()
             }
         })
     }

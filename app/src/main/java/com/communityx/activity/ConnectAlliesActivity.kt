@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.Toast
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.communityx.R
@@ -24,8 +25,7 @@ import java.util.*
 class ConnectAlliesActivity : AppCompatActivity() {
     private val alliesList = ArrayList<String>()
     private var communityAlliesAdapter: CommunityAlliesAdapter? = null
-    private lateinit var phoneNumber: String
-    private lateinit var password: String
+    private lateinit var sessionId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,45 +40,19 @@ class ConnectAlliesActivity : AppCompatActivity() {
     }
 
     private fun getIntentData() {
-        phoneNumber = intent.getStringExtra(AppConstant.PHONE_KEY)
-        password = intent.getStringExtra(AppConstant.PASSWORD_KEY)
+        sessionId = intent.getStringExtra(AppConstant.SESSION_KEY)
+        Toast.makeText(this,sessionId,Toast.LENGTH_LONG).show()
     }
 
     @OnClick(R.id.button_community)
     internal fun buttonCommunityTapped() {
-        performLogin()
-    }
-
-    private fun performLogin() {
-        val dialog = CustomProgressBar.getInstance(this).showProgressDialog("Logging in...")
-        DataManager.doLogin(this, LoginRequest(phoneNumber, password), object : ResponseListener<LoginResponse> {
-            override fun onSuccess(response: LoginResponse) {
-
-                dialog.dismiss()
-                val loginData = response.data.get(0)
-                saveUserData(loginData)
-            }
-
-            override fun onError(error: Any) {
-                dialog.dismiss()
-                Utils.showError(this@ConnectAlliesActivity, constraint_layout, error)
-            }
-
-        })
+      navigateActivity()
     }
 
     fun setAdapter(alliesList: ArrayList<String>) {
         recycler_view!!.layoutManager = LinearLayoutManager(this)
         communityAlliesAdapter = CommunityAlliesAdapter(alliesList, this)
         recycler_view!!.adapter = communityAlliesAdapter
-    }
-
-    private fun saveUserData(loginData: Data) {
-        AppPreference.getInstance(this).setString(AppConstant.PREF_SESSION_ID, loginData.session.session_id)
-        // AppPreference.getInstance(this).setString(AppConstant.PREF_EMAIL, loginData.profile.email)
-        AppPreference.getInstance(this).setBoolean(AppConstant.PREF_IS_LOGIN, true)
-
-        navigateActivity()
     }
 
     private fun navigateActivity() {

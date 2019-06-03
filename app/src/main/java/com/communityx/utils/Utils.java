@@ -17,7 +17,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import com.communityx.R;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -162,6 +164,13 @@ public class Utils {
 
     public static void showHideView(@NonNull View view, boolean show){
         view.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    public static void loadProfile(String profileUrl, @NonNull ImageView imageView) {
+        Picasso.get().load(profileUrl)
+                .placeholder(R.drawable.profile_placeholder)
+                .error(R.drawable.profile_placeholder)
+                .into(imageView);
     }
 
     public static void hideSoftKeyboard(Activity activity) {

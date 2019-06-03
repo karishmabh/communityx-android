@@ -2,6 +2,7 @@ package com.communityx.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.communityx.application.MyApplication
 
 class AppPreference  private constructor(context: Context) {
 
@@ -63,7 +64,7 @@ class AppPreference  private constructor(context: Context) {
     companion object {
         private var instance : AppPreference? = null
 
-        fun  getInstance(context: Context): AppPreference {
+        fun  getInstance(context: Context = MyApplication.application!!): AppPreference {
             if (instance == null)
                 instance = AppPreference(context)
 

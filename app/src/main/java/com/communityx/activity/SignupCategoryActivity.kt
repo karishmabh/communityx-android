@@ -30,11 +30,11 @@ class SignupCategoryActivity : AppCompatActivity(), AppConstant {
     @OnClick(id.view_student, id.view_professional, id.view_organisation)
     internal fun selectCategory(view: View) {
         if (view == view_student)
-            categorySelected(AppConstant.ACTION_SIGN_UP_STUDENT)
+            categorySelected(AppConstant.STUDENT)
         else if (view == view_professional)
-            categorySelected(AppConstant.ACTION_SIGN_UP_PROFESSIONAL)
+            categorySelected(AppConstant.PROFESSIONAL)
         else if (view == view_organisation)
-            categorySelected(AppConstant.ACTION_SIGN_UP_ORGANIZATION)
+            categorySelected(AppConstant.ORGANIZATION)
     }
 
 
@@ -60,7 +60,7 @@ class SignupCategoryActivity : AppCompatActivity(), AppConstant {
         selectedCategory = category
 
         when (category) {
-            AppConstant.ACTION_SIGN_UP_STUDENT -> {
+            AppConstant.STUDENT -> {
                 view_student!!.background = this.resources.getDrawable(R.drawable.border_orange_bg)
                 view_professional!!.background = this.resources.getDrawable(R.drawable.bordered_bg)
                 view_organisation!!.background = this.resources.getDrawable(R.drawable.bordered_bg)
@@ -78,7 +78,7 @@ class SignupCategoryActivity : AppCompatActivity(), AppConstant {
                 image_organisation_tick!!.visibility = View.GONE
             }
 
-            AppConstant.ACTION_SIGN_UP_PROFESSIONAL -> {
+            AppConstant.PROFESSIONAL -> {
                 view_student!!.background = this.resources.getDrawable(R.drawable.bordered_bg)
                 view_professional!!.background = this.resources.getDrawable(R.drawable.border_orange_bg)
                 view_organisation!!.background = this.resources.getDrawable(R.drawable.bordered_bg)
@@ -96,7 +96,7 @@ class SignupCategoryActivity : AppCompatActivity(), AppConstant {
                 image_organisation_tick!!.visibility = View.GONE
             }
 
-            AppConstant.ACTION_SIGN_UP_ORGANIZATION -> {
+            AppConstant.ORGANIZATION -> {
                 view_student!!.background = this.resources.getDrawable(R.drawable.bordered_bg)
                 view_professional!!.background = this.resources.getDrawable(R.drawable.bordered_bg)
                 view_organisation!!.background = this.resources.getDrawable(R.drawable.border_orange_bg)

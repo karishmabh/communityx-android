@@ -6,20 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetDialog;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.*;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.communityx.R;
-
-import java.util.Objects;
 
 public class DialogHelper {
 
@@ -125,21 +117,6 @@ public class DialogHelper {
             }
         });
         dialog.show();
-    }
-
-    public static Dialog showProgressDialog(Context context,@NonNull String progressMsg){
-        Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        Window window = dialog.getWindow();
-        Objects.requireNonNull(window).setLayout(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        window.setContentView(R.layout.dialog_progress);
-        dialog.setCancelable(false);
-        dialog.show();
-
-        TextView textProgress = dialog.findViewById(R.id.text_progress);
-        textProgress.setText(progressMsg);
-
-        return dialog;
     }
 
     public interface IDialogCallback {
