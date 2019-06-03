@@ -22,7 +22,7 @@ import com.communityx.models.logout.LogoutResponse
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
 import com.communityx.utils.*
-import com.squareup.picasso.Picasso
+import com.communityx.utils.AppConstant.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import java.util.*
 
@@ -82,11 +82,17 @@ class ProfileFragment : Fragment(), AppConstant {
 
         val image = AppPreference.getInstance(activity!!).getString(AppConstant.PREF_USERIMAGE)
         if (!TextUtils.isEmpty(image)) {
-            Picasso.get().load(image).into(image_user_profile)
+            Utils.loadProfile(image, image_user_profile)
         }
 
         text_name.text = AppPreference.getInstance(activity!!).getString(AppConstant.PREF_USERNAME)
-        text_sub_title.text = AppPreference.getInstance(activity!!).getString(AppConstant.PREF_PROFESSION)
+
+        var category = AppPreference.getInstance().getString(AppConstant.PREF_CATEGORY)
+        when (category) {
+            STUDENT -> text_sub_title.text = AppPreference.getInstance().getString(PREF_STANDARD_NAME)
+            PROFESSIONAL -> text_sub_title.text = AppPreference.getInstance().getString(PREF_COMPANY_NAME)
+            ORGANIZATION -> text_sub_title.text = AppPreference.getInstance().getString(PREF_WEBSITE_NAME)
+        }
     }
 
     private fun doLogout() {

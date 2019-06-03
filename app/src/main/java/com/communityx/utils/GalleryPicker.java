@@ -16,7 +16,6 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import com.communityx.R;
 
 import java.io.ByteArrayOutputStream;
@@ -26,6 +25,8 @@ public class GalleryPicker {
 
     public static final int CAPTURE_IMAGE = 100;
     public static final int PICK_GALLERY = 200;
+    public static final int CAMERA_PERMISSION_CODE = 1000;
+    public static final int GALLERY_PERMISSION_CODE = 2000;
     private static final String TAG = "GalleryPicker";
     private Activity mActivity;
     private Fragment mFragment;
@@ -112,6 +113,16 @@ public class GalleryPicker {
         galleryPickerListener.onMediaSelected(getImagePath(mActivity, mSelectedImage), mSelectedImage, media == Media.IMAGE);
     }
 
+    public void onResultPermission(int requestCode, int[] grantResults) {
+        if (requestCode == GalleryPicker.CAMERA_PERMISSION_CODE || requestCode == GalleryPicker.GALLERY_PERMISSION_CODE) {
+            if (grantResults.length > 0) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    showDialog();
+                }
+            }
+        }
+    }
+
     private void initViews(View view) {
         View imageCamera = view.findViewById(R.id.layout_camera);
         View imageGallery = view.findViewById(R.id.layout_gallery);
@@ -120,14 +131,32 @@ public class GalleryPicker {
             bottomSheetDialog.dismiss();
             if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 Log.e(TAG, "Camera Permission Required");
-                ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.CAMERA}, 101);
+                if (mFragment != null) {
+                    mFragment.requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+                    return;
+                }
+                ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
                 return;
             }
             fireIntent(Option.CAMERA, CAPTURE_IMAGE);
         });
         imageGallery.setOnClickListener(v -> {
-            fireIntent(Option.GALLERY, PICK_GALLERY);
             bottomSheetDialog.dismiss();
+            if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                Log.e(TAG, "Storage Permission Required");
+                if (mFragment != null) {
+                    mFragment.requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    }, GALLERY_PERMISSION_CODE);
+                    return;
+                }
+                ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                }, GALLERY_PERMISSION_CODE);
+                return;
+            }
+            fireIntent(Option.GALLERY, PICK_GALLERY);
         });
     }
 

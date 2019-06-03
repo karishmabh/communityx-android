@@ -1,5 +1,6 @@
 package com.communityx.activity
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,13 +10,19 @@ import com.communityx.R
 import com.communityx.adapters.SignUpPagerAdapter
 import com.communityx.custom_views.CustomViewPager
 import com.communityx.fragments.*
+import com.communityx.models.login.Data
+import com.communityx.models.login.LoginRequest
+import com.communityx.models.login.LoginResponse
 import com.communityx.models.signup.SignUpRequest
 import com.communityx.models.signup.SignUpResponse
+import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
+import com.communityx.session.SessionManager
 import com.communityx.utils.AppConstant
 import com.communityx.utils.AppConstant.*
-import com.communityx.utils.DialogHelper
+import com.communityx.utils.AppPreference
+import com.communityx.utils.CustomProgressBar
 import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.activity_sign_up_student_info.*
 import kotlinx.android.synthetic.main.layout_top_view_logo.*
@@ -24,13 +31,14 @@ import java.util.*
 class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClickListener {
 
     private var pagerAdapter: SignUpPagerAdapter? = null
-    public var selectedCategory: String? = null
+    var selectedCategory: String? = null
     var signUpRequest : SignUpRequest? = null
-    public var selectedClubNameIndex = 0
-    public var selectedRole = 0
+    var selectedClubNameIndex = 0
+    var selectedRole = 0
     var selectImagePath: String? = null
     var manaualInterest: MutableList<String>? = null
     var isOtpVerified = false
+    private lateinit var dialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,12 +114,10 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
         enable?.let { Utils.enableButton(button_continue, it) }
     }
 
-    private fun navigateToConnectAlies(userId: String) {
+    private fun navigateToConnectAlies(loginData: Data) {
         val intent = Intent(this@SignUpStudentInfoActivity, ConnectAlliesActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        intent.putExtra(USER_ID, userId)
-        intent.putExtra(PHONE_KEY, signUpRequest?.phone)
-        intent.putExtra(PASSWORD_KEY, signUpRequest?.password)
+        intent.putExtra(SESSION_KEY, loginData.session.id)
         startActivity(intent)
         finish()
     }
@@ -119,30 +125,30 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     private fun getFragments(selectedCategory: String): List<Fragment> {
         val fragments = ArrayList<Fragment>()
         when (selectedCategory) {
-            AppConstant.ACTION_SIGN_UP_STUDENT -> {
+            AppConstant.STUDENT -> {
                 fragments.add(SignUpStudentInfoFragment())
                 fragments.add(SignUpSchoolCollegeFragment())
                 fragments.add(SignUpRoleFragment())
                 fragments.add(SignUpMemberOfClub())
             }
-            AppConstant.ACTION_SIGN_UP_PROFESSIONAL -> {
+            AppConstant.PROFESSIONAL -> {
                 fragments.add(SignUpStudentInfoFragment())
                 fragments.add(SignUpProfessional())
                 fragments.add(SignUpMemberOfClub())
             }
-            AppConstant.ACTION_SIGN_UP_ORGANIZATION -> fragments.add(SignUpOrganizationFragment())
+            AppConstant.ORGANIZATION -> fragments.add(SignUpOrganizationFragment())
         }
         fragments.add(SignUpSelectInterest())
         return fragments
     }
 
+
     //todo : hard coded string
     private fun completedSignUp() {
-        var dialog = DialogHelper.showProgressDialog(this, "Please wait... Registering you")
+        dialog = CustomProgressBar.getInstance(this).showProgressDialog("Please wait... Registering you")
         SignUpRepo.createSignUp(this, signUpRequest!!, object : ResponseListener<SignUpResponse> {
             override fun onSuccess(response: SignUpResponse) {
-                navigateToConnectAlies(response.data[0].user_id)
-                dialog.dismiss()
+                performLogin(signUpRequest?.phone!!, signUpRequest?.password!!)
             }
 
             override fun onError(error: Any) {
@@ -158,5 +164,28 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
             return
         }
         super.onBackPressed()
+    }
+
+
+    private fun performLogin(phoneNumber: String, password: String) {
+        DataManager.doLogin(this, LoginRequest(phoneNumber, password), object : ResponseListener<LoginResponse> {
+            override fun onSuccess(response: LoginResponse) {
+
+                dialog.dismiss()
+                val loginData = response.data[0]
+                saveUserData(loginData)
+            }
+
+            override fun onError(error: Any) {
+                dialog.dismiss()
+                Utils.showError(this@SignUpStudentInfoActivity, constraint_layout, error)
+            }
+
+        })
+    }
+
+    private fun saveUserData(loginData: Data) {
+        SessionManager.setSession(loginData)
+        navigateToConnectAlies(loginData)
     }
 }

@@ -14,6 +14,7 @@ import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
+import com.communityx.session.SessionManager
 import com.communityx.utils.*
 import com.communityx.utils.AppConstant.*
 import kotlinx.android.synthetic.main.activity_login.*
@@ -114,12 +115,13 @@ class LoginActivity : AppCompatActivity() , AppConstant {
     }
 
     private fun saveUserData(loginData: Data) {
-        AppPreference.getInstance(this).setString(PREF_SESSION_ID, loginData.session.session_id)
+        SessionManager.setSession(loginData)
+       /* AppPreference.getInstance(this).setString(PREF_SESSION_ID, loginData.session.session_id)
         AppPreference.getInstance(this).setString(PREF_EMAIL, loginData.user.email)
         AppPreference.getInstance(this).setString(PREF_USERNAME, loginData.user.profile.full_name)
         AppPreference.getInstance(this).setString(PREF_PROFESSION, loginData.user.profile.standard)
         AppPreference.getInstance(this).setString(PREF_USERIMAGE, loginData.user.profile.profile_image)
-        AppPreference.getInstance(this).setBoolean(PREF_IS_LOGIN, true)
+        AppPreference.getInstance(this).setBoolean(PREF_IS_LOGIN, true)*/
 
         navigateActivity()
     }

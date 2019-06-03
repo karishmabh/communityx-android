@@ -10,13 +10,16 @@ public interface AppConstant {
     String PREF_USERNAME = "pref_username";
     String PREF_USERIMAGE = "pref_userimage";
     String PREF_PROFESSION = "pref_profession";
+    String PREF_STANDARD_NAME = "pref_standard_name";
+    String PREF_COMPANY_NAME = "pref_company_name";
+    String PREF_WEBSITE_NAME = "pref_website_name";
 
     String SAVECARD = "saved_card";
     String DEBITCARD = "debit_card";
     String CREDITCARD = "credit_card";
-    String ACTION_SIGN_UP_STUDENT = "STUDENT";
-    String ACTION_SIGN_UP_PROFESSIONAL = "PROFESSIONAL";
-    String ACTION_SIGN_UP_ORGANIZATION = "ORGANIZATION";
+    String STUDENT = "STUDENT";
+    String PROFESSIONAL = "PROFESSIONAL";
+    String ORGANIZATION = "ORGANIZATION";
     String IS_OTHER_PROFILE = "is_other_profile";
     String ACCESS_TOKEN_KEY = "access_token_key";
     String STATUS_SUCCESS = "Success";
