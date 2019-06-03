@@ -168,7 +168,7 @@
     <string name="dob_empty">Please enter Date of birth</string>
     <string name="postal_field_empty">Please enter postal code</string>
     <string name="mobile_field_empty">Please enter mobile number</string>
-    <string name="click_on_send_otp">Please enter otp to proceed</string>
+    <string name="click_on_send_otp">Please send otp to proceed</string>
     <string name="password_field_empty">Please enter password</string>
     <string name="confirm_password_field_empty">Please enter confirm password</string>
     <string name="password_not_matched">Passwords does not match. Please check</string>
