@@ -125,15 +125,15 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
                 errorMessage = getString(R.string.password_field_empty)
                 edit_create_password.requestFocus()
             }
+            !TextUtils.isEmpty(edit_create_password?.text) && edit_create_password?.text!!.length < 6 -> {
+                isValidate = false
+                errorMessage = getString(R.string.password_leght_error)
+                edit_create_password.requestFocus()
+            }
             TextUtils.isEmpty(requestData?.password) -> {
                 isValidate = false
                 errorMessage = getString(R.string.confirm_password_field_empty)
                 edit_confirm_password.requestFocus()
-            }
-            !TextUtils.isEmpty(requestData?.password) && requestData?.password!!.length < 6 -> {
-                isValidate = false
-                errorMessage = getString(R.string.password_leght_error)
-                edit_create_password.requestFocus()
             }
             edit_confirm_password?.text.toString() != edit_create_password.text.toString() -> {
                 isValidate = false
@@ -160,6 +160,11 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) galleryPicker?.fetch(requestCode, data)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        galleryPicker?.onResultPermission(requestCode,grantResults)
     }
 
     @OnClick(R.id.view_add_image)
