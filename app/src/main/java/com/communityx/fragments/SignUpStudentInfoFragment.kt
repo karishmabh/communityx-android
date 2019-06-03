@@ -2,7 +2,6 @@ package com.communityx.fragments
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
-import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -32,7 +31,6 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     private var isDelKeyPressed = false
     private var hasOtpOrPasswordFieldVisible = false
     private var shouldChangeNumber = false
-    private var dialog: Dialog? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up_student_info, null)
@@ -330,7 +328,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     }
 
     private fun generateOtp(otpRequest: OtpRequest) {
-        dialog = DialogHelper.showProgressDialog(context,"Please wait, sending OTP...")
+        val dialog = CustomProgressBar.getInstance(context!!).showProgressDialog("Please wait, sending OTP...")
         SignUpRepo.generateOtp(context!!, otpRequest, object : ResponseListener<String> {
 
             override fun onSuccess(response: String) {
@@ -338,18 +336,18 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                 visibleOtpField(true)
                 edit_mobile.isEnabled = false
                 scrollView.post { scrollView.scrollTo(0, scrollView.height) }
-                dialog?.dismiss()
+                dialog.dismiss()
             }
 
             override fun onError(error: Any) {
                 Utils.showError(activity, scrollView, error)
-                dialog?.dismiss()
+                dialog.dismiss()
             }
         })
     }
 
     private fun verifyOtp(verifyOtpRequest: VerifyOtpRequest) {
-        dialog = DialogHelper.showProgressDialog(context, "Verifying OTP...")
+        var dialog = CustomProgressBar.getInstance(context!!).showProgressDialog("Verifying OTP...")
         SignUpRepo.verifyOtp(context!!, verifyOtpRequest, object : ResponseListener<String> {
             override fun onSuccess(response: String) {
                 SnackBarFactory.createSnackBar(context, scrollView, response)
@@ -359,14 +357,14 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                 signUpActivity?.isOtpVerified = true
                 edit_create_password.requestFocus()
                 clearOtp()
-                dialog?.dismiss()
+                dialog.dismiss()
                 disabledMobileField(true)
             }
 
             override fun onError(error: Any) {
                 Utils.showError(activity, scrollView, error)
                 signUpActivity?.isOtpVerified = false
-                dialog?.dismiss()
+                dialog.dismiss()
             }
         })
     }

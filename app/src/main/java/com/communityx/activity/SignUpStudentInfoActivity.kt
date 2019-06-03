@@ -15,6 +15,7 @@ import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.AppConstant
 import com.communityx.utils.AppConstant.*
+import com.communityx.utils.CustomProgressBar
 import com.communityx.utils.DialogHelper
 import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.activity_sign_up_student_info.*
@@ -138,7 +139,8 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     //todo : hard coded string
     private fun completedSignUp() {
-        var dialog = DialogHelper.showProgressDialog(this, "Please wait... Registering you")
+        val dialog = CustomProgressBar.getInstance(this).showProgressDialog("Please wait... Registering you")
+       // var dialog = DialogHelper.showProgressDialog(this, "Please wait... Registering you")
         SignUpRepo.createSignUp(this, signUpRequest!!, object : ResponseListener<SignUpResponse> {
             override fun onSuccess(response: SignUpResponse) {
                 navigateToConnectAlies(response.data[0].user_id)
