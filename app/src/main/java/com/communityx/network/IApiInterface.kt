@@ -1,5 +1,6 @@
 package com.communityx.network
 
+import com.communityx.models.connect_allies.ConnectAlliesResponse
 import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
 import com.communityx.models.logout.LogoutResponse
@@ -40,4 +41,7 @@ interface IApiInterface {
 
     @GET("clubs")
     fun getClubsAndRoles(@Header("token") token: String): Call<ClubAndRoleResponse>
+
+    @GET("user/friend-suggest-list")
+    fun getConnectingAllies(@Header("token") token: String, @Header("session") session: String): Call<ConnectAlliesResponse>
 }
