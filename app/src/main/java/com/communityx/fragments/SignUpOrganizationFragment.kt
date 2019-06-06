@@ -5,16 +5,15 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
+import android.text.Selection
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import butterknife.ButterKnife
 import butterknife.OnClick
-import butterknife.OnTextChanged
 import com.communityx.R
 import com.communityx.base.BaseSignUpFragment
 import com.communityx.models.signup.OtpRequest
@@ -22,8 +21,11 @@ import com.communityx.models.signup.SignUpRequest
 import com.communityx.models.signup.VerifyOtpRequest
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
-import com.communityx.utils.*
 import com.communityx.utils.AppConstant.EMAIL_PATTERN
+import com.communityx.utils.CustomProgressBar
+import com.communityx.utils.GalleryPicker
+import com.communityx.utils.SnackBarFactory
+import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.fragment_sign_up_organization.*
 
 class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPickerListener {
@@ -32,6 +34,7 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
     private var hasOtpOrPasswordFieldVisible = false
     private var shouldChangeNumber = false
     private var isDelKeyPressed = false
+    private var prefix: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up_organization, container, false)
@@ -41,16 +44,35 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        prefix = resources.getString(R.string.prefix_number)
         initOtpBox()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         edit_mobile.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus && edit_mobile.text.toString() == "+91") {
-                edit_mobile.setSelection(3)
+            if (hasFocus && edit_mobile.text.toString() == prefix) {
+                edit_mobile.setSelection(2)
             }
         }
+
+        edit_mobile.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(!s.toString().startsWith("+1")){
+                    edit_mobile.setText(prefix)
+                    Selection.setSelection(edit_mobile.getText(), edit_mobile.text!!.length)
+                }
+            }
+        })
+
         view_password.visibility = if (signUpActivity?.isOtpVerified!!) View.VISIBLE else View.GONE
     }
 
@@ -60,7 +82,7 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
         signUpActivity?.signUpRequest?.website = edit_website.text.toString()
         signUpActivity?.signUpRequest?.postal_code = edit_postalcode.text.toString()
         if (edit_mobile.text.toString().length > 4)
-            signUpStudent?.phone = edit_mobile.text.toString().substring(4)
+            signUpStudent?.phone = edit_mobile.text.toString().substring(2)
         signUpStudent?.password = edit_confirm_password.text.toString()
 
         return validateEmpty(signUpActivity?.signUpRequest)
@@ -100,16 +122,16 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
                 errorMessage = getString(R.string.string_postalcode_cannot_be_empty)
                 if (showSnackbar) edit_postalcode.requestFocus()
             }
-            !TextUtils.isEmpty(requestData?.postal_code) && requestData?.postal_code?.length!! < 6 -> {
+            !TextUtils.isEmpty(requestData?.postal_code) && requestData?.postal_code?.length!! < 5 -> {
                 isValidate = false
                 errorMessage = getString(R.string.postal_code_should_be_six_character)
                 edit_postalcode.requestFocus()
             }
-            edit_mobile.text.toString() == "+91" -> {
+            edit_mobile.text.toString() == prefix -> {
                 isValidate = false
                 errorMessage = getString(R.string.mobile_field_empty)
                 edit_mobile.requestFocus()
-                edit_mobile.setSelection(3)
+                edit_mobile.setSelection(2)
             }
             !hasOtpOrPasswordFieldVisible -> {
                 isValidate = false
@@ -164,7 +186,7 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        galleryPicker?.onResultPermission(requestCode,grantResults)
+        galleryPicker?.onResultPermission(requestCode, grantResults)
     }
 
     @OnClick(R.id.view_add_image)
@@ -187,35 +209,19 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
     fun tappedSentOtp() {
         signUpActivity?.isOtpVerified == false
         Utils.hideSoftKeyboard(activity)
-        if (edit_mobile.text.toString() == "+91") {
+        if (edit_mobile.text.toString() == prefix) {
             SnackBarFactory.createSnackBar(context, constraint_root, getString(R.string.mobile_field_empty))
             return
         }
-        val number = edit_mobile.text.toString().substring(4)
-        if (number.length != 10) {
-            SnackBarFactory.createSnackBar(context, constraint_root, getString(R.string.mobiel_number_not_valid))
+        val number = edit_mobile.text.toString().substring(2)
+        if (number.length < 10) {
+            SnackBarFactory.createSnackBar(context, constraint_root, getString(R.string.mobiel_number_less_digits))
             return
         }
         hasOtpOrPasswordFieldVisible = true
         val otpRequest = OtpRequest(phone = number)
         shouldChangeNumber = true
         generateOtp(otpRequest)
-    }
-
-    @OnTextChanged(R.id.edit_mobile)
-    fun onMobileNumberChange(s: CharSequence?) {
-        edit_mobile.setOnKeyListener { _, keyCode, _ ->
-            isDelKeyPressed = keyCode == KeyEvent.KEYCODE_DEL
-            false
-        }
-
-        if (s?.length!! < 3) {
-            edit_mobile.setText("+91")
-            edit_mobile.setSelection(3)
-        } else if (s.length == 4 && !isDelKeyPressed) {
-            edit_mobile.setText(s.toString().substring(0, 3) + "-" + s.toString().substring(3))
-            edit_mobile.setSelection(5)
-        }
     }
 
     @OnClick(R.id.resend_otp)
@@ -288,7 +294,7 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
 
     private fun createOtpAndVerify() {
         val verifyOtpRequest =
-            VerifyOtpRequest(otp = getOtp(), phone = edit_mobile.text.toString().substring(4))
+            VerifyOtpRequest(otp = getOtp(), phone = edit_mobile.text.toString().substring(2))
         Utils.hideSoftKeyboard(activity)
         verifyOtp(verifyOtpRequest)
         hasOtpOrPasswordFieldVisible = true
@@ -326,6 +332,8 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
             }
 
             override fun onError(error: Any) {
+                clearOtp()
+                edit_otp_one.requestFocus()
                 Utils.showError(activity, constraint_root, error)
                 signUpActivity?.isOtpVerified = false
                 dialog.dismiss()

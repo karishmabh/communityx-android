@@ -42,6 +42,9 @@ interface IApiInterface {
     @GET("clubs")
     fun getClubsAndRoles(@Header("token") token: String): Call<ClubAndRoleResponse>
 
+    @GET("causes")
+    fun getCausesAndRoles(@Header("token") token: String): Call<ClubAndRoleResponse>
+
     @GET("user/friend-suggest-list")
     fun getConnectingAllies(@Header("token") token: String, @Header("session") session: String): Call<ConnectAlliesResponse>
 }

@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
+import android.text.Selection
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.*
@@ -31,6 +32,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     private var isDelKeyPressed = false
     private var hasOtpOrPasswordFieldVisible = false
     private var shouldChangeNumber = false
+    private var prefixNumber: String? =null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up_student_info, null)
@@ -44,6 +46,8 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        prefixNumber = resources.getString(R.string.prefix_number)
+
         initAllField()
         image_profile.setOnClickListener(this)
         text_send_otp.setOnClickListener(this)
@@ -58,8 +62,8 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             }
         }
         edit_mobile.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus && edit_mobile.text.toString() == "+91") {
-                edit_mobile.setSelection(3)
+            if (hasFocus && edit_mobile.text.toString() == prefixNumber) {
+                edit_mobile.setSelection(2)
             }
         }
         edit_mobile.addTextChangedListener(object : TextWatcher {
@@ -72,7 +76,10 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                onMobileNumberChange(s)
+                if(!s.toString().startsWith("+1")){
+                    edit_mobile.setText(prefixNumber)
+                    Selection.setSelection(edit_mobile.getText(), edit_mobile.text!!.length)
+                }
             }
         })
     }
@@ -129,8 +136,9 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         signUpStudent?.email = edit_email.text.toString()
         signUpStudent?.dob = edit_birthday.text.toString()
         signUpStudent?.postal_code = edit_postalcode.text.toString()
+
         if(edit_mobile.text.toString().length > 4)
-            signUpStudent?.phone = edit_mobile.text.toString().substring(4)
+            signUpStudent?.phone = edit_mobile.text.toString().substring(2)
         signUpStudent?.password = edit_confirm_password.text.toString()
 
         return validateEmpty(signUpStudent)
@@ -164,16 +172,17 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                 msg = getString(R.string.postal_field_empty)
                 edit_postalcode.requestFocus()
             }
-            !TextUtils.isEmpty(requestData?.postal_code) && requestData?.postal_code?.length!! < 6 -> {
+
+            !TextUtils.isEmpty(requestData?.postal_code) && requestData?.postal_code?.length!! < 5 -> {
                 isValidate = false
                 msg = getString(R.string.postal_code_should_be_six_character)
                 edit_postalcode.requestFocus()
             }
-            edit_mobile.text.toString() == "+91" -> {
+            edit_mobile.text.toString() == prefixNumber -> {
                 isValidate = false
                 msg = getString(R.string.mobile_field_empty)
                 edit_mobile.requestFocus()
-                edit_mobile.setSelection(3)
+                edit_mobile.setSelection(2)
             }
             !hasOtpOrPasswordFieldVisible -> {
                 isValidate = false
@@ -219,13 +228,13 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
 
     private fun tappedSentOtp() {
         signUpActivity?.isOtpVerified = false
-        if (edit_mobile.text.toString() == "+91") {
+        if (edit_mobile.text.toString() == prefixNumber) {
             SnackBarFactory.createSnackBar(context, scrollView, getString(R.string.mobile_field_empty))
             return
         }
-        val number = edit_mobile.text.toString().substring(4)
-        if (number.length != 10) {
-            SnackBarFactory.createSnackBar(context, scrollView, getString(R.string.mobiel_number_not_valid))
+        val number = edit_mobile.text.toString().substring(2)
+        if (number.length < 10) {
+            SnackBarFactory.createSnackBar(context, scrollView, getString(R.string.mobiel_number_less_digits))
             return
         }
         hasOtpOrPasswordFieldVisible = true
@@ -272,7 +281,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
 
     private fun createOtpAndVerify() {
         val verifyOtpRequest =
-            VerifyOtpRequest(otp = getOtp(), phone = edit_mobile.text.toString().substring(4))
+            VerifyOtpRequest(otp = getOtp(), phone = edit_mobile.text.toString().substring(2))
         Utils.hideSoftKeyboard(activity)
         verifyOtp(verifyOtpRequest)
         hasOtpOrPasswordFieldVisible = true
@@ -368,6 +377,8 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             }
 
             override fun onError(error: Any) {
+                clearOtp()
+                edit_otp_one.requestFocus()
                 Utils.showError(activity, scrollView, error)
                 signUpActivity?.isOtpVerified = false
                 dialog.dismiss()
@@ -410,7 +421,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         }
 
         if (s?.length!! < 3) {
-            edit_mobile.setText("+91")
+            edit_mobile.setText(prefixNumber)
             edit_mobile.setSelection(3)
         } else if (s.length == 4 && !isDelKeyPressed) {
             edit_mobile.setText(s.toString().substring(0, 3) + "-" + s.toString().substring(3))

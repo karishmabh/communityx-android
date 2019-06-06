@@ -38,6 +38,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     var selectImagePath: String? = null
     var manaualInterest: MutableList<String>? = null
     var isOtpVerified = false
+    var isProfessional: Boolean ? = false
     private lateinit var dialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +54,9 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     }
 
     private fun initActivity() {
-        signUpRequest = selectedCategory?.let { SignUpRequest(role = it) }
+        signUpRequest = selectedCategory?.let {
+            SignUpRequest(role = it)
+        }
         text_subtitle.text = getString(R.string.string_build_social_impact)
         button_continue.tag = true
         button_continue.setBackgroundResource(R.drawable.button_active)
@@ -145,7 +148,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     //todo : hard coded string
     private fun completedSignUp() {
-        dialog = CustomProgressBar.getInstance(this).showProgressDialog("Please wait... Registering you")
+        dialog = CustomProgressBar.getInstance(this).showProgressDialog(getString(R.string.please_wait_while_register))
         SignUpRepo.createSignUp(this, signUpRequest!!, object : ResponseListener<SignUpResponse> {
             override fun onSuccess(response: SignUpResponse) {
                 performLogin(signUpRequest?.phone!!, signUpRequest?.password!!)

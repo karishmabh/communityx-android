@@ -10,27 +10,29 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import butterknife.ButterKnife
 import com.communityx.R
+import com.communityx.activity.SignUpStudentInfoActivity
 import com.communityx.base.BaseSignUpFragment
+import com.communityx.models.signup.Causes
 import com.communityx.models.signup.Club
 import com.communityx.models.signup.ClubAndRoleData
 import com.communityx.models.signup.SignUpRequest
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
+import com.communityx.utils.AppConstant
 import com.communityx.utils.SnackBarFactory
 import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.fragment_sign_up_member_of_club.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class SignUpMemberOfClub : BaseSignUpFragment() {
+class SignUpMemberOfClub : BaseSignUpFragment() , AppConstant {
 
     private var clubList: List<Club> = ArrayList()
+    private var causeList: List<Causes> = ArrayList()
     private var clubListName: MutableList<String> = mutableListOf()
+    private var mCategory: String ?= null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up_member_of_club, null)
         ButterKnife.bind(this, view)
         return view
@@ -38,8 +40,21 @@ class SignUpMemberOfClub : BaseSignUpFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initField()
-        getClubAndRole()
+
+        checkCategory()
+    }
+
+    private fun checkCategory() {
+        mCategory = (activity as SignUpStudentInfoActivity).selectedCategory
+
+        if(mCategory.equals(AppConstant.PROFESSIONAL)) {
+            text_club_name_hint.setText("Organization")
+            text_heading.setText(resources.getString(R.string.member_of_casuse_driven_org))
+            getCauseAndRole()
+        } else {
+            initField()
+            getClubAndRole()
+        }
     }
 
     override fun onContinueButtonClicked() {
@@ -47,8 +62,15 @@ class SignUpMemberOfClub : BaseSignUpFragment() {
     }
 
     override fun setFieldsData(): Boolean {
-        signUpStudent?.club_id = clubList[spinner_club_name.selectedItemPosition].id
-        signUpStudent?.club_role = spinner_role.selectedItem as String
+        if (mCategory.equals(AppConstant.PROFESSIONAL)) {
+            signUpStudent?.cause_id = causeList[spinner_club_name.selectedItemPosition].id
+            signUpStudent?.cause_role = (spinner_role.selectedItem as String).toUpperCase()
+            return true
+        } else {
+            signUpStudent?.club_id = clubList[spinner_club_name.selectedItemPosition].id
+            signUpStudent?.club_role = (spinner_role.selectedItem as String).toUpperCase()
+        }
+
         signUpActivity?.selectedClubNameIndex = spinner_club_name.selectedItemPosition
         signUpActivity?.selectedRole = spinner_role.selectedItemPosition
 
@@ -91,7 +113,29 @@ class SignUpMemberOfClub : BaseSignUpFragment() {
         })
     }
 
+    private fun getCauseAndRole() {
+        SignUpRepo.getCauseAndRoles(object : ResponseListener<ClubAndRoleData> {
+            override fun onSuccess(response: ClubAndRoleData) {
+                causeList = response.causes
+                createCauseDataId(causeList)
+
+                setRoleData(response.roles)
+            }
+
+            override fun onError(error: Any) {
+                Utils.showError(activity, constraint_layout, error)
+            }
+        })
+    }
+
     private fun createClubDataId(clubList: List<Club>) {
+        clubList.forEach {
+            clubListName.add(it.name)
+        }
+        setClubData(clubListName)
+    }
+
+    private fun createCauseDataId(clubList: List<Causes>) {
         clubList.forEach {
             clubListName.add(it.name)
         }

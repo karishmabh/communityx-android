@@ -25,10 +25,7 @@ import kotlinx.android.synthetic.main.fragment_sign_up_select_interest.*
 
 class SignUpSelectInterest : BaseSignUpFragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_sign_up_select_interest, container, false)
     }
 

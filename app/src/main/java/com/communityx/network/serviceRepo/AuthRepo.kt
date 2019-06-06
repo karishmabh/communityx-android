@@ -48,4 +48,12 @@ object AuthRepo : BaseRepo {
     fun getSessionId(context: Context) :String {
         return AppPreference.getInstance(context).getString(PREF_SESSION_ID)
     }
+
+    fun setSessionId(context: Context, session: String) {
+        AppPreference.getInstance(context).setString(PREF_SESSION_ID, session)
+    }
+
+    fun clearSessionId(context: Context) {
+        AppPreference.getInstance(context).setString(PREF_SESSION_ID, "")
+    }
 }
