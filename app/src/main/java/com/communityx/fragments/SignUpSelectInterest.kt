@@ -3,18 +3,18 @@ package com.communityx.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import com.communityx.R
+import com.communityx.adapters.SelectedInterestAdapter
 import com.communityx.base.BaseSignUpFragment
-import com.communityx.models.signup.Minor
 import com.communityx.models.signup.MinorsData
 import com.communityx.models.signup.SignUpRequest
 import com.communityx.network.ResponseListener
@@ -24,6 +24,8 @@ import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.fragment_sign_up_select_interest.*
 
 class SignUpSelectInterest : BaseSignUpFragment() {
+
+    private lateinit var mInterestAdapter : SelectedInterestAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_sign_up_select_interest, container, false)
@@ -35,6 +37,26 @@ class SignUpSelectInterest : BaseSignUpFragment() {
         if (signUpActivity?.manaualInterest == null) {
             signUpActivity?.manaualInterest = mutableListOf()
         }
+    }
+
+    private fun loadInterest() {
+        context?.let {
+            SignUpRepo.getMajorMinorData(it, object : ResponseListener<List<MinorsData>> {
+                override fun onSuccess(response: List<MinorsData>) {
+                    setRecycler(response)
+                }
+
+                override fun onError(error: Any) {
+                    Utils.showError(activity, scrollView, error)
+                }
+            })
+        }
+    }
+
+    private fun setRecycler(response: List<MinorsData>) {
+        recycler_interests.layoutManager = LinearLayoutManager(activity)
+        mInterestAdapter = SelectedInterestAdapter(response, activity!!, scrollView)
+        recycler_interests.adapter = mInterestAdapter
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -53,7 +75,6 @@ class SignUpSelectInterest : BaseSignUpFragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 onCauseTyping(s)
             }
-
         })
     }
 
@@ -62,106 +83,17 @@ class SignUpSelectInterest : BaseSignUpFragment() {
         return validateEmpty(signUpStudent)
     }
 
-    //todo : hard coded string
     override fun validateEmpty(requestData: SignUpRequest?, showSnackbar: Boolean): Boolean {
-        if (signUpStudent?.interests.isNullOrEmpty()) {
-            if (showSnackbar) SnackBarFactory.createSnackBar(
-                context,
-                scrollView,
-                "Please select at lease 1 interest above."
-            )
+        if (mInterestAdapter.getSelectedIds().isNullOrEmpty()) {
+            if (showSnackbar) SnackBarFactory.createSnackBar(context, scrollView, resources.getString(R.string.select_atleast_one_interest))
            return false
        }
+        signUpStudent?.interests = mInterestAdapter.getSelectedIds()
         return true
     }
 
     override fun onContinueButtonClicked() {
         if(setFieldsData()) goToNextPage()
-    }
-
-    private fun setCivilRights(civilRights: List<Minor>) {
-        for (civilRight in civilRights) {
-            val checkBox = LayoutInflater.from(context).inflate(R.layout.item_interest, null) as CheckBox
-            checkBox.text = civilRight.name
-            checkBox.performClick()
-            if(validateEmpty(signUpStudent, false)) {
-                checkBox.isChecked = signUpStudent?.interests!!.contains(civilRight.id)
-                checkBox.setBackgroundResource(if(checkBox.isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive)
-            }
-            checkBox.setOnCheckedChangeListener { _, isChecked ->
-                if(isChecked && !validateSelectedItem()) {
-                    return@setOnCheckedChangeListener
-                }
-                checkBox.setBackgroundResource(if (isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive)
-                if (isChecked) {
-                    signUpStudent?.interests?.add(civilRight.id)
-                }else {
-                    signUpStudent?.interests?.remove(civilRight.id)
-                }
-            }
-
-            val lp =
-                ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            lp.setMargins(10, 10, 10, 10)
-            flex_layout_civil_right.addView(checkBox, lp)
-        }
-    }
-
-    private fun setHumanRights(humanRights: List<Minor>) {
-        for (humanRight in humanRights) {
-            val checkBox = LayoutInflater.from(context).inflate(R.layout.item_interest, null) as CheckBox
-            checkBox.text = humanRight.name
-            checkBox.performClick()
-            if(validateEmpty(signUpStudent, false)) {
-                checkBox.isChecked = signUpStudent?.interests!!.contains(humanRight.id)
-                checkBox.setBackgroundResource(if(checkBox.isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive)
-            }
-            checkBox.setOnCheckedChangeListener { _, isChecked ->
-                if(isChecked && !validateSelectedItem()) {
-                    return@setOnCheckedChangeListener
-                }
-                checkBox.setBackgroundResource(if (isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive)
-                if (isChecked) {
-                    signUpStudent?.interests?.add(humanRight.id)
-                }else {
-                    signUpStudent?.interests?.remove(humanRight.id)
-                }
-            }
-
-            val lp =
-                ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            lp.setMargins(10, 10, 10, 10)
-            flex_layout_human_right.addView(checkBox, lp)
-        }
-    }
-
-    private fun setHealth(healths: List<Minor>) {
-
-        for (health in healths) {
-            val checkBox = LayoutInflater.from(context).inflate(R.layout.item_interest, null) as CheckBox
-            checkBox.text = health.name
-            checkBox.performClick()
-            if(validateEmpty(signUpStudent, false)) {
-                checkBox.isChecked = signUpStudent?.interests!!.contains(health.id)
-                checkBox.setBackgroundResource(if(checkBox.isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive)
-            }
-            checkBox.setOnCheckedChangeListener { _, isChecked ->
-                if(isChecked && !validateSelectedItem()) {
-                    return@setOnCheckedChangeListener
-                }
-                checkBox.setBackgroundResource(if (isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive)
-                if (isChecked) {
-                    signUpStudent?.interests?.add(health.id)
-                }else {
-                    signUpStudent?.interests?.remove(health.id)
-                }
-            }
-
-            val lp =
-                ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            lp.setMargins(10, 10, 10, 10)
-            flex_layout_health.addView(checkBox, lp)
-        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -179,16 +111,18 @@ class SignUpSelectInterest : BaseSignUpFragment() {
                         val textView = view.findViewById<TextView>(R.id.text_suggest_cause)
                         val imageCross = view.findViewById<ImageView>(R.id.image_cross)
                         textView.text = suggestedCause
+
                         imageCross.setOnClickListener { v1 ->
                             flex_layout_cause.removeView(view)
                             signUpActivity?.manaualInterest?.remove(textView.text.toString())
                         }
+
                         val lp = ViewGroup.MarginLayoutParams(
                             ViewGroup.LayoutParams.WRAP_CONTENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT
                         )
                         lp.setMargins(10, 10, 10, 10)
-                        if(!validateSelectedItem()) {
+                        if(validateSelectedItem()) {
                             return@setOnTouchListener false
                         }
                         signUpActivity?.manaualInterest?.add(suggestedCause)
@@ -206,29 +140,13 @@ class SignUpSelectInterest : BaseSignUpFragment() {
         }
     }
 
-    private fun validateSelectedItem() : Boolean{
-        var b = signUpStudent?.interests?.size!! + signUpActivity?.manaualInterest?.size!! < 5
-        if (!b) {
+    private fun validateSelectedItem(): Boolean {
+        var b = signUpActivity?.manaualInterest?.size == 5
+        if (b) {
             scrollView.post { Utils.hideSoftKeyboard(activity) }
-            SnackBarFactory.createSnackBar(context, scrollView, getString(R.string.limit_interest))
+            SnackBarFactory.createSnackBar(context, scrollView, getString(R.string.limit_suggest_interest))
         }
         return b
-    }
-
-    private fun loadInterest() {
-        context?.let {
-            SignUpRepo.getMajorMinorData(it, object : ResponseListener<List<MinorsData>> {
-                override fun onSuccess(response: List<MinorsData>) {
-                    setCivilRights(response[0].minors)
-                    setHumanRights(response[1].minors)
-                    setHealth(response[2].minors)
-                }
-
-                override fun onError(error: Any) {
-                    Utils.showError(activity, scrollView, error)
-                }
-            })
-        }
     }
 
     private fun initManualList() {
