@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CheckBox xmlns:android="http://schemas.android.com/apk/res/android"
           android:layout_width="wrap_content"
-          android:layout_height="@dimen/_15sdp"
+          android:layout_height="wrap_content"
           android:button="@null"
           android:checked="true"
           android:textSize="@dimen/_10ssp"
@@ -11,5 +11,7 @@
           android:layout_margin="@dimen/_8sdp"
           android:paddingStart="@dimen/_8sdp"
           android:paddingEnd="@dimen/_8sdp"
+          android:paddingTop="@dimen/_5sdp"
+          android:paddingBottom="@dimen/_5sdp"
           android:text="LGBTQ+">
 </CheckBox>

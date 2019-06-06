@@ -21,6 +21,7 @@ import com.communityx.activity.ProfileActivity
 import com.communityx.models.logout.LogoutResponse
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
+import com.communityx.network.serviceRepo.AuthRepo
 import com.communityx.utils.*
 import com.communityx.utils.AppConstant.*
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -103,11 +104,10 @@ class ProfileFragment : Fragment(), AppConstant {
                 dialog.dismiss()
 
                 AppPreference.getInstance(activity!!).setBoolean(AppConstant.PREF_IS_LOGIN, false)
-                AppPreference.getInstance(activity!!).clearSession()
-                startActivity(
-                    Intent(activity, LoginActivity::class.java)
-                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                )
+                AuthRepo.clearSessionId(activity!!)
+                startActivity(Intent(activity, LoginActivity::class.java)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK))
+
                 activity!!.overridePendingTransition(R.anim.anim_prev_slide_in, R.anim.anim_prev_slide_out)
                 Toast.makeText(activity, resources.getString(R.string.logout_success), Toast.LENGTH_SHORT).show()
             }
