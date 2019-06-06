@@ -11,6 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/_12sdp"
+            android:focusableInTouchMode="true"
             android:paddingTop="@dimen/_12sdp"
             android:paddingEnd="@dimen/_12sdp">
 
@@ -241,6 +242,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
                         android:maxLength="20"
+                        android:imeOptions="actionDone"
                         android:singleLine="true"
                         android:fontFamily="@font/poppins_medium"/>
             </android.support.design.widget.TextInputLayout>
