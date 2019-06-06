@@ -6,11 +6,12 @@
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/_12sdp"
             android:id="@+id/scrollView"
+            android:fillViewport="true"
             tools:context=".fragments.SignUpSelectInterest">
 
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
         <TextView
                 android:id="@+id/text_heading"
@@ -42,89 +43,13 @@
                 app:layout_constraintBottom_toBottomOf="@id/text_heading"
                 app:layout_constraintStart_toEndOf="@id/text_heading"/>
 
-        <TextView
-                android:id="@+id/text_civil_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/_12ssp"
-                android:textColor="@color/colorAccent"
-                android:text="@string/human_rights"
-                android:fontFamily="@font/poppins_medium"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_18sdp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_heading"/>
-
-        <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/flex_layout_civil_right"
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_interests"
+                app:layout_constraintTop_toBottomOf="@+id/text_heading"
+                app:layout_constraintBottom_toTopOf="@+id/text_cause"
+                android:layout_marginBottom="@dimen/_4sdp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
-                app:flexWrap="wrap"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_civil_right">
-
-        </com.google.android.flexbox.FlexboxLayout>
-
-        <TextView
-                android:id="@+id/text_human_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/_12ssp"
-                android:textColor="@color/colorAccent"
-                android:text="@string/health"
-                android:fontFamily="@font/poppins_medium"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_18sdp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/flex_layout_civil_right"/>
-
-        <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/flex_layout_human_right"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
-                app:flexWrap="wrap"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_human_right">
-
-        </com.google.android.flexbox.FlexboxLayout>
-
-        <TextView
-                android:id="@+id/text_health"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/_12ssp"
-                android:textColor="@color/colorAccent"
-                android:text="@string/civil_rights"
-                android:fontFamily="@font/poppins_medium"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_18sdp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/flex_layout_human_right"/>
-
-        <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/flex_layout_health"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
-                app:flexWrap="wrap"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_health">
-
-        </com.google.android.flexbox.FlexboxLayout>
+                android:layout_height="0dp"/>
 
         <TextView
                 android:id="@+id/text_cause"
@@ -135,9 +60,9 @@
                 android:text="@string/are_we_missing_something_suggest_a_cause"
                 android:fontFamily="@font/poppins_medium"
                 android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_18sdp"
+                android:layout_marginBottom="@dimen/_4sdp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/flex_layout_health"/>
+                app:layout_constraintBottom_toTopOf="@+id/edit_cause"/>
 
         <EditText
                 android:id="@+id/edit_cause"
@@ -149,11 +74,11 @@
                 android:maxLines="20"
                 android:textSize="@dimen/_11sdp"
                 android:padding="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_4sdp"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
                 android:fontFamily="@font/poppins_medium"
-                app:layout_constraintTop_toBottomOf="@id/text_cause"
+                app:layout_constraintBottom_toTopOf="@id/flex_layout_cause"
                 android:drawablePadding="@dimen/_8sdp"
                 android:drawableEnd="@drawable/ic_signup_add_interest_deselect"/>
 
@@ -161,15 +86,13 @@
                 android:id="@+id/flex_layout_cause"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4sdp"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
                 app:flexWrap="wrap"
                 app:alignItems="stretch"
                 app:alignContent="stretch"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edit_cause">
-
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
         </com.google.android.flexbox.FlexboxLayout>
     </android.support.constraint.ConstraintLayout>
 
