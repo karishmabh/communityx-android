@@ -48,29 +48,35 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
 
         fun bindData() {
             val profileData = mArrayList.get(adapterPosition);
-            if (!TextUtils.isEmpty(profileData.profile.profile_image)) {
-                Picasso.get().load(profileData.profile.profile_image).error(R.drawable.profile_placeholder).fit().into(itemView.circle_profile_image)
+
+            if (profileData.profile == null) return
+            try {
+                if (!TextUtils.isEmpty(profileData.profile.profile_image)) {
+                    Picasso.get().load(profileData.profile.profile_image).error(R.drawable.profile_placeholder).fit()
+                        .into(itemView.circle_profile_image)
+                }
+            } catch (e: Exception) {
+
             }
 
-            //itemView.text_title_name.setText(profileData.profile.full_name)
             itemView.text_description.setText(setSubTitle(profileData.category))
         }
 
         fun setSubTitle(category: String) : String {
             when (category) {
-                ACTION_SIGN_UP_STUDENT -> {
+                STUDENT -> {
                     itemView.text_title_name.setText(mArrayList.get(adapterPosition).profile.full_name)
-                    return mArrayList.get(adapterPosition).profile.standard + ","+ mArrayList.get(adapterPosition).profile.standard_name
+                    return "Student"+ ", "+ mArrayList.get(adapterPosition).profile.standard_name
                 }
 
-                ACTION_SIGN_UP_ORGANIZATION ->  {
+                ORGANIZATION ->  {
                     itemView.text_title_name.setText(mArrayList.get(adapterPosition).profile.name)
-                    return "Organization" + "," + mArrayList.get(adapterPosition).profile.name
+                    return "Organization" + ", " + mArrayList.get(adapterPosition).profile.name
                 }
 
-                ACTION_SIGN_UP_PROFESSIONAL ->  {
+                PROFESSIONAL ->  {
                     itemView.text_title_name.setText(mArrayList.get(adapterPosition).profile.full_name)
-                    return mArrayList.get(adapterPosition).profile.job_title + ","+mArrayList.get(adapterPosition).profile.company_name
+                    return mArrayList.get(adapterPosition).profile.job_title + ", "+mArrayList.get(adapterPosition).profile.company_name
                 }
             }
             return ""
@@ -84,7 +90,6 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
             val checkBox = LayoutInflater.from(mActvity).inflate(R.layout.item_interest, null) as CheckBox
             checkBox.text = interest.get(i).name
             checkBox.performClick()
-            checkBox.setOnCheckedChangeListener { buttonView, isChecked -> checkBox.setBackgroundResource(if (isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive) }
 
             val lp =
                     ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)

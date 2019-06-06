@@ -8,7 +8,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.ActivityCompat;
@@ -19,6 +22,8 @@ import android.view.View;
 import com.communityx.R;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
 
 public class GalleryPicker {
@@ -106,11 +111,47 @@ public class GalleryPicker {
                 if (media == Media.IMAGE) {
                     Bitmap bitmap = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
                     assert bitmap != null;
+
                     mSelectedImage = getImageUri(mActivity, bitmap);
+                    try {
+                        rotateImageIfRequired(mActivity, bitmap, mSelectedImage);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } else mSelectedImage = data.getData();
                 break;
         }
         galleryPickerListener.onMediaSelected(getImagePath(mActivity, mSelectedImage), mSelectedImage, media == Media.IMAGE);
+    }
+
+    private static Bitmap rotateImageIfRequired(Context context, Bitmap img, Uri selectedImage) throws IOException {
+        InputStream input = context.getContentResolver().openInputStream(selectedImage);
+        ExifInterface ei;
+        if (Build.VERSION.SDK_INT > 23)
+            ei = new ExifInterface(input);
+        else
+            ei = new ExifInterface(selectedImage.getPath());
+
+        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                return rotateImage(img, 90);
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                return rotateImage(img, 180);
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                return rotateImage(img, 270);
+            default:
+                return img;
+        }
+    }
+
+    private static Bitmap rotateImage(Bitmap img, int degree) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
+        img.recycle();
+        return rotatedImg;
     }
 
     public void onResultPermission(int requestCode, int[] grantResults) {
