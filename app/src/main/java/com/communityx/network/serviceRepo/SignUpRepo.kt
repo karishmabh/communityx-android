@@ -14,23 +14,24 @@ import retrofit2.Response
 object SignUpRepo : BaseRepo {
 
     fun getMajorMinorData(context: Context, responseListener: ResponseListener<List<MinorsData>>) {
-        DataManager.getService().getMajorMinor(AuthRepo.getAccessToken(context)).enqueue(object : Callback<MajorMinorResponse> {
-            override fun onFailure(call: Call<MajorMinorResponse>, t: Throwable) {
-                responseListener.onError(t)
-            }
+        DataManager.getService().getMajorMinor(AuthRepo.getAccessToken(context))
+            .enqueue(object : Callback<MajorMinorResponse> {
+                override fun onFailure(call: Call<MajorMinorResponse>, t: Throwable) {
+                    responseListener.onError(t)
+                }
 
-            override fun onResponse(call: Call<MajorMinorResponse>, response: Response<MajorMinorResponse>) {
-                if (!response.isSuccessful) {
-                    response.errorBody()?.let { responseListener.onError(it) }
-                    return
+                override fun onResponse(call: Call<MajorMinorResponse>, response: Response<MajorMinorResponse>) {
+                    if (!response.isSuccessful) {
+                        response.errorBody()?.let { responseListener.onError(it) }
+                        return
+                    }
+                    if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                        responseListener.onSuccess(response.body()?.data!![0])
+                    } else {
+                        responseListener.onError(response.body()!!.error)
+                    }
                 }
-                if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
-                    responseListener.onSuccess(response.body()?.data!![0])
-                } else {
-                    responseListener.onError(response.body()!!.error)
-                }
-            }
-        })
+            })
     }
 
     fun generateOtp(context: Context, otpRequest: OtpRequest, responseListener: ResponseListener<String>) {
@@ -77,25 +78,31 @@ object SignUpRepo : BaseRepo {
             })
     }
 
-    fun uploadImage(context: Context, imageUploadRequest: ImageUploadRequest, responseListener: ResponseListener<ImageUploadResponse>) {
-        DataManager.getService().uploadImage(AuthRepo.getAccessToken(context),imageUploadRequest.image, imageUploadRequest.type).enqueue(object :Callback<ImageUploadResponse>{
-            override fun onFailure(call: Call<ImageUploadResponse>, t: Throwable) {
-                responseListener.onError(t)
-            }
-
-            override fun onResponse(call: Call<ImageUploadResponse>, response: Response<ImageUploadResponse>) {
-                if (!response.isSuccessful) {
-                    response.errorBody()?.let { responseListener.onError(it) }
-                    return
+    fun uploadImage(
+        context: Context,
+        imageUploadRequest: ImageUploadRequest,
+        responseListener: ResponseListener<ImageUploadResponse>
+    ) {
+        DataManager.getService()
+            .uploadImage(AuthRepo.getAccessToken(context), imageUploadRequest.image, imageUploadRequest.type)
+            .enqueue(object : Callback<ImageUploadResponse> {
+                override fun onFailure(call: Call<ImageUploadResponse>, t: Throwable) {
+                    responseListener.onError(t)
                 }
-                if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
-                    responseListener.onSuccess(response.body()!!)
-                } else {
-                    responseListener.onError(response.body()!!.error)
-                }
-            }
 
-        })
+                override fun onResponse(call: Call<ImageUploadResponse>, response: Response<ImageUploadResponse>) {
+                    if (!response.isSuccessful) {
+                        response.errorBody()?.let { responseListener.onError(it) }
+                        return
+                    }
+                    if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                        responseListener.onSuccess(response.body()!!)
+                    } else {
+                        responseListener.onError(response.body()!!.error)
+                    }
+                }
+
+            })
     }
 
     fun createSignUp(
@@ -105,22 +112,22 @@ object SignUpRepo : BaseRepo {
     ) {
         DataManager.getService().signUp(AuthRepo.getAccessToken(context), studentSignUpRequest)
             .enqueue(object : Callback<SignUpResponse> {
-            override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
-                responseListener.onError(t)
-            }
+                override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
+                    responseListener.onError(t)
+                }
 
-            override fun onResponse(call: Call<SignUpResponse>, response: Response<SignUpResponse>) {
-                if (!response.isSuccessful) {
-                    response.errorBody()?.let { responseListener.onError(it) }
-                    return
+                override fun onResponse(call: Call<SignUpResponse>, response: Response<SignUpResponse>) {
+                    if (!response.isSuccessful) {
+                        response.errorBody()?.let { responseListener.onError(it) }
+                        return
+                    }
+                    if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                        responseListener.onSuccess(response.body()!!)
+                    } else {
+                        responseListener.onError(response.body()!!.error)
+                    }
                 }
-                if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
-                    responseListener.onSuccess(response.body()!!)
-                } else {
-                    responseListener.onError(response.body()!!.error)
-                }
-            }
-        })
+            })
     }
 
     fun getClubAndRoles(responseListener: ResponseListener<ClubAndRoleData>) {
@@ -163,6 +170,30 @@ object SignUpRepo : BaseRepo {
                         responseListener.onError(response.body()!!.error)
                     }
                 }
+
+            })
+    }
+
+    fun getStandardList(query: String, responseListener: ResponseListener<StandardResponse>) {
+        DataManager.getService().getStandardList(AuthRepo.getAccessToken(), query)
+            .enqueue(object : Callback<StandardResponse> {
+
+                override fun onFailure(call: Call<StandardResponse>, t: Throwable) {
+                    responseListener.onError(t)
+                }
+
+                override fun onResponse(call: Call<StandardResponse>, response: Response<StandardResponse>) {
+                    if (!response.isSuccessful) {
+                        response.errorBody()?.let { responseListener.onError(it) }
+                        return
+                    }
+                    if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                        responseListener.onSuccess(response.body()!!)
+                    } else {
+                        responseListener.onError(response.body()!!.error)
+                    }
+                }
+
 
             })
     }

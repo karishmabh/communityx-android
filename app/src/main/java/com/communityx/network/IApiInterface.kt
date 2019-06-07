@@ -47,4 +47,7 @@ interface IApiInterface {
 
     @GET("user/friend-suggest-list")
     fun getConnectingAllies(@Header("token") token: String, @Header("session") session: String): Call<ConnectAlliesResponse>
+
+    @GET("standard")
+    fun getStandardList(@Header("token") token: String, @Query("standard") query: String) : Call<StandardResponse>
 }
