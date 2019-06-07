@@ -198,8 +198,8 @@ object SignUpRepo : BaseRepo {
     }
 
 
-    fun getStandardList(query: String, responseListener: ResponseListener<StandardResponse>) {
-        DataManager.getService().getStandardList(AuthRepo.getAccessToken(), query)
+    fun getStandardList(type: String, query: String, responseListener: ResponseListener<StandardResponse>) {
+        DataManager.getService().getStandardList(AuthRepo.getAccessToken(), type,query)
             .enqueue(object : Callback<StandardResponse> {
 
                 override fun onFailure(call: Call<StandardResponse>, t: Throwable) {

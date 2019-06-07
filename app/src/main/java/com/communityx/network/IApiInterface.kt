@@ -52,5 +52,5 @@ interface IApiInterface {
     fun getConnectingAllies(@Header("token") token: String, @Header("session") session: String): Call<ConnectAlliesResponse>
 
     @GET("standard")
-    fun getStandardList(@Header("token") token: String, @Query("standard") query: String) : Call<StandardResponse>
+    fun getStandardList(@Header("token") token: String, @Query("standard") type: String, @Query("q") query: String) : Call<StandardResponse>
 }

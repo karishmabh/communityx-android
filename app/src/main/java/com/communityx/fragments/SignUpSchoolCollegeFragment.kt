@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import butterknife.ButterKnife
+import butterknife.OnTextChanged
 import com.communityx.R
 import com.communityx.activity.SignUpStudentInfoActivity
 import com.communityx.base.BaseSignUpFragment
@@ -30,7 +32,9 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
     private var listCollege: MutableList<String> = mutableListOf()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_sign_up_school_college, null)
+        val view =  inflater.inflate(R.layout.fragment_sign_up_school_college, null)
+        ButterKnife.bind(this,view)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -101,10 +105,25 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
         else if (it == view_college) selectQualificationInfo(Qualification.COLLEGE_UNIVERSITY)
     }
 
+    @OnTextChanged(R.id.edit_school_name)
+    fun typeSchoolName(charSequence: CharSequence) {
+
+        if (charSequence.length > 1) {
+            getStandardList(Qualification.HIGH_SCHOOL, charSequence.toString())
+        }
+    }
+
+    @OnTextChanged(R.id.edit_college_name)
+    fun typeCollegeName(charSequence: CharSequence) {
+
+        if (charSequence.length > 1) {
+            getStandardList(Qualification.COLLEGE_UNIVERSITY, charSequence.toString())
+        }
+    }
+
     private fun selectQualificationInfo(qualification: Qualification) {
         (Objects.requireNonNull<FragmentActivity>(activity) as SignUpStudentInfoActivity).enableButton(true)
         standard = qualification.name
-        getStandardList(qualification)
         when (qualification) {
             SignUpSchoolCollegeFragment.Qualification.HIGH_SCHOOL -> {
                 view_school!!.background = resources.getDrawable(R.drawable.border_orange_bg)
@@ -151,24 +170,15 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
         COLLEGE_UNIVERSITY
     }
 
-    private fun getStandardList(qualification: Qualification) {
+    private fun getStandardList(qualification: Qualification, querString: String) {
 
-        if (qualification == Qualification.COLLEGE_UNIVERSITY) {
-            if (listCollege.isNotEmpty()) {
-                return
-            }
-        } else if (qualification == Qualification.HIGH_SCHOOL) {
-            if (listSchool.isNotEmpty()) {
-                return
-            }
-        }
-
-        SignUpRepo.getStandardList(qualification.name, object : ResponseListener<StandardResponse> {
+        SignUpRepo.getStandardList(qualification.name, querString, object : ResponseListener<StandardResponse> {
 
             override fun onSuccess(response: StandardResponse) {
 
                 when (qualification) {
                     Qualification.HIGH_SCHOOL -> {
+                        listSchool.clear()
                         response.data[0].forEach {
                             listSchool.add(it.name)
                         }
@@ -178,6 +188,7 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
                         schoolArrayAdapter?.notifyDataSetChanged()
                     }
                     Qualification.COLLEGE_UNIVERSITY -> {
+                        listCollege.clear()
                         response.data[0].forEach {
                             listCollege.add(it.name)
                         }

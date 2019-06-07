@@ -43,6 +43,7 @@
                 android:inputType="textCapWords"
                 android:singleLine="true"
                 android:maxLength="30"
+                android:imeOptions="actionNext"
                 android:fontFamily="@font/poppins_medium"
                 android:layout_height="wrap_content"/>
     </android.support.design.widget.TextInputLayout>
@@ -66,6 +67,7 @@
                 android:inputType="textCapWords"
                 android:singleLine="true"
                 android:maxLength="30"
+                android:imeOptions="actionDone"
                 android:fontFamily="@font/poppins_medium"
                 android:layout_height="wrap_content"/>
     </android.support.design.widget.TextInputLayout>
