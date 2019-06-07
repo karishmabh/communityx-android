@@ -117,9 +117,9 @@ class SignUpMemberOfClub : BaseSignUpFragment() , AppConstant {
         SignUpRepo.getCauseAndRoles(object : ResponseListener<ClubAndRoleData> {
             override fun onSuccess(response: ClubAndRoleData) {
                 causeList = response.causes
-                createCauseDataId(causeList)
+              //  createCauseDataId(causeList)
 
-                setRoleData(response.roles)
+              //  setRoleData(response.roles)
             }
 
             override fun onError(error: Any) {
