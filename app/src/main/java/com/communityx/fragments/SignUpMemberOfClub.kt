@@ -47,7 +47,7 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
         mCategory = (activity as SignUpStudentInfoActivity).selectedCategory
 
         if (mCategory.equals(AppConstant.PROFESSIONAL)) {
-            textinput_club_cause.hint = "Causes Name"
+            textinput_club_cause.hint = getString(R.string.organization_or_group)
             text_heading.text = resources.getString(R.string.member_of_casuse_driven_org)
         } else {
             initField()
@@ -79,12 +79,10 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
         if (mCategory.equals(AppConstant.PROFESSIONAL)) {
             signUpStudent?.cause_id = edit_club.text.toString()
             signUpStudent?.cause_role = edit_role.text.toString().toUpperCase()
-            return true
         } else {
             signUpStudent?.club_id = edit_club.text.toString()
             signUpStudent?.club_role = edit_role.text.toString().toUpperCase()
         }
-
 
         return validateEmpty(signUpStudent)
     }
@@ -92,9 +90,12 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
     override fun validateEmpty(requestData: SignUpRequest?, showSnackbar: Boolean): Boolean {
         var b = true
         when {
-            TextUtils.isEmpty(signUpStudent?.club_id) -> b = false
-            TextUtils.isEmpty(signUpStudent?.club_role) -> b = false
+            category == AppConstant.STUDENT && TextUtils.isEmpty(signUpStudent?.club_role) -> b = false
+            category == AppConstant.PROFESSIONAL && TextUtils.isEmpty(signUpStudent?.cause_role) -> b = false
+            category == AppConstant.PROFESSIONAL && TextUtils.isEmpty(signUpStudent?.cause_id) -> b = false
+            category == AppConstant.STUDENT && TextUtils.isEmpty(signUpStudent?.club_id) -> b = false
         }
+
         if (!b && showSnackbar) SnackBarFactory.createSnackBar(
             context,
             constraint_layout,
@@ -114,7 +115,6 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
         SignUpRepo.getClubAndRoles(query, object : ResponseListener<ClubAndRoleData> {
             override fun onSuccess(response: ClubAndRoleData) {
                 clubList = response.clubs
-                // setRoleData(response.roles)
                 createClubDataId(clubList)
             }
 
@@ -134,7 +134,6 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
             override fun onError(error: Any) {
                 Utils.showError(activity, constraint_layout, error)
             }
-
         })
     }
 
@@ -188,7 +187,6 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
             R.id.text_item,
             club
         )
-
         edit_club.setAdapter(arrayAdapter)
     }
 }

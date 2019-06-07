@@ -59,5 +59,5 @@ interface IApiInterface {
     fun getCompanies(@Header("token") token: String, @Query("q") query: String): Call<JobResponse>
 
     @GET("standard")
-    fun getStandardList(@Header("token") token: String, @Query("standard") query: String) : Call<StandardResponse>
+    fun getStandardList(@Header("token") token: String, @Query("standard") type: String, @Query("q") query: String) : Call<StandardResponse>
 }
