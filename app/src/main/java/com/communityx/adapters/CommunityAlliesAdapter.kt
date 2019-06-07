@@ -30,8 +30,10 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
 
     override fun onBindViewHolder(eventHolder: EventHolder, i: Int) {
         eventHolder.bindData()
-        val interesttList = mArrayList.get(i).profile.interests
-        setFLexLayout(eventHolder.flexboxLayout, interesttList)
+        if (mArrayList.get(i).profile != null) {
+            val interesttList = mArrayList.get(i).profile.interests
+            setFLexLayout(eventHolder.flexboxLayout, interesttList)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -91,8 +93,7 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
             checkBox.text = interest.get(i).name
             checkBox.performClick()
 
-            val lp =
-                    ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            val lp = ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             lp.setMargins(10, 10, 10, 10)
             fLexLayout.addView(checkBox, lp)
         }

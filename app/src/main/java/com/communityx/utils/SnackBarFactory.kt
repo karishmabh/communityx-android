@@ -1,5 +1,6 @@
 package com.communityx.utils
 
+import android.app.Activity
 import android.content.Context
 import android.support.design.widget.Snackbar
 import android.view.View
@@ -31,5 +32,9 @@ object SnackBarFactory {
         snackbar.show()
 
         return snackbar
+    }
+
+    fun createSnackBarWithoutRoot(context: Activity, message: String) {
+        Snackbar.make(context.getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_LONG).show()
     }
 }

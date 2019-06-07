@@ -55,7 +55,9 @@ class LoginActivity : AppCompatActivity() , AppConstant {
     }
 
     private fun navigateActivity() {
-        startActivity(Intent(this, DashboardActivity::class.java))
+        startActivity(Intent(this, DashboardActivity::class.java)
+            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
         finish()
     }
@@ -116,12 +118,6 @@ class LoginActivity : AppCompatActivity() , AppConstant {
 
     private fun saveUserData(loginData: Data) {
         SessionManager.setSession(loginData)
-       /* AppPreference.getInstance(this).setString(PREF_SESSION_ID, loginData.session.session_id)
-        AppPreference.getInstance(this).setString(PREF_EMAIL, loginData.user.email)
-        AppPreference.getInstance(this).setString(PREF_USERNAME, loginData.user.profile.full_name)
-        AppPreference.getInstance(this).setString(PREF_PROFESSION, loginData.user.profile.standard)
-        AppPreference.getInstance(this).setString(PREF_USERIMAGE, loginData.user.profile.profile_image)
-        AppPreference.getInstance(this).setBoolean(PREF_IS_LOGIN, true)*/
 
         navigateActivity()
     }
