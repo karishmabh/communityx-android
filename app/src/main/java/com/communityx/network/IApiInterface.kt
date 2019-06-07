@@ -40,10 +40,13 @@ interface IApiInterface {
     fun signUp(@Header("token") token: String, @Body signUpRequest: SignUpRequest): Call<SignUpResponse>
 
     @GET("clubs")
-    fun getClubsAndRoles(@Header("token") token: String): Call<ClubAndRoleResponse>
+    fun getClubsAndRoles(@Header("token") token: String, @Query("q") query: String): Call<ClubAndRoleResponse>
 
     @GET("causes")
-    fun getCausesAndRoles(@Header("token") token: String): Call<ClubAndRoleResponse>
+    fun getCausesAndRoles(@Header("token") token: String,@Query("q") query: String): Call<ClubAndRoleResponse>
+
+    @GET("roles")
+    fun getRoles(@Header("token") token: String): Call<RoleResponse>
 
     @GET("user/friend-suggest-list")
     fun getConnectingAllies(@Header("token") token: String, @Header("session") session: String): Call<ConnectAlliesResponse>

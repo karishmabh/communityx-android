@@ -130,8 +130,8 @@ object SignUpRepo : BaseRepo {
             })
     }
 
-    fun getClubAndRoles(responseListener: ResponseListener<ClubAndRoleData>) {
-        DataManager.getService().getClubsAndRoles(AuthRepo.getAccessToken())
+    fun getClubAndRoles(query: String,responseListener: ResponseListener<ClubAndRoleData>) {
+        DataManager.getService().getClubsAndRoles(AuthRepo.getAccessToken(),query)
             .enqueue(object : Callback<ClubAndRoleResponse> {
                 override fun onFailure(call: Call<ClubAndRoleResponse>, t: Throwable) {
                     responseListener.onError(t)
@@ -152,8 +152,8 @@ object SignUpRepo : BaseRepo {
             })
     }
 
-    fun getCauseAndRoles(responseListener: ResponseListener<ClubAndRoleData>) {
-        DataManager.getService().getCausesAndRoles(AuthRepo.getAccessToken())
+    fun getCauseAndRoles(query: String, responseListener: ResponseListener<ClubAndRoleData>) {
+        DataManager.getService().getCausesAndRoles(AuthRepo.getAccessToken(),query)
             .enqueue(object : Callback<ClubAndRoleResponse> {
                 override fun onFailure(call: Call<ClubAndRoleResponse>, t: Throwable) {
                     responseListener.onError(t)
@@ -173,6 +173,30 @@ object SignUpRepo : BaseRepo {
 
             })
     }
+
+
+    fun getRoles(responseListener: ResponseListener<RoleResponse>) {
+        DataManager.getService().getRoles(AuthRepo.getAccessToken())
+            .enqueue(object : Callback<RoleResponse> {
+                override fun onFailure(call: Call<RoleResponse>, t: Throwable) {
+                    responseListener.onError(t)
+                }
+
+                override fun onResponse(call: Call<RoleResponse>, response: Response<RoleResponse>) {
+                    if (!response.isSuccessful) {
+                        response.errorBody()?.let { responseListener.onError(it) }
+                        return
+                    }
+                    if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                        responseListener.onSuccess(response.body()!!)
+                    } else {
+                        responseListener.onError(response.body()!!.error)
+                    }
+                }
+
+            })
+    }
+
 
     fun getStandardList(query: String, responseListener: ResponseListener<StandardResponse>) {
         DataManager.getService().getStandardList(AuthRepo.getAccessToken(), query)
