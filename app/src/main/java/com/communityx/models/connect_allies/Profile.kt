@@ -14,6 +14,5 @@ data class Profile(
         val standard_year: String,
         val name: String,
         val website: String,
-        val job_title: String,
         val company_name: String
 )

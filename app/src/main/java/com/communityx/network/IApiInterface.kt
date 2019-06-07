@@ -1,6 +1,7 @@
 package com.communityx.network
 
 import com.communityx.models.connect_allies.ConnectAlliesResponse
+import com.communityx.models.job_companies.JobResponse
 import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
 import com.communityx.models.logout.LogoutResponse
@@ -50,6 +51,12 @@ interface IApiInterface {
 
     @GET("user/friend-suggest-list")
     fun getConnectingAllies(@Header("token") token: String, @Header("session") session: String): Call<ConnectAlliesResponse>
+
+    @GET("job-titles")
+    fun getJobTitles(@Header("token") token: String, @Query("q") query: String): Call<JobResponse>
+
+    @GET("companies")
+    fun getCompanies(@Header("token") token: String, @Query("q") query: String): Call<JobResponse>
 
     @GET("standard")
     fun getStandardList(@Header("token") token: String, @Query("standard") query: String) : Call<StandardResponse>

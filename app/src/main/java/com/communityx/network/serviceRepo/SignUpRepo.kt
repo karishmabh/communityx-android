@@ -1,6 +1,8 @@
 package com.communityx.network.serviceRepo
 
 import android.content.Context
+import com.communityx.models.job_companies.Data
+import com.communityx.models.job_companies.JobResponse
 import com.communityx.models.signup.*
 import com.communityx.models.signup.image.ImageUploadRequest
 import com.communityx.models.signup.image.ImageUploadResponse
@@ -174,6 +176,49 @@ object SignUpRepo : BaseRepo {
             })
     }
 
+    fun getJobTitle(query: String, responseListener: ResponseListener<List<List<Data>>>) {
+        DataManager.getService().getJobTitles(AuthRepo.getAccessToken(), query)
+            .enqueue(object : Callback<JobResponse> {
+                override fun onFailure(call: Call<JobResponse>, t: Throwable) {
+                    responseListener.onError(t)
+                }
+
+                override fun onResponse(call: Call<JobResponse>, response: Response<JobResponse>) {
+                    if (!response.isSuccessful) {
+                        response.errorBody()?.let { responseListener.onError(it) }
+                        return
+                    }
+
+                    if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                        responseListener.onSuccess(response.body()!!.data)
+                    } else {
+                        responseListener.onError(response.body()!!.error)
+                    }
+                }
+            })
+    }
+
+    fun getCompanies(query: String, responseListener: ResponseListener<List<List<Data>>>) {
+        DataManager.getService().getCompanies(AuthRepo.getAccessToken(), query)
+            .enqueue(object : Callback<JobResponse> {
+                override fun onFailure(call: Call<JobResponse>, t: Throwable) {
+                    responseListener.onError(t)
+                }
+
+                override fun onResponse(call: Call<JobResponse>, response: Response<JobResponse>) {
+                    if (!response.isSuccessful) {
+                        response.errorBody()?.let { responseListener.onError(it) }
+                        return
+                    }
+
+                    if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                        responseListener.onSuccess(response.body()!!.data)
+                    } else {
+                        responseListener.onError(response.body()!!.error)
+                    }
+                }
+            })
+    }
 
     fun getRoles(responseListener: ResponseListener<RoleResponse>) {
         DataManager.getService().getRoles(AuthRepo.getAccessToken())
