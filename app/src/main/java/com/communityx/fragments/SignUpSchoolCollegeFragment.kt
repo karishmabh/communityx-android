@@ -6,18 +6,28 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import com.communityx.R
 import com.communityx.activity.SignUpStudentInfoActivity
 import com.communityx.base.BaseSignUpFragment
 import com.communityx.models.signup.SignUpRequest
+import com.communityx.models.signup.StandardResponse
+import com.communityx.network.ResponseListener
+import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.AppConstant.HIGH_SCHOOL
 import com.communityx.utils.SnackBarFactory
+import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.fragment_sign_up_school_college.*
 import java.util.*
 
 class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
 
+    private var schoolArrayAdapter: ArrayAdapter<String>? = null
+    private var collegeArrayAdapter: ArrayAdapter<String>? = null
     private var standard: String? = null
+
+    private var listSchool: MutableList<String> = mutableListOf()
+    private var listCollege: MutableList<String> = mutableListOf()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_sign_up_school_college, null)
@@ -69,6 +79,10 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
     }
 
     private fun initField() {
+
+        edit_school_name.threshold = 1
+        edit_college_name.threshold = 1
+
         if (validateEmpty(signUpStudent, false)) {
             if (standard == Qualification.HIGH_SCHOOL.name) {
                 edit_school_name.setText(signUpStudent?.standard_name)
@@ -90,6 +104,7 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
     private fun selectQualificationInfo(qualification: Qualification) {
         (Objects.requireNonNull<FragmentActivity>(activity) as SignUpStudentInfoActivity).enableButton(true)
         standard = qualification.name
+        getStandardList(qualification)
         when (qualification) {
             SignUpSchoolCollegeFragment.Qualification.HIGH_SCHOOL -> {
                 view_school!!.background = resources.getDrawable(R.drawable.border_orange_bg)
@@ -135,4 +150,49 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
         HIGH_SCHOOL,
         COLLEGE_UNIVERSITY
     }
+
+    private fun getStandardList(qualification: Qualification) {
+
+        if (qualification == Qualification.COLLEGE_UNIVERSITY) {
+            if (listCollege.isNotEmpty()) {
+                return
+            }
+        } else if (qualification == Qualification.HIGH_SCHOOL) {
+            if (listSchool.isNotEmpty()) {
+                return
+            }
+        }
+
+        SignUpRepo.getStandardList(qualification.name, object : ResponseListener<StandardResponse> {
+
+            override fun onSuccess(response: StandardResponse) {
+
+                when (qualification) {
+                    Qualification.HIGH_SCHOOL -> {
+                        response.data[0].forEach {
+                            listSchool.add(it.name)
+                        }
+                        schoolArrayAdapter =
+                            ArrayAdapter(context!!, R.layout.item_member_of_club, R.id.text_item, listSchool)
+                        edit_school_name.setAdapter(schoolArrayAdapter)
+                        schoolArrayAdapter?.notifyDataSetChanged()
+                    }
+                    Qualification.COLLEGE_UNIVERSITY -> {
+                        response.data[0].forEach {
+                            listCollege.add(it.name)
+                        }
+                        collegeArrayAdapter =
+                            ArrayAdapter(context!!, R.layout.item_member_of_club, R.id.text_item, listSchool)
+                        edit_school_name.setAdapter(collegeArrayAdapter)
+                    }
+                }
+            }
+
+            override fun onError(error: Any) {
+                Utils.showError(activity, constraint_layout, error)
+            }
+
+        })
+    }
+
 }

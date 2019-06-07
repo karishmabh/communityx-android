@@ -9,13 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import butterknife.ButterKnife
+import butterknife.OnTextChanged
 import com.communityx.R
 import com.communityx.activity.SignUpStudentInfoActivity
 import com.communityx.base.BaseSignUpFragment
-import com.communityx.models.signup.Causes
-import com.communityx.models.signup.Club
-import com.communityx.models.signup.ClubAndRoleData
-import com.communityx.models.signup.SignUpRequest
+import com.communityx.models.signup.*
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.AppConstant
@@ -25,12 +23,13 @@ import kotlinx.android.synthetic.main.fragment_sign_up_member_of_club.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class SignUpMemberOfClub : BaseSignUpFragment() , AppConstant {
+class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
 
     private var clubList: List<Club> = ArrayList()
     private var causeList: List<Causes> = ArrayList()
     private var clubListName: MutableList<String> = mutableListOf()
-    private var mCategory: String ?= null
+    private var roleList: MutableList<String> = mutableListOf()
+    private var mCategory: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up_member_of_club, null)
@@ -47,32 +46,45 @@ class SignUpMemberOfClub : BaseSignUpFragment() , AppConstant {
     private fun checkCategory() {
         mCategory = (activity as SignUpStudentInfoActivity).selectedCategory
 
-        if(mCategory.equals(AppConstant.PROFESSIONAL)) {
-            text_club_name_hint.setText("Organization")
-            text_heading.setText(resources.getString(R.string.member_of_casuse_driven_org))
-            getCauseAndRole()
+        if (mCategory.equals(AppConstant.PROFESSIONAL)) {
+            textinput_club_cause.hint = "Causes Name"
+            text_heading.text = resources.getString(R.string.member_of_casuse_driven_org)
         } else {
             initField()
-            getClubAndRole()
         }
+
+        getRole()
     }
 
     override fun onContinueButtonClicked() {
-        if(setFieldsData()) goToNextPage()
+        if (setFieldsData()) goToNextPage()
+    }
+
+    @OnTextChanged(R.id.edit_club)
+    fun searchCausesClub(charSequence: CharSequence) {
+        if (charSequence.length > 1) {
+
+            when (category) {
+                AppConstant.STUDENT -> {
+                    getClubAndRole(charSequence.toString())
+                }
+                AppConstant.PROFESSIONAL -> {
+                    getCauseAndRole(charSequence.toString())
+                }
+            }
+        }
     }
 
     override fun setFieldsData(): Boolean {
         if (mCategory.equals(AppConstant.PROFESSIONAL)) {
-            signUpStudent?.cause_id = causeList[spinner_club_name.selectedItemPosition].id
-            signUpStudent?.cause_role = (spinner_role.selectedItem as String).toUpperCase()
+            signUpStudent?.cause_id = edit_club.text.toString()
+            signUpStudent?.cause_role = edit_role.text.toString().toUpperCase()
             return true
         } else {
-            signUpStudent?.club_id = clubList[spinner_club_name.selectedItemPosition].id
-            signUpStudent?.club_role = (spinner_role.selectedItem as String).toUpperCase()
+            signUpStudent?.club_id = edit_club.text.toString()
+            signUpStudent?.club_role = edit_role.text.toString().toUpperCase()
         }
 
-        signUpActivity?.selectedClubNameIndex = spinner_club_name.selectedItemPosition
-        signUpActivity?.selectedRole = spinner_role.selectedItemPosition
 
         return validateEmpty(signUpStudent)
     }
@@ -92,17 +104,17 @@ class SignUpMemberOfClub : BaseSignUpFragment() , AppConstant {
     }
 
     private fun initField() {
-        if(validateEmpty(signUpStudent, false)) {
-            spinner_club_name.setSelection(signUpActivity?.selectedClubNameIndex!!)
-            spinner_role.setSelection(signUpActivity?.selectedRole!!)
+        if (validateEmpty(signUpStudent, false)) {
+            edit_role.setText(signUpStudent?.club_role)
+            edit_club.setText(if (category == AppConstant.PROFESSIONAL) signUpStudent?.cause_id else signUpStudent?.club_id)
         }
     }
 
-    private fun getClubAndRole() {
-        SignUpRepo.getClubAndRoles(object : ResponseListener<ClubAndRoleData> {
+    private fun getClubAndRole(query: String) {
+        SignUpRepo.getClubAndRoles(query, object : ResponseListener<ClubAndRoleData> {
             override fun onSuccess(response: ClubAndRoleData) {
                 clubList = response.clubs
-                setRoleData(response.roles)
+                // setRoleData(response.roles)
                 createClubDataId(clubList)
             }
 
@@ -113,13 +125,31 @@ class SignUpMemberOfClub : BaseSignUpFragment() , AppConstant {
         })
     }
 
-    private fun getCauseAndRole() {
-        SignUpRepo.getCauseAndRoles(object : ResponseListener<ClubAndRoleData> {
-            override fun onSuccess(response: ClubAndRoleData) {
-                causeList = response.causes
-              //  createCauseDataId(causeList)
+    private fun getRole() {
+        SignUpRepo.getRoles(object : ResponseListener<RoleResponse> {
+            override fun onSuccess(response: RoleResponse) {
+                createRoleString(response.data[0])
+            }
 
-              //  setRoleData(response.roles)
+            override fun onError(error: Any) {
+                Utils.showError(activity, constraint_layout, error)
+            }
+
+        })
+    }
+
+    private fun createRoleString(data: List<RoleData>) {
+        roleList.clear()
+        data.forEach {
+            roleList.add(it.name)
+        }
+        setRoleData(roleList)
+    }
+
+    private fun getCauseAndRole(query: String) {
+        SignUpRepo.getCauseAndRoles(query, object : ResponseListener<ClubAndRoleData> {
+            override fun onSuccess(response: ClubAndRoleData) {
+                createCauseDataId(response.causes)
             }
 
             override fun onError(error: Any) {
@@ -129,6 +159,7 @@ class SignUpMemberOfClub : BaseSignUpFragment() , AppConstant {
     }
 
     private fun createClubDataId(clubList: List<Club>) {
+        clubListName.clear()
         clubList.forEach {
             clubListName.add(it.name)
         }
@@ -136,6 +167,7 @@ class SignUpMemberOfClub : BaseSignUpFragment() , AppConstant {
     }
 
     private fun createCauseDataId(clubList: List<Causes>) {
+        clubListName.clear()
         clubList.forEach {
             clubListName.add(it.name)
         }
@@ -143,16 +175,20 @@ class SignUpMemberOfClub : BaseSignUpFragment() , AppConstant {
     }
 
     private fun setRoleData(role: List<String>) {
-        spinner_role!!.adapter =
+        val arrayAdapter =
             ArrayAdapter(context!!, R.layout.item_member_of_club, R.id.text_item, role)
+
+        edit_role.setAdapter(arrayAdapter)
     }
 
     private fun setClubData(club: List<String>) {
-        spinner_club_name!!.adapter = ArrayAdapter(
+        val arrayAdapter = ArrayAdapter(
             Objects.requireNonNull<Context>(context),
             R.layout.item_member_of_club,
             R.id.text_item,
             club
         )
+
+        edit_club.setAdapter(arrayAdapter)
     }
 }

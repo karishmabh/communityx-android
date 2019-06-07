@@ -11,6 +11,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.communityx.R
 import com.communityx.models.connect_allies.Interest
+import com.communityx.models.connect_allies.Minors
 import com.communityx.models.connect_allies.ProfileData
 import com.communityx.utils.AppConstant
 import com.communityx.utils.AppConstant.*
@@ -31,7 +32,7 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
     override fun onBindViewHolder(eventHolder: EventHolder, i: Int) {
         eventHolder.bindData()
         if (mArrayList.get(i).profile != null) {
-            val interesttList = mArrayList.get(i).profile.interests
+            val interesttList = mArrayList.get(i).minors
             setFLexLayout(eventHolder.flexboxLayout, interesttList)
         }
     }
@@ -78,7 +79,7 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
 
                 PROFESSIONAL ->  {
                     itemView.text_title_name.setText(mArrayList.get(adapterPosition).profile.full_name)
-                    return mArrayList.get(adapterPosition).profile.job_title + ", "+mArrayList.get(adapterPosition).profile.company_name
+                    return mArrayList.get(adapterPosition).profile.company_name
                 }
             }
             return ""
@@ -86,7 +87,7 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
     }
 
 
-    fun setFLexLayout(fLexLayout: FlexboxLayout?, interest: List<Interest>) {
+    fun setFLexLayout(fLexLayout: FlexboxLayout?, interest: List<Minors>) {
         fLexLayout!!.removeAllViews()
         for (i in interest.indices) {
             val checkBox = LayoutInflater.from(mActvity).inflate(R.layout.item_interest, null) as CheckBox

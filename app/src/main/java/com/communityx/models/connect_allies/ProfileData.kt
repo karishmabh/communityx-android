@@ -6,5 +6,6 @@ data class ProfileData(
         val id: String,
         val last_login: String,
         val phone: String,
-        val profile: Profile
+        val profile: Profile,
+        val minors: List<Minors>
 )

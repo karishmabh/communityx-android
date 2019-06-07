@@ -50,11 +50,11 @@ class SignUpProfessional : BaseSignUpFragment() {
         var msg = ""
         when {
             TextUtils.isEmpty(requestData?.job_title) -> {
-                msg = getString(R.string.job_title_required)
+                msg = resources.getString(R.string.job_title_required)
                 isValidated = false
             }
             TextUtils.isEmpty(requestData?.company_name) -> {
-                msg = getString(R.string.company_field_required)
+                msg = resources.getString(R.string.company_field_required)
                 isValidated = false
             }
         }

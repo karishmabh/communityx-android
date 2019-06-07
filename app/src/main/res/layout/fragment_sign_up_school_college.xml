@@ -107,7 +107,7 @@
                         android:fontFamily="@font/poppins_medium"
                         android:layout_marginStart="@dimen/_10sdp"/>
 
-                <EditText
+                <AutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_marginEnd="@dimen/_20sdp"
                         tools:text="ABC International School"
@@ -208,7 +208,7 @@
                         android:fontFamily="@font/poppins_medium"
                         android:layout_marginStart="@dimen/_10sdp"/>
 
-                <EditText
+                <AutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_marginEnd="@dimen/_20sdp"
                         tools:text="ABC International College"
