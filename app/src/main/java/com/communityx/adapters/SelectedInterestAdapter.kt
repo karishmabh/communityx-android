@@ -52,8 +52,14 @@ class SelectedInterestAdapter(val mInterestList: List<MinorsData>, val mActvity:
                 checkBox.text = civilRight.name
                 checkBox.performClick()
 
+                for (selectedid in mSelectedIds) {
+                    if (civilRight.id == selectedid) {
+                        checkBox.setBackgroundResource(R.drawable.bg_interest_active)
+                    }
+                }
+
                 checkBox.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) {
+                    if (!mSelectedIds.contains(civilRight.id)) {
                         if (mSelectedIds.size == 5) {
                             showMaximumReached()
                             return@setOnCheckedChangeListener
