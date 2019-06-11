@@ -20,8 +20,8 @@
 
     <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/flex_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"

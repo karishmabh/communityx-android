@@ -60,4 +60,7 @@ interface IApiInterface {
 
     @GET("standard")
     fun getStandardList(@Header("token") token: String, @Query("standard") type: String, @Query("q") query: String) : Call<StandardResponse>
+
+    @POST("verify-user")
+    fun verifyUser(@Header("token") token: String, @Header("session") session: String, @Body emailPhoneVerificationRequest: EmailPhoneVerificationRequest) : Call<VerificationResponse>
 }
