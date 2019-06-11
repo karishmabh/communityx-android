@@ -50,7 +50,7 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
         }
 
         fun bindData() {
-            val profileData = mArrayList.get(adapterPosition);
+            val profileData = mArrayList.get(adapterPosition)
 
             if (profileData.profile == null) return
             try {
@@ -69,7 +69,7 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
             when (category) {
                 STUDENT -> {
                     itemView.text_title_name.setText(mArrayList.get(adapterPosition).profile.full_name)
-                    return "Student"+ ", "+ mArrayList.get(adapterPosition).profile.standard
+                    return "Student"+ ", "+ mArrayList.get(adapterPosition).profile.standard.name
                 }
 
                 ORGANIZATION ->  {
@@ -79,7 +79,7 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
 
                 PROFESSIONAL ->  {
                     itemView.text_title_name.setText(mArrayList.get(adapterPosition).profile.full_name)
-                    return mArrayList.get(adapterPosition).profile.company_name
+                    return mArrayList.get(adapterPosition).profile.job_title.name +", "+ mArrayList.get(adapterPosition).profile.company.name
                 }
             }
             return ""
