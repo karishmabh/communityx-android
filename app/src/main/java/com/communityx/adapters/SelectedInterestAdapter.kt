@@ -54,6 +54,7 @@ class SelectedInterestAdapter(val mInterestList: List<MinorsData>, val mActvity:
 
         private fun initFlexLayout(civilRights: List<Minor>) {
 
+            itemView.flex_layout.removeAllViews()
             for (civilRight in civilRights) {
 
                 checkBox.text = civilRight.name

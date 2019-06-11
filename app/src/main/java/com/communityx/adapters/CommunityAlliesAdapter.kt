@@ -69,7 +69,7 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
             when (category) {
                 STUDENT -> {
                     itemView.text_title_name.setText(mArrayList.get(adapterPosition).profile.full_name)
-                    return "Student"+ ", "+ mArrayList.get(adapterPosition).profile.standard_name
+                    return "Student"+ ", "+ mArrayList.get(adapterPosition).profile.standard
                 }
 
                 ORGANIZATION ->  {
