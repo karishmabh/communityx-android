@@ -16,9 +16,8 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.communityx.R
 import com.communityx.base.BaseSignUpFragment
-import com.communityx.models.signup.OtpRequest
-import com.communityx.models.signup.SignUpRequest
-import com.communityx.models.signup.VerifyOtpRequest
+import com.communityx.models.signup.*
+import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.AppConstant.EMAIL_PATTERN

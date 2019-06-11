@@ -16,14 +16,18 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.communityx.R
 import com.communityx.base.BaseSignUpFragment
+import com.communityx.models.signup.EmailPhoneVerificationRequest
 import com.communityx.models.signup.OtpRequest
 import com.communityx.models.signup.SignUpRequest
 import com.communityx.models.signup.VerifyOtpRequest
+import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.*
 import com.communityx.utils.AppConstant.EMAIL_PATTERN
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_sign_up_student_info.*
+import kotlinx.android.synthetic.main.fragment_sign_up_student_info.edit_email_username
 
 class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClickListener,
     GalleryPicker.GalleryPickerListener {
@@ -105,7 +109,6 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                 }
             }
         }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -128,7 +131,31 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     }
 
     override fun onContinueButtonClicked() {
-        if(setFieldsData()) goToNextPage()
+
+        if (setFieldsData()) {
+            context?.let {
+                val dialog = CustomProgressBar.getInstance(it).showProgressDialog("verifying data ...")
+                dialog.show()
+
+                if (setFieldsData()) {
+                    val emailPhoneVerificationRequest = EmailPhoneVerificationRequest(signUpActivity?.signUpRequest?.email.toString(), signUpActivity?.signUpRequest?.phone.toString())
+
+                    activity?.let {
+                        DataManager.doVerifyEmailPhone(it, emailPhoneVerificationRequest, object : ResponseListener<List<String>> {
+                            override fun onSuccess(response: List<String>) {
+                                dialog.dismiss()
+                                goToNextPage()
+                            }
+
+                            override fun onError(error: Any) {
+                                dialog.dismiss()
+                                Utils.showError(activity, constraint_top, error)
+                            }
+                        })
+                    }
+                }
+            }
+        }
     }
 
     override fun setFieldsData(): Boolean {
