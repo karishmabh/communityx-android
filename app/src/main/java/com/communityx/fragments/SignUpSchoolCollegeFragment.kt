@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import butterknife.ButterKnife
 import butterknife.OnTextChanged
@@ -16,6 +17,7 @@ import com.communityx.models.signup.SignUpRequest
 import com.communityx.models.signup.StandardResponse
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
+import com.communityx.utils.AdjustKeyboard
 import com.communityx.utils.AppConstant.HIGH_SCHOOL
 import com.communityx.utils.SnackBarFactory
 import com.communityx.utils.Utils
@@ -34,6 +36,7 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view =  inflater.inflate(R.layout.fragment_sign_up_school_college, null)
         ButterKnife.bind(this,view)
+
         return view
     }
 

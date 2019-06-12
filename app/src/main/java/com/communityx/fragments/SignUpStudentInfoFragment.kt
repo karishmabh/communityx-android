@@ -40,7 +40,8 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up_student_info, null)
         ButterKnife.bind(this, view)
-      /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+        /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val permission = PermissionHelper(signUpActivity)
             if (!permission.checkPermission(*permissions))
                 requestPermissions(permissions, AppConstant.REQUEST_PERMISSION_CODE)

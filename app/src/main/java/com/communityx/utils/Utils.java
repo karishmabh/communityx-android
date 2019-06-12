@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -73,6 +74,18 @@ public class Utils {
         datePickerDialog.show();
     }
 
+    public static boolean isValid(String url)
+    {
+        try {
+            new URL(url).toURI();
+            return true;
+        }
+
+        catch (Exception e) {
+            return false;
+        }
+    }
+
     public static void datePicker(Activity activity, IDateCallback iDateCallback) {
         int mYear, mMonth, mDay;
 
@@ -93,8 +106,9 @@ public class Utils {
         datePickerDialog.show();
     }
 
-    static String pickedTime = "01/02/2000";
+    static String pickedTime = "";
     public static void iosDatePicker(Activity activity, IDateCallback iDateCallback) {
+        pickedTime = "2000-11-11";
         DatePickerPopWin pickerPopWin = new DatePickerPopWin.Builder(activity, new DatePickerPopWin.OnDatePickedListener() {
             @Override
             public void onDatePickCompleted(int year, int month, int day, String dateDesc) {
@@ -107,11 +121,11 @@ public class Utils {
                 .colorCancel(activity.getResources().getColor(R.color.colorLightGrey))
                 .colorConfirm(activity.getResources().getColor(R.color.colorAccent))
                 .maxYear(2010)
+                .minYear(1950)
                 .dateChose(pickedTime)
                 .showDayMonthYear(true) // shows like dd mm yyyy (default is false)  // date chose when init popwindow
                 .build();
         pickerPopWin.showPopWin(activity);
-        pickerPopWin.setSelectedDate(pickedTime);
     }
 
     public static Bitmap convertToBitmap(Activity activity, String filename) {

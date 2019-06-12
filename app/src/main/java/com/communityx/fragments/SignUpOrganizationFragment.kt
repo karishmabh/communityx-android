@@ -116,6 +116,12 @@ class SignUpOrganizationFragment : BaseSignUpFragment(), GalleryPicker.GalleryPi
                 if (showSnackbar) edit_website.requestFocus()
             }
 
+            !Utils.isValid(edit_website.text.toString()) -> {
+                isValidate = false
+                errorMessage = getString(R.string.string_website_invalid)
+                if (showSnackbar) edit_website.requestFocus()
+            }
+
             TextUtils.isEmpty(edit_postalcode.text.toString()) -> {
                 isValidate = false
                 errorMessage = getString(R.string.string_postalcode_cannot_be_empty)

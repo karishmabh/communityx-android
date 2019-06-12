@@ -3,7 +3,10 @@ package com.communityx.activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.Editable
+import android.text.Selection
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.text.method.PasswordTransformationMethod
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -15,12 +18,14 @@ import com.communityx.models.login.LoginResponse
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
 import com.communityx.session.SessionManager
-import com.communityx.utils.*
-import com.communityx.utils.AppConstant.*
+import com.communityx.utils.AppConstant
+import com.communityx.utils.CustomProgressBar
+import com.communityx.utils.SnackBarFactory
+import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlin.jvm.internal.Intrinsics
 
-class LoginActivity : AppCompatActivity() , AppConstant {
+class LoginActivity : AppCompatActivity(), AppConstant {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +33,7 @@ class LoginActivity : AppCompatActivity() , AppConstant {
         ButterKnife.bind(this)
 
         Utils.enableButton(button_login, false)
+        setPrefixMobile()
         Intrinsics.checkExpressionValueIsNotNull(edit_password, "edit_password")
         edit_password.transformationMethod = PasswordTransformationMethod.getInstance()
     }
@@ -54,16 +60,44 @@ class LoginActivity : AppCompatActivity() , AppConstant {
         Utils.enableButton(button_login, s.length != 0 && edit_email_username!!.length() != 0)
     }
 
+    private fun setPrefixMobile() {
+        var prefixNumber = resources.getString(R.string.prefix_number)
+        edit_email_username.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus && edit_email_username.text.toString() == prefixNumber) {
+                edit_email_username.setSelection(2)
+            }
+        }
+
+        edit_email_username.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(!s.toString().startsWith("+1")){
+                    edit_email_username.setText(prefixNumber)
+                    Selection.setSelection(edit_email_username.getText(), edit_email_username.text!!.length)
+                }
+            }
+        })
+    }
+
     private fun navigateActivity() {
-        startActivity(Intent(this, DashboardActivity::class.java)
-            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        startActivity(
+            Intent(this, DashboardActivity::class.java)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        )
         overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
         finish()
     }
 
     private fun startLogin() {
-        val phone = edit_email_username.text.toString().trim()
+        val phone = edit_email_username.text.toString().substring(2).trim()
         val password = edit_password.text.toString().trim()
         val loginRequest = LoginRequest(phone, password)
 

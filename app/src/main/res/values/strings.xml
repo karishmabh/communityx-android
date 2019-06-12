@@ -186,6 +186,8 @@
     <string name="string_organization_cannot_be_empty">Organization cannot be empty</string>
     <string name="string_email_cannot_be_empty">Email Address cannot be empty</string>
     <string name="string_website_cannot_be_empty">Website cannot be empty</string>
+    <string name="string_website_invalid">please enter valid website.</string>
+
     <string name="string_postalcode_cannot_be_empty">Please enter postal code</string>
     <string name="string_enter_valid_email_address">Email address is not valid</string>
     <string name="limit_interest">You can select maximum 5 interest</string>
