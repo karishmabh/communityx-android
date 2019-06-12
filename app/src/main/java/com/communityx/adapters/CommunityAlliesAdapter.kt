@@ -55,7 +55,10 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
             if (profileData.profile == null) return
             try {
                 if (!TextUtils.isEmpty(profileData.profile.profile_image)) {
-                    Picasso.get().load(profileData.profile.profile_image).error(R.drawable.profile_placeholder).fit()
+                    Picasso.get().load(profileData.profile.profile_image)
+                        .noPlaceholder()
+                        .fit()
+                        .error(R.drawable.profile_placeholder).fit()
                         .into(itemView.circle_profile_image)
                 }
             } catch (e: Exception) {

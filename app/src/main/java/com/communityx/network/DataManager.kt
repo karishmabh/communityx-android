@@ -7,6 +7,8 @@ import com.communityx.models.connect_allies.ProfileData
 import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
 import com.communityx.models.logout.LogoutResponse
+import com.communityx.models.signup.EmailPhoneVerificationRequest
+import com.communityx.models.signup.VerificationResponse
 import com.communityx.network.serviceRepo.AuthRepo
 import com.communityx.utils.AppConstant
 import okhttp3.OkHttpClient
@@ -85,6 +87,28 @@ object DataManager : AppConstant {
             override fun onFailure(call: Call<LogoutResponse>, t: Throwable) {
                 listener.onError(t)
             }
+        })
+    }
+
+    fun doVerifyEmailPhone(activity: Activity, emailPhoneVerificationRequest: EmailPhoneVerificationRequest, listener: ResponseListener<List<String>>) {
+        val call = DataManager.getService().verifyUser(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity), emailPhoneVerificationRequest)
+        call.enqueue(object  : Callback<VerificationResponse> {
+            override fun onFailure(call: Call<VerificationResponse>, t: Throwable) {
+                listener.onError(t)
+            }
+
+            override fun onResponse(call: Call<VerificationResponse>, response: Response<VerificationResponse>) {
+                if (!response.isSuccessful) {
+                    response.errorBody()?.let { listener.onError(it) }
+                    return
+                }
+
+                if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS)
+                    listener.onSuccess(response.body()!!.data)
+                else
+                    listener.onError(response.body()!!.error)
+            }
+
         })
     }
 
