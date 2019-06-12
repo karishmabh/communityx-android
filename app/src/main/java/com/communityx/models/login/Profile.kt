@@ -1,5 +1,6 @@
 package com.communityx.models.login
 
+import com.communityx.models.connect_allies.JobType
 import com.google.gson.annotations.SerializedName
 
 data class Profile(
@@ -16,8 +17,8 @@ data class Profile(
     val interests: List<Interest>,
     val postal_code: String,
     val profile_image: String,
-    val standard: String,
-    val standard_name: String,
+    val standard: JobType,
+    val company: JobType,
     val standard_year: String,
     val user_id: String
 )
