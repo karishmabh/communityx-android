@@ -193,8 +193,8 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
                             listCollege.add(it.name)
                         }
                         collegeArrayAdapter =
-                            ArrayAdapter(context!!, R.layout.item_member_of_club, R.id.text_item, listSchool)
-                        edit_school_name.setAdapter(collegeArrayAdapter)
+                            ArrayAdapter(context!!, R.layout.item_member_of_club, R.id.text_item, listCollege)
+                        edit_college_name.setAdapter(collegeArrayAdapter)
                     }
                 }
             }
