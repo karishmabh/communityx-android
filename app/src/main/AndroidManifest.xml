@@ -25,7 +25,7 @@
                 android:value="@string/google_maps_key"/>
 
         <activity android:name=".activity.SendLocationActivity"/>
-        <activity android:name=".activity.SignUpStudentInfoActivity"/>
+        <activity android:name=".activity.SignUpStudentInfoActivity" android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activity.GroupInfoActivity">
         </activity>
         <activity android:name=".activity.CreateGroupActivity"/>

@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import com.bruce.pickerview.popwindow.DatePickerPopWin;
 import com.communityx.R;
 import com.squareup.picasso.Picasso;
 
@@ -90,6 +91,27 @@ public class Utils {
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
+    }
+
+    static String pickedTime = "01/02/2000";
+    public static void iosDatePicker(Activity activity, IDateCallback iDateCallback) {
+        DatePickerPopWin pickerPopWin = new DatePickerPopWin.Builder(activity, new DatePickerPopWin.OnDatePickedListener() {
+            @Override
+            public void onDatePickCompleted(int year, int month, int day, String dateDesc) {
+                pickedTime = String.format("%s/%d/%d", month, day, year);
+                iDateCallback.getDate(String.format("%s/%d/%d", month, day, year));
+            }}).textConfirm("CONFIRM") //text of confirm button
+                .textCancel("CANCEL") //text of cancel button
+                .btnTextSize(14) // button text size
+                .viewTextSize(30) // pick view text size
+                .colorCancel(activity.getResources().getColor(R.color.colorLightGrey))
+                .colorConfirm(activity.getResources().getColor(R.color.colorAccent))
+                .maxYear(2010)
+                .dateChose(pickedTime)
+                .showDayMonthYear(true) // shows like dd mm yyyy (default is false)  // date chose when init popwindow
+                .build();
+        pickerPopWin.showPopWin(activity);
+        pickerPopWin.setSelectedDate(pickedTime);
     }
 
     public static Bitmap convertToBitmap(Activity activity, String filename) {

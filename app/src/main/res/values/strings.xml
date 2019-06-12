@@ -197,4 +197,5 @@
     <string name="select_atleast_one_interest">Please select at lease 1 interest above.</string>
     <string name="organization_or_group">Organizations or Groups</string>
     <string name="string_submit">Submit</string>
+    <string name="no_record_found">No Record Found!</string>
 </resources>

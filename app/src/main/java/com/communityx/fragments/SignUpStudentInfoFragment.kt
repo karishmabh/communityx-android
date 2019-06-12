@@ -25,7 +25,6 @@ import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.*
 import com.communityx.utils.AppConstant.EMAIL_PATTERN
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_sign_up_student_info.*
 import kotlinx.android.synthetic.main.fragment_sign_up_student_info.edit_email_username
 
@@ -41,11 +40,11 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up_student_info, null)
         ButterKnife.bind(this, view)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val permission = PermissionHelper(signUpActivity)
             if (!permission.checkPermission(*permissions))
                 requestPermissions(permissions, AppConstant.REQUEST_PERMISSION_CODE)
-        }
+        }*/
         return view
     }
 
@@ -138,7 +137,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                 dialog.show()
 
                 if (setFieldsData()) {
-                    val emailPhoneVerificationRequest = EmailPhoneVerificationRequest(signUpActivity?.signUpRequest?.email.toString(), signUpActivity?.signUpRequest?.phone.toString())
+                    val emailPhoneVerificationRequest = EmailPhoneVerificationRequest(signUpActivity?.signUpRequest?.phone.toString().trim(), signUpActivity?.signUpRequest?.email.toString().trim())
 
                     activity?.let {
                         DataManager.doVerifyEmailPhone(it, emailPhoneVerificationRequest, object : ResponseListener<List<String>> {
@@ -272,10 +271,17 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     }
 
     private fun tappedEditBirth() {
-        Utils.datePicker(signUpActivity) {
+        Utils.hideSoftKeyboard(activity)
+        Utils.iosDatePicker(activity, object: Utils.IDateCallback {
+            override fun getDate(date: String?) {
+                edit_birthday.setText(date)
+                edit_postalcode.requestFocus()
+            }
+        })
+     /*   Utils.datePicker(signUpActivity) {
             edit_birthday.setText(it)
             edit_postalcode.requestFocus()
-        }
+        }*/
     }
 
     private fun initOtpBox() {
