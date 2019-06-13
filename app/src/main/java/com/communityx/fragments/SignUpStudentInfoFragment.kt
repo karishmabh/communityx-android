@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.Selection
@@ -15,6 +14,7 @@ import android.widget.EditText
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.communityx.R
+import com.communityx.activity.SignUpStudentInfoActivity
 import com.communityx.base.BaseSignUpFragment
 import com.communityx.models.signup.EmailPhoneVerificationRequest
 import com.communityx.models.signup.OtpRequest
@@ -26,7 +26,6 @@ import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.*
 import com.communityx.utils.AppConstant.EMAIL_PATTERN
 import kotlinx.android.synthetic.main.fragment_sign_up_student_info.*
-import kotlinx.android.synthetic.main.fragment_sign_up_student_info.edit_email_username
 
 class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClickListener,
     GalleryPicker.GalleryPickerListener {
@@ -36,16 +35,12 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     private var hasOtpOrPasswordFieldVisible = false
     private var shouldChangeNumber = false
     private var prefixNumber: String? =null
+    val selectionStart: Int = 3
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up_student_info, null)
         ButterKnife.bind(this, view)
 
-        /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val permission = PermissionHelper(signUpActivity)
-            if (!permission.checkPermission(*permissions))
-                requestPermissions(permissions, AppConstant.REQUEST_PERMISSION_CODE)
-        }*/
         return view
     }
 
@@ -55,21 +50,14 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         initAllField()
         image_profile.setOnClickListener(this)
         text_send_otp.setOnClickListener(this)
-        edit_birthday.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                tappedEditBirth()
-            };true
-        }
-        edit_birthday.setOnFocusChangeListener { _, isFocused ->
-            if (isFocused) {
-                tappedEditBirth()
-            }
-        }
+        edit_birthday.setOnClickListener(this)
+
         edit_mobile.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus && edit_mobile.text.toString() == prefixNumber) {
-                edit_mobile.setSelection(2)
+                edit_mobile.setSelection(selectionStart)
             }
         }
+
         edit_mobile.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
@@ -80,10 +68,29 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(!s.toString().startsWith("+1")){
+                if(!s.toString().startsWith(resources.getString(R.string.prefix_number))){
                     edit_mobile.setText(prefixNumber)
                     Selection.setSelection(edit_mobile.getText(), edit_mobile.text!!.length)
                 }
+            }
+        })
+
+        edit_confirm_password.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if ( (activity as SignUpStudentInfoActivity) == null) return
+
+                if (s.toString().length > 1) {
+                    (activity as SignUpStudentInfoActivity).enableButton(true)
+                } else {
+                    (activity as SignUpStudentInfoActivity).enableButton(false)
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
         })
     }
@@ -99,16 +106,29 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         Utils.hideSoftKeyboard(activity!!)
         when {
             v?.id == R.id.image_profile -> chooseImage()
+            v?.id == R.id.edit_birthday -> tappedEditBirth()
             v?.id == R.id.text_send_otp -> {
                 if (!shouldChangeNumber) {
                     tappedSentOtp()
                 } else {
                     edit_mobile.isEnabled = true
                     shouldChangeNumber = false
-                    text_send_otp.text = getString(R.string.send_otp)
+                    onMobileChanged()
                 }
             }
         }
+    }
+
+    fun onMobileChanged() {
+        text_send_otp.text = getString(R.string.send_otp)
+
+        text_enter_otp.visibility = View.GONE
+        view_otp.visibility = View.GONE
+        resend_otp.visibility = View.GONE
+        view_password.visibility = View.GONE
+
+        edit_create_password.setText("")
+        edit_confirm_password.setText("")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -144,6 +164,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                         DataManager.doVerifyEmailPhone(it, emailPhoneVerificationRequest, object : ResponseListener<List<String>> {
                             override fun onSuccess(response: List<String>) {
                                 dialog.dismiss()
+                                changeButtonStatus(0, true)
                                 goToNextPage()
                             }
 
@@ -165,7 +186,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         signUpStudent?.postal_code = edit_postalcode.text.toString()
 
         if(edit_mobile.text.toString().length > 4)
-            signUpStudent?.phone = edit_mobile.text.toString().substring(2)
+            signUpStudent?.phone = edit_mobile.text.toString().substring(selectionStart)
         signUpStudent?.password = edit_confirm_password.text.toString()
 
         return validateEmpty(signUpStudent)
@@ -209,7 +230,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                 isValidate = false
                 msg = getString(R.string.mobile_field_empty)
                 edit_mobile.requestFocus()
-                edit_mobile.setSelection(2)
+                edit_mobile.setSelection(selectionStart)
             }
             !hasOtpOrPasswordFieldVisible -> {
                 isValidate = false
@@ -259,7 +280,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             SnackBarFactory.createSnackBar(context, scrollView, getString(R.string.mobile_field_empty))
             return
         }
-        val number = edit_mobile.text.toString().substring(2)
+        val number = edit_mobile.text.toString().substring(selectionStart)
         if (number.length < 10) {
             SnackBarFactory.createSnackBar(context, scrollView, getString(R.string.mobiel_number_less_digits))
             return
@@ -279,10 +300,6 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                 edit_postalcode.requestFocus()
             }
         })
-     /*   Utils.datePicker(signUpActivity) {
-            edit_birthday.setText(it)
-            edit_postalcode.requestFocus()
-        }*/
     }
 
     private fun initOtpBox() {
@@ -315,7 +332,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
 
     private fun createOtpAndVerify() {
         val verifyOtpRequest =
-            VerifyOtpRequest(otp = getOtp(), phone = edit_mobile.text.toString().substring(2))
+            VerifyOtpRequest(otp = getOtp(), phone = edit_mobile.text.toString().substring(selectionStart))
         Utils.hideSoftKeyboard(activity)
         verifyOtp(verifyOtpRequest)
         hasOtpOrPasswordFieldVisible = true
@@ -344,6 +361,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         if (visible) {
             text_send_otp.text = getString(R.string.change)
             text_enter_otp.visibility = View.VISIBLE
+
             view_otp.visibility = View.VISIBLE
             resend_otp.visibility = View.VISIBLE
             view_password.visibility = View.GONE
@@ -383,6 +401,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             override fun onSuccess(response: String) {
                 SnackBarFactory.createSnackBar(context, scrollView, response)
                 visibleOtpField(true)
+
                 edit_mobile.isEnabled = false
                 scrollView.post { scrollView.scrollTo(0, scrollView.height) }
                 dialog.dismiss()
@@ -400,10 +419,11 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         SignUpRepo.verifyOtp(context!!, verifyOtpRequest, object : ResponseListener<String> {
             override fun onSuccess(response: String) {
                 SnackBarFactory.createSnackBar(context, scrollView, response)
-                view_password.visibility = View.VISIBLE
                 scrollView.post { scrollView.scrollTo(0, scrollView.height) }
+
                 visibleOtpField(false)
                 signUpActivity?.isOtpVerified = true
+
                 edit_create_password.requestFocus()
                 clearOtp()
                 dialog.dismiss()

@@ -189,6 +189,7 @@ public class Utils {
     public static void enableButton(@NonNull Button button, boolean enable){
         button.setAlpha(enable ? 1.0f : 0.5f);
         button.setClickable(enable);
+        button.setEnabled(enable);
     }
 
     public static Uri getImageUri(Context mContext, Bitmap photo) {

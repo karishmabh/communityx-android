@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ScrollView
 import com.communityx.R
-import com.communityx.fragments.SignUpSelectInterest
+import com.communityx.activity.SignUpStudentInfoActivity
 import com.communityx.models.signup.Minor
 import com.communityx.models.signup.MinorsData
 import com.communityx.utils.SnackBarFactory
@@ -60,6 +60,12 @@ class SelectedInterestAdapter(val mInterestList: List<MinorsData>, val mActvity:
                 }
 
                 checkBox.setOnCheckedChangeListener { _, isChecked ->
+                    if (mSelectedIds.size > 0) {
+                        (mActvity as SignUpStudentInfoActivity).enableButton(true)
+                    } else {
+                        (mActvity as SignUpStudentInfoActivity).enableButton(false)
+                    }
+
                     if (!mSelectedIds.contains(civilRight.id)) {
                         if (mSelectedIds.size == 5) {
                             showMaximumReached()

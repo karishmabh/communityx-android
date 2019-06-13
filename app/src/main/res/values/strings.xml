@@ -194,7 +194,7 @@
     <string name="limit_suggest_interest">You can suggest maximum 5 interest</string>
     <string name="please_select_qualification">Please select your classification</string>
     <string name="select_club_organization">Please select any club or organization</string>
-    <string name="prefix_number">+1</string>
+    <string name="prefix_number">+1\u0020</string>
     <string name="please_wait_while_register">Please wait while we register you...</string>
     <string name="select_atleast_one_interest">Please select at lease 1 interest above.</string>
     <string name="organization_or_group">Organizations or Groups</string>
