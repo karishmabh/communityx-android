@@ -1,15 +1,17 @@
 package com.communityx.fragments
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.support.v4.app.FragmentActivity
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.ArrayAdapter
 import butterknife.ButterKnife
-import butterknife.OnTextChanged
 import com.communityx.R
 import com.communityx.activity.SignUpStudentInfoActivity
 import com.communityx.base.BaseSignUpFragment
@@ -17,7 +19,6 @@ import com.communityx.models.signup.SignUpRequest
 import com.communityx.models.signup.StandardResponse
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
-import com.communityx.utils.AdjustKeyboard
 import com.communityx.utils.AppConstant.HIGH_SCHOOL
 import com.communityx.utils.SnackBarFactory
 import com.communityx.utils.Utils
@@ -29,9 +30,13 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
     private var schoolArrayAdapter: ArrayAdapter<String>? = null
     private var collegeArrayAdapter: ArrayAdapter<String>? = null
     private var standard: String? = null
-
+    private var isFirstLoaded: Boolean = false
     private var listSchool: MutableList<String> = mutableListOf()
     private var listCollege: MutableList<String> = mutableListOf()
+    private val TRIGGER_AUTO_COMPLETE = 100
+    private val TRIGGER_AUTO_SCHOOL = 120
+    private val AUTO_COMPLETE_DELAY: Long = 300
+    private lateinit var handler: Handler
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view =  inflater.inflate(R.layout.fragment_sign_up_school_college, null)
@@ -43,7 +48,60 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        isFirstLoaded = true
         initField()
+
+        edit_school_name.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                enableButton(true)
+                handler.removeMessages(TRIGGER_AUTO_SCHOOL)
+                handler.sendEmptyMessageDelayed(TRIGGER_AUTO_SCHOOL, AUTO_COMPLETE_DELAY)
+            }
+        })
+
+        edit_college_name.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                enableButton(true)
+                handler.removeMessages(TRIGGER_AUTO_COMPLETE)
+                handler.sendEmptyMessageDelayed(TRIGGER_AUTO_COMPLETE, AUTO_COMPLETE_DELAY)
+            }
+        })
+
+         handler = Handler(object : Handler.Callback {
+            override fun handleMessage(msg: Message): Boolean {
+                if (msg.what === TRIGGER_AUTO_COMPLETE) {
+                    var name = edit_college_name.text.toString()
+                    if (!isFirstLoaded) {
+                        getStandardList(Qualification.COLLEGE_UNIVERSITY, name.trim())
+                    } else {
+                        isFirstLoaded = false
+                        return false
+                    }
+                } else if (msg.what === TRIGGER_AUTO_SCHOOL) {
+                    var name = edit_school_name.text.toString()
+                    if (!isFirstLoaded) {
+                        getStandardList(Qualification.HIGH_SCHOOL, name.trim())
+                    } else {
+                        isFirstLoaded = false
+                        return false
+                    }
+                }
+                return false
+            }
+        })
+
         view_school.setOnClickListener(this)
         view_college.setOnClickListener(this)
     }
@@ -53,7 +111,10 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
     }
 
     override fun onContinueButtonClicked() {
-        if (setFieldsData()) goToNextPage()
+        if (setFieldsData())  {
+            changeButtonStatus(1, true)
+            goToNextPage()
+        }
     }
 
     override fun setFieldsData(): Boolean {
@@ -70,7 +131,7 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
         when {
             TextUtils.isEmpty(requestData?.standard) -> {
                 isValidated = false
-                msg = getString(R.string.select_at_least_one_category)
+                msg = resources.getString(R.string.select_at_least_one_category)
             }
             requestData?.standard == Qualification.HIGH_SCHOOL.name && TextUtils.isEmpty(requestData.standard_name) -> {
                 isValidated = false
@@ -86,9 +147,8 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
     }
 
     private fun initField() {
-
-        edit_school_name.threshold = 1
-        edit_college_name.threshold = 1
+      //  edit_school_name.threshold = 1
+       // edit_college_name.threshold = 1
 
         if (validateEmpty(signUpStudent, false)) {
             if (standard == Qualification.HIGH_SCHOOL.name) {
@@ -98,7 +158,7 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
                 edit_college_name.setText(signUpStudent?.standard_name)
                 tappedQualificationInfo(view_college)
             }
-            enableButton(false)
+            //enableButton(false)
         }
     }
 
@@ -106,22 +166,6 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
         if (it == view_school)
             selectQualificationInfo(Qualification.HIGH_SCHOOL)
         else if (it == view_college) selectQualificationInfo(Qualification.COLLEGE_UNIVERSITY)
-    }
-
-    @OnTextChanged(R.id.edit_school_name)
-    fun typeSchoolName(charSequence: CharSequence) {
-
-        if (charSequence.length > 1) {
-            getStandardList(Qualification.HIGH_SCHOOL, charSequence.toString())
-        }
-    }
-
-    @OnTextChanged(R.id.edit_college_name)
-    fun typeCollegeName(charSequence: CharSequence) {
-
-        if (charSequence.length > 1) {
-            getStandardList(Qualification.COLLEGE_UNIVERSITY, charSequence.toString())
-        }
     }
 
     private fun selectQualificationInfo(qualification: Qualification) {
