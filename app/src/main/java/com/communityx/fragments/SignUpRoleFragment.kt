@@ -39,6 +39,7 @@ class SignUpRoleFragment : BaseSignUpFragment(), View.OnClickListener {
 
     override fun onContinueButtonClicked() {
         if(setFieldsData()) {
+            changeButtonStatus(2, true)
             goToNextPage()
             enableButton(true)
         }

@@ -64,6 +64,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
         text_subtitle.text = getString(R.string.string_build_social_impact)
         button_continue.tag = true
         button_continue.setBackgroundResource(R.drawable.button_active)
+        enableButton(false)
     }
 
     private fun getIntentData() {
@@ -97,9 +98,8 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     }
 
     private fun goToLogin() {
-        startActivity(
-            Intent(this, LoginActivity::class.java)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(Intent(this, LoginActivity::class.java)
+            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         )
         overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
         finish()
@@ -107,6 +107,10 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     private fun tappedContinue() {
         pagerAdapter?.getCurrentFragment(view_pager.currentItem)?.onContinueButtonClicked()
+    }
+
+    fun changeButtonStatus(pos:Int, value: Boolean) {
+        pagerAdapter?.setButtonEnabled(pos, value)
     }
 
     fun goToNextPage() {
@@ -172,7 +176,6 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
         }
         super.onBackPressed()
     }
-
 
     private fun performLogin(phoneNumber: String, password: String) {
         DataManager.doLogin(this, LoginRequest(phoneNumber, password), object : ResponseListener<LoginResponse> {

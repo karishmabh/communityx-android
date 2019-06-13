@@ -43,6 +43,7 @@ class SignUpSelectInterest : BaseSignUpFragment() {
         context?.let {
             SignUpRepo.getMajorMinorData(it, object : ResponseListener<List<MinorsData>> {
                 override fun onSuccess(response: List<MinorsData>) {
+                    if(isAdded)
                     setRecycler(response)
                 }
 
@@ -93,7 +94,10 @@ class SignUpSelectInterest : BaseSignUpFragment() {
     }
 
     override fun onContinueButtonClicked() {
-        if(setFieldsData()) goToNextPage()
+        if(setFieldsData()) {
+            changeButtonStatus(3, true)
+            goToNextPage()
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
