@@ -121,6 +121,7 @@ class SignUpProfessional : BaseSignUpFragment() {
             }
 
             override fun afterTextChanged(s: Editable) {
+                enableButton(true)
                 if (!TextUtils.isEmpty(auto_complete_job.text)) {
                     getJobTitles(auto_complete_job.text.toString())
                 }
@@ -149,6 +150,7 @@ class SignUpProfessional : BaseSignUpFragment() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                enableButton(true)
                 handler.removeMessages(TRIGGER_AUTO_COMPLETE)
                 handler.sendEmptyMessageDelayed(TRIGGER_AUTO_COMPLETE, AUTO_COMPLETE_DELAY)
             }
