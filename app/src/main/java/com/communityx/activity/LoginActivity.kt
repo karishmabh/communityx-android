@@ -27,6 +27,8 @@ import kotlin.jvm.internal.Intrinsics
 
 class LoginActivity : AppCompatActivity(), AppConstant {
 
+    val selectionStart: Int = 3
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -64,7 +66,7 @@ class LoginActivity : AppCompatActivity(), AppConstant {
         var prefixNumber = resources.getString(R.string.prefix_number)
         edit_email_username.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus && edit_email_username.text.toString() == prefixNumber) {
-                edit_email_username.setSelection(2)
+                edit_email_username.setSelection(selectionStart)
             }
         }
 
@@ -78,7 +80,7 @@ class LoginActivity : AppCompatActivity(), AppConstant {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(!s.toString().startsWith("+1")){
+                if(!s.toString().startsWith(resources.getString(R.string.prefix_number))){
                     edit_email_username.setText(prefixNumber)
                     Selection.setSelection(edit_email_username.getText(), edit_email_username.text!!.length)
                 }
@@ -97,7 +99,7 @@ class LoginActivity : AppCompatActivity(), AppConstant {
     }
 
     private fun startLogin() {
-        val phone = edit_email_username.text.toString().substring(2).trim()
+        val phone = edit_email_username.text.toString().substring(selectionStart).trim()
         val password = edit_password.text.toString().trim()
         val loginRequest = LoginRequest(phone, password)
 
