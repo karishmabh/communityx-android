@@ -82,7 +82,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
         pagerAdapter = SignUpPagerAdapter(supportFragmentManager)
         pagerAdapter?.setFragments(getFragments(selectedCategory!!))
         view_pager.adapter = pagerAdapter
-        view_pager.setAllowedSwipeDirection(CustomViewPager.SwipeDirection.left)
+        view_pager.setAllowedSwipeDirection(CustomViewPager.SwipeDirection.none)
         view_pager.setmSwipeDirectionListener(object : CustomViewPager.SwipeDirectionListener {
             override fun onSwipe(direction: CustomViewPager.SwipeDirection) {
 
@@ -167,6 +167,10 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
                 dialog.dismiss()
             }
         })
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     override fun onBackPressed() {

@@ -106,7 +106,8 @@ class ProfileFragment : Fragment(), AppConstant {
 
                 AppPreference.getInstance(activity!!).setBoolean(AppConstant.PREF_IS_LOGIN, false)
                 AuthRepo.clearSessionId(activity!!)
-                startActivity(Intent(activity, WelcomeActivity::class.java)
+                startActivity(Intent(activity, LoginActivity::class.java)
+                        .putExtra("down", true)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK))
 
                 activity!!.overridePendingTransition(R.anim.anim_prev_slide_in, R.anim.anim_prev_slide_out)

@@ -45,6 +45,7 @@
 
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_interests"
+                android:scrollbars="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/text_heading"
                 app:layout_constraintBottom_toTopOf="@+id/text_cause"
                 android:layout_marginBottom="@dimen/_4sdp"

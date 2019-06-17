@@ -57,7 +57,10 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
     }
 
     override fun onContinueButtonClicked() {
-        if (setFieldsData()) goToNextPage()
+        if (setFieldsData()) {
+            changeButtonStatus(3, true)
+            goToNextPage()
+        }
     }
 
     @OnTextChanged(R.id.edit_club)

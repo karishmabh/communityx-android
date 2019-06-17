@@ -17,6 +17,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
+        <activity
+                android:name=".activity.ForgotPasswordActivity"
+                android:label="@string/title_activity_forgot_password"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity android:name=".activity.SeeAllAboutActivity">
         </activity>
 
@@ -24,8 +29,9 @@
                 android:name="com.google.android.geo.API_KEY"
                 android:value="@string/google_maps_key"/>
 
-        <activity android:name=".activity.SendLocationActivity"
-                   android:windowSoftInputMode="stateHidden|adjustNothing"/>
+        <activity
+                android:name=".activity.SendLocationActivity"
+                android:windowSoftInputMode="stateHidden|adjustNothing"/>
         <activity android:name=".activity.SignUpStudentInfoActivity"/>
         <activity android:name=".activity.GroupInfoActivity">
         </activity>
@@ -80,9 +86,8 @@
 
         <activity
                 android:name=".activity.LoginActivity"
-                android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
-                android:screenOrientation="portrait"/>
-
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
         <activity android:name=".activity.PraiseActivity"/>
         <activity android:name=".activity.DonatedByActivity"/>
     </application>
