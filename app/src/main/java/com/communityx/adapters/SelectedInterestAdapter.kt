@@ -11,6 +11,7 @@ import com.communityx.R
 import com.communityx.activity.SignUpStudentInfoActivity
 import com.communityx.models.signup.Minor
 import com.communityx.models.signup.MinorsData
+import com.communityx.utils.AppConstant
 import com.communityx.utils.SnackBarFactory
 import kotlinx.android.synthetic.main.item_select_interest.view.*
 
@@ -60,12 +61,6 @@ class SelectedInterestAdapter(val mInterestList: List<MinorsData>, val mActvity:
                 }
 
                 checkBox.setOnCheckedChangeListener { _, isChecked ->
-                    if (mSelectedIds.size > 0) {
-                        (mActvity as SignUpStudentInfoActivity).enableButton(true)
-                    } else {
-                        (mActvity as SignUpStudentInfoActivity).enableButton(false)
-                    }
-
                     if (!mSelectedIds.contains(civilRight.id)) {
                         if (mSelectedIds.size == 5) {
                             showMaximumReached()
@@ -76,6 +71,28 @@ class SelectedInterestAdapter(val mInterestList: List<MinorsData>, val mActvity:
                     } else {
                         checkBox.setBackgroundResource(com.communityx.R.drawable.bg_interest_inactive)
                         mSelectedIds.remove(civilRight.id)
+                    }
+
+                    var category = (mActvity as SignUpStudentInfoActivity).selectedCategory
+
+                    if (mActvity == null) return@setOnCheckedChangeListener
+
+                    if (mSelectedIds.size > 0) {
+                        mActvity.enableButton(true)
+
+                        if (category.equals(AppConstant.ORGANIZATION)) {
+                            mActvity.changeButtonStatus(1, true)
+                        } else {
+                            mActvity.changeButtonStatus(4, true)
+                        }
+                    } else {
+                        mActvity.enableButton(false)
+
+                        if (category.equals(AppConstant.ORGANIZATION)) {
+                            mActvity.changeButtonStatus(1, false)
+                        } else {
+                            mActvity.changeButtonStatus(4, false)
+                        }
                     }
                 }
 
