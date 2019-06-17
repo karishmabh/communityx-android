@@ -18,9 +18,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import com.bruce.pickerview.popwindow.DatePickerPopWin;
 import com.communityx.R;
 import com.squareup.picasso.Picasso;
+import io.blackbox_vision.wheelview.view.DatePickerPopUpWindow;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -28,6 +28,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,6 +37,7 @@ public class Utils {
 
     private static final String EMAIL_REGEX = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
     private static final String PHONE_REGEX = "^[0-9\\+]*$";
+    private static final String WEBSITE_REGEX = "^(https?:\\/\\/)?(www.)?([a-zA-Z0-9]+).[a-zA-Z0-9]*.[a-z]{3}.?([a-z]+)?$";
 
     public static boolean validateEmail(String email) {
         Pattern pattern = Pattern.compile(EMAIL_REGEX, Pattern.CASE_INSENSITIVE);
@@ -46,6 +48,12 @@ public class Utils {
     public static boolean validatePhone(String phone) {
         Pattern pattern = Pattern.compile(PHONE_REGEX, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(phone);
+        return matcher.matches();
+    }
+
+    public static boolean validateWebsite(String website) {
+        Pattern pattern = Pattern.compile(WEBSITE_REGEX, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(website);
         return matcher.matches();
     }
 
@@ -107,25 +115,36 @@ public class Utils {
     }
 
     static String pickedTime = "";
-    public static void iosDatePicker(Activity activity, IDateCallback iDateCallback) {
-        pickedTime = "2000-11-11";
-        DatePickerPopWin pickerPopWin = new DatePickerPopWin.Builder(activity, new DatePickerPopWin.OnDatePickedListener() {
-            @Override
-            public void onDatePickCompleted(int year, int month, int day, String dateDesc) {
-                pickedTime = String.format("%s/%d/%d", month, day, year);
-                iDateCallback.getDate(String.format("%s/%d/%d", month, day, year));
-            }}).textConfirm("CONFIRM") //text of confirm button
-                .textCancel("CANCEL") //text of cancel button
-                .btnTextSize(14) // button text size
-                .viewTextSize(30) // pick view text size
-                .colorCancel(activity.getResources().getColor(R.color.colorLightGrey))
-                .colorConfirm(activity.getResources().getColor(R.color.colorAccent))
-                .maxYear(2010)
-                .minYear(1950)
-                .dateChose(pickedTime)
-                .showDayMonthYear(true) // shows like dd mm yyyy (default is false)  // date chose when init popwindow
+
+    public static void iosModDatePicker(Activity activity, IDateCallback iDateCallback) {
+        pickedTime = "2010-6-21";
+        final DatePickerPopUpWindow datePicker = new DatePickerPopUpWindow.Builder(activity)
+                .setMinYear(1950)
+                .setMaxYear(2011)
+                .setSelectedDate(pickedTime)
+                .setConfirmButtonText("CONFIRM")
+                .setOnDateSelectedListener(new DatePickerPopUpWindow.OnDateSelectedListener() {
+                    @Override
+                    public void onDateSelected(int i, int i1, int i2) {
+                        pickedTime = String.format("%s/%d/%d", i1, i2, i);
+                        iDateCallback.getDate(String.format("%s/%d/%d", i1, i2, i));
+                    }
+                })
+                .setCancelButtonText("CANCEL")
+                .setConfirmButtonTextColor(activity.getResources().getColor(R.color.colorAccent))
+                .setCancelButtonTextColor(activity.getResources().getColor(R.color.colorLightGrey))
+                .setButtonTextSize(16)
+                .setViewTextSize(22)
                 .build();
-        pickerPopWin.showPopWin(activity);
+        datePicker.show(activity);
+    }
+
+    private void onDateSelected(int year, int month, int dayOfMonth) {
+        final Calendar calendar = Calendar.getInstance(Locale.getDefault());
+
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.YEAR, year);
     }
 
     public static Bitmap convertToBitmap(Activity activity, String filename) {
