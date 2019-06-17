@@ -62,6 +62,7 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
 
     @OnTextChanged(R.id.edit_club)
     fun searchCausesClub(charSequence: CharSequence) {
+        enableButton(true)
         if (charSequence.length > 1) {
 
             when (category) {

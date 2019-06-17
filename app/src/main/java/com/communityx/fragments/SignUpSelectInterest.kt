@@ -26,7 +26,6 @@ import kotlinx.android.synthetic.main.fragment_sign_up_select_interest.*
 class SignUpSelectInterest : BaseSignUpFragment() {
 
     private lateinit var mInterestAdapter : SelectedInterestAdapter
-    val mSelectedIds : ArrayList<String> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_sign_up_select_interest, container, false)
@@ -40,18 +39,11 @@ class SignUpSelectInterest : BaseSignUpFragment() {
         }
     }
 
-    override fun onDestroyView() {
-        if (view != null) {
-            val parentViewGroup = view!!.parent as ViewGroup?
-            parentViewGroup?.removeAllViews();
-        }
-        super.onDestroyView()
-    }
-
     private fun loadInterest() {
         context?.let {
             SignUpRepo.getMajorMinorData(it, object : ResponseListener<List<MinorsData>> {
                 override fun onSuccess(response: List<MinorsData>) {
+                    if(isAdded)
                     setRecycler(response)
                 }
 
@@ -102,7 +94,10 @@ class SignUpSelectInterest : BaseSignUpFragment() {
     }
 
     override fun onContinueButtonClicked() {
-        if(setFieldsData()) goToNextPage()
+        if(setFieldsData()) {
+            changeButtonStatus(3, true)
+            goToNextPage()
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")

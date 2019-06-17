@@ -24,7 +24,8 @@
                 android:name="com.google.android.geo.API_KEY"
                 android:value="@string/google_maps_key"/>
 
-        <activity android:name=".activity.SendLocationActivity"/>
+        <activity android:name=".activity.SendLocationActivity"
+                   android:windowSoftInputMode="stateHidden|adjustNothing"/>
         <activity android:name=".activity.SignUpStudentInfoActivity"/>
         <activity android:name=".activity.GroupInfoActivity">
         </activity>
@@ -79,7 +80,9 @@
 
         <activity
                 android:name=".activity.LoginActivity"
+                android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
                 android:screenOrientation="portrait"/>
+
         <activity android:name=".activity.PraiseActivity"/>
         <activity android:name=".activity.DonatedByActivity"/>
     </application>

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.communityx.R
@@ -42,7 +43,12 @@ class ConnectAlliesActivity : AppCompatActivity() {
                 dialog.dismiss()
 
                 val alliesList = response
-                setAdapter(alliesList)
+                if (alliesList.size > 0) {
+                    setAdapter(alliesList)
+                } else {
+                    text_record_not_found.visibility = View.VISIBLE
+                    recycler_view.visibility = View.GONE
+                }
             }
 
             override fun onError(error: Any) {

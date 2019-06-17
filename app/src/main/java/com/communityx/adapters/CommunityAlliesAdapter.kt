@@ -50,12 +50,15 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
         }
 
         fun bindData() {
-            val profileData = mArrayList.get(adapterPosition);
+            val profileData = mArrayList.get(adapterPosition)
 
             if (profileData.profile == null) return
             try {
                 if (!TextUtils.isEmpty(profileData.profile.profile_image)) {
-                    Picasso.get().load(profileData.profile.profile_image).error(R.drawable.profile_placeholder).fit()
+                    Picasso.get().load(profileData.profile.profile_image)
+                        .noPlaceholder()
+                        .fit()
+                        .error(R.drawable.profile_placeholder).fit()
                         .into(itemView.circle_profile_image)
                 }
             } catch (e: Exception) {
@@ -69,7 +72,7 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
             when (category) {
                 STUDENT -> {
                     itemView.text_title_name.setText(mArrayList.get(adapterPosition).profile.full_name)
-                    return "Student"+ ", "+ mArrayList.get(adapterPosition).profile.standard
+                    return "Student"+ ", "+ mArrayList.get(adapterPosition).profile.standard.name
                 }
 
                 ORGANIZATION ->  {
@@ -79,7 +82,7 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
 
                 PROFESSIONAL ->  {
                     itemView.text_title_name.setText(mArrayList.get(adapterPosition).profile.full_name)
-                    return mArrayList.get(adapterPosition).profile.company_name
+                    return mArrayList.get(adapterPosition).profile.job_title.name +", "+ mArrayList.get(adapterPosition).profile.company.name
                 }
             }
             return ""

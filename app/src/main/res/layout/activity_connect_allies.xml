@@ -24,9 +24,24 @@
             android:layout_height="0dp"
             android:background="@color/colorWhite"
             app:layout_constraintTop_toBottomOf="@+id/tool_bar"
-            app:layout_constraintBottom_toTopOf="@+id/button_community" tools:layout_editor_absoluteX="0dp">
+            app:layout_constraintBottom_toTopOf="@+id/button_community"
+            tools:layout_editor_absoluteX="0dp"/>
 
-    </android.support.v7.widget.RecyclerView>
+    <TextView
+            android:id="@+id/text_record_not_found"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/no_record_found"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="@dimen/_14ssp"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/colorLightGrey"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:gravity="center"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     <Button
             android:id="@+id/button_community"

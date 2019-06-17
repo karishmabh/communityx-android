@@ -18,11 +18,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import com.bruce.pickerview.popwindow.DatePickerPopWin;
 import com.communityx.R;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -72,6 +74,18 @@ public class Utils {
         datePickerDialog.show();
     }
 
+    public static boolean isValid(String url)
+    {
+        try {
+            new URL(url).toURI();
+            return true;
+        }
+
+        catch (Exception e) {
+            return false;
+        }
+    }
+
     public static void datePicker(Activity activity, IDateCallback iDateCallback) {
         int mYear, mMonth, mDay;
 
@@ -90,6 +104,28 @@ public class Utils {
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
+    }
+
+    static String pickedTime = "";
+    public static void iosDatePicker(Activity activity, IDateCallback iDateCallback) {
+        pickedTime = "2000-11-11";
+        DatePickerPopWin pickerPopWin = new DatePickerPopWin.Builder(activity, new DatePickerPopWin.OnDatePickedListener() {
+            @Override
+            public void onDatePickCompleted(int year, int month, int day, String dateDesc) {
+                pickedTime = String.format("%s/%d/%d", month, day, year);
+                iDateCallback.getDate(String.format("%s/%d/%d", month, day, year));
+            }}).textConfirm("CONFIRM") //text of confirm button
+                .textCancel("CANCEL") //text of cancel button
+                .btnTextSize(14) // button text size
+                .viewTextSize(30) // pick view text size
+                .colorCancel(activity.getResources().getColor(R.color.colorLightGrey))
+                .colorConfirm(activity.getResources().getColor(R.color.colorAccent))
+                .maxYear(2010)
+                .minYear(1950)
+                .dateChose(pickedTime)
+                .showDayMonthYear(true) // shows like dd mm yyyy (default is false)  // date chose when init popwindow
+                .build();
+        pickerPopWin.showPopWin(activity);
     }
 
     public static Bitmap convertToBitmap(Activity activity, String filename) {
@@ -153,6 +189,7 @@ public class Utils {
     public static void enableButton(@NonNull Button button, boolean enable){
         button.setAlpha(enable ? 1.0f : 0.5f);
         button.setClickable(enable);
+        button.setEnabled(enable);
     }
 
     public static Uri getImageUri(Context mContext, Bitmap photo) {

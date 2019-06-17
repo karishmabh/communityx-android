@@ -18,6 +18,7 @@ import com.communityx.R
 import com.communityx.activity.EventActivity
 import com.communityx.activity.LoginActivity
 import com.communityx.activity.ProfileActivity
+import com.communityx.activity.WelcomeActivity
 import com.communityx.models.logout.LogoutResponse
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
@@ -105,7 +106,7 @@ class ProfileFragment : Fragment(), AppConstant {
 
                 AppPreference.getInstance(activity!!).setBoolean(AppConstant.PREF_IS_LOGIN, false)
                 AuthRepo.clearSessionId(activity!!)
-                startActivity(Intent(activity, LoginActivity::class.java)
+                startActivity(Intent(activity, WelcomeActivity::class.java)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK))
 
                 activity!!.overridePendingTransition(R.anim.anim_prev_slide_in, R.anim.anim_prev_slide_out)

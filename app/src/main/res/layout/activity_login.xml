@@ -1,132 +1,147 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/constraint_top"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/constraint_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <include
-        android:id="@+id/topView"
-        layout="@layout/layout_top_view_logo"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/topView"
+            layout="@layout/layout_top_view_logo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topView">
+    <RelativeLayout
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topView"
+            android:layout_width="0dp"
+            android:layout_height="0dp">
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/textinput_email_username"
-                style="@style/textInputLayoutColor"
+        <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_40sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
-                android:hint="@string/mobile_number"
-                app:hintTextAppearance="@style/TextInputHint"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="match_parent"
+                android:fillViewport="true">
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/edit_email_username"
-                    style="@style/textInputEditText"
+            <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:digits="@string/mobile_digits"
-                    android:imeOptions="actionNext"
-                    android:fontFamily="@font/poppins_medium"
-                    android:inputType="numberDecimal"
-                    android:lines="1"
-                    android:maxLength="12" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_height="match_parent">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/textinput_password"
-                style="@style/textInputLayoutColor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
-                android:hint="@string/password"
-                app:hintTextAppearance="@style/TextInputHint"
-                app:layout_constraintTop_toBottomOf="@id/textinput_email_username"
-                app:passwordToggleEnabled="true">
+                <android.support.design.widget.TextInputLayout
+                        android:id="@+id/textinput_email_username"
+                        style="@style/textInputLayoutColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_40sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:hint="@string/mobile_number"
+                        app:hintTextAppearance="@style/TextInputHint"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/edit_password"
-                    style="@style/textInputEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
-                    android:imeOptions="actionDone"
-                    android:lines="1"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:maxLength="30" />
-            </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputEditText
+                            android:id="@+id/edit_email_username"
+                            style="@style/textInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="@string/mobile_digits"
+                            android:text="@string/prefix_number"
+                            android:imeOptions="actionNext"
+                            android:fontFamily="@font/poppins_medium"
+                            android:inputType="numberDecimal"
+                            android:lines="1"
+                            android:maxLength="13"/>
+                </android.support.design.widget.TextInputLayout>
 
-            <TextView
-                android:id="@+id/text_forgot_password"
-                style="@style/text_size_smaller"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_15sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:paddingStart="@dimen/_2sdp"
-                android:paddingEnd="@dimen/_2sdp"
-                android:text="@string/forgot_password"
-                android:textAllCaps="true"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textinput_password" />
+                <android.support.design.widget.TextInputLayout
+                        android:id="@+id/textinput_password"
+                        style="@style/textInputLayoutColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:hint="@string/password"
+                        app:hintTextAppearance="@style/TextInputHint"
+                        app:layout_constraintTop_toBottomOf="@id/textinput_email_username"
+                        app:passwordToggleEnabled="true">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                    <android.support.design.widget.TextInputEditText
+                            android:id="@+id/edit_password"
+                            style="@style/textInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:imeOptions="actionDone"
+                            android:lines="1"
+                            android:inputType="textPassword"
+                            android:maxLines="1"
+                            android:maxLength="30"/>
+                </android.support.design.widget.TextInputLayout>
 
                 <TextView
-                    style="@style/text_size_smaller"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="@string/don_t_have_an_account"
-                    android:textColor="@color/colorBlackTitle" />
+                        android:id="@+id/text_forgot_password"
+                        style="@style/text_size_smaller"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:paddingStart="@dimen/_2sdp"
+                        android:paddingEnd="@dimen/_2sdp"
+                        android:text="@string/forgot_password"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimary"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textinput_password"/>
 
-                <TextView
-                    android:id="@+id/text_signup"
-                    style="@style/text_size_small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="@string/signup"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorPrimary" />
-            </LinearLayout>
+                <LinearLayout
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:gravity="bottom|center"
+                        android:background="@color/colorWhite"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
 
-            <Button
-                android:id="@+id/button_login"
-                style="@style/style_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_40sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
-                android:background="@drawable/button_active"
-                android:text="@string/login"
-                android:textColor="@android:color/white"
-                app:layout_constraintTop_toBottomOf="@+id/textinput_password" />
-        </android.support.constraint.ConstraintLayout>
-    </ScrollView>
+                    <TextView
+                            style="@style/text_size_smaller"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="@string/don_t_have_an_account"
+                            android:textColor="@color/colorBlackTitle"/>
+
+                    <TextView
+                            android:id="@+id/text_signup"
+                            style="@style/text_size_small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="@string/signup"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimary"/>
+                </LinearLayout>
+
+                <Button
+                        android:id="@+id/button_login"
+                        style="@style/style_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_40sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:background="@drawable/button_active"
+                        android:text="@string/login"
+                        android:textColor="@android:color/white"
+                        app:layout_constraintTop_toBottomOf="@+id/textinput_password"/>
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

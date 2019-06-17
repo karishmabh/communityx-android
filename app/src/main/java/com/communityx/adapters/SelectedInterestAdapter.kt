@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ScrollView
 import com.communityx.R
-import com.communityx.fragments.SignUpSelectInterest
+import com.communityx.activity.SignUpStudentInfoActivity
 import com.communityx.models.signup.Minor
 import com.communityx.models.signup.MinorsData
 import com.communityx.utils.SnackBarFactory
@@ -38,39 +38,44 @@ class SelectedInterestAdapter(val mInterestList: List<MinorsData>, val mActvity:
     }
 
     inner class EventHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val signupInterest : SignUpSelectInterest = SignUpSelectInterest()
-        val checkBox = LayoutInflater.from(mActvity).inflate(R.layout.item_interest, null) as CheckBox
-
         fun bindData() {
             val minorsData = mInterestList.get(adapterPosition)
 
             itemView.text_heading.setText(minorsData.name)
             initFlexLayout(minorsData.minors)
-
-           /* if (signupInterest.mSelectedIds.contains(minorsData.id))
-                checkBox.setBackgroundResource(R.drawable.bg_interest_active)*/
         }
 
         private fun initFlexLayout(civilRights: List<Minor>) {
-
             itemView.flex_layout.removeAllViews()
-            for (civilRight in civilRights) {
 
+            for (civilRight in civilRights) {
+                val checkBox = LayoutInflater.from(mActvity).inflate(R.layout.item_interest, null) as CheckBox
                 checkBox.text = civilRight.name
                 checkBox.performClick()
 
+                for (selectedid in mSelectedIds) {
+                    if (civilRight.id == selectedid) {
+                        checkBox.setBackgroundResource(R.drawable.bg_interest_active)
+                    }
+                }
+
                 checkBox.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) {
+                    if (mSelectedIds.size > 0) {
+                        (mActvity as SignUpStudentInfoActivity).enableButton(true)
+                    } else {
+                        (mActvity as SignUpStudentInfoActivity).enableButton(false)
+                    }
+
+                    if (!mSelectedIds.contains(civilRight.id)) {
                         if (mSelectedIds.size == 5) {
                             showMaximumReached()
                             return@setOnCheckedChangeListener
                         }
                         checkBox.setBackgroundResource(com.communityx.R.drawable.bg_interest_active)
-                        signupInterest.mSelectedIds.add(civilRight.id)
+                        mSelectedIds.add(civilRight.id)
                     } else {
                         checkBox.setBackgroundResource(com.communityx.R.drawable.bg_interest_inactive)
-                        signupInterest.mSelectedIds.remove(civilRight.id)
+                        mSelectedIds.remove(civilRight.id)
                     }
                 }
 

@@ -54,6 +54,10 @@ abstract class BaseSignUpFragment : Fragment(), AppConstant {
         signUpActivity?.enableButton(enable)
     }
 
+    protected fun changeButtonStatus(pos: Int, enable: Boolean) {
+        signUpActivity?.changeButtonStatus(pos, enable)
+    }
+
     protected fun uploadImage(imagePath: String, view: View) {
         val file = File(imagePath)
         val requestFile = RequestBody.create(MediaType.parse(AppConstant.MILTI_PART_FORM_DATA), file)

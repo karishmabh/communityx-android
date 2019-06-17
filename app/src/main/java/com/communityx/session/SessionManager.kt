@@ -24,11 +24,11 @@ object SessionManager : AppConstant {
         when (loginData.user.category) {
             STUDENT -> AppPreference.getInstance().setString(
                 PREF_STANDARD_NAME,
-                loginData.user.profile.standard_name
+                loginData.user.profile.standard.name
             )
             PROFESSIONAL -> AppPreference.getInstance().setString(
                 PREF_COMPANY_NAME,
-                loginData.user.profile.company_name
+                loginData.user.profile.company.name
             )
             ORGANIZATION -> AppPreference.getInstance().setString(
                 PREF_WEBSITE_NAME,

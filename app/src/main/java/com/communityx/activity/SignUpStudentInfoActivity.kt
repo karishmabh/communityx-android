@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import com.communityx.R
 import com.communityx.adapters.SignUpPagerAdapter
 import com.communityx.custom_views.CustomViewPager
@@ -20,8 +22,7 @@ import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.session.SessionManager
 import com.communityx.utils.AppConstant
-import com.communityx.utils.AppConstant.*
-import com.communityx.utils.AppPreference
+import com.communityx.utils.AppConstant.SESSION_KEY
 import com.communityx.utils.CustomProgressBar
 import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.activity_sign_up_student_info.*
@@ -32,17 +33,20 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     private var pagerAdapter: SignUpPagerAdapter? = null
     var selectedCategory: String? = null
-    var signUpRequest : SignUpRequest? = null
+    var signUpRequest: SignUpRequest? = null
     var selectedClubNameIndex = 0
     var selectedRole = 0
     var selectImagePath: String? = null
     var manaualInterest: MutableList<String>? = null
     var isOtpVerified = false
-    var isProfessional: Boolean ? = false
+    var isProfessional: Boolean? = false
     private lateinit var dialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+
+        //window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_sign_up_student_info)
 
         getIntentData()
@@ -60,6 +64,7 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
         text_subtitle.text = getString(R.string.string_build_social_impact)
         button_continue.tag = true
         button_continue.setBackgroundResource(R.drawable.button_active)
+        enableButton(false)
     }
 
     private fun getIntentData() {
@@ -93,9 +98,8 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     }
 
     private fun goToLogin() {
-        startActivity(
-            Intent(this, LoginActivity::class.java)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(Intent(this, LoginActivity::class.java)
+            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         )
         overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
         finish()
@@ -105,7 +109,11 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
         pagerAdapter?.getCurrentFragment(view_pager.currentItem)?.onContinueButtonClicked()
     }
 
-    fun goToNextPage(){
+    fun changeButtonStatus(pos:Int, value: Boolean) {
+        pagerAdapter?.setButtonEnabled(pos, value)
+    }
+
+    fun goToNextPage() {
         if (view_pager.currentItem == pagerAdapter!!.totalItems - 1) {
             completedSignUp()
             return
@@ -168,7 +176,6 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
         }
         super.onBackPressed()
     }
-
 
     private fun performLogin(phoneNumber: String, password: String) {
         DataManager.doLogin(this, LoginRequest(phoneNumber, password), object : ResponseListener<LoginResponse> {
