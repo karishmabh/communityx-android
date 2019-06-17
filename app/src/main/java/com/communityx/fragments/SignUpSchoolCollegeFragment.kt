@@ -147,7 +147,7 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
     }
 
     private fun initField() {
-      //  edit_school_name.threshold = 1
+       //  edit_school_name.threshold = 1
        // edit_college_name.threshold = 1
 
         if (validateEmpty(signUpStudent, false)) {
@@ -229,8 +229,9 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
                         response.data[0].forEach {
                             listSchool.add(it.name)
                         }
-                        schoolArrayAdapter =
-                            ArrayAdapter(context!!, R.layout.item_member_of_club, R.id.text_item, listSchool)
+                        if (edit_school_name == null) return
+
+                        schoolArrayAdapter = ArrayAdapter(context!!, R.layout.item_member_of_club, R.id.text_item, listSchool)
                         edit_school_name.setAdapter(schoolArrayAdapter)
                         schoolArrayAdapter?.notifyDataSetChanged()
                     }
@@ -239,8 +240,9 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
                         response.data[0].forEach {
                             listCollege.add(it.name)
                         }
-                        collegeArrayAdapter =
-                            ArrayAdapter(context!!, R.layout.item_member_of_club, R.id.text_item, listCollege)
+
+                        if (edit_college_name == null) return
+                        collegeArrayAdapter = ArrayAdapter(context!!, R.layout.item_member_of_club, R.id.text_item, listCollege)
                         edit_college_name.setAdapter(collegeArrayAdapter)
                     }
                 }
