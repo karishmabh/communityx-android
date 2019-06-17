@@ -200,4 +200,8 @@
     <string name="organization_or_group">Organizations or Groups</string>
     <string name="string_submit">Submit</string>
     <string name="no_record_found">No Record Found!</string>
+    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+    <string name="forgot_description">Enter your email address and we will send you a link to reset your password.
+    </string>
+    <string name="send">SEND</string>
 </resources>

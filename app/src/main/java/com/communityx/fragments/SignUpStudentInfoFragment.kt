@@ -3,16 +3,19 @@ package com.communityx.fragments
 import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.Selection
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.view.*
-import android.widget.EditText
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import butterknife.ButterKnife
 import butterknife.OnClick
+import butterknife.OnTextChanged
 import com.communityx.R
 import com.communityx.activity.SignUpStudentInfoActivity
 import com.communityx.base.BaseSignUpFragment
@@ -25,7 +28,10 @@ import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.*
 import com.communityx.utils.AppConstant.EMAIL_PATTERN
+import com.communityx.utils.GalleryPicker.CAPTURE_IMAGE
+import com.mukesh.OnOtpCompletionListener
 import kotlinx.android.synthetic.main.fragment_sign_up_student_info.*
+
 
 class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClickListener,
     GalleryPicker.GalleryPickerListener {
@@ -36,6 +42,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     private var shouldChangeNumber = false
     private var prefixNumber: String? =null
     val selectionStart: Int = 3
+    private var otpMain: String? = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up_student_info, null)
@@ -52,6 +59,17 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         text_send_otp.setOnClickListener(this)
         edit_birthday.setOnClickListener(this)
 
+        view_otp.setOtpCompletionListener(object: OnOtpCompletionListener {
+            override fun onOtpCompleted(otp: String?) {
+                otpMain = otp
+                createOtpAndVerify()
+            }
+        })
+
+        setTextListener()
+    }
+
+    fun setTextListener() {
         edit_mobile.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus && edit_mobile.text.toString() == prefixNumber) {
                 edit_mobile.setSelection(selectionStart)
@@ -77,7 +95,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
 
         edit_confirm_password.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                if ( (activity as SignUpStudentInfoActivity) == null) return
+                if ((activity as SignUpStudentInfoActivity) == null) return
 
                 if (s.toString().length > 1) {
                     (activity as SignUpStudentInfoActivity).enableButton(true)
@@ -93,13 +111,29 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
         })
+
+        edit_postalcode.onFocusChangeListener = object: View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                if (!hasFocus && edit_postalcode.text.toString().length < 5) {
+                    textinput_postalcode.setError(resources.getString(R.string.postal_code_should_be_six_character))
+                }
+            }
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        initOtpBox()
+        visibleOtpField(false)
         view_password.visibility = if (signUpActivity?.isOtpVerified!!) View.VISIBLE else View.GONE
+    }
+
+
+    @OnTextChanged(R.id.edit_postalcode)
+    fun onPostalCodeChanged() {
+        if (edit_postalcode.text.toString().length == 5) {
+            textinput_postalcode.setError(null)
+        }
     }
 
     override fun onClick(v: View?) {
@@ -139,7 +173,6 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         galleryPicker?.onResultPermission(requestCode, grantResults)
-
     }
 
     override fun onMediaSelected(imagePath: String, uri: Uri, isImage: Boolean) {
@@ -156,8 +189,6 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             context?.let {
                 val dialog = CustomProgressBar.getInstance(it).showProgressDialog("verifying data ...")
                 dialog.show()
-
-                if (setFieldsData()) {
                     val emailPhoneVerificationRequest = EmailPhoneVerificationRequest(signUpActivity?.signUpRequest?.phone.toString().trim(), signUpActivity?.signUpRequest?.email.toString().trim())
 
                     activity?.let {
@@ -174,7 +205,6 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                             }
                         })
                     }
-                }
             }
         }
     }
@@ -270,10 +300,6 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         tappedSentOtp()
     }
 
-    private fun chooseImage() {
-        showImageChooserDialog()
-    }
-
     private fun tappedSentOtp() {
         signUpActivity?.isOtpVerified = false
         if (edit_mobile.text.toString() == prefixNumber) {
@@ -292,9 +318,13 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
 
     }
 
+    private fun chooseImage() {
+        showImageChooserDialog()
+    }
+
     private fun tappedEditBirth() {
         Utils.hideSoftKeyboard(activity)
-        Utils.iosDatePicker(activity, object: Utils.IDateCallback {
+        Utils.iosModDatePicker(activity, object : Utils.IDateCallback {
             override fun getDate(date: String?) {
                 edit_birthday.setText(date)
                 edit_postalcode.requestFocus()
@@ -302,52 +332,13 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         })
     }
 
-    private fun initOtpBox() {
-        visibleOtpField(false)
-        initOtpTextWatcher(edit_otp_one, edit_otp_two, null)
-        initOtpTextWatcher(edit_otp_two, edit_otp_three, edit_otp_one)
-        initOtpTextWatcher(edit_otp_three, edit_otp_four, edit_otp_two)
-        initOtpTextWatcher(edit_otp_four, edit_otp_five, edit_otp_three)
-        initOtpTextWatcher(edit_otp_five, edit_otp_six, edit_otp_four)
-        initOtpTextWatcher(edit_otp_six, null, edit_otp_five)
-    }
-
-    private fun initOtpTextWatcher(currentEditText: EditText, nextEditText: EditText?, prevEditText: EditText?) {
-        currentEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (nextEditText != null && s.length == 1)
-                    nextEditText.requestFocus()
-                else if (prevEditText != null && s.isEmpty()) prevEditText.requestFocus()
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                if (currentEditText == edit_otp_six && !TextUtils.isEmpty(edit_otp_six.text.toString())) {
-                    createOtpAndVerify()
-                }
-            }
-        })
-    }
-
     private fun createOtpAndVerify() {
+        view_otp.setText("")
         val verifyOtpRequest =
-            VerifyOtpRequest(otp = getOtp(), phone = edit_mobile.text.toString().substring(selectionStart))
+            VerifyOtpRequest(otp = otpMain!!, phone = edit_mobile.text.toString().substring(selectionStart))
         Utils.hideSoftKeyboard(activity)
         verifyOtp(verifyOtpRequest)
         hasOtpOrPasswordFieldVisible = true
-    }
-
-    private fun getOtp(): String {
-        var strBuilder = StringBuilder()
-        strBuilder.append(edit_otp_one.text.toString())
-        strBuilder.append(edit_otp_two.text.toString())
-        strBuilder.append(edit_otp_three.text.toString())
-        strBuilder.append(edit_otp_four.text.toString())
-        strBuilder.append(edit_otp_five.text.toString())
-        strBuilder.append(edit_otp_six.text.toString())
-
-        return strBuilder.toString()
     }
 
     private fun showImageChooserDialog() {
@@ -355,7 +346,6 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             .setListener(this)
             .showDialog()
     }
-
 
     private fun visibleOtpField(visible: Boolean) {
         if (visible) {
@@ -408,6 +398,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             }
 
             override fun onError(error: Any) {
+                scrollView.post { scrollView.scrollTo(0, scrollView.height) }
                 Utils.showError(activity, scrollView, error)
                 dialog.dismiss()
             }
@@ -425,13 +416,13 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
                 signUpActivity?.isOtpVerified = true
 
                 edit_create_password.requestFocus()
-                clearOtp()
+                view_otp.setText("")
                 dialog.dismiss()
                 disabledMobileField(true)
             }
 
             override fun onError(error: Any) {
-                clearOtp()
+                view_otp.setText("")
                 edit_otp_one.requestFocus()
                 Utils.showError(activity, scrollView, error)
                 signUpActivity?.isOtpVerified = false
@@ -440,47 +431,9 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         })
     }
 
-    private fun isOtpFieldEmpty(): Boolean {
-        var isEmpty = false
-        when {
-            TextUtils.isEmpty(edit_otp_one.text.toString()) -> isEmpty = true
-            TextUtils.isEmpty(edit_otp_two.text.toString()) -> isEmpty = true
-            TextUtils.isEmpty(edit_otp_three.text.toString()) -> isEmpty = true
-            TextUtils.isEmpty(edit_otp_four.text.toString()) -> isEmpty = true
-            TextUtils.isEmpty(edit_otp_five.text.toString()) -> isEmpty = true
-            TextUtils.isEmpty(edit_otp_five.text.toString()) -> isEmpty = true
-        }
-
-        return isEmpty
-    }
-
-    private fun clearOtp() {
-            edit_otp_one.setText("")
-            edit_otp_two.setText("")
-            edit_otp_three.setText("")
-            edit_otp_four.setText("")
-            edit_otp_five.setText("")
-            edit_otp_six.setText("")
-    }
-
     private fun disabledMobileField(disable: Boolean) {
         edit_mobile.isEnabled = !disable
         text_send_otp.text = if (!disable) getString(R.string.send_otp) else getString(R.string.change)
-    }
-
-    internal fun onMobileNumberChange(s: CharSequence?) {
-        edit_mobile.setOnKeyListener { _, keyCode, _ ->
-            isDelKeyPressed = keyCode == KeyEvent.KEYCODE_DEL
-            false
-        }
-
-        if (s?.length!! < 3) {
-            edit_mobile.setText(prefixNumber)
-            edit_mobile.setSelection(3)
-        } else if (s.length == 4 && !isDelKeyPressed) {
-            edit_mobile.setText(s.toString().substring(0, 3) + "-" + s.toString().substring(3))
-            edit_mobile.setSelection(5)
-        }
     }
 
     companion object {

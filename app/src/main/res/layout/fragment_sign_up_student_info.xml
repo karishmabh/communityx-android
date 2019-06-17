@@ -150,7 +150,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                    android:id="@+id/textinput_password"
+                    android:id="@+id/textinput_postalcode"
                     style="@style/textInputLayoutColor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -176,7 +176,7 @@
                     android:id="@+id/view_edit_mobile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/textinput_password">
+                    app:layout_constraintTop_toBottomOf="@id/textinput_postalcode">
 
                 <android.support.design.widget.TextInputLayout
                         android:id="@+id/textinput_mobile"
@@ -216,66 +216,6 @@
                         android:textSize="@dimen/_10ssp"/>
             </FrameLayout>
 
-            <LinearLayout
-                    android:id="@+id/view_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    app:layout_constraintTop_toBottomOf="@+id/view_otp"
-                    tools:visibility="visible">
-
-                <android.support.design.widget.TextInputLayout
-                        android:id="@+id/text_create_password"
-                        style="@style/textInputLayoutColor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_15sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginEnd="@dimen/_15sdp"
-                        android:hint="Create Password"
-                        app:hintTextAppearance="@style/TextInputHint"
-                        app:layout_constraintBottom_toTopOf="@+id/text_confirm_password"
-                        app:layout_constraintTop_toBottomOf="@+id/resend_otp"
-                        app:passwordToggleEnabled="true">
-
-                    <android.support.design.widget.TextInputEditText
-                            android:id="@+id/edit_create_password"
-                            style="@style/textInputEditText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins_medium"
-                            android:inputType="textPassword"
-                            android:maxLength="20"
-                            android:maxLines="1"/>
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                        android:id="@+id/text_confirm_password"
-                        style="@style/textInputLayoutColor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_15sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginEnd="@dimen/_15sdp"
-                        android:hint="Confirm Password"
-                        app:hintTextAppearance="@style/TextInputHint"
-                        app:layout_constraintTop_toBottomOf="@+id/text_create_password"
-                        app:passwordToggleEnabled="true">
-
-                    <android.support.design.widget.TextInputEditText
-                            android:id="@+id/edit_confirm_password"
-                            style="@style/textInputEditText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textPassword"
-                            android:imeOptions="actionDone"
-                            android:maxLength="20"
-                            android:maxLines="1"
-                            android:fontFamily="@font/poppins_medium"/>
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
-
             <TextView
                     android:id="@+id/text_enter_otp"
                     android:layout_width="wrap_content"
@@ -289,7 +229,8 @@
                     app:layout_constraintTop_toBottomOf="@id/view_edit_mobile"/>
 
             <LinearLayout
-                    android:id="@+id/view_otp"
+                    android:visibility="gone"
+                    android:id="@+id/linear_view_otp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_15sdp"
@@ -363,6 +304,23 @@
                         android:textAlignment="center"/>
             </LinearLayout>
 
+            <com.mukesh.OtpView
+                    android:id="@+id/view_otp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:textColor="@color/colorBlackTitle"
+                    app:itemCount="6"
+                    app:itemSpacing="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_enter_otp"
+                    app:lineColor="@color/colorLightestGrey"
+                    app:viewType="line"/>
+
             <TextView
                     android:id="@+id/resend_otp"
                     android:layout_width="wrap_content"
@@ -375,6 +333,66 @@
                     android:textSize="@dimen/_10ssp"
                     app:layout_constraintEnd_toEndOf="@+id/view_otp"
                     app:layout_constraintTop_toBottomOf="@+id/view_otp"/>
+
+            <LinearLayout
+                    android:id="@+id/view_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@+id/view_otp"
+                    tools:visibility="visible">
+
+                <android.support.design.widget.TextInputLayout
+                        android:id="@+id/text_create_password"
+                        style="@style/textInputLayoutColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:hint="Create Password"
+                        app:hintTextAppearance="@style/TextInputHint"
+                        app:layout_constraintBottom_toTopOf="@+id/text_confirm_password"
+                        app:layout_constraintTop_toBottomOf="@+id/resend_otp"
+                        app:passwordToggleEnabled="true">
+
+                    <android.support.design.widget.TextInputEditText
+                            android:id="@+id/edit_create_password"
+                            style="@style/textInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:inputType="textPassword"
+                            android:maxLength="20"
+                            android:maxLines="1"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                        android:id="@+id/text_confirm_password"
+                        style="@style/textInputLayoutColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:hint="Confirm Password"
+                        app:hintTextAppearance="@style/TextInputHint"
+                        app:layout_constraintTop_toBottomOf="@+id/text_create_password"
+                        app:passwordToggleEnabled="true">
+
+                    <android.support.design.widget.TextInputEditText
+                            android:id="@+id/edit_confirm_password"
+                            style="@style/textInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:imeOptions="actionDone"
+                            android:maxLength="20"
+                            android:maxLines="1"
+                            android:fontFamily="@font/poppins_medium"/>
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

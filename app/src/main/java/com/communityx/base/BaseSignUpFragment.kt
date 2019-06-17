@@ -29,7 +29,7 @@ abstract class BaseSignUpFragment : Fragment(), AppConstant {
         super.onCreate(savedInstanceState)
 
         initBaseData()
-        checkRequiredPermission()
+        //checkRequiredPermission()
     }
 
     private fun initBaseData() {

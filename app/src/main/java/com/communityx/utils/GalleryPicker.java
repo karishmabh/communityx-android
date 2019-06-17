@@ -13,6 +13,7 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -26,11 +27,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
 
+import static android.support.v4.app.ActivityCompat.requestPermissions;
+
 public class GalleryPicker {
 
     public static final int CAPTURE_IMAGE = 100;
     public static final int PICK_GALLERY = 200;
     public static final int CAMERA_PERMISSION_CODE = 1000;
+    public static final int ALL_PERMISSION_CODE = 5000;
     public static final int GALLERY_PERMISSION_CODE = 2000;
     private static final String TAG = "GalleryPicker";
     private Activity mActivity;
@@ -39,6 +43,7 @@ public class GalleryPicker {
     private Uri mSelectedImage;
     private BottomSheetDialog bottomSheetDialog;
     private Media media = Media.IMAGE;
+    private String[] permissions = {Manifest.permission.CAMERA,  Manifest.permission.WRITE_EXTERNAL_STORAGE,  Manifest.permission.READ_EXTERNAL_STORAGE};
 
     private GalleryPicker(Activity activity, Fragment fragment) {
         this.mFragment = fragment;
@@ -155,11 +160,13 @@ public class GalleryPicker {
     }
 
     public void onResultPermission(int requestCode, int[] grantResults) {
-        if (requestCode == GalleryPicker.CAMERA_PERMISSION_CODE || requestCode == GalleryPicker.GALLERY_PERMISSION_CODE) {
-            if (grantResults.length > 0) {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    showDialog();
-                }
+        if (requestCode == GalleryPicker.CAMERA_PERMISSION_CODE && grantResults.length > 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openCamera();
+            }
+        } else if (requestCode == GalleryPicker.GALLERY_PERMISSION_CODE && grantResults.length > 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openGallery();
             }
         }
     }
@@ -168,31 +175,34 @@ public class GalleryPicker {
         View imageCamera = view.findViewById(R.id.layout_camera);
         View imageGallery = view.findViewById(R.id.layout_gallery);
 
+        if (!new PermissionHelper(mActivity).checkPermission(permissions)) {
+            mFragment.requestPermissions(permissions, ALL_PERMISSION_CODE);
+        }
+
         imageCamera.setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
             if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                Log.e(TAG, "Camera Permission Required");
                 if (mFragment != null) {
                     mFragment.requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
                     return;
                 }
-                ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+                requestPermissions(mActivity, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
                 return;
             }
             fireIntent(Option.CAMERA, CAPTURE_IMAGE);
         });
+
         imageGallery.setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
             if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                Log.e(TAG, "Storage Permission Required");
                 if (mFragment != null) {
                     mFragment.requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE
                     }, GALLERY_PERMISSION_CODE);
                     return;
                 }
-                ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                requestPermissions(mActivity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE
                 }, GALLERY_PERMISSION_CODE);
                 return;
@@ -201,7 +211,15 @@ public class GalleryPicker {
         });
     }
 
-    private void fireIntent(Option option, int requestCode) {
+    public void openCamera() {
+        fireIntent(Option.CAMERA, CAPTURE_IMAGE);
+    }
+
+    public void openGallery() {
+        fireIntent(Option.GALLERY, PICK_GALLERY);
+    }
+
+    public void fireIntent(Option option, int requestCode) {
         Intent intent = new Intent();
         if (option == Option.GALLERY) {
             intent.setAction(Intent.ACTION_PICK);

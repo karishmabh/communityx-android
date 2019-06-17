@@ -34,6 +34,12 @@ class LoginActivity : AppCompatActivity(), AppConstant {
         setContentView(R.layout.activity_login)
         ButterKnife.bind(this)
 
+        if (intent.extras != null) {
+            var value = intent.extras.getBoolean("down")
+            if (value)
+                Utils.hideSoftKeyboard(this)
+        }
+
         Utils.enableButton(button_login, false)
         setPrefixMobile()
         Intrinsics.checkExpressionValueIsNotNull(edit_password, "edit_password")
@@ -50,6 +56,13 @@ class LoginActivity : AppCompatActivity(), AppConstant {
     internal fun loginClicked() {
         Utils.hideSoftKeyboard(this)
         startLogin()
+    }
+
+    @OnClick(R.id.text_forgot_password)
+    internal fun forgotTapped() {
+        Utils.hideSoftKeyboard(this)
+        startActivity(Intent(this, ForgotPasswordActivity::class.java))
+        overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
     }
 
     @OnTextChanged(R.id.edit_email_username)

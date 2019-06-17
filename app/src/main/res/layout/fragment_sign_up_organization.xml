@@ -138,6 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/postal_code"
+                app:errorEnabled="true"
                 app:hintTextAppearance="@style/TextInputHint"
                 app:layout_constraintTop_toBottomOf="@+id/textinput_website">
 
@@ -175,7 +176,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/prefix_number"
                         android:inputType="number"
-                        android:maxLength="12"
+                        android:maxLength="13"
                         android:singleLine="true"
                         android:fontFamily="@font/poppins_medium"/>
             </android.support.design.widget.TextInputLayout>
@@ -261,9 +262,10 @@
                 app:layout_constraintTop_toBottomOf="@id/view_edit_mobile"/>
 
         <LinearLayout
-                android:id="@+id/view_otp"
+                android:id="@+id/linear_view_otp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@id/text_enter_otp">
 
             <EditText
@@ -334,6 +336,21 @@
                     style="@style/textInputEditText"/>
 
         </LinearLayout>
+
+        <com.mukesh.OtpView
+                android:id="@+id/view_otp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textColor="@color/colorBlackTitle"
+                app:itemCount="6"
+                app:itemSpacing="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_15sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_enter_otp"
+                app:lineColor="@color/colorLightestGrey"
+                app:viewType="line"/>
 
         <TextView
                 android:id="@+id/resend_otp"
