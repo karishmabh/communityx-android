@@ -17,6 +17,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
+        <activity android:name=".activity.SplashActivity">
+        </activity>
         <activity
                 android:name=".activity.ForgotPasswordActivity"
                 android:label="@string/title_activity_forgot_password"
@@ -76,7 +78,7 @@
 
         <activity-alias
                 android:name=".Main"
-                android:targetActivity=".activity.WelcomeActivity">
+                android:targetActivity=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

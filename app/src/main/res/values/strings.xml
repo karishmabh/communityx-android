@@ -163,6 +163,8 @@
     <string name="string_build_social_impact">Build your social impact identity on CommunityX.</string>
     <string name="change">Change</string>
     <string name="logout_success">You have been Logout successfully!</string>
+    <string name="first_name_field_empty">Please enter first name</string>
+    <string name="last_name_field_empty">Please enter last name</string>
     <string name="name_field_empty">Please enter name</string>
     <string name="email_field_empty">Please enter email</string>
     <string name="dob_empty">Please enter Date of birth</string>
@@ -204,4 +206,7 @@
     <string name="forgot_description">Enter your email address and we will send you a link to reset your password.
     </string>
     <string name="send">SEND</string>
+    <string name="unite_humanity_mobilize_the_world">Unite Humanity. Mobilize the World.</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
 </resources>

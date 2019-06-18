@@ -22,7 +22,6 @@ class WelcomeActivity : AppCompatActivity(), View.OnClickListener , AppConstant 
         super.onCreate(savedInstanceState)
         this.setContentView(R.layout.activity_welcome)
 
-        isLogin()
         getBasicAuth()
         setClickListener()
     }
@@ -35,21 +34,6 @@ class WelcomeActivity : AppCompatActivity(), View.OnClickListener , AppConstant 
             text_signup -> {
                 goToSignUp()
             }
-        }
-    }
-
-    private fun isLogin() {
-        if (AppPreference.getInstance(this).getBoolean(PREF_IS_LOGIN)) {
-
-            button_login.visibility = View.GONE
-            text_signup.visibility = View.GONE
-
-            val handler = Handler()
-            handler.postDelayed({
-                startActivity(Intent(this, DashboardActivity::class.java))
-                overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
-                finish()
-            }, 1000)
         }
     }
 

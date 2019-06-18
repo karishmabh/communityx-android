@@ -3,7 +3,6 @@ package com.communityx.fragments
 import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
@@ -28,19 +27,18 @@ import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.*
 import com.communityx.utils.AppConstant.EMAIL_PATTERN
-import com.communityx.utils.GalleryPicker.CAPTURE_IMAGE
 import com.mukesh.OnOtpCompletionListener
 import kotlinx.android.synthetic.main.fragment_sign_up_student_info.*
 
 
 class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClickListener,
-    GalleryPicker.GalleryPickerListener {
+        GalleryPicker.GalleryPickerListener {
 
     private var galleryPicker: GalleryPicker? = null
     private var isDelKeyPressed = false
     private var hasOtpOrPasswordFieldVisible = false
     private var shouldChangeNumber = false
-    private var prefixNumber: String? =null
+    private var prefixNumber: String? = null
     val selectionStart: Int = 3
     private var otpMain: String? = ""
 
@@ -59,7 +57,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         text_send_otp.setOnClickListener(this)
         edit_birthday.setOnClickListener(this)
 
-        view_otp.setOtpCompletionListener(object: OnOtpCompletionListener {
+        view_otp.setOtpCompletionListener(object : OnOtpCompletionListener {
             override fun onOtpCompleted(otp: String?) {
                 otpMain = otp
                 createOtpAndVerify()
@@ -86,9 +84,9 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(!s.toString().startsWith(resources.getString(R.string.prefix_number))){
+                if (!s.toString().startsWith(resources.getString(R.string.prefix_number))) {
                     edit_mobile.setText(prefixNumber)
-                    Selection.setSelection(edit_mobile.getText(), edit_mobile.text!!.length)
+                    Selection.setSelection(edit_mobile.text, edit_mobile.text!!.length)
                 }
             }
         })
@@ -112,10 +110,10 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             }
         })
 
-        edit_postalcode.onFocusChangeListener = object: View.OnFocusChangeListener {
+        edit_postalcode.onFocusChangeListener = object : View.OnFocusChangeListener {
             override fun onFocusChange(v: View?, hasFocus: Boolean) {
                 if (!hasFocus && edit_postalcode.text.toString().length < 5) {
-                    textinput_postalcode.setError(resources.getString(R.string.postal_code_should_be_six_character))
+                    textinput_postalcode.error = resources.getString(R.string.postal_code_should_be_six_character)
                 }
             }
         }
@@ -132,7 +130,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     @OnTextChanged(R.id.edit_postalcode)
     fun onPostalCodeChanged() {
         if (edit_postalcode.text.toString().length == 5) {
-            textinput_postalcode.setError(null)
+            textinput_postalcode.error = null
         }
     }
 
@@ -189,33 +187,35 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
             context?.let {
                 val dialog = CustomProgressBar.getInstance(it).showProgressDialog("verifying data ...")
                 dialog.show()
-                    val emailPhoneVerificationRequest = EmailPhoneVerificationRequest(signUpActivity?.signUpRequest?.phone.toString().trim(), signUpActivity?.signUpRequest?.email.toString().trim())
+                val emailPhoneVerificationRequest = EmailPhoneVerificationRequest(signUpActivity?.signUpRequest?.phone.toString().trim(), signUpActivity?.signUpRequest?.email.toString().trim())
 
-                    activity?.let {
-                        DataManager.doVerifyEmailPhone(it, emailPhoneVerificationRequest, object : ResponseListener<List<String>> {
-                            override fun onSuccess(response: List<String>) {
-                                dialog.dismiss()
-                                changeButtonStatus(0, true)
-                                goToNextPage()
-                            }
+                activity?.let {
+                    DataManager.doVerifyEmailPhone(it, emailPhoneVerificationRequest, object : ResponseListener<List<String>> {
+                        override fun onSuccess(response: List<String>) {
+                            dialog.dismiss()
+                            changeButtonStatus(0, true)
+                            goToNextPage()
+                        }
 
-                            override fun onError(error: Any) {
-                                dialog.dismiss()
-                                Utils.showError(activity, constraint_top, error)
-                            }
-                        })
-                    }
+                        override fun onError(error: Any) {
+                            dialog.dismiss()
+                            Utils.showError(activity, constraint_top, error)
+                        }
+                    })
+                }
             }
         }
     }
 
     override fun setFieldsData(): Boolean {
-        signUpStudent?.full_name = edit_email_username.text.toString()
-        signUpStudent?.email = edit_email.text.toString()
+        signUpStudent?.first_name = edit_first_name.text.toString().trim()
+        signUpStudent?.last_name = edit_last_name.text.toString().trim()
+
+        signUpStudent?.email = edit_email.text.toString().trim()
         signUpStudent?.dob = edit_birthday.text.toString()
         signUpStudent?.postal_code = edit_postalcode.text.toString()
 
-        if(edit_mobile.text.toString().length > 4)
+        if (edit_mobile.text.toString().length > 4)
             signUpStudent?.phone = edit_mobile.text.toString().substring(selectionStart)
         signUpStudent?.password = edit_confirm_password.text.toString()
 
@@ -226,11 +226,18 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         var msg = ""
         var isValidate = true
         when {
-            TextUtils.isEmpty(requestData?.full_name) -> {
+            TextUtils.isEmpty(requestData?.first_name) -> {
                 isValidate = false
-                msg = getString(R.string.name_field_empty)
-                if (showSnackbar) edit_email_username.requestFocus()
+                msg = getString(R.string.first_name_field_empty)
+                if (showSnackbar) edit_first_name.requestFocus()
             }
+
+            TextUtils.isEmpty(requestData?.last_name) -> {
+                isValidate = false
+                msg = getString(R.string.last_name_field_empty)
+                if (showSnackbar) edit_last_name.requestFocus()
+            }
+
             TextUtils.isEmpty(requestData?.email) -> {
                 isValidate = false
                 msg = getString(R.string.email_field_empty)
@@ -335,7 +342,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     private fun createOtpAndVerify() {
         view_otp.setText("")
         val verifyOtpRequest =
-            VerifyOtpRequest(otp = otpMain!!, phone = edit_mobile.text.toString().substring(selectionStart))
+                VerifyOtpRequest(otp = otpMain!!, phone = edit_mobile.text.toString().substring(selectionStart))
         Utils.hideSoftKeyboard(activity)
         verifyOtp(verifyOtpRequest)
         hasOtpOrPasswordFieldVisible = true
@@ -343,8 +350,8 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
 
     private fun showImageChooserDialog() {
         galleryPicker = GalleryPicker.with(signUpActivity, this)
-            .setListener(this)
-            .showDialog()
+                .setListener(this)
+                .showDialog()
     }
 
     private fun visibleOtpField(visible: Boolean) {
@@ -366,14 +373,15 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
 
     private fun initAllField() {
         if (validateEmpty(signUpStudent, false)) {
-            edit_email_username.setText(signUpStudent?.full_name)
+            edit_first_name.setText(signUpStudent?.first_name)
+            edit_last_name.setText(signUpStudent?.last_name)
             edit_email.setText(signUpStudent?.email)
             edit_birthday.setText(signUpStudent?.dob)
             edit_postalcode.setText(signUpStudent?.postal_code)
             edit_mobile.setText(signUpStudent?.phone)
             edit_create_password.setText(signUpStudent?.phone)
             edit_confirm_password.setText(signUpStudent?.password)
-            if(signUpActivity?.selectImagePath != null || !TextUtils.isEmpty(signUpActivity?.selectImagePath)) {
+            if (signUpActivity?.selectImagePath != null || !TextUtils.isEmpty(signUpActivity?.selectImagePath)) {
                 image_profile.setImageURI(Uri.parse(signUpActivity?.selectImagePath))
                 text_profile.text = resources.getString(R.string.edit_profile_image)
                 image_add_edit.setImageResource(R.drawable.ic_signup_edit_image)
@@ -381,7 +389,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         }
         edit_mobile.isEnabled = !signUpActivity?.isOtpVerified!!
         text_send_otp.text =
-            if (signUpActivity?.isOtpVerified!!) getString(R.string.change) else getString(R.string.send_otp)
+                if (signUpActivity?.isOtpVerified!!) getString(R.string.change) else getString(R.string.send_otp)
     }
 
     private fun generateOtp(otpRequest: OtpRequest) {
@@ -438,6 +446,6 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
 
     companion object {
         private val permissions =
-            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 }

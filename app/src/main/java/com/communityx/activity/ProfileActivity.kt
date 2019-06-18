@@ -57,6 +57,7 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         recycler_about!!.layoutManager = linearLayoutManager
         val dividerItemDecoration = DividerItemDecoration(recycler_about!!.context, linearLayoutManager.orientation)
         recycler_about!!.addItemDecoration(dividerItemDecoration)
+
         val adapter = ProfileInfoAdapter(this, FakeDatabase.get().profileInfoDao.profileInfo)
         adapter.setOtherProfile(isOtherProfile)
         recycler_about!!.adapter = adapter

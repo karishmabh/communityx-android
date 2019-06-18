@@ -51,6 +51,8 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
         isFirstLoaded = true
         initField()
 
+        edit_school_name.threshold = 0
+        edit_college_name.threshold = 0
         edit_school_name.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
@@ -83,6 +85,7 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
             override fun handleMessage(msg: Message): Boolean {
                 if (msg.what === TRIGGER_AUTO_COMPLETE) {
                     var name = edit_college_name.text.toString()
+                    if(name.length < 2) isFirstLoaded = false
                     if (!isFirstLoaded) {
                         getStandardList(Qualification.COLLEGE_UNIVERSITY, name.trim())
                     } else {
@@ -91,6 +94,7 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
                     }
                 } else if (msg.what === TRIGGER_AUTO_SCHOOL) {
                     var name = edit_school_name.text.toString()
+                    if(name.length < 2) isFirstLoaded = false
                     if (!isFirstLoaded) {
                         getStandardList(Qualification.HIGH_SCHOOL, name.trim())
                     } else {
@@ -233,6 +237,7 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
 
                         schoolArrayAdapter = ArrayAdapter(context!!, R.layout.item_member_of_club, R.id.text_item, listSchool)
                         edit_school_name.setAdapter(schoolArrayAdapter)
+                        edit_school_name.threshold = 1
                         schoolArrayAdapter?.notifyDataSetChanged()
                     }
                     Qualification.COLLEGE_UNIVERSITY -> {
@@ -244,6 +249,8 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
                         if (edit_college_name == null) return
                         collegeArrayAdapter = ArrayAdapter(context!!, R.layout.item_member_of_club, R.id.text_item, listCollege)
                         edit_college_name.setAdapter(collegeArrayAdapter)
+                        edit_college_name.threshold = 1
+                        collegeArrayAdapter?.notifyDataSetChanged()
                     }
                 }
             }
