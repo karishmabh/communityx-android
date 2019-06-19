@@ -17,64 +17,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name=".activity.SplashActivity">
+        <activity android:name=".activity.AddVolunteerActivity">
         </activity>
-        <activity
-                android:name=".activity.ForgotPasswordActivity"
-                android:label="@string/title_activity_forgot_password"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name=".activity.SeeAllAboutActivity">
-        </activity>
-
-        <meta-data
-                android:name="com.google.android.geo.API_KEY"
-                android:value="@string/google_maps_key"/>
-
-        <activity
-                android:name=".activity.SendLocationActivity"
-                android:windowSoftInputMode="stateHidden|adjustNothing"/>
-        <activity android:name=".activity.SignUpStudentInfoActivity"/>
-        <activity android:name=".activity.GroupInfoActivity">
-        </activity>
-        <activity android:name=".activity.CreateGroupActivity"/>
-        <activity android:name=".activity.EventActivity">
-        </activity>
-        <activity
-                android:name=".activity.NewGroupActivity"
-                android:screenOrientation="portrait"
-                android:windowSoftInputMode="stateHidden|adjustResize">
-        </activity>
-        <activity android:name=".activity.MessageActivity"/>
-        <activity android:name=".activity.SignupCategoryActivity"/>
-        <activity android:name=".activity.ProfileActivity">
-        </activity>
-        <activity android:name=".activity.EventDetailActivity">
-        </activity>
-        <activity android:name=".activity.DonatedCreatedActivity">
-        </activity>
-        <activity android:name=".activity.CrowdfundingDetailActivity">
-        </activity>
-        <activity
-                android:name=".activity.CreatePostActivity"
-                android:windowSoftInputMode="stateHidden|adjustResize"/>
-        <activity android:name=".activity.PaymentActivity">
-        </activity>
-        <activity
-                android:name=".activity.LikesActivity"
-                android:screenOrientation="portrait">
-        </activity>
-        <activity
-                android:name=".activity.ConnectAlliesActivity"
-                android:screenOrientation="portrait"/>
-        <activity
-                android:name=".activity.DashboardActivity"
-                android:screenOrientation="portrait"
-                android:windowSoftInputMode="stateHidden|adjustResize"/>
-        <activity
-                android:name=".activity.WelcomeActivity"
-                android:screenOrientation="portrait">
-        </activity>
+        <activity android:name=".activity.SearchSuggestionActivity"/>
+        <activity android:name=".activity.AddWorkExperienceActivity"/>
+        <activity android:name=".activity.SplashActivity"/>
 
         <activity-alias
                 android:name=".Main"
@@ -86,6 +33,50 @@
             </intent-filter>
         </activity-alias>
 
+        <activity
+                android:name=".activity.ForgotPasswordActivity"
+                android:label="@string/title_activity_forgot_password"
+                android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activity.SeeAllAboutActivity"/>
+
+        <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="@string/google_maps_key"/>
+
+        <activity
+                android:name=".activity.SendLocationActivity"
+                android:windowSoftInputMode="stateHidden|adjustNothing"/>
+        <activity android:name=".activity.SignUpStudentInfoActivity"/>
+        <activity android:name=".activity.GroupInfoActivity"/>
+        <activity android:name=".activity.CreateGroupActivity"/>
+        <activity android:name=".activity.EventActivity"/>
+        <activity
+                android:name=".activity.NewGroupActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".activity.MessageActivity"/>
+        <activity android:name=".activity.SignupCategoryActivity"/>
+        <activity android:name=".activity.ProfileActivity"/>
+        <activity android:name=".activity.EventDetailActivity"/>
+        <activity android:name=".activity.DonatedCreatedActivity"/>
+        <activity android:name=".activity.CrowdfundingDetailActivity"/>
+        <activity
+                android:name=".activity.CreatePostActivity"
+                android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".activity.PaymentActivity"/>
+        <activity
+                android:name=".activity.LikesActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.ConnectAlliesActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".activity.DashboardActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity
+                android:name=".activity.WelcomeActivity"
+                android:screenOrientation="portrait"/>
         <activity
                 android:name=".activity.LoginActivity"
                 android:screenOrientation="portrait"

@@ -10,6 +10,7 @@ import com.communityx.utils.AppPreference
 
 class SplashActivity : AppCompatActivity() {
 
+    private val SCREEN_TIMEOUT: Long = 2000
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -17,17 +18,19 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun isLogin() {
+        val handler = Handler()
         if (AppPreference.getInstance(this).getBoolean(AppConstant.PREF_IS_LOGIN)) {
-            val handler = Handler()
             handler.postDelayed({
                 startActivity(Intent(this, DashboardActivity::class.java))
                 overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
                 finish()
-            }, 3000)
+            }, SCREEN_TIMEOUT)
         } else {
-            startActivity(Intent(this, WelcomeActivity::class.java))
-            overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
-            finish()
+            handler.postDelayed({
+                startActivity(Intent(this, WelcomeActivity::class.java))
+                overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
+                finish()
+            }, SCREEN_TIMEOUT)
         }
     }
 }
