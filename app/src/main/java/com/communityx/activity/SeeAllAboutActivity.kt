@@ -1,16 +1,13 @@
 package com.communityx.activity
 
 import android.app.Activity
-import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialog
-import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
-import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.communityx.R
@@ -62,8 +59,22 @@ class SeeAllAboutActivity : BaseActivity(), AppConstant {
         val bottomSheetDialog = BottomSheetDialog(activity)
         bottomSheetDialog.setContentView(dialogView)
 
+        bottomSheetDialog.findViewById<View>(R.id.image_add_work)!!.setOnClickListener(object: View.OnClickListener {
+            override fun onClick(v: View?) {
+                startActivity(Intent(this@SeeAllAboutActivity, AddWorkExperienceActivity::class.java))
+            }
+        })
+
+        bottomSheetDialog.findViewById<View>(R.id.image_add_volunteer)!!.setOnClickListener(object: View.OnClickListener {
+            override fun onClick(v: View?) {
+                startActivity(Intent(this@SeeAllAboutActivity, AddVolunteerActivity::class.java))
+            }
+        })
+
         bottomSheetDialog.findViewById<View>(R.id.image_cross)!!.setOnClickListener { bottomSheetDialog.dismiss() }
-        bottomSheetDialog.setOnDismissListener { fab_add!!.show() }
+        bottomSheetDialog.setOnDismissListener {
+            fab_add!!.show()
+        }
 
         bottomSheetDialog.show()
     }
