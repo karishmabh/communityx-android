@@ -15,8 +15,7 @@ object SessionManager : AppConstant {
         AppPreference.getInstance().setString(AppConstant.PREF_CATEGORY, loginData.user.category)
         AppPreference.getInstance().setBoolean(AppConstant.PREF_IS_LOGIN, true)
 
-        AppPreference.getInstance().setString(
-            PREF_USERNAME,
+        AppPreference.getInstance().setString(PREF_USERNAME,
             if (loginData.user.category == ORGANIZATION) loginData.user.profile.organization_name
             else loginData.user.profile.full_name
         )
