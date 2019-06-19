@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.AddWorkExperienceActivity">
+
+    <include
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/view_toolbar"
+            layout="@layout/toolbar"/>
+
+    <android.support.design.widget.TextInputLayout
+            android:id="@+id/textinput_company_name"
+            style="@style/textInputLayoutColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:hint="@string/organization_"
+            app:hintTextAppearance="@style/TextInputHint"
+            app:layout_constraintTop_toBottomOf="@+id/view_toolbar">
+
+        <android.support.design.widget.TextInputEditText
+                android:id="@+id/edit_company_name"
+                style="@style/textInputEditText"
+                android:transitionName="@string/anim_start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:inputType="textCapWords"
+                android:maxLength="50"
+                android:singleLine="true" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+            android:id="@+id/textinput_title"
+            style="@style/textInputLayoutColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:hint="@string/role"
+            app:hintTextAppearance="@style/TextInputHint"
+            app:layout_constraintTop_toBottomOf="@+id/textinput_company_name">
+
+        <android.support.design.widget.TextInputEditText
+                android:id="@+id/edit_title"
+                style="@style/textInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:inputType="textCapWords"
+                android:maxLength="30"
+                android:singleLine="true" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+            android:id="@+id/textinput_location"
+            style="@style/textInputLayoutColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:hint="@string/cause"
+            app:hintTextAppearance="@style/TextInputHint"
+            app:layout_constraintTop_toBottomOf="@+id/textinput_title">
+
+        <android.support.design.widget.TextInputEditText
+                android:id="@+id/edit_location"
+                style="@style/textInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:inputType="textCapWords"
+                android:maxLength="50"
+                android:singleLine="true" />
+    </android.support.design.widget.TextInputLayout>
+
+    <CheckBox
+            android:id="@+id/check_work_here"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/i_currently_work_in_this_role"
+            android:textColor="@color/colorBlackTitle"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toEndOf="@id/textinput_location"
+            app:layout_constraintStart_toStartOf="@id/textinput_location"
+            app:layout_constraintTop_toBottomOf="@id/textinput_location" />
+
+    <LinearLayout
+            android:id="@+id/linear_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@id/textinput_location"
+            app:layout_constraintStart_toStartOf="@id/textinput_location"
+            app:layout_constraintTop_toBottomOf="@id/check_work_here">
+
+        <android.support.design.widget.TextInputLayout
+                style="@style/textInputLayoutColor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/start_date"
+                app:hintTextAppearance="@style/TextInputHint">
+
+            <android.support.design.widget.TextInputEditText
+                    style="@style/textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_signup_calendar"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/colorLightGrey"
+                    android:textSize="@dimen/_12ssp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+                style="@style/textInputLayoutColor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_7sdp"
+                android:layout_weight="1"
+                android:hint="@string/end_date"
+                app:hintTextAppearance="@style/TextInputHint">
+
+            <android.support.design.widget.TextInputEditText
+                    style="@style/textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_signup_calendar"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/colorLightGrey"
+                    android:textSize="@dimen/_12ssp" />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <android.support.design.widget.TextInputLayout
+            android:id="@+id/textinput_description"
+            style="@style/textInputLayoutColor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:hint="@string/description"
+            app:hintTextAppearance="@style/TextInputHint"
+            app:layout_constraintEnd_toEndOf="@id/textinput_location"
+            app:layout_constraintStart_toStartOf="@id/textinput_location"
+            app:layout_constraintTop_toBottomOf="@+id/linear_date">
+
+        <android.support.design.widget.TextInputEditText
+                style="@style/textInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:inputType="textCapSentences"
+                android:maxLength="100"
+                android:singleLine="true" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+            android:id="@+id/button_login"
+            style="@style/style_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:background="@drawable/button_inactive"
+            android:text="@string/save"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent" />
+</android.support.constraint.ConstraintLayout>

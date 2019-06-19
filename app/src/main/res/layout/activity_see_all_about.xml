@@ -23,9 +23,9 @@
 
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_add"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            app:fabCustomSize="@dimen/_48sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabCustomSize="@dimen/_45sdp"
             android:src="@drawable/ic_my_profile_add_gray"
             android:tint="@color/colorWhite"
             app:layout_constraintEnd_toEndOf="parent"

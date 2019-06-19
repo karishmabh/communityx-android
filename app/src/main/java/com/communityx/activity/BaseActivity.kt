@@ -15,6 +15,16 @@ open class BaseActivity : AppCompatActivity() {
         if (backPress) customToolBarHelper.enableBackPress()
     }
 
+    protected fun setToolBar(activity: Activity, title: String, backPress: Boolean, changeicon: Boolean) {
+        val customToolBarHelper = CustomToolBarHelper(activity)
+        customToolBarHelper.setTitle(title)
+
+        if (backPress) customToolBarHelper.enableBackPress()
+
+        if (changeicon)
+        customToolBarHelper.setLogoIcon(R.drawable.ic_cross)
+    }
+
     protected fun setGroupToolbar(activity: Activity?, title: String, subtitle: String) {
         if (activity == null) return
         val textTitle = activity.findViewById<TextView>(R.id.text_title)
