@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import butterknife.ButterKnife
+import butterknife.OnClick
 import com.communityx.R
 import com.communityx.adapters.SearchAdapter
 import kotlinx.android.synthetic.main.activity_search_suggestion.*
@@ -14,12 +16,14 @@ class SearchSuggestionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_suggestion)
+        ButterKnife.bind(this)
+
         setRecyclerView()
-        image_back.setOnClickListener(object: View.OnClickListener {
-            override fun onClick(v: View?) {
-                onBackPressed()
-            }
-        })
+    }
+
+    @OnClick(R.id.image_back)
+    fun onbackTapped() {
+        onBackPressed()
     }
 
     private fun setRecyclerView() {
