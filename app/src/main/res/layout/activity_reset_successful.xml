@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:background="@color/colorWhite"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".activity.ResetSuccessfulActivity">
+
+    <include
+            android:id="@+id/topView"
+            layout="@layout/toolbar_forgot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+            android:src="@drawable/ic_reset_successfully_tick"
+            android:layout_marginTop="@dimen/_50sdp"
+            app:layout_constraintTop_toBottomOf="@id/topView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/image_logo"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"/>
+
+    <TextView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_logo"
+            android:id="@+id/text_reset_success"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/password_reset_successfully"
+            android:textColor="@color/colorBlackTitle"
+            android:textSize="@dimen/_14ssp"/>
+
+    <TextView
+            app:layout_constraintTop_toBottomOf="@id/text_reset_success"
+            android:id="@+id/text_forgot_password_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/your_password_has_been_reset"
+            android:textColor="@color/colorLightGrey"
+            android:textSize="@dimen/_12ssp"/>
+
+    <Button
+            app:layout_constraintTop_toBottomOf="@id/text_forgot_password_details"
+            android:id="@+id/button_send"
+            style="@style/style_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_40sdp"
+            android:background="@drawable/button_active"
+            android:text="@string/back_to_login"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"/>
+</android.support.constraint.ConstraintLayout>

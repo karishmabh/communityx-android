@@ -23,7 +23,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/poppins_regular"
             android:paddingStart="@dimen/_2sdp"
-            android:text="@string/forgot_description"
+            android:text="@string/just_type_it_twice_and_try_not_to_forget_it_this_time"
             android:textColor="@color/colorLightGrey"
             android:textSize="@dimen/_12ssp"
             android:layout_marginStart="@dimen/_15sdp"
@@ -33,19 +33,44 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
     <android.support.design.widget.TextInputLayout
-            android:id="@+id/textinput_email_username"
+            android:id="@+id/textinput_new_password"
             style="@style/textInputLayoutColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
-            android:hint="@string/mobile_number"
+            android:hint="@string/enter_new_password"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             app:layout_constraintTop_toBottomOf="@+id/text_forgot_password_details"
             app:hintTextAppearance="@style/TextInputHint">
 
         <android.support.design.widget.TextInputEditText
-                android:id="@+id/edit_email_username"
+                android:id="@+id/edit_new_password"
+                style="@style/textInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:digits="@string/mobile_digits"
+                android:fontFamily="@font/poppins_medium"
+                android:inputType="textPassword"
+                android:lines="1"
+                android:maxLength="15"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+            android:id="@+id/textinput_confirm_password"
+            style="@style/textInputLayoutColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:hint="@string/confirm_new_password"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@+id/textinput_new_password"
+            app:hintTextAppearance="@style/TextInputHint">
+
+        <android.support.design.widget.TextInputEditText
+                android:id="@+id/edit_confirm_password"
                 style="@style/textInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,10 +88,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:background="@drawable/button_active"
-            android:text="@string/send"
+            android:text="@string/save"
             android:textColor="@android:color/white"
-            app:layout_constraintTop_toBottomOf="@+id/textinput_email_username"/>
+            app:layout_constraintTop_toBottomOf="@+id/textinput_confirm_password"/>
 </android.support.constraint.ConstraintLayout>
