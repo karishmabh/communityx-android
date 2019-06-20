@@ -20,7 +20,7 @@
     <string name="add_profile_image">Add Profile Image</string>
     <string name="edit_profile_image">Edit Profile Image</string>
     <string name="enter_otp">Enter OTP</string>
-    <string name="forgot_password">Forgot Password?</string>
+    <string name="forgot_password">Forgot Password</string>
     <string name="signup">Sign Up</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="mobile_number">Mobile Number</string>
@@ -209,7 +209,8 @@
     <string name="string_submit">Submit</string>
     <string name="no_record_found">No Record Found!</string>
     <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
-    <string name="forgot_description">Enter your email address and we will send you a link to reset your password.
+    <string name="forgot_description">Enter your mobile number associated with your account. We will send you a
+        verification code to reset your password.
     </string>
     <string name="send">SEND</string>
     <string name="unite_humanity_mobilize_the_world">Unite Humanity. Mobilize the World.</string>
@@ -221,4 +222,27 @@
     <string name="information_technology_and_services">Information Technology and services</string>
     <string name="add_work_exp">Add Work Experience</string>
     <string name="cause">Cause</string>
+    <string name="report_this_post">Report This Post</string>
+    <string name="report_post">Report post</string>
+    <string name="tell_problem_with_this">Tell us about a problem with this post</string>
+    <string name="help_us_understand_what_s_happening_with_this_post_how_would_you_describe_it">Help us understand
+        what’s happening with this post. How would you describe it?
+    </string>
+    <string name="please_enter_the_verification_code_we_just_sent_you_on_your_mobile_number_202">Please enter the
+        verification code we just sent you on your mobile number *****202
+    </string>
+    <string name="verify">verify</string>
+    <string name="verification">Verification</string>
+    <string name="if_you_didn_t_receive_a_code">If you didn\'t receive a code!</string>
+    <string name="resend">Resend</string>
+    <string name="just_type_it_twice_and_try_not_to_forget_it_this_time">Just type it twice and try not to forget it
+        this time.
+    </string>
+
+    <string name="reset_password">Reset Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="enter_new_password">Enter New Password</string>
+    <string name="your_password_has_been_reset">Your Password has been reset.</string>
+    <string name="password_reset_successfully">Password Reset Successfully!</string>
+    <string name="back_to_login">back to login</string>
 </resources>

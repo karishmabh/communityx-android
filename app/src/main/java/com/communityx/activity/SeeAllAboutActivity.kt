@@ -44,7 +44,7 @@ class SeeAllAboutActivity : BaseActivity(), AppConstant {
 
     private fun setAllInfo() {
         val linearLayoutManager = LinearLayoutManager(this)
-        recycler_view!!.layoutManager = linearLayoutManager
+        recycler_view!!.layoutManager = linearLayoutManager!!
         val dividerItemDecoration = DividerItemDecoration(this, linearLayoutManager.orientation)
         recycler_view!!.addItemDecoration(dividerItemDecoration)
         val adapter = ProfileInfoAdapter(this, FakeDatabase.get().profileInfoDao.profileInfo)
