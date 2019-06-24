@@ -16,6 +16,8 @@ import com.communityx.activity.EventDetailActivity
 import com.communityx.activity.LikesActivity
 import com.communityx.activity.PraiseActivity
 import com.communityx.utils.AnimationUtils
+import com.communityx.utils.DialogHelper
+import com.communityx.utils.Utils
 import com.google.android.flexbox.FlexboxLayout
 
 class CommunityFeedAdapter(val mContext: Context?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -87,7 +89,7 @@ class CommunityFeedAdapter(val mContext: Context?) : RecyclerView.Adapter<Recycl
 
         init {
             ButterKnife.bind(this, itemView)
-            viewMore.visibility = if (fromProfile && !isOtherProfile) View.VISIBLE else View.GONE
+           // viewMore.visibility = if (fromProfile && !isOtherProfile) View.VISIBLE else View.GONE
         }
 
         @OnClick(R.id.view_comment)
@@ -100,11 +102,27 @@ class CommunityFeedAdapter(val mContext: Context?) : RecyclerView.Adapter<Recycl
             mContext!!.startActivity(Intent(mContext, LikesActivity::class.java))
         }
 
+        @OnClick(R.id.image_more)
+        fun imageMoreTapped() {
+            DialogHelper.showReportPopDialog(mContext, object: DialogHelper.IDialogCallback {
+                override fun onConfirmed() {
+                    DialogHelper.showReportDialog(mContext, this)
+                }
+
+                override fun onDenied() {
+               }
+            })
+        }
+
         @OnClick(R.id.image_like)
         fun likeTapped() {
             imageLike.setImageResource(if (isLike) R.drawable.ic_my_community_like_deselect else R.drawable.ic_my_community_like_select)
             isLike = !isLike
             AnimationUtils.pulse(imageLike, 1, 300)
+        }
+
+        fun openReportDialog() {
+
         }
     }
 
@@ -117,6 +135,18 @@ class CommunityFeedAdapter(val mContext: Context?) : RecyclerView.Adapter<Recycl
 
         init {
             ButterKnife.bind(this, itemView)
+        }
+
+        @OnClick(R.id.image_more)
+        fun imageTapped() {
+            DialogHelper.showReportPopDialog(mContext, object: DialogHelper.IDialogCallback {
+                override fun onConfirmed() {
+                    DialogHelper.showReportDialog(mContext, this)
+                }
+
+                override fun onDenied() {
+                }
+            })
         }
     }
 
@@ -136,6 +166,25 @@ class CommunityFeedAdapter(val mContext: Context?) : RecyclerView.Adapter<Recycl
                     )
                 )
             }
+        }
+
+        @OnClick(R.id.image_more)
+        fun imageTapped() {
+            DialogHelper.showReportPopDialog(mContext, object: DialogHelper.IDialogCallback {
+                override fun onConfirmed() {
+                    DialogHelper.showReportDialog(mContext, object: DialogHelper.IDialogCallback {
+                        override fun onConfirmed() {
+                            DialogHelper.showReportDialog(mContext, this)
+                        }
+
+                        override fun onDenied() {
+                        }
+                    })
+                }
+
+                override fun onDenied() {
+                }
+            })
         }
     }
 
@@ -167,6 +216,18 @@ class CommunityFeedAdapter(val mContext: Context?) : RecyclerView.Adapter<Recycl
                 editAmount.setText("$")
                 editAmount.setSelection(1)
             }
+        }
+
+        @OnClick(R.id.image_more)
+        fun imageTapped() {
+            DialogHelper.showReportPopDialog(mContext, object: DialogHelper.IDialogCallback {
+                override fun onConfirmed() {
+                    DialogHelper.showReportDialog(mContext, this)
+                }
+
+                override fun onDenied() {
+                }
+            })
         }
 
         private fun radioListener() {
@@ -204,6 +265,18 @@ class CommunityFeedAdapter(val mContext: Context?) : RecyclerView.Adapter<Recycl
 
         init {
             ButterKnife.bind(this, itemView)
+        }
+
+        @OnClick(R.id.image_more)
+        fun imageTapped() {
+            DialogHelper.showReportPopDialog(mContext, object: DialogHelper.IDialogCallback {
+                override fun onConfirmed() {
+                    DialogHelper.showReportDialog(mContext, this)
+                }
+
+                override fun onDenied() {
+                }
+            })
         }
 
         fun addDummyShare(position: Int) {

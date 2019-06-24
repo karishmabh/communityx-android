@@ -4,10 +4,8 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.Window
-import android.view.WindowManager
 import com.communityx.R
 import com.communityx.adapters.SignUpPagerAdapter
 import com.communityx.custom_views.CustomViewPager
@@ -29,7 +27,7 @@ import kotlinx.android.synthetic.main.activity_sign_up_student_info.*
 import kotlinx.android.synthetic.main.layout_top_view_logo.*
 import java.util.*
 
-class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClickListener {
+class SignUpStudentInfoActivity : BaseActivity(), AppConstant, View.OnClickListener {
 
     private var pagerAdapter: SignUpPagerAdapter? = null
     var selectedCategory: String? = null
@@ -46,7 +44,6 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
 
-        //window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_sign_up_student_info)
 
         getIntentData()
@@ -99,9 +96,8 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
 
     private fun goToLogin() {
         startActivity(Intent(this, LoginActivity::class.java)
-            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        )
-        overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
+            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        overridePendingTransition(R.anim.anim_prev_slide_in, R.anim.anim_prev_slide_out)
         finish()
     }
 
@@ -122,7 +118,9 @@ class SignUpStudentInfoActivity : AppCompatActivity(), AppConstant, View.OnClick
     }
 
     fun enableButton(enable: Boolean?) {
-        enable?.let { Utils.enableButton(button_continue, it) }
+        enable?.let {
+            Utils.enableButton(button_continue, it)
+        }
     }
 
     private fun navigateToConnectAlies(loginData: Data) {
