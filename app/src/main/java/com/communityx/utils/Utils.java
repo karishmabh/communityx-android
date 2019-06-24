@@ -6,6 +6,8 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -14,11 +16,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.*;
 import com.communityx.R;
+import com.communityx.datepicker.DateTimeWheel.DateWheel.DatePickerPopWin;
+import com.communityx.datepicker.MainActivity;
 import com.squareup.picasso.Picasso;
 import io.blackbox_vision.wheelview.view.DatePickerPopUpWindow;
 
@@ -146,6 +147,34 @@ public class Utils {
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.YEAR, year);
     }
+
+     public static void openDatePickerDialog(Activity activity, IDateCallback iDateCallback) {
+         pickedTime = "2010-6-21";
+        DatePickerPopWin pickerPopWin = new DatePickerPopWin.Builder(activity, new DatePickerPopWin.OnDatePickedListener() {
+            @Override
+            public void onDatePickCompleted(int year, int month, int day, String dateDesc) {
+                iDateCallback.getDate(String.format("%s/%d/%d", month, day, year));
+            }
+        })      .textConfirm("CONFIRM")
+                .textCancel("CANCEL")
+                .btnTextSize(16)
+                .viewTextSize(22)
+                .colorCancel(activity.getResources().getColor(R.color.colorLightGrey))
+                .colorConfirm(activity.getResources().getColor(R.color.colorAccent))
+                .minYear(1950)
+                .maxYear(2011)
+                .dateChose(pickedTime)
+                .build();
+
+        pickerPopWin.showPopWin(activity);
+        pickerPopWin.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                DatePickerPopWin.clearDim();
+            }
+        });
+    }
+
 
     public static Bitmap convertToBitmap(Activity activity, String filename) {
         try {
