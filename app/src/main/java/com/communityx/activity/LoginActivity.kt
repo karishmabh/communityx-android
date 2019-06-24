@@ -25,7 +25,7 @@ import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlin.jvm.internal.Intrinsics
 
-class LoginActivity : AppCompatActivity(), AppConstant {
+class LoginActivity : BaseActivity(), AppConstant {
 
     val selectionStart: Int = 3
 
