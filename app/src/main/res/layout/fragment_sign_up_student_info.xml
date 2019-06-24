@@ -138,6 +138,8 @@
                         android:id="@+id/edit_email"
                         style="@style/textInputEditText"
                         android:layout_width="match_parent"
+                        android:maxLength="50"
+                        android:lines="1"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_medium"
                         android:inputType="textEmailAddress"/>
@@ -165,8 +167,7 @@
                         android:editable="false"
                         android:focusableInTouchMode="false"
                         android:fontFamily="@font/poppins_medium"
-                        android:inputType="date"
-                        tools:text="12/07/2018"/>
+                        android:inputType="date" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -186,10 +187,11 @@
                         android:id="@+id/edit_postalcode"
                         style="@style/textInputEditText"
                         android:imeOptions="actionNext"
+                        android:digits="@string/mobile_digits"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_medium"
-                        android:inputType="numberSigned"
+                        android:inputType="numberDecimal"
                         android:maxLength="5"/>
             </android.support.design.widget.TextInputLayout>
 
@@ -209,7 +211,6 @@
                         android:layout_marginEnd="@dimen/_15sdp"
                         android:hint="Mobile Number"
                         app:hintTextAppearance="@style/TextInputHint"
-
                         app:passwordToggleEnabled="true">
 
                     <android.support.design.widget.TextInputEditText
@@ -219,6 +220,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
                             android:inputType="number"
+                            android:imeOptions="actionNext"
+                            android:digits="@string/mobile_digits"
                             android:maxLength="13"
                             android:maxLines="1"
                             android:text="@string/prefix_number"/>
@@ -332,7 +335,12 @@
                     android:inputType="number"
                     android:textColor="@color/colorBlackTitle"
                     app:itemCount="6"
-                    app:itemSpacing="@dimen/_10sdp"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintWidth_default="spread"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:itemSpacing="@dimen/_5sdp"
+                    app:itemWidth="@dimen/_42sdp"
                     android:paddingBottom="@dimen/_15sdp"
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_15sdp"

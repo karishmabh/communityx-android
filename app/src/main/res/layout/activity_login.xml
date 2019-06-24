@@ -80,7 +80,7 @@
                             android:lines="1"
                             android:inputType="textPassword"
                             android:maxLines="1"
-                            android:maxLength="30"/>
+                            android:maxLength="20"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <TextView

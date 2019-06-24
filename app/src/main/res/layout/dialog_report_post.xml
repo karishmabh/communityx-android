@@ -15,7 +15,6 @@
         android:text="@string/report_this_post"
         android:textColor="@color/colorBlackTitle"
         android:textSize="@dimen/_14ssp"
-        app:layout_constraintEnd_toStartOf="@+id/image_close"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
