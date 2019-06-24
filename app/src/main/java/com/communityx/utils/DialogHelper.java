@@ -81,9 +81,6 @@ public class DialogHelper {
     public static void showLogoutDialog(Context context, IDialogCallback iDialogCallback) {
         Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //Window window = dialog.getWindow();
-        //assert window != null;
-       // window.setLayout(ConstraintLayout.LayoutParams.MATCH_PARENT,ConstraintLayout.LayoutParams.WRAP_CONTENT);
         dialog.setContentView(R.layout.dialog_logout);
         dialog.setCancelable(true);
 
@@ -116,6 +113,52 @@ public class DialogHelper {
                 dialog.dismiss();
             }
         });
+        dialog.show();
+    }
+
+    public static void showReportPopDialog(Context context, IDialogCallback iDialogCallback) {
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_report_pop, null);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
+        bottomSheetDialog.setContentView(dialogView);
+
+        bottomSheetDialog.findViewById(R.id.card_main).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetDialog.dismiss();
+                iDialogCallback.onConfirmed();
+            }
+        });
+        bottomSheetDialog.show();
+    }
+
+    public static void showReportDialog(Context context, IDialogCallback iDialogCallback) {
+        Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_report_post);
+        dialog.setCancelable(true);
+
+        WindowManager.LayoutParams layoutParams = dialog.getWindow().getAttributes();
+        Window window = dialog.getWindow();
+        layoutParams.copyFrom(window.getAttributes());
+        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(layoutParams);
+        layoutParams.gravity = Gravity.CENTER;
+
+        dialog.findViewById(R.id.image_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.findViewById(R.id.button_community).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
     }
 

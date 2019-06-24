@@ -39,6 +39,11 @@ open class BaseActivity : AppCompatActivity() {
         textSubtitle.text = subtitle
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.anim_prev_slide_in, R.anim.anim_prev_slide_out)
+    }
+
     fun setToolbarReset(activity: Activity?, title: String, visible: Boolean) {
         if (activity == null) return
         val textTitle = activity.findViewById<TextView>(R.id.text_title)
@@ -56,6 +61,14 @@ open class BaseActivity : AppCompatActivity() {
 
      fun startNewActivity(activity: AppCompatActivity, givenclas: Class<*>) {
         val intent = Intent(activity, givenclas)
+        startActivity(intent)
+        overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
+    }
+
+    fun startActivityWithFlags(activity: AppCompatActivity, givenclas: Class<*>) {
+        val intent = Intent(activity, givenclas)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)
         overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
     }

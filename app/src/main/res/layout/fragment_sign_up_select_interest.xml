@@ -75,6 +75,7 @@
                 android:maxLines="20"
                 android:textSize="@dimen/_11sdp"
                 android:padding="@dimen/_8sdp"
+                android:maxLength="20"
                 android:layout_marginBottom="@dimen/_4sdp"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_15sdp"

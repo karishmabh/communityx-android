@@ -30,7 +30,6 @@ import com.communityx.utils.AppConstant.EMAIL_PATTERN
 import com.mukesh.OnOtpCompletionListener
 import kotlinx.android.synthetic.main.fragment_sign_up_student_info.*
 
-
 class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClickListener,
         GalleryPicker.GalleryPickerListener {
 
@@ -418,7 +417,8 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         SignUpRepo.verifyOtp(context!!, verifyOtpRequest, object : ResponseListener<String> {
             override fun onSuccess(response: String) {
                 SnackBarFactory.createSnackBar(context, scrollView, response)
-                scrollView.post { scrollView.scrollTo(0, scrollView.height) }
+                //scrollView.post { scrollView.scrollTo(0, scrollView.height) }
+                focusOnOtpView()
 
                 visibleOtpField(false)
                 signUpActivity?.isOtpVerified = true
@@ -431,11 +431,19 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
 
             override fun onError(error: Any) {
                 view_otp.setText("")
+                focusOnOtpView()
                 edit_otp_one.requestFocus()
                 Utils.showError(activity, scrollView, error)
                 signUpActivity?.isOtpVerified = false
                 dialog.dismiss()
             }
+        })
+    }
+
+
+    private fun focusOnOtpView() {
+        scrollView.post(Runnable {
+            scrollView.scrollTo(0, view_otp.getBottom())
         })
     }
 
