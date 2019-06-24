@@ -63,7 +63,10 @@ class SignUpProfessional : BaseSignUpFragment() {
     }
 
     override fun onContinueButtonClicked() {
-        if (setFieldsData()) goToNextPage()
+        if (setFieldsData())  {
+            changeButtonStatus(1, true)
+            goToNextPage()
+        }
     }
 
     private fun getJobTitles(query: String) {
@@ -110,7 +113,7 @@ class SignUpProfessional : BaseSignUpFragment() {
 
     private fun setAutoCompleteJob() {
         autoSuggestAdapter = AutoSuggestAdapter(activity!!, android.R.layout.simple_dropdown_item_1line)
-        auto_complete_job.threshold = 2
+        auto_complete_job.threshold = 1
         auto_complete_job.setAdapter(autoSuggestAdapter)
 
         auto_complete_job.addTextChangedListener(object : TextWatcher {
@@ -142,7 +145,7 @@ class SignUpProfessional : BaseSignUpFragment() {
 
     private fun setAutoCompleteCompany() {
         autoSuggestCompanyAdapter = AutoSuggestAdapter(activity!!, android.R.layout.simple_dropdown_item_1line)
-        auto_complete_company.threshold = 2
+        auto_complete_company.threshold = 1
         auto_complete_company.setAdapter(autoSuggestCompanyAdapter)
 
         auto_complete_company.addTextChangedListener(object : TextWatcher {

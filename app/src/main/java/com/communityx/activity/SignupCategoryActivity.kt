@@ -12,7 +12,7 @@ import com.communityx.R.id
 import com.communityx.utils.AppConstant
 import kotlinx.android.synthetic.main.activity_signup_category.*
 
-class SignupCategoryActivity : AppCompatActivity(), AppConstant {
+class SignupCategoryActivity : BaseActivity(), AppConstant {
 
     private var selectedCategory: String? = null
 
@@ -50,7 +50,7 @@ class SignupCategoryActivity : AppCompatActivity(), AppConstant {
     internal fun loginTapped() {
         startActivity(Intent(this, LoginActivity::class.java)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-        overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
+        overridePendingTransition(R.anim.anim_prev_slide_in, R.anim.anim_prev_slide_out)
         finish()
     }
 
