@@ -66,6 +66,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
         setTextListener()
     }
 
+
     fun setTextListener() {
         edit_mobile.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus && edit_mobile.text.toString() == prefixNumber) {
@@ -330,7 +331,7 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
 
     private fun tappedEditBirth() {
         Utils.hideSoftKeyboard(activity)
-        Utils.iosModDatePicker(activity, object : Utils.IDateCallback {
+        Utils.openDatePickerDialog(activity, object : Utils.IDateCallback {
             override fun getDate(date: String?) {
                 edit_birthday.setText(date)
                 edit_postalcode.requestFocus()
