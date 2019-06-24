@@ -58,23 +58,29 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
 
     override fun onContinueButtonClicked() {
         if (setFieldsData()) {
-            changeButtonStatus(3, true)
+            if (mCategory.equals(AppConstant.PROFESSIONAL)) {
+                changeButtonStatus(2, true)
+            } else {
+                changeButtonStatus(3, true)
+            }
             goToNextPage()
         }
     }
 
     @OnTextChanged(R.id.edit_club)
     fun searchCausesClub(charSequence: CharSequence) {
-        enableButton(true)
-        if (charSequence.length > 1) {
+        if (charSequence.toString().length < 1) {
+            enableButton(false)
+        } else {
+            enableButton(true)
+        }
 
-            when (category) {
-                AppConstant.STUDENT -> {
-                    getClubAndRole(charSequence.toString())
-                }
-                AppConstant.PROFESSIONAL -> {
-                    getCauseAndRole(charSequence.toString())
-                }
+        when (category) {
+            AppConstant.STUDENT -> {
+                getClubAndRole(charSequence.toString())
+            }
+            AppConstant.PROFESSIONAL -> {
+                getCauseAndRole(charSequence.toString())
             }
         }
     }
@@ -182,6 +188,7 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
             ArrayAdapter(context!!, R.layout.item_member_of_club, R.id.text_item, role)
 
         edit_role.setAdapter(arrayAdapter)
+        edit_role.threshold = 1
     }
 
     private fun setClubData(club: List<String>) {
@@ -192,5 +199,6 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
             club
         )
         edit_club.setAdapter(arrayAdapter)
+        edit_club.threshold = 1
     }
 }
