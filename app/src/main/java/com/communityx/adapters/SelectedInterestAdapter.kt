@@ -57,6 +57,7 @@ class SelectedInterestAdapter(val mInterestList: List<MinorsData>, val mActvity:
                 for (selectedid in mSelectedIds) {
                     if (civilRight.id == selectedid) {
                         checkBox.setBackgroundResource(R.drawable.bg_interest_active)
+                        checkBox.setTextColor(mActvity.resources.getColor(R.color.colorBlackTitle))
                     }
                 }
 
@@ -67,9 +68,11 @@ class SelectedInterestAdapter(val mInterestList: List<MinorsData>, val mActvity:
                             return@setOnCheckedChangeListener
                         }
                         checkBox.setBackgroundResource(com.communityx.R.drawable.bg_interest_active)
+                        checkBox.setTextColor(mActvity.resources.getColor(R.color.colorBlackTitle))
                         mSelectedIds.add(civilRight.id)
                     } else {
                         checkBox.setBackgroundResource(com.communityx.R.drawable.bg_interest_inactive)
+                        checkBox.setTextColor(mActvity.resources.getColor(R.color.colorLightGrey))
                         mSelectedIds.remove(civilRight.id)
                     }
 
