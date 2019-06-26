@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
               android:orientation="vertical"
               android:background="@android:color/white"
               android:layout_height="wrap_content">
@@ -12,11 +13,11 @@
               android:id="@+id/text_letter"
               android:visibility="gone"
               tools:visibility="visible"
-              android:textSize="@dimen/_11sdp"
+              android:textSize="@dimen/_8sdp"
               android:textColor="@color/colorBlackTitle"
               android:fontFamily="@font/poppins_medium"
               android:paddingStart="@dimen/_14ssp"
-              android:paddingTop="@dimen/_2sdp"
+              android:paddingTop="@dimen/_1sdp"
               android:background="@color/colorBackground"/>
 
     <android.support.constraint.ConstraintLayout
@@ -42,6 +43,7 @@
                       android:gravity="center_vertical"
                       app:layout_constraintStart_toEndOf="@id/image_user"
                       app:layout_constraintTop_toTopOf="parent"
+                      android:paddingEnd="@dimen/_1ssp"
                       app:layout_constraintBottom_toBottomOf="parent">
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
@@ -50,15 +52,17 @@
                       android:textColor="@color/colorBlackTitle"
                       android:fontFamily="@font/poppins_semibold"
                       android:textSize="@dimen/_12ssp"
+                     android:includeFontPadding="false"
                       android:layout_marginStart="@dimen/_12sdp"/>
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:text="Leagal Counsel @ ACLU"
                       android:id="@+id/text_location"
+                      android:includeFontPadding="false"
                       android:textColor="@color/colorLightGrey"
                       android:fontFamily="@font/poppins_regular"
-                      android:textSize="@dimen/_10ssp"
+                      android:textSize="@dimen/_8ssp"
                       android:layout_marginStart="@dimen/_12sdp"/>
         </LinearLayout>
 
@@ -76,10 +80,10 @@
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/ic_suggestion_friend_message"
                     android:background="@drawable/bg_green_outline"
-                    android:paddingLeft="@dimen/_6sdp"
-                    android:paddingEnd="@dimen/_6sdp"
-                    android:paddingTop="@dimen/_4sdp"
-                    android:paddingBottom="@dimen/_4sdp"
+                    android:paddingLeft="@dimen/_4sdp"
+                    android:paddingEnd="@dimen/_4sdp"
+                    android:paddingTop="@dimen/_2sdp"
+                    android:paddingBottom="@dimen/_2sdp"
                     android:layout_marginEnd="@dimen/_12sdp"/>
 
             <ImageView

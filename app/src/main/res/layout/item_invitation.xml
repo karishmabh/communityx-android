@@ -32,6 +32,7 @@
                 android:text="Bella Oliver"
                 app:layout_constraintTop_toTopOf="parent"
                 android:textSize="@dimen/_12ssp"
+                android:includeFontPadding="false"
                 android:fontFamily="@font/poppins_semibold"
                 android:textColor="@color/colorBlackTitle"
                 android:layout_marginTop="@dimen/_15sdp"
@@ -43,7 +44,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="College Student, New york"
-                android:textSize="@dimen/_8ssp"
+                android:textSize="@dimen/_10ssp"
+                android:includeFontPadding="false"
                 android:fontFamily="@font/poppins_regular"
                 android:textColor="@color/colorLightGrey"
                 app:layout_constraintTop_toBottomOf="@+id/text_title_name"
@@ -51,8 +53,8 @@
 
         <LinearLayout
                 android:id="@+id/linear_add_friend"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_25sdp"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/square_green_bg"
                 app:layout_constraintLeft_toRightOf="@+id/text_description"
                 app:layout_constraintTop_toTopOf="@+id/text_title_name"
@@ -68,8 +70,8 @@
         </LinearLayout>
 
         <LinearLayout
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_25sdp"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/bg_red_outline"
                 app:layout_constraintLeft_toRightOf="@+id/linear_add_friend"
                 app:layout_constraintTop_toTopOf="@+id/text_title_name"
@@ -98,9 +100,9 @@
 
     <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.3dp"
             app:layout_constraintTop_toBottomOf="@+id/constraint_layout"
-            android:layout_margin="@dimen/_15sdp"
+            android:layout_margin="@dimen/_10sdp"
             android:background="@color/colorLightGrey"/>
 
 </android.support.constraint.ConstraintLayout>
