@@ -5,30 +5,27 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.BindString
-import butterknife.BindView
 import butterknife.ButterKnife
 import com.communityx.R
 import com.communityx.adapters.MyAllFriendsAdapter
+import com.communityx.models.myallies.all_allies.AllAlliesResponse
+import com.communityx.models.myallies.all_allies.DataX
+import com.communityx.network.DataManager
+import com.communityx.network.ResponseListener
+import com.communityx.utils.Utils
+import kotlinx.android.synthetic.main.fragment_friends.*
+import java.util.*
+
 
 class FriendsFragment : Fragment() {
-
-    @BindView(R.id.recycler_my_friends)
-    internal var recyclerViewFriends: RecyclerView? = null
-    @BindString(R.string.all_friends)
-    internal var allFriends: String? = null
 
     private var myAllFriendsAdapter: MyAllFriendsAdapter? = null
     private var parentFragment: MyAllFriendsFragment? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_friends, container, false)
         ButterKnife.bind(this, view)
         return view
@@ -38,21 +35,39 @@ class FriendsFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         parentFragment = getParentFragment() as MyAllFriendsFragment?
 
-        initAllFriends()
+        getAllFriendsList()
     }
 
     private fun getAllFriendsList() {
+        DataManager.getAllAllies(activity!!, object: ResponseListener<AllAlliesResponse> {
+            override fun onSuccess(response: AllAlliesResponse) {
+                var data = response.data
+                var userData = data.get(0).data
+                sortList(userData)
+
+                initAllFriends(userData)
+            }
+
+            override fun onError(error: Any) {
+                Utils.showError(activity, linear_main, error)
+            }
+        })
 
     }
 
-    private fun initAllFriends() {
-        val linearLayoutManager = LinearLayoutManager(context)
-        recyclerViewFriends!!.layoutManager = linearLayoutManager
-        val dividerItemDecoration =
-            DividerItemDecoration(recyclerViewFriends!!.context, linearLayoutManager.orientation)
-        recyclerViewFriends!!.addItemDecoration(dividerItemDecoration)
+    private fun sortList(dataX: List<DataX>) {
+        val compareByFirstName = { o1: DataX, o2: DataX -> o1.first_name.compareTo(o2.first_name) }
+        Collections.sort(dataX, compareByFirstName)
+    }
 
-        myAllFriendsAdapter = MyAllFriendsAdapter(activity!!, viewModel.getFakeAllMyFriends().getValue())
-        recyclerViewFriends!!.adapter = myAllFriendsAdapter
+    private fun initAllFriends(dataX: List<DataX>) {
+        val linearLayoutManager = LinearLayoutManager(context)
+        recycler_my_friends!!.layoutManager = linearLayoutManager
+
+        val dividerItemDecoration = DividerItemDecoration(recycler_my_friends!!.context, linearLayoutManager.orientation)
+        recycler_my_friends!!.addItemDecoration(dividerItemDecoration)
+
+        myAllFriendsAdapter = MyAllFriendsAdapter(activity!!, dataX)
+        recycler_my_friends!!.adapter = myAllFriendsAdapter
     }
 }
