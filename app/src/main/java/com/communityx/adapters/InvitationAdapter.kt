@@ -9,12 +9,11 @@ import android.widget.CheckBox
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.communityx.R
+import com.communityx.models.myallies.invitation.DataX
 import com.google.android.flexbox.FlexboxLayout
+import kotlinx.android.synthetic.main.item_invitation.view.*
 
-import java.util.ArrayList
-import java.util.Arrays
-
-class InvitationAdapter(private val mInvitationList: ArrayList<String>, private val mActivity: Activity) : RecyclerView.Adapter<InvitationAdapter.EventHolder>() {
+class InvitationAdapter(private val mInvitationList: List<DataX>, private val mActivity: Activity) : RecyclerView.Adapter<InvitationAdapter.EventHolder>() {
 
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mActivity)
 
@@ -24,12 +23,11 @@ class InvitationAdapter(private val mInvitationList: ArrayList<String>, private 
     }
 
     override fun onBindViewHolder(eventHolder: EventHolder, i: Int) {
-        val list = Arrays.asList(*arrayOf("School Safety", "Immigration", "LGBTQ+", "Mental Health", "Prisom Reform"))
-        setFLexLayout(eventHolder.flexboxLayout, list)
+       eventHolder.bindData()
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return mInvitationList.size
     }
 
     inner class EventHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -38,6 +36,16 @@ class InvitationAdapter(private val mInvitationList: ArrayList<String>, private 
 
         init {
             ButterKnife.bind(this, itemView)
+        }
+
+        fun bindData() {
+            var name = mInvitationList.get(adapterPosition).first_name + " "+mInvitationList.get(adapterPosition).last_name
+            itemView.text_title_name.text = name
+
+            var profession = mInvitationList.get(adapterPosition).headline + " "+mInvitationList.get(adapterPosition).city
+            itemView.text_description.text = profession
+
+            setFLexLayout(flexboxLayout,  mInvitationList.get(adapterPosition).interests)
         }
     }
 
