@@ -19,7 +19,9 @@ import com.communityx.activity.EventActivity
 import com.communityx.activity.LoginActivity
 import com.communityx.activity.ProfileActivity
 import com.communityx.activity.WelcomeActivity
+import com.communityx.models.job_companies.JobResponse
 import com.communityx.models.logout.LogoutResponse
+import com.communityx.models.profile.ProfileResponse
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.AuthRepo

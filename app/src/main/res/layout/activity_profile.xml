@@ -38,13 +38,13 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
+                        android:id="@+id/image_back"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_8sdp"
                         android:layout_marginTop="@dimen/_18ssp"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
-                        android:onClick="goBack"
                         android:padding="@dimen/_8sdp"
                         android:src="@drawable/ic_praise_back_arrow" />
                 </FrameLayout>
@@ -81,7 +81,7 @@
                     android:id="@+id/text_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="Amanda Blake "
                     android:textColor="@color/colorBlackTitle"
@@ -306,16 +306,6 @@
             app:layout_constraintTop_toBottomOf="@id/card_basic_info">
 
             <include layout="@layout/layout_profile_about_section_v2" />
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/view_post"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            app:layout_constraintTop_toBottomOf="@id/view_about">
-
-            <include layout="@layout/layout_profile_post" />
         </android.support.v7.widget.CardView>
     </android.support.constraint.ConstraintLayout>
 </android.support.v4.widget.NestedScrollView>

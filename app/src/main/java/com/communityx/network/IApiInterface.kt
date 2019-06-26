@@ -7,6 +7,7 @@ import com.communityx.models.login.LoginResponse
 import com.communityx.models.logout.LogoutResponse
 import com.communityx.models.oauth.OAuthRequest
 import com.communityx.models.oauth.OAuthResponse
+import com.communityx.models.profile.ProfileResponse
 import com.communityx.models.signup.*
 import com.communityx.models.signup.image.ImageUploadResponse
 import okhttp3.MultipartBody
@@ -60,6 +61,9 @@ interface IApiInterface {
 
     @GET("standard")
     fun getStandardList(@Header("token") token: String, @Query("standard") type: String, @Query("q") query: String) : Call<StandardResponse>
+
+    @GET("user/profile")
+    fun getProfile(@Header("token") token: String, @Header("session") session: String) : Call<ProfileResponse>
 
     @POST("verify-user")
     fun verifyUser(@Header("token") token: String, @Header("session") session: String, @Body emailPhoneVerificationRequest: EmailPhoneVerificationRequest) : Call<VerificationResponse>

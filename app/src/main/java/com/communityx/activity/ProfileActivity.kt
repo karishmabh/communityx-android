@@ -5,25 +5,20 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import butterknife.BindString
-import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.communityx.R
-import com.communityx.adapters.CommunityFeedAdapter
 import com.communityx.adapters.ProfileInfoAdapter
 import com.communityx.database.FakeDatabase
+import com.communityx.models.profile.ProfileData
+import com.communityx.models.profile.ProfileResponse
+import com.communityx.network.DataManager
+import com.communityx.network.ResponseListener
 import com.communityx.utils.AppConstant
+import com.communityx.utils.CustomProgressBar
 import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.layout_profile_about_section_v2.*
-import kotlinx.android.synthetic.main.layout_profile_post.*
-import kotlinx.android.synthetic.main.view_search.*
 
 class ProfileActivity : AppCompatActivity(), AppConstant {
 
@@ -33,15 +28,18 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         ButterKnife.bind(this)
-        edit_search!!.setHint(R.string.write_something_here)
-        edit_search!!.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
 
         setAboutInfo()
-        setMyPost()
+        getProfile()
         showEditIcon(!isOtherProfile)
         showAddHeadlines(false && !isOtherProfile)
-        setPostLabel(isOtherProfile)
         showAddAndMessageButton(isOtherProfile)
+    }
+
+    @OnClick(R.id.image_back)
+    internal fun backTapped() {
+        finish()
+        overridePendingTransition(R.anim.anim_prev_slide_in, R.anim.anim_prev_slide_out)
     }
 
     @OnClick(R.id.text_see_all)
@@ -63,14 +61,6 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         recycler_about!!.adapter = adapter
     }
 
-    private fun setMyPost() {
-        recycler_post!!.layoutManager = LinearLayoutManager(this)
-        val communityFeedAdapter = CommunityFeedAdapter(this)
-        communityFeedAdapter.setFromProfile(true)
-        communityFeedAdapter.setOtherProfile(isOtherProfile)
-        recycler_post!!.adapter = communityFeedAdapter
-    }
-
     private fun showEditIcon(shouldShow: Boolean) {
         Utils.showHideView(edit_profile!!, shouldShow)
     }
@@ -84,11 +74,24 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         Utils.showHideView(view_add_msg_other!!, shouldShow)
     }
 
-    private fun setPostLabel(isOtherProfile: Boolean) {
-        text_my_post!!.text = if (isOtherProfile) getString(R.string.posts) else getString(R.string.my_posts)
+    private fun getProfile() {
+        val dialog = CustomProgressBar.getInstance(this).showProgressDialog("Fetching Profile...")
+        DataManager.getProfile(this, object : ResponseListener<ProfileResponse> {
+            override fun onSuccess(response: ProfileResponse) {
+                dialog.dismiss()
+
+                var profileResponse : ProfileResponse = response
+                setProfile(profileResponse.data.get(0))
+            }
+
+            override fun onError(error: Any) {
+                dialog.dismiss()
+               // Utils.showError(this@ProfileActivity, linear_top, error)
+            }
+        })
     }
 
-    fun goBack(view: View) {
-        onBackPressed()
+    private fun setProfile(profileData: ProfileData) {
+        text_name.text = profileData.name.toString()
     }
 }
