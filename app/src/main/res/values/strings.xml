@@ -202,6 +202,10 @@
     <string name="limit_suggest_interest">You can suggest maximum 5 interest</string>
     <string name="please_select_qualification">Please select your classification</string>
     <string name="select_club_organization">Please select any club or organization</string>
+    <string name="select_organization_group">Please select any organization or group</string>
+    <string name="select_role">Please select any role</string>
+    <string name="previously_added_club">This club have been added previously</string>
+    <string name="previously_added_cause">This cause have been added previously</string>
     <string name="prefix_number">+1\u0020</string>
     <string name="please_wait_while_register">Please wait while we register you...</string>
     <string name="select_atleast_one_interest">Please select at lease 1 interest above.</string>
@@ -245,4 +249,6 @@
     <string name="your_password_has_been_reset">Your Password has been reset.</string>
     <string name="password_reset_successfully">Password Reset Successfully!</string>
     <string name="back_to_login">back to login</string>
+    <string name="add">add</string>
+    <string name="organization_role">Organization/Role</string>
 </resources>

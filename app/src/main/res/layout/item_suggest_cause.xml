@@ -12,6 +12,7 @@
             android:fontFamily="@font/poppins_medium"
             android:textSize="@dimen/_12sdp"
             android:layout_weight="1"
+            android:textColor="@color/colorLightGrey"
             android:padding="@dimen/_4sdp"
             android:layout_marginStart="@dimen/_4sdp"
             android:text="Environment"/>

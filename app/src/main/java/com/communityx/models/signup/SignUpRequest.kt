@@ -12,6 +12,10 @@ data class SignUpRequest(
     var last_name: String? = null,
     var interests: MutableList<String>? = mutableListOf(),
     var suggested_minors: MutableList<String>? = mutableListOf(),
+
+    var club: MutableList<ClubData>? = mutableListOf(),
+    var cause: MutableList<CauseData>? = mutableListOf(),
+
     var password: String? = null,
     var phone: String? = null,
     var postal_code: String? = null,

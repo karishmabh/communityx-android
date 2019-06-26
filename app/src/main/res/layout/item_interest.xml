@@ -7,7 +7,7 @@
           android:textSize="@dimen/_10ssp"
           android:background="@drawable/bg_interest_inactive"
           android:fontFamily="@font/poppins_regular"
-          android:textColor="@color/colorBlackTitle"
+          android:textColor="@color/colorLightGrey"
           android:layout_margin="@dimen/_8sdp"
           android:paddingStart="@dimen/_8sdp"
           android:paddingEnd="@dimen/_8sdp"
