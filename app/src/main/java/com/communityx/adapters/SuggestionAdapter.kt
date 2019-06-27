@@ -43,7 +43,7 @@ class SuggestionAdapter(private val mSuggestionList: ArrayList<String>, private 
     fun setFLexLayout(fLexLayout: FlexboxLayout?, interest: List<String>) {
         fLexLayout!!.removeAllViews()
         for (civilRight in interest) {
-            val checkBox = LayoutInflater.from(mActvity).inflate(R.layout.item_interest, null) as CheckBox
+            val checkBox = LayoutInflater.from(mActvity).inflate(R.layout.friend_item_interest, null) as CheckBox
             checkBox.text = civilRight
             checkBox.performClick()
             checkBox.setOnCheckedChangeListener { buttonView, isChecked -> checkBox.setBackgroundResource(if (isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive) }
