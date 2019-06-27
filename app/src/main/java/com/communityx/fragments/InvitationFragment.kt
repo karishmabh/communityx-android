@@ -33,23 +33,27 @@ class InvitationFragment : Fragment() {
     }
 
     private fun getAllInvitaionsList() {
+        progress_bar?.visibility = View.VISIBLE
         DataManager.getAlliesInvitation(activity!!, object: ResponseListener<AlliesInvitationResponse> {
             override fun onSuccess(response: AlliesInvitationResponse) {
+                progress_bar?.visibility = View.GONE
                 var data = response.data
                 var userData = data.get(0).data
 
+                (parentFragment as MyAllFriendsFragment)?.updateTabText(1, userData.size)
                 setAdapter(userData)
             }
 
             override fun onError(error: Any) {
+                progress_bar?.visibility = View.GONE
                 Utils.showError(activity, frame_root, error)
             }
         })
     }
 
     fun setAdapter(mInvitationList: List<DataX>) {
-        recycler_invitation_list!!.layoutManager = LinearLayoutManager(activity)
+        recycler_invitation_list?.layoutManager = LinearLayoutManager(activity)
         invitationAdapter = InvitationAdapter(mInvitationList, activity!!)
-        recycler_invitation_list!!.adapter = invitationAdapter
+        recycler_invitation_list?.adapter = invitationAdapter
     }
 }
