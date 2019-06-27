@@ -13,9 +13,6 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.communityx.R;
-import com.communityx.activity.ConnectAlliesActivity;
-import com.communityx.adapters.CommunityAlliesAdapter;
-import com.communityx.adapters.FriendsInvitationAdapter;
 import com.communityx.adapters.InvitationAdapter;
 
 import java.util.ArrayList;
@@ -23,7 +20,7 @@ import java.util.ArrayList;
 
 public class InvitationFragment extends Fragment {
     private ArrayList<String> invitationList = new ArrayList<>();
-    private FriendsInvitationAdapter friendsinvitationAdapter;
+    private InvitationAdapter friendsinvitationAdapter;
 
     @BindView(R.id.recycler_invitation_list)
     RecyclerView recyclerInvitationList;
@@ -41,7 +38,7 @@ public class InvitationFragment extends Fragment {
 
     public void setAdapter(ArrayList <String> mInvitationList ) {
         recyclerInvitationList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        friendsinvitationAdapter = new FriendsInvitationAdapter(mInvitationList, getActivity());
+        friendsinvitationAdapter = new InvitationAdapter(mInvitationList, getActivity());
         recyclerInvitationList.setAdapter(friendsinvitationAdapter);
     }
 }

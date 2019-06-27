@@ -45,7 +45,7 @@ class InvitationAdapter(private val mInvitationList: ArrayList<String>, private 
         fLexLayout!!.removeAllViews()
 
         for (civilRight in interest) {
-            val checkBox = LayoutInflater.from(mActivity).inflate(R.layout.item_interest, null) as CheckBox
+            val checkBox = LayoutInflater.from(mActivity).inflate(R.layout.friend_item_interest, null) as CheckBox
             checkBox.text = civilRight
             checkBox.performClick()
             checkBox.setOnCheckedChangeListener { buttonView, isChecked -> checkBox.setBackgroundResource(if (isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive) }
