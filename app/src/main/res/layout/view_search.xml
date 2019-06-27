@@ -12,13 +12,14 @@
         android:layout_marginTop="@dimen/_16sdp"
         android:layout_marginRight="@dimen/_16sdp"
         android:layout_marginBottom="@dimen/_12sdp"
+        android:inputType="text"
         android:background="@drawable/bg_search"
         android:drawableStart="@drawable/ic_all_friend_search_bar_search"
         android:drawablePadding="@dimen/_8sdp"
         android:fontFamily="@font/poppins_medium"
         android:hint="@string/search_your_friend_list"
         android:paddingStart="@dimen/_11sdp"
-        android:textStyle="bold"
+        android:paddingEnd="@dimen/_11sdp"
         android:textColor="@color/colorLightGrey"
-        android:textSize="@dimen/_8sdp" />
+        android:textSize="@dimen/_11ssp" />
 </FrameLayout>
