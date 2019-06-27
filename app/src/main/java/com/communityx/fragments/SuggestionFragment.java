@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.communityx.R;
-import com.communityx.adapters.InvitationAdapter;
 import com.communityx.adapters.SuggestionAdapter;
 
 import java.util.ArrayList;
