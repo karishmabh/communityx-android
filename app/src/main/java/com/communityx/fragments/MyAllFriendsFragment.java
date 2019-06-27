@@ -1,7 +1,5 @@
 package com.communityx.fragments;
 
-
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,66 +20,53 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.communityx.R;
 import com.communityx.adapters.FriendsPagerAdapter;
-import com.communityx.viewModels.DashboardActivtyViewModel;
 
-import java.util.Objects;
-
-public class MyAllFriendsFragment extends Fragment{
+public class MyAllFriendsFragment extends Fragment {
 
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
     @BindView(R.id.view_pager)
     ViewPager viewPager;
 
-    private DashboardActivtyViewModel viewModel;
     private FriendsPagerAdapter pagerAdapter;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-       View view = inflater.inflate(R.layout.fragment_my_all_friends, container, false);
-        ButterKnife.bind(this,view);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_my_all_friends, container, false);
+        ButterKnife.bind(this, view);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(DashboardActivtyViewModel.class);
 
         pagerAdapter = new FriendsPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-        updateTabText();
     }
 
-    private void updateTabText(){
-        for(int i=0;i<tabLayout.getTabCount();i++){
-            TextView tv = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(i)).getChildAt(1));
+    public void updateTabText(int position, int count) {
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TextView tv = (TextView) (((LinearLayout) ((LinearLayout) tabLayout.getChildAt(0)).getChildAt(i)).getChildAt(1));
             String title = pagerAdapter.getPageTitle(i).toString();
             String updatedText = "";
-            switch (i){
-                case 0 :
-                    updatedText = title + " " + viewModel.getFakeAllMyFriends().getValue().size();
-                    break;
-                case 1 :
-                    updatedText = title + " " + 12;
-                    break;
-                case 2 :
-                    updatedText = title + " " + 54;
-                    break;
+
+            if (i == position) {
+                updatedText = title + " " + count;
+
+                Spannable spannable = createSpannable(updatedText, title);
+                if (spannable != null) tv.setText(spannable, TextView.BufferType.SPANNABLE);
             }
-            Spannable spannable = createSpannable(updatedText,title);
-            if(spannable != null) tv.setText(spannable, TextView.BufferType.SPANNABLE);
         }
     }
 
-    private Spannable createSpannable(String updatedText, String title){
+    private Spannable createSpannable(String updatedText, String title) {
         Context context = getContext();
         if (context == null) return null;
         Spannable spannable = new SpannableString(updatedText);
         spannable.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.colorPrimary)),
-                title.length(),updatedText.length(),
+                title.length(), updatedText.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannable;
     }
