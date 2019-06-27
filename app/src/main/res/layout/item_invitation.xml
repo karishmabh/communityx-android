@@ -27,7 +27,7 @@
 
         <TextView
                 android:id="@+id/text_title_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Bella Oliver"
                 app:layout_constraintTop_toTopOf="parent"
@@ -35,17 +35,25 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:textColor="@color/colorBlackTitle"
                 android:layout_marginTop="@dimen/_15sdp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_marginRight="@dimen/_7sdp"
+                app:layout_constraintEnd_toStartOf="@id/linear_add_friend"
                 app:layout_constraintStart_toEndOf="@+id/circle_profile_image"
                 android:layout_marginStart="8dp"/>
 
         <TextView
                 android:id="@+id/text_description"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="College Student, New york"
+                android:text="College Student, New york "
                 android:textSize="@dimen/_8ssp"
                 android:fontFamily="@font/poppins_regular"
                 android:textColor="@color/colorLightGrey"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_marginRight="@dimen/_7sdp"
+                app:layout_constraintEnd_toStartOf="@id/linear_add_friend"
                 app:layout_constraintTop_toBottomOf="@+id/text_title_name"
                 app:layout_constraintStart_toStartOf="@+id/text_title_name"/>
 
@@ -54,11 +62,11 @@
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_25sdp"
                 android:background="@drawable/square_green_bg"
-                app:layout_constraintLeft_toRightOf="@+id/text_description"
+                app:layout_constraintRight_toLeftOf="@+id/linear_message"
                 app:layout_constraintTop_toTopOf="@+id/text_title_name"
                 android:gravity="center"
-                app:layout_constraintBottom_toBottomOf="@+id/text_description"
-                android:layout_marginLeft="@dimen/_40sdp">
+                android:layout_marginRight="@dimen/_15sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/text_description">
 
             <ImageView
                     android:layout_width="wrap_content"
@@ -71,11 +79,11 @@
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_25sdp"
                 android:background="@drawable/bg_red_outline"
-                app:layout_constraintLeft_toRightOf="@+id/linear_add_friend"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/text_title_name"
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="@+id/text_description"
-                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginRight="@dimen/_15sdp"
                 android:id="@+id/linear_message">
 
             <ImageView
@@ -92,8 +100,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 app:layout_constraintTop_toBottomOf="@id/text_description"
                 app:layout_constraintStart_toStartOf="@id/text_title_name"
-                app:layout_constraintEnd_toEndOf="@+id/linear_message"
-        />
+                app:layout_constraintEnd_toEndOf="@+id/linear_message"/>
     </android.support.constraint.ConstraintLayout>
 
     <View
