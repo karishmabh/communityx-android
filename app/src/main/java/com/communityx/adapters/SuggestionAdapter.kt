@@ -62,7 +62,7 @@ class SuggestionAdapter(private val mSuggestionList: List<DataX>, private val mA
     fun setFLexLayout(fLexLayout: FlexboxLayout?, interest: List<Interest>) {
         fLexLayout!!.removeAllViews()
         for (item in interest) {
-            val checkBox = LayoutInflater.from(mActvity).inflate(R.layout.item_interest, null) as CheckBox
+            val checkBox = LayoutInflater.from(mActvity).inflate(R.layout.friend_item_interest, null) as CheckBox
             checkBox.text = item.name
 
             val lp = ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)

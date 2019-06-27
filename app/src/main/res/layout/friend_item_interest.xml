@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheckBox xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:button="@null"
+          android:checked="true"
+          android:textSize="@dimen/_9ssp"
+          android:background="@drawable/bg_interest_inactive"
+          android:fontFamily="@font/poppins_regular"
+          android:textColor="@color/colorBlackTitle"
+          android:layout_margin="@dimen/_1sdp"
+          android:paddingStart="@dimen/_5sdp"
+          android:paddingEnd="@dimen/_5sdp"
+          android:paddingTop="@dimen/_2sdp"
+          android:paddingBottom="@dimen/_2sdp"
+          android:text="LGBTQ+">
+</CheckBox>

@@ -61,7 +61,7 @@ class InvitationAdapter(private val mInvitationList: List<DataX>, private val mA
         fLexLayout!!.removeAllViews()
 
         for (item in interest) {
-            val checkBox = LayoutInflater.from(mActivity).inflate(R.layout.item_interest, null) as CheckBox
+            val checkBox = LayoutInflater.from(mActivity).inflate(R.layout.friend_item_interest, null) as CheckBox
             checkBox.text = item.name
 
             val lp = ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
