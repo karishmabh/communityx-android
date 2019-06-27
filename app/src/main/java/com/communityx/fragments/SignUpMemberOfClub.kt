@@ -118,12 +118,12 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
 
         imageCross.setOnClickListener { v1 ->
             flex_layout_cause.removeView(view)
+            addedItems.remove(textView.text.toString())
 
             if (addedItems.size == 0) {
                 text_header.visibility = View.GONE
                 enableButton(false)
             }
-            addedItems.remove(textView.text.toString())
         }
 
         val lp = ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
