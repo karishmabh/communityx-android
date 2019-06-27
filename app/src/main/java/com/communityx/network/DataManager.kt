@@ -2,11 +2,12 @@ package com.communityx.network
 
 import android.app.Activity
 import com.communityx.models.connect_allies.ConnectAlliesResponse
-import com.communityx.models.connect_allies.Data
 import com.communityx.models.connect_allies.ProfileData
 import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
 import com.communityx.models.logout.LogoutResponse
+import com.communityx.models.myallies.all_allies.AllAlliesResponse
+import com.communityx.models.myallies.invitation.AlliesInvitationResponse
 import com.communityx.models.signup.EmailPhoneVerificationRequest
 import com.communityx.models.signup.VerificationResponse
 import com.communityx.network.serviceRepo.AuthRepo
@@ -44,8 +45,24 @@ object DataManager : AppConstant {
         return retrofit
     }
 
+    private fun getMockDataManager(): Retrofit? {
+        if (retrofit == null) {
+            retrofit = Retrofit.Builder()
+                .baseUrl(AppConfiguration.MOCK_URL)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+        return retrofit
+    }
+
     fun getService(): IApiInterface {
         return getDataManager()!!.create(IApiInterface::class.java)
+    }
+
+
+    fun getMockService(): IApiInterface {
+        return getMockDataManager()!!.create(IApiInterface::class.java)
     }
 
     fun doLogin(activity: Activity, loginRequest: LoginRequest, listener: ResponseListener<LoginResponse>) {
@@ -128,6 +145,48 @@ object DataManager : AppConstant {
             }
 
             override fun onFailure(call: Call<ConnectAlliesResponse>, t: Throwable) {
+                listener.onError(t)
+            }
+        })
+    }
+
+    fun getAllAllies(activity: Activity, listener: ResponseListener<AllAlliesResponse>) {
+        val call = DataManager.getMockService().getAllAllies(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
+        call.enqueue(object : Callback<AllAlliesResponse> {
+            override fun onResponse(call: Call<AllAlliesResponse>, response: Response<AllAlliesResponse>) {
+                if (!response.isSuccessful) {
+                    response.errorBody()?.let { listener.onError(it) }
+                    return
+                }
+
+                if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS)
+                    listener.onSuccess(response.body()!!)
+                else
+                    listener.onError(response.body()!!.error)
+            }
+
+            override fun onFailure(call: Call<AllAlliesResponse>, t: Throwable) {
+                listener.onError(t)
+            }
+        })
+    }
+
+    fun getAlliesInvitation(activity: Activity, listener: ResponseListener<AlliesInvitationResponse>) {
+        val call = DataManager.getMockService().getAlliesInvitations(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
+        call.enqueue(object : Callback<AlliesInvitationResponse> {
+            override fun onResponse(call: Call<AlliesInvitationResponse>, response: Response<AlliesInvitationResponse>) {
+                if (!response.isSuccessful) {
+                    response.errorBody()?.let { listener.onError(it) }
+                    return
+                }
+
+                if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS)
+                    listener.onSuccess(response.body()!!)
+                else
+                    listener.onError(response.body()!!.error)
+            }
+
+            override fun onFailure(call: Call<AlliesInvitationResponse>, t: Throwable) {
                 listener.onError(t)
             }
         })
