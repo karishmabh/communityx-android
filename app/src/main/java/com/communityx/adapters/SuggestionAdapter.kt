@@ -2,6 +2,7 @@ package com.communityx.adapters
 
 import android.app.Activity
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +10,13 @@ import android.widget.CheckBox
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.communityx.R
+import com.communityx.models.myallies.invitation.DataX
+import com.communityx.models.myallies.invitation.Interest
 import com.google.android.flexbox.FlexboxLayout
-import java.util.*
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.item_connect_allies.view.*
 
-class SuggestionAdapter(private val mSuggestionList: ArrayList<String>, private val mActvity: Activity) : RecyclerView.Adapter<SuggestionAdapter.EventHolder>() {
+class SuggestionAdapter(private val mSuggestionList: List<DataX>, private val mActvity: Activity) : RecyclerView.Adapter<SuggestionAdapter.EventHolder>() {
 
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mActvity)
 
@@ -22,12 +26,11 @@ class SuggestionAdapter(private val mSuggestionList: ArrayList<String>, private 
     }
 
     override fun onBindViewHolder(eventHolder: EventHolder, i: Int) {
-        val list = Arrays.asList("School Safety", "Immigration", "LGBTQ+", "Mental Health", "Prisom Reform")
-        setFLexLayout(eventHolder.flexboxLayout, list)
+        eventHolder.bindData()
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return mSuggestionList.size
     }
 
     inner class EventHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -38,15 +41,29 @@ class SuggestionAdapter(private val mSuggestionList: ArrayList<String>, private 
         init {
             ButterKnife.bind(this, itemView)
         }
+
+        fun bindData() {
+            var name =
+                mSuggestionList.get(adapterPosition).first_name + " " + mSuggestionList.get(adapterPosition).last_name
+            itemView.text_title_name.text = name
+
+            var profession =
+                mSuggestionList.get(adapterPosition).headline + " " + mSuggestionList.get(adapterPosition).city
+            itemView.text_description.text = profession
+
+            if (!TextUtils.isEmpty(mSuggestionList.get(adapterPosition).profile_image)) {
+                Picasso.get().load(mSuggestionList.get(adapterPosition).profile_image)
+                    .error(R.drawable.profile_placeholder).into(itemView.circle_profile_image)
+            }
+            setFLexLayout(flexboxLayout, mSuggestionList.get(adapterPosition).interests)
+        }
     }
 
-    fun setFLexLayout(fLexLayout: FlexboxLayout?, interest: List<String>) {
+    fun setFLexLayout(fLexLayout: FlexboxLayout?, interest: List<Interest>) {
         fLexLayout!!.removeAllViews()
-        for (civilRight in interest) {
+        for (item in interest) {
             val checkBox = LayoutInflater.from(mActvity).inflate(R.layout.friend_item_interest, null) as CheckBox
-            checkBox.text = civilRight
-            checkBox.performClick()
-            checkBox.setOnCheckedChangeListener { buttonView, isChecked -> checkBox.setBackgroundResource(if (isChecked) R.drawable.bg_interest_active else R.drawable.bg_interest_inactive) }
+            checkBox.text = item.name
 
             val lp = ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             lp.setMargins(10, 10, 10, 10)

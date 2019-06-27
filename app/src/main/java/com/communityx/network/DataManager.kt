@@ -191,4 +191,25 @@ object DataManager : AppConstant {
             }
         })
     }
+
+    fun getAlliesSuggestions(activity: Activity, listener: ResponseListener<AlliesInvitationResponse>) {
+        val call = DataManager.getMockService().getAlliesSuggestions(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
+        call.enqueue(object : Callback<AlliesInvitationResponse> {
+            override fun onResponse(call: Call<AlliesInvitationResponse>, response: Response<AlliesInvitationResponse>) {
+                if (!response.isSuccessful) {
+                    response.errorBody()?.let { listener.onError(it) }
+                    return
+                }
+
+                if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS)
+                    listener.onSuccess(response.body()!!)
+                else
+                    listener.onError(response.body()!!.error)
+            }
+
+            override fun onFailure(call: Call<AlliesInvitationResponse>, t: Throwable) {
+                listener.onError(t)
+            }
+        })
+    }
 }

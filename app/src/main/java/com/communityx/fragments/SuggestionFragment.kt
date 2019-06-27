@@ -8,20 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import butterknife.ButterKnife
 import com.communityx.R
-import com.communityx.adapters.InvitationAdapter
+import com.communityx.adapters.SuggestionAdapter
 import com.communityx.models.myallies.invitation.AlliesInvitationResponse
 import com.communityx.models.myallies.invitation.DataX
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
 import com.communityx.utils.Utils
-import kotlinx.android.synthetic.main.fragment_invitation.*
-import java.util.*
+import kotlinx.android.synthetic.main.fragment_suggestion.*
 
-class InvitationFragment : Fragment() {
-    private var invitationAdapter: InvitationAdapter? = null
+class SuggestionFragment : Fragment() {
+    private var suggestionAdapter: SuggestionAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_invitation, container, false)
+        val view = inflater.inflate(R.layout.fragment_suggestion, container, false)
         ButterKnife.bind(this, view)
 
         return view
@@ -29,18 +28,18 @@ class InvitationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getAllInvitaionsList()
+        getAllSuggestionsList()
     }
 
-    private fun getAllInvitaionsList() {
+    private fun getAllSuggestionsList() {
         progress_bar?.visibility = View.VISIBLE
-        DataManager.getAlliesInvitation(activity!!, object: ResponseListener<AlliesInvitationResponse> {
+        DataManager.getAlliesSuggestions(activity!!, object : ResponseListener<AlliesInvitationResponse> {
             override fun onSuccess(response: AlliesInvitationResponse) {
                 progress_bar?.visibility = View.GONE
                 var data = response.data
                 var userData = data.get(0).data
 
-                (parentFragment as MyAllFriendsFragment)?.updateTabText(1, userData.size)
+                (parentFragment as MyAllFriendsFragment)?.updateTabText(2, userData.size)
                 setAdapter(userData)
             }
 
@@ -51,9 +50,9 @@ class InvitationFragment : Fragment() {
         })
     }
 
-    fun setAdapter(mInvitationList: List<DataX>) {
-        recycler_invitation_list?.layoutManager = LinearLayoutManager(activity)
-        invitationAdapter = InvitationAdapter(mInvitationList, activity!!)
-        recycler_invitation_list?.adapter = invitationAdapter
+    fun setAdapter(dataX: List<DataX>) {
+        recycler_suggestion_list?.layoutManager = LinearLayoutManager(activity)
+        suggestionAdapter = SuggestionAdapter(dataX, activity!!)
+        recycler_suggestion_list?.adapter = suggestionAdapter
     }
 }

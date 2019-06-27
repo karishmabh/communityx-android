@@ -72,4 +72,7 @@ interface IApiInterface {
 
     @GET("user/allies/invitations")
     fun getAlliesInvitations(@Header("token") token: String, @Header("session") session: String): Call<AlliesInvitationResponse>
+
+    @GET("user/allies/suggestions")
+    fun getAlliesSuggestions(@Header("token") token: String, @Header("session") session: String): Call<AlliesInvitationResponse>
 }

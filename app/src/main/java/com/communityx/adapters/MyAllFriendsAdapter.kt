@@ -2,12 +2,14 @@ package com.communityx.adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import butterknife.ButterKnife
 import com.communityx.R
 import com.communityx.models.myallies.all_allies.DataX
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_my_all_friend.view.*
 
 class MyAllFriendsAdapter(private val mContext: Context, private val friendList: List<DataX>) :
@@ -39,12 +41,16 @@ class MyAllFriendsAdapter(private val mContext: Context, private val friendList:
         }
 
         fun bindData() {
-            var name = friendList.get(adapterPosition).first_name + " " +
-                    friendList.get(adapterPosition).last_name
+            var name = friendList.get(adapterPosition).first_name + " " + friendList.get(adapterPosition).last_name
             itemView.text_name.text = name
 
             var profession  = friendList.get(adapterPosition)?.headline + " "+friendList.get(adapterPosition).city
             itemView.text_profession.text = profession
+
+            if (!TextUtils.isEmpty(friendList.get(adapterPosition).profile_image)) {
+                Picasso.get().load(friendList.get(adapterPosition).profile_image)
+                    .error(R.drawable.profile_placeholder).into(itemView.image_user)
+            }
 
             setDividerText(name)
         }
