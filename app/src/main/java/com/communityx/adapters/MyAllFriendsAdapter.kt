@@ -5,14 +5,15 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import butterknife.BindView
 import butterknife.ButterKnife
 import com.communityx.R
+import com.communityx.models.myallies.all_allies.DataX
+import kotlinx.android.synthetic.main.item_my_all_friend.view.*
 
-class MyAllFriendsAdapter(private val mContext: Context, private val friendList: List<String>) : RecyclerView.Adapter<MyAllFriendsAdapter.ViewHolder>() {
+class MyAllFriendsAdapter(private val mContext: Context, private val friendList: List<DataX>) :
+    RecyclerView.Adapter<MyAllFriendsAdapter.ViewHolder>() {
 
+    private var prevStr: String? = null
     private val inflater: LayoutInflater = LayoutInflater.from(mContext)
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
@@ -20,7 +21,7 @@ class MyAllFriendsAdapter(private val mContext: Context, private val friendList:
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        viewHolder.bindData(friendList[i])
+        viewHolder.bindData()
     }
 
     override fun getItemCount(): Int {
@@ -33,43 +34,33 @@ class MyAllFriendsAdapter(private val mContext: Context, private val friendList:
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        @BindView(R.id.image_user)
-        lateinit var imageUser: ImageView
-        @BindView(R.id.text_name)
-        lateinit var textName: TextView
-        @BindView(R.id.text_location)
-        lateinit var textLocation: TextView
-        @BindView(R.id.image_message)
-        lateinit var imageMesage: ImageView
-        @BindView(R.id.image_option)
-        lateinit var imageOption: ImageView
-        @BindView(R.id.text_letter)
-        lateinit var textLetter: TextView
-
         init {
             ButterKnife.bind(this, itemView)
         }
 
-        fun bindData(name: String) {
-            textName.text = name
+        fun bindData() {
+            var name = friendList.get(adapterPosition).first_name + " " +
+                    friendList.get(adapterPosition).last_name
+            itemView.text_name.text = name
+
+            var profession  = friendList.get(adapterPosition)?.headline + " "+friendList.get(adapterPosition).city
+            itemView.text_profession.text = profession
 
             setDividerText(name)
         }
 
         private fun setDividerText(name: String) {
-            textLetter.text = getFirstLetter(name)
+            itemView.text_letter.text = getFirstLetter(name)
 
-            var prevStr: String? = null
-            if (adapterPosition > 0 && friendList.size > adapterPosition) {
-                prevStr = getFirstLetter(friendList[adapterPosition - 1])
-            }
             if (prevStr == null) {
-                textLetter.visibility = View.VISIBLE
-            } else if (prevStr == getFirstLetter(name) && adapterPosition != 0) {
-                textLetter.visibility = View.GONE
+                itemView.text_letter.visibility = View.VISIBLE
+            } else if (prevStr == getFirstLetter(name)) {
+                itemView.text_letter.visibility = View.GONE
             } else {
-                textLetter.visibility = View.VISIBLE
+                itemView.text_letter.visibility = View.VISIBLE
             }
+
+            prevStr = getFirstLetter(name)
         }
     }
 }

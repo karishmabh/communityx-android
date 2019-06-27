@@ -5,6 +5,8 @@ import com.communityx.models.job_companies.JobResponse
 import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
 import com.communityx.models.logout.LogoutResponse
+import com.communityx.models.myallies.all_allies.AllAlliesResponse
+import com.communityx.models.myallies.invitation.AlliesInvitationResponse
 import com.communityx.models.oauth.OAuthRequest
 import com.communityx.models.oauth.OAuthResponse
 import com.communityx.models.profile.ProfileResponse
@@ -67,4 +69,11 @@ interface IApiInterface {
 
     @POST("verify-user")
     fun verifyUser(@Header("token") token: String, @Header("session") session: String, @Body emailPhoneVerificationRequest: EmailPhoneVerificationRequest) : Call<VerificationResponse>
+
+    //mock apis
+    @GET("user/allies")
+    fun getAllAllies(@Header("token") token: String, @Header("session") session: String): Call<AllAlliesResponse>
+
+    @GET("user/allies/invitations")
+    fun getAlliesInvitations(@Header("token") token: String, @Header("session") session: String): Call<AlliesInvitationResponse>
 }

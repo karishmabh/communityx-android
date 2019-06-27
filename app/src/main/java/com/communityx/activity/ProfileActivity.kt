@@ -5,19 +5,27 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.CheckBox
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.communityx.R
 import com.communityx.adapters.ProfileInfoAdapter
+import com.communityx.adapters.ProfileWorkExpAdapter
 import com.communityx.database.FakeDatabase
-import com.communityx.models.profile.ProfileData
-import com.communityx.models.profile.ProfileResponse
+import com.communityx.models.connect_allies.Minors
+import com.communityx.models.profile.*
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
 import com.communityx.utils.AppConstant
 import com.communityx.utils.CustomProgressBar
 import com.communityx.utils.Utils
+import com.google.android.flexbox.FlexboxLayout
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.activity_profile.text_name
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.layout_profile_about_section_v2.*
 
 class ProfileActivity : AppCompatActivity(), AppConstant {
@@ -29,7 +37,6 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         setContentView(R.layout.activity_profile)
         ButterKnife.bind(this)
 
-        setAboutInfo()
         getProfile()
         showEditIcon(!isOtherProfile)
         showAddHeadlines(false && !isOtherProfile)
@@ -42,23 +49,9 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         overridePendingTransition(R.anim.anim_prev_slide_in, R.anim.anim_prev_slide_out)
     }
 
-    @OnClick(R.id.text_see_all)
-    internal fun tappedSeeAll() {
-        val intent = Intent(this, SeeAllAboutActivity::class.java)
-        intent.putExtra(AppConstant.IS_OTHER_PROFILE, isOtherProfile)
-        startActivity(intent)
-        overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
-    }
-
-    private fun setAboutInfo() {
-        val linearLayoutManager = LinearLayoutManager(this)
-        recycler_about!!.layoutManager = linearLayoutManager
-        val dividerItemDecoration = DividerItemDecoration(recycler_about!!.context, linearLayoutManager.orientation)
-        recycler_about!!.addItemDecoration(dividerItemDecoration)
-
-        val adapter = ProfileInfoAdapter(this, FakeDatabase.get().profileInfoDao.profileInfo)
-        adapter.setOtherProfile(isOtherProfile)
-        recycler_about!!.adapter = adapter
+    @OnClick(R.id.edit_profile)
+    internal fun editProfileTapped() {
+      //  var intent = Intent(this, Edi)
     }
 
     private fun showEditIcon(shouldShow: Boolean) {
@@ -81,17 +74,66 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
                 dialog.dismiss()
 
                 var profileResponse : ProfileResponse = response
-                setProfile(profileResponse.data.get(0))
+                setProfile(profileResponse.data[0])
+                setAboutInfo(profileResponse.data[0])
             }
 
             override fun onError(error: Any) {
                 dialog.dismiss()
-               // Utils.showError(this@ProfileActivity, linear_top, error)
+            //    Utils.showError(this@ProfileActivity, linear_top, error)
             }
         })
     }
 
-    private fun setProfile(profileData: ProfileData) {
-        text_name.text = profileData.name.toString()
+    private fun setProfile(profileData: Data) {
+        text_name.text = profileData?.first_name + " " + profileData?.last_name
+        Picasso.get().load(profileData?.profile_image).into(image_profile)
+        text_title.text = profileData?.type
+        setFlexLayout(flex_layout_cause, profileData?.interests)
+    }
+
+    fun setFlexLayout(fLexLayout: FlexboxLayout?, interest: List<Education>) {
+        fLexLayout!!.removeAllViews()
+
+        for (i in interest.indices) {
+            val checkBox = LayoutInflater.from(this).inflate(R.layout.item_interest, null) as CheckBox
+            checkBox.text = interest.get(i).name
+            checkBox.performClick()
+
+            val lp = ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            lp.setMargins(10, 10, 10, 10)
+            fLexLayout.addView(checkBox, lp)
+        }
+    }
+
+    private fun setAboutInfo(profileData: Data) {
+
+        var list : ArrayList<Education>  = ArrayList<Education>()
+
+        profileData?.education.datatype = "edu"
+        (list).add(profileData?.education)
+
+        for (e : Education in profileData?.clubs) {
+            e.datatype = "club"
+        }
+        (list).addAll(profileData.clubs)
+
+        for (e : Education in profileData?.work_experience) {
+            e.datatype = "we"
+        }
+        (list).addAll(profileData.work_experience)
+
+        for (e : Education in profileData?.interests) {
+            e.datatype = "interest"
+        }
+        (list).addAll(profileData.interests)
+
+        val linearLayoutManager = LinearLayoutManager(this)
+        recycler_work_exp!!.layoutManager = linearLayoutManager
+        val dividerItemDecoration = DividerItemDecoration(recycler_work_exp!!.context, linearLayoutManager.orientation)
+        recycler_work_exp!!.addItemDecoration(dividerItemDecoration)
+
+        val adapter = ProfileWorkExpAdapter(this, list)
+        recycler_work_exp!!.adapter = adapter
     }
 }

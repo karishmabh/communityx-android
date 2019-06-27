@@ -1,10 +1,7 @@
 package com.communityx.models.profile
 
-import com.communityx.models.Error
-import com.communityx.models.login.Data
-
-data class ProfileResponse (
-    val data: List<ProfileData>,
+data class ProfileResponse(
+    val `data`: List<Data>,
     val error: Error,
     val status: String
 )

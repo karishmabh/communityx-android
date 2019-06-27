@@ -64,7 +64,7 @@
                     app:layout_constraintTop_toBottomOf="@id/frameLayout2" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/image_user_profile"
+                    android:id="@+id/image_profile"
                     android:layout_width="@dimen/_95sdp"
                     android:layout_height="@dimen/_95sdp"
                     android:layout_marginTop="@dimen/_40sdp"
@@ -88,7 +88,7 @@
                     android:textSize="@dimen/_16ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/image_user_profile" />
+                    app:layout_constraintTop_toBottomOf="@+id/image_profile" />
 
                 <TextView
                     android:id="@+id/text_title"
@@ -214,7 +214,7 @@
 
                 <com.google.android.flexbox.FlexboxLayout
                     android:id="@+id/flex_layout_cause"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
                     android:maxHeight="@dimen/_60sdp"
@@ -225,9 +225,11 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_cause">
 
-                    <include layout="@layout/item_interest_feed" />
+                    <include layout="@layout/item_interest_feed"
+                             android:visibility="gone"/>
 
-                    <include layout="@layout/item_interest_feed" />
+                    <include layout="@layout/item_interest_feed"
+                             android:visibility="gone"/>
 
                 </com.google.android.flexbox.FlexboxLayout>
 
@@ -305,7 +307,14 @@
             android:layout_marginTop="@dimen/_12sdp"
             app:layout_constraintTop_toBottomOf="@id/card_basic_info">
 
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_work_exp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+<!--
             <include layout="@layout/layout_profile_about_section_v2" />
+-->
         </android.support.v7.widget.CardView>
     </android.support.constraint.ConstraintLayout>
 </android.support.v4.widget.NestedScrollView>
