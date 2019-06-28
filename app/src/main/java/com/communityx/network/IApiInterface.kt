@@ -11,7 +11,12 @@ import com.communityx.models.oauth.OAuthRequest
 import com.communityx.models.oauth.OAuthResponse
 import com.communityx.models.profile.ProfileResponse
 import com.communityx.models.signup.*
+import com.communityx.models.signup.cause.CauseRequest
+import com.communityx.models.signup.club.ClubRequest
+import com.communityx.models.signup.club.ClubResponse
 import com.communityx.models.signup.image.ImageUploadResponse
+import com.communityx.models.signup.institute.CompanyRequest
+import com.communityx.models.signup.institute.InstituteRequest
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -42,6 +47,15 @@ interface IApiInterface {
 
     @POST("signup")
     fun signUp(@Header("token") token: String, @Body signUpRequest: SignUpRequest): Call<SignUpResponse>
+
+    @POST("signup-student")
+    fun signUpStudent(@Header("token") token: String, @Body signUpRequest: SignUpRequest): Call<SignUpResponse>
+
+    @POST("signup-professional")
+    fun signUpProfessional(@Header("token") token: String, @Body signUpRequest: SignUpRequest): Call<SignUpResponse>
+
+    @POST("signup-organisation")
+    fun signUpOrg(@Header("token") token: String, @Body signUpRequest: SignUpRequest): Call<SignUpResponse>
 
     @GET("clubs")
     fun getClubsAndRoles(@Header("token") token: String, @Query("q") query: String): Call<ClubAndRoleResponse>
@@ -79,4 +93,22 @@ interface IApiInterface {
 
     @GET("user/allies/suggestions")
     fun getAlliesSuggestions(@Header("token") token: String, @Header("session") session: String): Call<AlliesInvitationResponse>
+
+    @POST("user-club")
+    fun addUserClub(@Header("token") token: String, @Body clubRequest: ClubRequest): Call<ClubResponse>
+
+    @POST("user-cause")
+    fun addUserCause(@Header("token") token: String, @Body causeRequest: CauseRequest): Call<ClubResponse>
+
+    @POST("user-institute")
+    fun addUserInstitute(@Header("token") token: String, @Body instituteRequest: InstituteRequest): Call<ClubResponse>
+
+    @POST("user-company")
+    fun addUserCompany(@Header("token") token: String, @Body companyRequest: CompanyRequest): Call<ClubResponse>
+
+    @POST("user-interest")
+    fun addUserInterest(@Header("token") token: String, @Body signUpRequest: SignUpRequest): Call<SignUpResponse>
+
+    @POST("suggest-interest")
+    fun suggestInterest(@Header("token") token: String, @Body signUpRequest: SignUpRequest): Call<SignUpResponse>
 }
