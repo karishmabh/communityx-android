@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit
 object DataManager : AppConstant {
 
     private var retrofit: Retrofit? = null
+    private var retrofitStandard: Retrofit? = null
     private val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     private val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
 
@@ -35,14 +36,14 @@ object DataManager : AppConstant {
         .build()
 
     private fun getDataManager(): Retrofit? {
-        if (retrofit == null) {
-            retrofit = Retrofit.Builder()
+        if (retrofitStandard == null) {
+            retrofitStandard = Retrofit.Builder()
                 .baseUrl(AppConfiguration.BASE_URL)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }
-        return retrofit
+        return retrofitStandard
     }
 
     private fun getMockDataManager(): Retrofit? {
