@@ -3,11 +3,13 @@ package com.communityx.network
 import android.app.Activity
 import com.communityx.models.connect_allies.ConnectAlliesResponse
 import com.communityx.models.connect_allies.ProfileData
+import com.communityx.models.job_companies.JobResponse
 import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
 import com.communityx.models.logout.LogoutResponse
 import com.communityx.models.myallies.all_allies.AllAlliesResponse
 import com.communityx.models.myallies.invitation.AlliesInvitationResponse
+import com.communityx.models.profile.ProfileResponse
 import com.communityx.models.signup.EmailPhoneVerificationRequest
 import com.communityx.models.signup.VerificationResponse
 import com.communityx.network.serviceRepo.AuthRepo
@@ -127,6 +129,27 @@ object DataManager : AppConstant {
                     listener.onError(response.body()!!.error)
             }
 
+        })
+    }
+
+    fun getProfile(activity: Activity, listener: ResponseListener<ProfileResponse>) {
+        val call  = DataManager.getMockService().getProfile(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
+        call.enqueue(object  : Callback<ProfileResponse> {
+            override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
+                listener.onError(t)
+            }
+
+            override fun onResponse(call: Call<ProfileResponse>, response: Response<ProfileResponse>) {
+                if (!response.isSuccessful) {
+                    response.errorBody()?.let { listener.onError(it) }
+                    return
+                }
+
+                if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS)
+                    listener.onSuccess(response.body()!!)
+                else
+                    listener.onError(response.body()!!.error)
+            }
         })
     }
 

@@ -35,7 +35,7 @@
                 android:includeFontPadding="false"
                 android:text="Bella Oliver"
                 android:textColor="@color/colorBlackTitle"
-                android:textSize="@dimen/_11ssp"
+                android:textSize="@dimen/_12ssp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:layout_marginEnd="@dimen/_7sdp"
@@ -52,7 +52,7 @@
                 android:includeFontPadding="false"
                 android:text="College Student, New york"
                 android:textColor="@color/colorLightGrey"
-                android:textSize="@dimen/_9ssp"
+                android:textSize="@dimen/_10ssp"
                 app:layout_constraintEnd_toStartOf="@id/linear_add_friend"
                 app:layout_constraintStart_toStartOf="@+id/text_title_name"
                 app:layout_constraintTop_toBottomOf="@+id/text_title_name"/>
