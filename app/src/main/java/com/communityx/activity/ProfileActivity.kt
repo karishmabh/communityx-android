@@ -5,25 +5,28 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import butterknife.BindString
-import butterknife.BindView
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.CheckBox
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.communityx.R
-import com.communityx.adapters.CommunityFeedAdapter
 import com.communityx.adapters.ProfileInfoAdapter
+import com.communityx.adapters.ProfileWorkExpAdapter
 import com.communityx.database.FakeDatabase
+import com.communityx.models.connect_allies.Minors
+import com.communityx.models.profile.*
+import com.communityx.network.DataManager
+import com.communityx.network.ResponseListener
 import com.communityx.utils.AppConstant
+import com.communityx.utils.CustomProgressBar
 import com.communityx.utils.Utils
+import com.google.android.flexbox.FlexboxLayout
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.activity_profile.text_name
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.layout_profile_about_section_v2.*
-import kotlinx.android.synthetic.main.layout_profile_post.*
-import kotlinx.android.synthetic.main.view_search.*
 
 class ProfileActivity : AppCompatActivity(), AppConstant {
 
@@ -33,42 +36,22 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         ButterKnife.bind(this)
-        edit_search!!.setHint(R.string.write_something_here)
-        edit_search!!.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
 
-        setAboutInfo()
-        setMyPost()
+        getProfile()
         showEditIcon(!isOtherProfile)
         showAddHeadlines(false && !isOtherProfile)
-        setPostLabel(isOtherProfile)
         showAddAndMessageButton(isOtherProfile)
     }
 
-    @OnClick(R.id.text_see_all)
-    internal fun tappedSeeAll() {
-        val intent = Intent(this, SeeAllAboutActivity::class.java)
-        intent.putExtra(AppConstant.IS_OTHER_PROFILE, isOtherProfile)
-        startActivity(intent)
-        overridePendingTransition(R.anim.anim_next_slide_in, R.anim.anim_next_slide_out)
+    @OnClick(R.id.image_back)
+    internal fun backTapped() {
+        finish()
+        overridePendingTransition(R.anim.anim_prev_slide_in, R.anim.anim_prev_slide_out)
     }
 
-    private fun setAboutInfo() {
-        val linearLayoutManager = LinearLayoutManager(this)
-        recycler_about!!.layoutManager = linearLayoutManager
-        val dividerItemDecoration = DividerItemDecoration(recycler_about!!.context, linearLayoutManager.orientation)
-        recycler_about!!.addItemDecoration(dividerItemDecoration)
+    @OnClick(R.id.edit_profile)
+    internal fun editProfileTapped() {
 
-        val adapter = ProfileInfoAdapter(this, FakeDatabase.get().profileInfoDao.profileInfo)
-        adapter.setOtherProfile(isOtherProfile)
-        recycler_about!!.adapter = adapter
-    }
-
-    private fun setMyPost() {
-        recycler_post!!.layoutManager = LinearLayoutManager(this)
-        val communityFeedAdapter = CommunityFeedAdapter(this)
-        communityFeedAdapter.setFromProfile(true)
-        communityFeedAdapter.setOtherProfile(isOtherProfile)
-        recycler_post!!.adapter = communityFeedAdapter
     }
 
     private fun showEditIcon(shouldShow: Boolean) {
@@ -84,11 +67,73 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         Utils.showHideView(view_add_msg_other!!, shouldShow)
     }
 
-    private fun setPostLabel(isOtherProfile: Boolean) {
-        text_my_post!!.text = if (isOtherProfile) getString(R.string.posts) else getString(R.string.my_posts)
+    private fun getProfile() {
+        val dialog = CustomProgressBar.getInstance(this).showProgressDialog("Fetching Profile...")
+        DataManager.getProfile(this, object : ResponseListener<ProfileResponse> {
+            override fun onSuccess(response: ProfileResponse) {
+                dialog.dismiss()
+
+                var profileResponse : ProfileResponse = response
+                setProfile(profileResponse.data[0])
+                setAboutInfo(profileResponse.data[0])
+            }
+
+            override fun onError(error: Any) {
+                dialog.dismiss()
+            //    Utils.showError(this@ProfileActivity, linear_top, error)
+            }
+        })
     }
 
-    fun goBack(view: View) {
-        onBackPressed()
+    private fun setProfile(profileData: Data) {
+        text_name.text = profileData?.first_name + " " + profileData?.last_name
+        Picasso.get().load(profileData?.profile_image).into(image_profile)
+        text_title.text = profileData?.type
+        setFlexLayout(flex_layout_cause, profileData?.interests)
+    }
+
+    fun setFlexLayout(fLexLayout: FlexboxLayout?, interest: List<Education>) {
+        fLexLayout!!.removeAllViews()
+
+        for (i in interest.indices) {
+            val checkBox = LayoutInflater.from(this).inflate(R.layout.item_interest, null) as CheckBox
+            checkBox.text = interest.get(i).name
+            checkBox.performClick()
+
+            val lp = ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            lp.setMargins(10, 10, 10, 10)
+            fLexLayout.addView(checkBox, lp)
+        }
+    }
+
+    private fun setAboutInfo(profileData: Data) {
+
+        var list : ArrayList<Education>  = ArrayList<Education>()
+
+        profileData?.education.datatype = "edu"
+        list.add(profileData?.education)
+
+        for (e : Education in profileData?.clubs) {
+            e.datatype = "club"
+        }
+        list.addAll(profileData.clubs)
+
+        for (e : Education in profileData?.work_experience) {
+            e.datatype = "we"
+        }
+        list.addAll(profileData.work_experience)
+
+        for (e : Education in profileData?.interests) {
+            e.datatype = "interest"
+        }
+        list.addAll(profileData.interests)
+
+        val linearLayoutManager = LinearLayoutManager(this)
+        recycler_work_exp!!.layoutManager = linearLayoutManager
+        val dividerItemDecoration = DividerItemDecoration(recycler_work_exp!!.context, linearLayoutManager.orientation)
+        recycler_work_exp!!.addItemDecoration(dividerItemDecoration)
+
+        val adapter = ProfileWorkExpAdapter(this, list)
+        recycler_work_exp!!.adapter = adapter
     }
 }
