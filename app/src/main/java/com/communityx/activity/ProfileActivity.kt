@@ -51,7 +51,7 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
 
     @OnClick(R.id.edit_profile)
     internal fun editProfileTapped() {
-      //  var intent = Intent(this, Edi)
+
     }
 
     private fun showEditIcon(shouldShow: Boolean) {
@@ -111,22 +111,22 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         var list : ArrayList<Education>  = ArrayList<Education>()
 
         profileData?.education.datatype = "edu"
-        (list).add(profileData?.education)
+        list.add(profileData?.education)
 
         for (e : Education in profileData?.clubs) {
             e.datatype = "club"
         }
-        (list).addAll(profileData.clubs)
+        list.addAll(profileData.clubs)
 
         for (e : Education in profileData?.work_experience) {
             e.datatype = "we"
         }
-        (list).addAll(profileData.work_experience)
+        list.addAll(profileData.work_experience)
 
         for (e : Education in profileData?.interests) {
             e.datatype = "interest"
         }
-        (list).addAll(profileData.interests)
+        list.addAll(profileData.interests)
 
         val linearLayoutManager = LinearLayoutManager(this)
         recycler_work_exp!!.layoutManager = linearLayoutManager
