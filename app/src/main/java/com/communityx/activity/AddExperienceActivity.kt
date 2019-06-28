@@ -8,11 +8,11 @@ import butterknife.OnClick
 import com.communityx.R
 import kotlinx.android.synthetic.main.toolbar.*
 
-class AddVolunteerExperience : AppCompatActivity() {
+class AddExperienceActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_volunteer_experience)
+        setContentView(R.layout.activity_add_experience)
         ButterKnife.bind(this)
 
         setToolbar()
@@ -26,7 +26,7 @@ class AddVolunteerExperience : AppCompatActivity() {
 
     private fun setToolbar() {
         image_tail_toolbar.visibility = View.GONE
-        text_title.text = getString(R.string.string_add_volunteer_exp)
+        text_title.text = getString(R.string.string_add_work_exp)
         imageView.setImageDrawable(resources.getDrawable(R.drawable.image_close_white))
     }
 }
