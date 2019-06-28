@@ -54,7 +54,7 @@
                       android:id="@+id/text_name"
                       android:textColor="@color/colorBlackTitle"
                       android:fontFamily="@font/poppins_semibold"
-                      android:textSize="@dimen/_11ssp"
+                      android:textSize="@dimen/_12ssp"
                       android:includeFontPadding="false"
                       android:layout_marginStart="@dimen/_12sdp"/>
 
@@ -65,7 +65,7 @@
                       android:id="@+id/text_profession"
                       android:textColor="@color/colorLightGrey"
                       android:fontFamily="@font/poppins_regular"
-                      android:textSize="@dimen/_9ssp"
+                      android:textSize="@dimen/_10ssp"
                       android:layout_marginStart="@dimen/_12sdp"/>
         </LinearLayout>
 
