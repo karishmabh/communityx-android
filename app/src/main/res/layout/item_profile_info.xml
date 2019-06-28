@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:visibility="gone"
         android:background="@drawable/layout_shadow_gradient"
-        android:layout_height="@dimen/_15sdp"
+        android:layout_height="@dimen/_10sdp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -251,4 +251,15 @@
     <string name="back_to_login">back to login</string>
     <string name="add">add</string>
     <string name="organization_role">Organization/Role</string>
+    <string name="string_add_headline">Add Headline</string>
+    <string name="string_edit_profile">Edit Profile</string>
+    <string name="string_edit_profile_image">Edit Profile Image</string>
+    <string name="string_full_name">Full Name</string>
+    <string name="string_recent_job_title">Recent Job Title</string>
+    <string name="string_location">Location</string>
+    <string name="string_headline">Headline</string>
+    <string name="string_what_causes_you_care_about">What causes you care about?</string>
+    <string name="string_select_up_to_5">(Select up to 5)</string>
+    <string name="string_add_work_exp">Add Work Experience</string>
+    <string name="string_add_volunteer_exp">Add Volunteer Experience</string>
 </resources>
