@@ -1,8 +1,10 @@
 package com.communityx.network
 
 import android.app.Activity
+import android.content.Context
 import com.communityx.models.connect_allies.ConnectAlliesResponse
 import com.communityx.models.connect_allies.ProfileData
+import com.communityx.models.editinfo.EditInfoInterestResponse
 import com.communityx.models.job_companies.JobResponse
 import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
@@ -11,6 +13,8 @@ import com.communityx.models.myallies.all_allies.AllAlliesResponse
 import com.communityx.models.myallies.invitation.AlliesInvitationResponse
 import com.communityx.models.profile.ProfileResponse
 import com.communityx.models.signup.EmailPhoneVerificationRequest
+import com.communityx.models.signup.MajorMinorResponse
+import com.communityx.models.signup.MinorsData
 import com.communityx.models.signup.VerificationResponse
 import com.communityx.network.serviceRepo.AuthRepo
 import com.communityx.utils.AppConstant
@@ -234,5 +238,26 @@ object DataManager : AppConstant {
                 listener.onError(t)
             }
         })
+    }
+
+    fun getInterests(context: Context, responseListener: ResponseListener<EditInfoInterestResponse>) {
+        DataManager.getService().getInterests(AuthRepo.getAccessToken(context))
+            .enqueue(object : Callback<EditInfoInterestResponse> {
+                override fun onFailure(call: Call<EditInfoInterestResponse>, t: Throwable) {
+                    responseListener.onError(t)
+                }
+
+                override fun onResponse(call: Call<EditInfoInterestResponse>, response: Response<EditInfoInterestResponse>) {
+                    if (!response.isSuccessful) {
+                        response.errorBody()?.let { responseListener.onError(it) }
+                        return
+                    }
+                    if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                        responseListener.onSuccess(response.body()!!)
+                    } else {
+                        responseListener.onError(response.body()!!.error)
+                    }
+                }
+            })
     }
 }

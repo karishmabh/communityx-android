@@ -1,6 +1,7 @@
 package com.communityx.network
 
 import com.communityx.models.connect_allies.ConnectAlliesResponse
+import com.communityx.models.editinfo.EditInfoInterestResponse
 import com.communityx.models.job_companies.JobResponse
 import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
@@ -23,6 +24,9 @@ interface IApiInterface {
 
     @GET("major")
     fun getMajorMinor(@Header("token") token: String): Call<MajorMinorResponse>
+
+    @GET("interests")
+    fun getInterests(@Header("token") token: String): Call<EditInfoInterestResponse>
 
     @GET("user/logout")
     fun logout(@Header("token") token: String, @Header("session") session: String): Call<LogoutResponse>

@@ -30,6 +30,31 @@ public class DialogHelper {
         textContent.setText(content);
     }
 
+    public static void showHeadlineDialog(Context context){
+        Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_add_headline);
+        dialog.setCancelable(true);
+
+        WindowManager.LayoutParams layoutParams = dialog.getWindow().getAttributes();
+        Window window = dialog.getWindow();
+        layoutParams.copyFrom(window.getAttributes());
+        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(layoutParams);
+        layoutParams.gravity = Gravity.CENTER;
+
+        ImageView imageClose = dialog.findViewById(R.id.image_close);
+        imageClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
      public static void selectImage(Activity activity) {
           final int PICK_FROM_CAMERA = 0;
           final int PICK_FROM_GALLERY = 1;
