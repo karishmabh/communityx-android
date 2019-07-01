@@ -54,7 +54,7 @@ class FriendsFragment : Fragment() {
     }
 
     private fun sortList(dataX: List<DataX>) {
-        val compareByFirstName = { o1: DataX, o2: DataX -> o1.first_name.compareTo(o2.first_name) }
+        val compareByFirstName = { o1: DataX, o2: DataX -> o1.profile.first_name.compareTo(o2.profile.first_name) }
         Collections.sort(dataX, compareByFirstName)
     }
 

@@ -268,8 +268,6 @@ object SignUpRepo : BaseRepo , AppConstant {
                         responseListener.onError(response.body()!!.error)
                     }
                 }
-
-
             })
     }
 }
