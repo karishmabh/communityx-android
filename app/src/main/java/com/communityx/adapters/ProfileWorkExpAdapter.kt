@@ -1,6 +1,7 @@
 package com.communityx.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.transition.Visibility
@@ -13,6 +14,7 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.communityx.R
+import com.communityx.activity.AddExperienceActivity
 import com.communityx.database.fakemodels.ProfileAboutModel
 import com.communityx.models.profile.Education
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
@@ -36,6 +38,13 @@ class ProfileWorkExpAdapter (private val mContext: Context, private val list: Li
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.bindData(list[position])
+
+        viewHolder.imageEdit.setOnClickListener {
+            if (viewHolder.textHeading.text == "Work Experience") {
+                val intent = Intent(mContext, AddExperienceActivity::class.java)
+                mContext.startActivity(intent)
+            }
+        }
     }
 
     open inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

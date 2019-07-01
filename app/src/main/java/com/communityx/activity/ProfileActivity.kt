@@ -11,22 +11,19 @@ import android.widget.CheckBox
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.communityx.R
-import com.communityx.adapters.ProfileInfoAdapter
 import com.communityx.adapters.ProfileWorkExpAdapter
-import com.communityx.database.FakeDatabase
-import com.communityx.models.connect_allies.Minors
 import com.communityx.models.profile.*
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
 import com.communityx.utils.AppConstant
 import com.communityx.utils.CustomProgressBar
+import com.communityx.utils.DialogHelper
 import com.communityx.utils.Utils
 import com.google.android.flexbox.FlexboxLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_profile.text_name
 import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.layout_profile_about_section_v2.*
 
 class ProfileActivity : AppCompatActivity(), AppConstant {
 
@@ -39,7 +36,7 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
 
         getProfile()
         showEditIcon(!isOtherProfile)
-        showAddHeadlines(false && !isOtherProfile)
+        showAddHeadlines(true && !isOtherProfile)
         showAddAndMessageButton(isOtherProfile)
     }
 
@@ -49,9 +46,16 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         overridePendingTransition(R.anim.anim_prev_slide_in, R.anim.anim_prev_slide_out)
     }
 
+    @OnClick(R.id.button_add_headline)
+    internal fun addHeadlineTapped() {
+        DialogHelper.showHeadlineDialog(this)
+    }
+
     @OnClick(R.id.edit_profile)
     internal fun editProfileTapped() {
-
+        val intent = Intent(this, EditIntroActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(R.anim.anim_slide_up, R.anim.anim_stay)
     }
 
     private fun showEditIcon(shouldShow: Boolean) {
@@ -80,7 +84,7 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
 
             override fun onError(error: Any) {
                 dialog.dismiss()
-            //    Utils.showError(this@ProfileActivity, linear_top, error)
+                //Utils.showError(this@ProfileActivity, linear_top, error)
             }
         })
     }
