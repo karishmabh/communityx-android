@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import com.communityx.models.connect_allies.ConnectAlliesResponse
 import com.communityx.models.connect_allies.ProfileData
+import com.communityx.models.editinfo.Data
 import com.communityx.models.editinfo.EditInfoInterestResponse
 import com.communityx.models.job_companies.JobResponse
 import com.communityx.models.login.LoginRequest
@@ -243,6 +244,26 @@ object DataManager : AppConstant {
 
     fun getInterests(context: Context, responseListener: ResponseListener<EditInfoInterestResponse>) {
         DataManager.getService().getInterests(AuthRepo.getAccessToken(context))
+            .enqueue(object : Callback<EditInfoInterestResponse> {
+                override fun onFailure(call: Call<EditInfoInterestResponse>, t: Throwable) {
+                    responseListener.onError(t)
+                }
+
+                override fun onResponse(call: Call<EditInfoInterestResponse>, response: Response<EditInfoInterestResponse>) {
+                    if (!response.isSuccessful) {
+                        response.errorBody()?.let { responseListener.onError(it) }
+                        return
+                    }
+                    if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                        responseListener.onSuccess(response.body()!!)
+                    } else {
+                        responseListener.onError(response.body()!!.error)
+                    }
+                }
+            })
+    }
+    fun getEditInterests(context: Context, responseListener: ResponseListener<EditInfoInterestResponse>) {
+        DataManager.getMockService().getEditIntrest(AuthRepo.getAccessToken(context))
             .enqueue(object : Callback<EditInfoInterestResponse> {
                 override fun onFailure(call: Call<EditInfoInterestResponse>, t: Throwable) {
                     responseListener.onError(t)

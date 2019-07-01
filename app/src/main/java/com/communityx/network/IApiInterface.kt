@@ -33,6 +33,9 @@ interface IApiInterface {
     @GET("interests")
     fun getInterests(@Header("token") token: String): Call<EditInfoInterestResponse>
 
+    @GET("interests")
+    fun getEditIntrest(@Header("token") token: String): Call<EditInfoInterestResponse>
+
     @GET("user/logout")
     fun logout(@Header("token") token: String, @Header("session") session: String): Call<LogoutResponse>
 
