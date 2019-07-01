@@ -262,4 +262,8 @@
     <string name="string_select_up_to_5">(Select up to 5)</string>
     <string name="string_add_work_exp">Add Work Experience</string>
     <string name="string_add_volunteer_exp">Add Volunteer Experience</string>
+    <string name="string_edit_education">Edit Education</string>
+    <string name="string_edit_club">Edit Club</string>
+    <string name="string_clubs_and_organization">Clubs and Organizations</string>
+    <string name="string_work_experience">Work Experience</string>
 </resources>
