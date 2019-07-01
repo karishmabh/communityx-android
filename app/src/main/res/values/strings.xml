@@ -251,4 +251,6 @@
     <string name="back_to_login">back to login</string>
     <string name="add">add</string>
     <string name="organization_role">Organization/Role</string>
+    <string name="name_of_school">Name of School</string>
+    <string name="name_of_college_university">Name of College / University</string>
 </resources>
