@@ -39,6 +39,7 @@ class SelectedInterestAdapter(val mInterestList: List<MinorsData>, val mActvity:
     }
 
     inner class EventHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         fun bindData() {
             val minorsData = mInterestList.get(adapterPosition)
 
