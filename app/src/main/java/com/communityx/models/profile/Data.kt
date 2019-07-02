@@ -10,6 +10,7 @@ data class Data(
     val first_name: String,
     val id: String,
     val interests: List<Education>,
+    val profile : profile,
     val last_name: String,
     val phone: String,
     val postal_code: String,
@@ -18,4 +19,4 @@ data class Data(
     val state:String,
     val city:String,
     val work_experience: List<Education>
-):Serializable
+) : Serializable

@@ -8,4 +8,4 @@ data class Education(
     val name: String,
     val role: String,
     val type: String
-):Serializable
+) : Serializable

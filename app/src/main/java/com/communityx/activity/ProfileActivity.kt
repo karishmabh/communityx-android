@@ -93,8 +93,8 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
     }
 
     private fun setProfile(profileData: Data) {
-        text_name.text = profileData?.first_name + " " + profileData?.last_name
-        Picasso.get().load(profileData?.profile_image).into(image_profile)
+        text_name.text = profileData?.profile?.first_name + " " + profileData?.profile?.last_name
+        Picasso.get().load(profileData?.profile?.profile_image).into(image_profile)
         text_title.text = profileData?.type
         setFlexLayout(flex_layout_cause, profileData?.interests)
     }
@@ -130,10 +130,10 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         }
         list.addAll(profileData.work_experience)
 
-        for (e : Education in profileData?.interests) {
+   /*     for (e : Education in profileData?.interests) {
             e.datatype = "interest"
         }
-        list.addAll(profileData.interests)
+        list.addAll(profileData.interests)*/
 
         val linearLayoutManager = LinearLayoutManager(this)
         recycler_work_exp!!.layoutManager = linearLayoutManager
