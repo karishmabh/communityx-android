@@ -105,6 +105,9 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         for (i in interest.indices) {
             val checkBox = LayoutInflater.from(this).inflate(R.layout.item_interest, null) as CheckBox
             checkBox.text = interest.get(i).name
+            checkBox.setBackgroundResource(com.communityx.R.drawable.bg_profile_interst)
+            checkBox.setTextColor(this.resources.getColor(R.color.colorBlackTitle))
+
             checkBox.performClick()
 
             val lp = ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -129,11 +132,6 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
             e.datatype = "we"
         }
         list.addAll(profileData.work_experience)
-
-   /*     for (e : Education in profileData?.interests) {
-            e.datatype = "interest"
-        }
-        list.addAll(profileData.interests)*/
 
         val linearLayoutManager = LinearLayoutManager(this)
         recycler_work_exp!!.layoutManager = linearLayoutManager

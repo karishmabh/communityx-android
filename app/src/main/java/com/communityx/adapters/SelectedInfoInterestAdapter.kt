@@ -11,13 +11,14 @@ import com.communityx.R
 import com.communityx.activity.SignUpStudentInfoActivity
 import com.communityx.models.editinfo.Data
 import com.communityx.models.editinfo.Subinterest
+import com.communityx.models.profile.Education
 import com.communityx.models.signup.Minor
 import com.communityx.models.signup.MinorsData
 import com.communityx.utils.AppConstant
 import com.communityx.utils.SnackBarFactory
 import kotlinx.android.synthetic.main.item_select_interest.view.*
 
-class SelectedInfoInterestAdapter(val mInterestList: List<Data>, val mActvity: Activity, val scrollView: ScrollView) :
+class SelectedInfoInterestAdapter(val mInterestList: List<Data>, val mActvity: Activity, val listselected: ArrayList<Education>, val scrollView: ScrollView) :
     RecyclerView.Adapter<SelectedInfoInterestAdapter.EventHolder>() {
 
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mActvity)
@@ -56,8 +57,8 @@ class SelectedInfoInterestAdapter(val mInterestList: List<Data>, val mActvity: A
                 checkBox.text = civilRight.name
                 checkBox.performClick()
 
-                for (selectedid in mSelectedIds) {
-                    if (civilRight.id == selectedid) {
+                for (selectedid in  listselected) {
+                    if (civilRight.name.equals(selectedid.name, true)) {
                         checkBox.setBackgroundResource(R.drawable.bg_interest_active)
                         checkBox.setTextColor(mActvity.resources.getColor(R.color.colorBlackTitle))
                     }
