@@ -9,14 +9,16 @@ import android.widget.CheckBox
 import android.widget.ScrollView
 import com.communityx.R
 import com.communityx.activity.SignUpStudentInfoActivity
+import com.communityx.models.editinfo.Data
+import com.communityx.models.editinfo.Subinterest
 import com.communityx.models.signup.Minor
 import com.communityx.models.signup.MinorsData
 import com.communityx.utils.AppConstant
 import com.communityx.utils.SnackBarFactory
 import kotlinx.android.synthetic.main.item_select_interest.view.*
 
-class SelectedInterestAdapter(val mInterestList: List<MinorsData>, val mActvity: Activity, val scrollView: ScrollView) :
-    RecyclerView.Adapter<SelectedInterestAdapter.EventHolder>() {
+class SelectedInfoInterestAdapter(val mInterestList: List<Data>, val mActvity: Activity, val scrollView: ScrollView) :
+    RecyclerView.Adapter<SelectedInfoInterestAdapter.EventHolder>() {
 
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mActvity)
     private val mSelectedIds : ArrayList<String> = ArrayList()
@@ -39,15 +41,14 @@ class SelectedInterestAdapter(val mInterestList: List<MinorsData>, val mActvity:
     }
 
     inner class EventHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         fun bindData() {
             val minorsData = mInterestList[adapterPosition]
 
             itemView.text_heading.text = minorsData.name
-            initFlexLayout(minorsData.minors)
+            initFlexLayout(minorsData.subinterests)
         }
 
-        private fun initFlexLayout(civilRights: List<Minor>) {
+        private fun initFlexLayout(civilRights: List<Subinterest>) {
             itemView.flex_layout.removeAllViews()
 
             for (civilRight in civilRights) {
@@ -77,27 +78,6 @@ class SelectedInterestAdapter(val mInterestList: List<MinorsData>, val mActvity:
                         mSelectedIds.remove(civilRight.id)
                     }
 
-                    var category = (mActvity as SignUpStudentInfoActivity).selectedCategory
-
-                    if (mActvity == null) return@setOnCheckedChangeListener
-
-                    if (mSelectedIds.size > 0) {
-                        mActvity.enableButton(true)
-
-                        if (category.equals(AppConstant.ORGANIZATION)) {
-                            mActvity.changeButtonStatus(1, true)
-                        } else {
-                            mActvity.changeButtonStatus(4, true)
-                        }
-                    } else {
-                        mActvity.enableButton(false)
-
-                        if (category.equals(AppConstant.ORGANIZATION)) {
-                            mActvity.changeButtonStatus(1, false)
-                        } else {
-                            mActvity.changeButtonStatus(4, false)
-                        }
-                    }
                 }
 
                 val lp = ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)

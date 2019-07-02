@@ -16,5 +16,7 @@ data class Data(
     val postal_code: String,
     val profile_image: String,
     val type: String,
+    val state:String,
+    val city:String,
     val work_experience: List<Education>
 ) : Serializable

@@ -16,6 +16,7 @@ import com.communityx.models.profile.*
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
 import com.communityx.utils.AppConstant
+import com.communityx.utils.AppConstant.UserName
 import com.communityx.utils.CustomProgressBar
 import com.communityx.utils.DialogHelper
 import com.communityx.utils.Utils
@@ -28,6 +29,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 class ProfileActivity : AppCompatActivity(), AppConstant {
 
     private val isOtherProfile = false
+    private var profileResponse : ProfileResponse? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +56,7 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
     @OnClick(R.id.edit_profile)
     internal fun editProfileTapped() {
         val intent = Intent(this, EditIntroActivity::class.java)
+        intent.putExtra(UserName, profileResponse)
         startActivity(intent)
         overridePendingTransition(R.anim.anim_slide_up, R.anim.anim_stay)
     }
@@ -77,9 +80,9 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
             override fun onSuccess(response: ProfileResponse) {
                 dialog.dismiss()
 
-                var profileResponse : ProfileResponse = response
-                setProfile(profileResponse.data[0])
-                setAboutInfo(profileResponse.data[0])
+                profileResponse  = response
+                setProfile(profileResponse!!.data[0])
+                setAboutInfo(profileResponse!!.data[0])
             }
 
             override fun onError(error: Any) {

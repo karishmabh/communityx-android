@@ -85,7 +85,6 @@
                 <LinearLayout
                         android:id="@+id/layout_school"
                         android:visibility="gone"
-                        tools:visibility="visible"
                         android:layout_width="@dimen/_250sdp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -102,7 +101,7 @@
 
                     <TextView
                             android:layout_width="wrap_content"
-                            android:text="High School"
+                            android:text="@string/name_of_school"
                             style="@style/text_size_small"
                             android:id="@+id/text_school_name_hint"
                             android:layout_height="wrap_content"
@@ -186,7 +185,6 @@
 
                 <LinearLayout
                         android:id="@+id/layout_college"
-                        tools:visibility="visible"
                         android:visibility="gone"
                         android:layout_width="@dimen/_250sdp"
                         android:layout_height="wrap_content"
@@ -205,7 +203,7 @@
 
                     <TextView
                             android:layout_width="wrap_content"
-                            android:text="@string/college_university"
+                            android:text="@string/name_of_college_university"
                             style="@style/text_size_small"
                             android:id="@+id/text_college_name_hint"
                             android:layout_height="wrap_content"

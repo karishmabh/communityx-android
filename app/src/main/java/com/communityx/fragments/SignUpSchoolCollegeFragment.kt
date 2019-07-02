@@ -33,9 +33,11 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
     private var isFirstLoaded: Boolean = false
     private var listSchool: MutableList<String> = mutableListOf()
     private var listCollege: MutableList<String> = mutableListOf()
+
     private val TRIGGER_AUTO_COMPLETE = 100
     private val TRIGGER_AUTO_SCHOOL = 120
     private val AUTO_COMPLETE_DELAY: Long = 300
+
     private lateinit var handler: Handler
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
