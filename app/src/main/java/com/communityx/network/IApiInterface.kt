@@ -7,6 +7,7 @@ import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
 import com.communityx.models.logout.LogoutResponse
 import com.communityx.models.myallies.all_allies.AllAlliesResponse
+import com.communityx.models.myallies.all_allies.UpdateInvitationRequest
 import com.communityx.models.myallies.invitation.AlliesInvitationResponse
 import com.communityx.models.oauth.OAuthRequest
 import com.communityx.models.oauth.OAuthResponse
@@ -96,10 +97,17 @@ interface IApiInterface {
     fun getAllAllies(@Header("token") token: String, @Header("session") session: String): Call<AllAlliesResponse>
 
     @GET("user/allies/invitations")
-    fun getAlliesInvitations(@Header("token") token: String, @Header("session") session: String): Call<AlliesInvitationResponse>
+    fun getAlliesInvitations(@Header("token") token: String, @Header("session") session: String): Call<AllAlliesResponse>
 
     @GET("user/allies/suggestions")
-    fun getAlliesSuggestions(@Header("token") token: String, @Header("session") session: String): Call<AlliesInvitationResponse>
+    fun getAlliesSuggestions(@Header("token") token: String, @Header("session") session: String): Call<AllAlliesResponse>
+
+    @FormUrlEncoded
+    @POST("user/invitaion")
+    fun sendInvitation(@Header("token") token: String, @Header("session") session: String, @Field("send_to_id") userId: String): Call<SignUpResponse>
+
+    @PUT("user/allies")
+    fun updateInvitation(@Header("token") token: String, @Header("session") session: String, @Body updateInvitationRequest: UpdateInvitationRequest): Call<SignUpResponse>
 
     @POST("user-club")
     fun addUserClub(@Header("token") token: String, @Body clubRequest: ClubRequest): Call<ClubResponse>
@@ -118,4 +126,5 @@ interface IApiInterface {
 
     @POST("suggest-interest")
     fun suggestInterest(@Header("token") token: String, @Body signUpRequest: SignUpRequest): Call<SignUpResponse>
+
 }

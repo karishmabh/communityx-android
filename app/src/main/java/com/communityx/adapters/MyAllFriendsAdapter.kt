@@ -9,11 +9,12 @@ import android.view.ViewGroup
 import butterknife.ButterKnife
 import com.communityx.R
 import com.communityx.models.myallies.all_allies.DataX
+import com.communityx.utils.AppConstant
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_my_all_friend.view.*
 
 class MyAllFriendsAdapter(private val mContext: Context, private val friendList: List<DataX>) :
-    RecyclerView.Adapter<MyAllFriendsAdapter.ViewHolder>() {
+    RecyclerView.Adapter<MyAllFriendsAdapter.ViewHolder>(), AppConstant {
 
     private var prevStr: String? = null
     private val inflater: LayoutInflater = LayoutInflater.from(mContext)
@@ -41,18 +42,34 @@ class MyAllFriendsAdapter(private val mContext: Context, private val friendList:
         }
 
         fun bindData() {
-            var name = friendList.get(adapterPosition).first_name + " " + friendList.get(adapterPosition).last_name
+            val item = friendList.get(adapterPosition)
+            var name = item.profile?.first_name + " " + item.profile?.last_name
             itemView.text_name.text = name
 
-            var profession  = friendList.get(adapterPosition)?.headline + " "+friendList.get(adapterPosition).city
-            itemView.text_profession.text = profession
-
-            if (!TextUtils.isEmpty(friendList.get(adapterPosition).profile_image)) {
-                Picasso.get().load(friendList.get(adapterPosition).profile_image)
+            if (!TextUtils.isEmpty(item.profile.profile_image)) {
+                Picasso.get().load(item.profile.profile_image)
                     .error(R.drawable.profile_placeholder).into(itemView.image_user)
             }
 
+            setProfessionType(item)
             setDividerText(name)
+        }
+
+        private fun setProfessionType(dataX: DataX) {
+            val type = friendList.get(adapterPosition).type
+            var profession: String ? = null
+            when (type) {
+                AppConstant.STUDENT -> {
+                    profession  = "Student" + ", "+ dataX.city
+                }
+                AppConstant.PROFESSIONAL -> {
+                    profession  = dataX.work_experience.get(0).role + ", "+ dataX.city
+                }
+                AppConstant.ORGANIZATION -> {
+                    profession  = "Organization" +", "+ dataX.city
+                }
+            }
+            itemView.text_profession.text = profession
         }
 
         private fun setDividerText(name: String) {

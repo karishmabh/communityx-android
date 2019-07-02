@@ -10,8 +10,9 @@ import android.widget.CheckBox
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.communityx.R
-import com.communityx.models.myallies.invitation.DataX
+import com.communityx.models.myallies.all_allies.DataX
 import com.communityx.models.myallies.invitation.Interest
+import com.communityx.utils.AppConstant
 import com.google.android.flexbox.FlexboxLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_invitation.view.*
@@ -43,17 +44,34 @@ class InvitationAdapter(private val mInvitationList: List<DataX>, private val mA
         }
 
         fun bindData() {
-            var name = mInvitationList.get(adapterPosition).first_name + " " + mInvitationList.get(adapterPosition).last_name
+            val item = mInvitationList.get(adapterPosition)
+            var name = item?.profile?.first_name + " " + item.profile?.last_name
             itemView.text_title_name.text = name
 
-            var profession = mInvitationList.get(adapterPosition).headline + " " + mInvitationList.get(adapterPosition).city
-            itemView.text_description.text = profession
-
-            if (!TextUtils.isEmpty(mInvitationList.get(adapterPosition).profile_image)) {
-                Picasso.get().load(mInvitationList.get(adapterPosition).profile_image)
+            if (!TextUtils.isEmpty(item.profile?.profile_image)) {
+                Picasso.get().load(item.profile?.profile_image)
                     .error(R.drawable.profile_placeholder).into(itemView.circle_profile_image)
             }
+
+            setProfessionType(item)
             setFLexLayout(flexboxLayout, mInvitationList.get(adapterPosition).interests)
+        }
+
+        private fun setProfessionType(dataX: DataX) {
+            val type = mInvitationList.get(adapterPosition).type
+            var profession: String ? = null
+            when (type) {
+                AppConstant.STUDENT -> {
+                    profession  = "Student" + ", "+ dataX.city
+                }
+                AppConstant.PROFESSIONAL -> {
+                    profession  = dataX.work_experience.get(0).role + ", "+ dataX.city
+                }
+                AppConstant.ORGANIZATION -> {
+                    profession  = "Organization" +", "+ dataX.city
+                }
+            }
+            itemView.text_description.text = profession
         }
     }
 

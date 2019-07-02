@@ -9,14 +9,16 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import butterknife.BindView
 import butterknife.ButterKnife
+import butterknife.OnClick
 import com.communityx.R
-import com.communityx.models.myallies.invitation.DataX
+import com.communityx.models.myallies.all_allies.DataX
 import com.communityx.models.myallies.invitation.Interest
+import com.communityx.utils.AppConstant
 import com.google.android.flexbox.FlexboxLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_connect_allies.view.*
 
-class SuggestionAdapter(private val mSuggestionList: List<DataX>, private val mActvity: Activity) : RecyclerView.Adapter<SuggestionAdapter.EventHolder>() {
+class SuggestionAdapter(private val mSuggestionList: List<DataX>, private val mActvity: Activity, private val iOnAddFriendClicked: IOnAddFriendClicked) : RecyclerView.Adapter<SuggestionAdapter.EventHolder>() {
 
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mActvity)
 
@@ -42,20 +44,40 @@ class SuggestionAdapter(private val mSuggestionList: List<DataX>, private val mA
             ButterKnife.bind(this, itemView)
         }
 
+        @OnClick(R.id.linear_add_friend)
+        fun onAddFriendClicked() {
+            itemView.linear_add_friend.visibility = View.GONE
+            iOnAddFriendClicked.sendInvitationTapped(mSuggestionList.get(adapterPosition).id)
+        }
+
         fun bindData() {
-            var name =
-                mSuggestionList.get(adapterPosition).first_name + " " + mSuggestionList.get(adapterPosition).last_name
+            val item = mSuggestionList.get(adapterPosition)
+            var name = item.profile.first_name + " " + item.profile.last_name
             itemView.text_title_name.text = name
 
-            var profession =
-                mSuggestionList.get(adapterPosition).headline + " " + mSuggestionList.get(adapterPosition).city
-            itemView.text_description.text = profession
-
-            if (!TextUtils.isEmpty(mSuggestionList.get(adapterPosition).profile_image)) {
-                Picasso.get().load(mSuggestionList.get(adapterPosition).profile_image)
+            if (!TextUtils.isEmpty(item.profile.profile_image)) {
+                Picasso.get().load(item.profile.profile_image)
                     .error(R.drawable.profile_placeholder).into(itemView.circle_profile_image)
             }
+            setProfessionType(item)
             setFLexLayout(flexboxLayout, mSuggestionList.get(adapterPosition).interests)
+        }
+
+        private fun setProfessionType(dataX: DataX) {
+            val type = mSuggestionList.get(adapterPosition).type
+            var profession: String ? = null
+            when (type) {
+                AppConstant.STUDENT -> {
+                    profession  = "Student" + ", "+ dataX.city
+                }
+                AppConstant.PROFESSIONAL -> {
+                    profession  = dataX.work_experience.get(0).role + ", "+ dataX.city
+                }
+                AppConstant.ORGANIZATION -> {
+                    profession  = "Organization" +", "+ dataX.city
+                }
+            }
+            itemView.text_description.text = profession
         }
     }
 
@@ -69,5 +91,9 @@ class SuggestionAdapter(private val mSuggestionList: List<DataX>, private val mA
             lp.setMargins(10, 10, 10, 10)
             fLexLayout.addView(checkBox, lp)
         }
+    }
+
+    public interface IOnAddFriendClicked {
+        fun sendInvitationTapped(id: String)
     }
 }
