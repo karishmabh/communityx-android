@@ -16,6 +16,7 @@ import com.communityx.models.profile.*
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
 import com.communityx.utils.AppConstant
+import com.communityx.utils.AppConstant.UserName
 import com.communityx.utils.CustomProgressBar
 import com.communityx.utils.DialogHelper
 import com.communityx.utils.Utils
@@ -28,6 +29,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 class ProfileActivity : AppCompatActivity(), AppConstant {
 
     private val isOtherProfile = false
+    private var profileResponse : ProfileResponse? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +56,7 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
     @OnClick(R.id.edit_profile)
     internal fun editProfileTapped() {
         val intent = Intent(this, EditIntroActivity::class.java)
+        intent.putExtra(UserName, profileResponse)
         startActivity(intent)
         overridePendingTransition(R.anim.anim_slide_up, R.anim.anim_stay)
     }
@@ -77,21 +80,21 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
             override fun onSuccess(response: ProfileResponse) {
                 dialog.dismiss()
 
-                var profileResponse : ProfileResponse = response
-                setProfile(profileResponse.data[0])
-                setAboutInfo(profileResponse.data[0])
+                profileResponse  = response
+                setProfile(profileResponse!!.data[0])
+                setAboutInfo(profileResponse!!.data[0])
             }
 
             override fun onError(error: Any) {
                 dialog.dismiss()
-                //Utils.showError(this@ProfileActivity, linear_top, error)
+                Utils.showError(this@ProfileActivity, linear_top, error)
             }
         })
     }
 
     private fun setProfile(profileData: Data) {
-        text_name.text = profileData?.first_name + " " + profileData?.last_name
-        Picasso.get().load(profileData?.profile_image).into(image_profile)
+        text_name.text = profileData?.profile?.first_name + " " + profileData?.profile?.last_name
+        Picasso.get().load(profileData?.profile?.profile_image).into(image_profile)
         text_title.text = profileData?.type
         setFlexLayout(flex_layout_cause, profileData?.interests)
     }
@@ -102,6 +105,9 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         for (i in interest.indices) {
             val checkBox = LayoutInflater.from(this).inflate(R.layout.item_interest, null) as CheckBox
             checkBox.text = interest.get(i).name
+            checkBox.setBackgroundResource(com.communityx.R.drawable.bg_profile_interst)
+            checkBox.setTextColor(this.resources.getColor(R.color.colorBlackTitle))
+
             checkBox.performClick()
 
             val lp = ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -126,11 +132,6 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
             e.datatype = "we"
         }
         list.addAll(profileData.work_experience)
-
-        for (e : Education in profileData?.interests) {
-            e.datatype = "interest"
-        }
-        list.addAll(profileData.interests)
 
         val linearLayoutManager = LinearLayoutManager(this)
         recycler_work_exp!!.layoutManager = linearLayoutManager
