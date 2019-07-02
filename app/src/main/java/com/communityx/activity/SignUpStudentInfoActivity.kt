@@ -137,11 +137,13 @@ class SignUpStudentInfoActivity : BaseActivity(), AppConstant, View.OnClickListe
                 fragments.add(SignUpRoleFragment())
                 fragments.add(SignUpMemberOfClub())
             }
+
             AppConstant.PROFESSIONAL -> {
                 fragments.add(SignUpStudentInfoFragment())
                 fragments.add(SignUpProfessional())
                 fragments.add(SignUpMemberOfClub())
             }
+
             AppConstant.ORGANIZATION -> fragments.add(SignUpOrganizationFragment())
         }
         fragments.add(SignUpSelectInterest())

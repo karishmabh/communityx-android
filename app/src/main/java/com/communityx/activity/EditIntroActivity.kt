@@ -43,8 +43,8 @@ class EditIntroActivity : AppCompatActivity() {
             edit_recent_job_title.setText(data.type)
             edit_location.setText(data.city)
 
-            if (!data.profile_image.isNullOrEmpty()) {
-                Picasso.get().load(data.profile_image).into(image_profile)
+            if (!data.profile.profile_image.isNullOrEmpty()) {
+                Picasso.get().load(data?.profile?.profile_image).into(image_profile)
             }
         }
     }
