@@ -1,19 +1,21 @@
 package com.communityx.fragments
 
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.text.TextUtils
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.*
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
 import butterknife.ButterKnife
 import butterknife.OnClick
-import butterknife.OnTextChanged
 import com.communityx.R
 import com.communityx.activity.SignUpStudentInfoActivity
+import com.communityx.adapters.ClubsAdapter
 import com.communityx.base.BaseSignUpFragment
 import com.communityx.models.signup.*
 import com.communityx.network.ResponseListener
@@ -34,6 +36,9 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
     private var mCategory: String? = null
     private var addedItems = mutableListOf<String>()
 
+    public var causesDataList : ArrayList<CauseData> = ArrayList()
+    public var clubsAdapter : ClubsAdapter? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up_member_of_club, null)
         ButterKnife.bind(this, view)
@@ -46,135 +51,141 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
         checkCategory()
     }
 
+    override fun validateEmpty(requestData: SignUpRequest?, showSnackbar: Boolean): Boolean {
+        return false
+    }
+
+    @OnClick(R.id.fab_add)
+    fun addTapped() {
+       openAddCauseClubDialog()
+    }
+
+
+    fun openAddCauseClubDialog() {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.layout_add_club_member)
+        dialog.setCancelable(true)
+
+        val layoutParams = dialog.window!!.attributes
+        val window = dialog.window
+        layoutParams.copyFrom(window!!.attributes)
+        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT
+        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
+        window.attributes = layoutParams
+        layoutParams.gravity = Gravity.CENTER
+
+        var buttonAdd : Button = dialog.findViewById(R.id.button_add)
+        var imageClose : ImageView = dialog.findViewById(R.id.image_close)
+
+        var editClub : AutoCompleteTextView = dialog.findViewById(R.id.edit_club)
+        var editRole : AutoCompleteTextView = dialog.findViewById(R.id.edit_role)
+
+        buttonAdd.isClickable = false
+
+        getRole(editRole)
+        editRole.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s.toString().isNotEmpty() && editClub.text.isNotEmpty()) {
+                    buttonAdd.isClickable = true
+                    buttonAdd.setBackgroundResource(R.drawable.button_active)
+                } else{
+                    buttonAdd.isClickable = false
+                    buttonAdd.setBackgroundResource(R.drawable.button_inactive)
+                }
+            }
+        })
+
+        editClub.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s.toString().isNotEmpty() && editRole.text.isNotEmpty()) {
+                    buttonAdd.isClickable = true
+                    buttonAdd.setBackgroundResource(R.drawable.button_active)
+                } else{
+                    buttonAdd.isClickable = false
+                    buttonAdd.setBackgroundResource(R.drawable.button_inactive)
+                }
+
+                when (category) {
+                    AppConstant.STUDENT -> {
+                        getClubAndRole(s.toString(), editClub)
+                    }
+
+                    AppConstant.PROFESSIONAL -> {
+                        getCauseAndRole(s.toString(), editClub)
+                    }
+                }
+            }
+        })
+
+        imageClose.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        buttonAdd.setOnClickListener {
+            causesDataList.add(CauseData(editClub.text.toString(), editRole.text.toString()))
+            dialog.dismiss()
+
+            if (clubsAdapter == null) {
+                showInList()
+            } else {
+                clubsAdapter?.notifyDataSetChanged()
+            }
+        }
+
+        dialog.show()
+    }
+
+    fun showInList() {
+        recycler_club_members?.layoutManager = LinearLayoutManager(activity)
+        clubsAdapter = ClubsAdapter(causesDataList, activity!!, this)
+        recycler_club_members?.adapter = clubsAdapter
+
+        if (causesDataList.size > 0) {
+            enableButton(true)
+        }
+    }
+
     private fun checkCategory() {
         mCategory = (activity as SignUpStudentInfoActivity).selectedCategory
 
-        addedItems.clear()
+        causesDataList.clear()
         if (mCategory.equals(AppConstant.PROFESSIONAL)) {
-            textinput_club_cause.hint = getString(R.string.organization_or_group)
-            text_heading.text = resources.getString(R.string.member_of_casuse_driven_org)
 
             var items = signUpStudent?.cause
             if (items != null) {
                 for (i in items.indices) {
-                    var name = signUpStudent?.cause?.get(i)!!.cause_name
-                    var role = signUpStudent?.cause?.get(i)!!.cause_role
-
-                    addedItems.add(name + "/ " + role)
+                    causesDataList.add(items.get(i))
                 }
             }
         } else {
             var items = signUpStudent?.club
             if (items != null) {
                 for (i in items.indices) {
-                    var name = signUpStudent?.club?.get(i)!!.club_name
-                    var role = signUpStudent?.club?.get(i)!!.club_role
-
-                    addedItems.add(name + "/ " + role)
+                    causesDataList.add(CauseData(items.get(i).club_name, items.get(i).club_role))
                 }
             }
         }
 
-        getRole()
-        checkPreviouslyAddedItems()
-    }
-
-    @OnClick(R.id.button_add)
-    fun onClubCauseAdded() {
-        if (validateFields()) {
-            initFlexLayout()
+        if (causesDataList.size > 0) {
+            showInList()
         }
-    }
-
-    fun checkPreviouslyAddedItems() {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_suggest_cause, null)
-        val textView = view.findViewById<TextView>(R.id.text_suggest_cause)
-        val imageCross = view.findViewById<ImageView>(R.id.image_cross)
-
-        imageCross.setOnClickListener { v1 ->
-            flex_layout_cause.removeView(view)
-
-            addedItems.remove(textView.text.toString())
-        }
-
-        val lp = ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        lp.setMargins(10, 10, 10, 10)
-
-
-        for (i in addedItems.indices) {
-            textView.text = addedItems.get(i)
-            flex_layout_cause.addView(view, lp)
-            text_header.visibility = View.VISIBLE
-        }
-    }
-
-    private fun initFlexLayout() {
-        val suggestedCause = edit_club.text.toString() + "/ " + edit_role.text.toString()
-
-        val view = LayoutInflater.from(context).inflate(R.layout.item_suggest_cause, null)
-        val textView = view.findViewById<TextView>(R.id.text_suggest_cause)
-        val imageCross = view.findViewById<ImageView>(R.id.image_cross)
-        textView.text = suggestedCause
-
-        imageCross.setOnClickListener { v1 ->
-            flex_layout_cause.removeView(view)
-            addedItems.remove(textView.text.toString())
-
-            if (addedItems.size == 0) {
-                text_header.visibility = View.GONE
-                enableButton(false)
-            }
-        }
-
-        val lp = ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        lp.setMargins(10, 10, 10, 10)
-
-        addedItems.add(suggestedCause)
-        text_header.visibility = View.VISIBLE
-
-        if (addedItems.size > 0) {
-            enableButton(true)
-        }
-
-        flex_layout_cause.addView(view, lp)
-
-        edit_club.text.clear()
-        edit_role.text.clear()
-
-        Utils.hideSoftKeyboard(activity)
-    }
-
-    private fun validateFields(): Boolean {
-        if (TextUtils.isEmpty(edit_club.text.toString())) {
-            if (mCategory.equals(AppConstant.PROFESSIONAL)) {
-                SnackBarFactory.createSnackBar(context, constraint_layout, getString(R.string.select_organization_group))
-            } else {
-                SnackBarFactory.createSnackBar(context, constraint_layout, getString(R.string.select_club_organization))
-            }
-            return false
-        }
-
-        if (TextUtils.isEmpty(edit_role.text.toString())) {
-            SnackBarFactory.createSnackBar(context, constraint_layout, getString(R.string.select_role))
-            return false
-        }
-
-        addedItems.forEach {
-            var itemAdded = it
-            var splitted = itemAdded.split("/")
-            var name = splitted.get(0).trim()
-
-            if (name.equals(edit_club.text.toString().trim(), true)) {
-                if (mCategory.equals(AppConstant.PROFESSIONAL)) {
-                    SnackBarFactory.createSnackBar(context, constraint_layout, getString(R.string.previously_added_cause))
-                } else if (mCategory.equals(AppConstant.STUDENT)) {
-                    SnackBarFactory.createSnackBar(context, constraint_layout, getString(R.string.previously_added_club))
-                }
-                return false
-            }
-        }
-
-        return true
     }
 
     override fun onContinueButtonClicked() {
@@ -188,21 +199,8 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
         }
     }
 
-    @OnTextChanged(R.id.edit_club)
-    fun searchCausesClub(charSequence: CharSequence) {
-        when (category) {
-            AppConstant.STUDENT -> {
-                getClubAndRole(charSequence.toString())
-            }
-
-            AppConstant.PROFESSIONAL -> {
-                getCauseAndRole(charSequence.toString())
-            }
-        }
-    }
-
     override fun setFieldsData(): Boolean {
-        if (addedItems.size == 0) {
+        if (causesDataList.size == 0) {
             SnackBarFactory.createSnackBar(context, constraint_layout, getString(R.string.select_club_organization))
             return false
         }
@@ -210,29 +208,24 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
         signUpStudent?.cause?.clear()
         signUpStudent?.club?.clear()
 
-        for (i in addedItems.indices) {
-            var text = addedItems.get(i)
-            var ArrayItem = text.split("/")
+        for (i in causesDataList.indices) {
+            var data = causesDataList.get(i)
 
             if (mCategory.equals(AppConstant.PROFESSIONAL)) {
-                signUpStudent?.cause?.add(CauseData(ArrayItem.get(0).trim(), ArrayItem.get(1).trim()))
+                signUpStudent?.cause?.add(data)
             } else {
-                signUpStudent?.club?.add(ClubData(ArrayItem.get(0).trim(), ArrayItem.get(1).trim()))
+                signUpStudent?.club?.add(ClubData(data.cause_name, data.cause_role))
             }
         }
 
         return true
     }
 
-    override fun validateEmpty(requestData: SignUpRequest?, showSnackbar: Boolean): Boolean {
-        return false
-    }
-
-    private fun getClubAndRole(query: String) {
+    private fun getClubAndRole(query: String, editClub: AutoCompleteTextView) {
         SignUpRepo.getClubAndRoles(query, object : ResponseListener<ClubAndRoleData> {
             override fun onSuccess(response: ClubAndRoleData) {
                 clubList = response.clubs
-                createClubDataId(clubList)
+                createClubDataId(clubList, editClub)
             }
 
             override fun onError(error: Any) {
@@ -242,10 +235,10 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
         })
     }
 
-    private fun getRole() {
+    private fun getRole(editRole: AutoCompleteTextView) {
         SignUpRepo.getRoles(object : ResponseListener<RoleResponse> {
             override fun onSuccess(response: RoleResponse) {
-                createRoleString(response.data[0])
+                createRoleString(response.data[0], editRole)
             }
 
             override fun onError(error: Any) {
@@ -254,18 +247,18 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
         })
     }
 
-    private fun createRoleString(data: List<RoleData>) {
+    private fun createRoleString(data: List<RoleData>, editRole: AutoCompleteTextView) {
         roleList.clear()
         data.forEach {
             roleList.add(it.name)
         }
-        setRoleData(roleList)
+        setRoleData(roleList, editRole)
     }
 
-    private fun getCauseAndRole(query: String) {
+    private fun getCauseAndRole(query: String, editClub: AutoCompleteTextView) {
         SignUpRepo.getCauseAndRoles(query, object : ResponseListener<ClubAndRoleData> {
             override fun onSuccess(response: ClubAndRoleData) {
-                createCauseDataId(response.causes)
+                createCauseDataId(response.causes, editClub)
             }
 
             override fun onError(error: Any) {
@@ -274,38 +267,38 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
         })
     }
 
-    private fun createClubDataId(clubList: List<Club>) {
+    private fun createClubDataId(clubList: List<Club>, editClub: AutoCompleteTextView) {
         clubListName.clear()
         clubList.forEach {
             clubListName.add(it.name)
         }
-        setClubData(clubListName)
+        setClubData(clubListName, editClub)
     }
 
-    private fun createCauseDataId(clubList: List<Causes>) {
+    private fun createCauseDataId(clubList: List<Causes>, editClub: AutoCompleteTextView) {
         clubListName.clear()
         clubList.forEach {
             clubListName.add(it.name)
         }
-        setClubData(clubListName)
+        setClubData(clubListName, editClub)
     }
 
-    private fun setRoleData(role: List<String>) {
+    private fun setRoleData(role: List<String>, editRole: AutoCompleteTextView) {
         val arrayAdapter =
-            ArrayAdapter(context!!, R.layout.item_member_of_club, R.id.text_item, role)
+                ArrayAdapter(context!!, R.layout.item_member_of_club, R.id.text_item, role)
 
-        edit_role.setAdapter(arrayAdapter)
-        edit_role.threshold = 1
+        editRole.setAdapter(arrayAdapter)
+        editRole.threshold = 1
     }
 
-    private fun setClubData(club: List<String>) {
+    private fun setClubData(club: List<String>, editClub: AutoCompleteTextView) {
         val arrayAdapter = ArrayAdapter(
             Objects.requireNonNull<Context>(context),
             R.layout.item_member_of_club,
             R.id.text_item,
             club
         )
-        edit_club.setAdapter(arrayAdapter)
-        edit_club.threshold = 1
+        editClub.setAdapter(arrayAdapter)
+        editClub.threshold = 1
     }
 }
