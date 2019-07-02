@@ -43,6 +43,8 @@ class FriendsFragment : Fragment() {
                 sortList(userData)
 
                 (parentFragment as MyAllFriendsFragment)?.updateTabText(0, userData.size)
+
+                if (isAdded)
                 initAllFriends(userData)
             }
 

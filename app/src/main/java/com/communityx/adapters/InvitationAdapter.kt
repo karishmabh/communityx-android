@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import butterknife.BindView
 import butterknife.ButterKnife
+import butterknife.OnClick
 import com.communityx.R
 import com.communityx.models.myallies.all_allies.DataX
 import com.communityx.models.myallies.invitation.Interest
@@ -17,7 +18,7 @@ import com.google.android.flexbox.FlexboxLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_invitation.view.*
 
-class InvitationAdapter(private val mInvitationList: List<DataX>, private val mActivity: Activity) :
+class InvitationAdapter(private val mInvitationList: ArrayList<DataX>, private val mActivity: Activity, private val iInvitationCallback: IInvitationCallback) :
     RecyclerView.Adapter<InvitationAdapter.EventHolder>() {
 
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mActivity)
@@ -35,12 +36,27 @@ class InvitationAdapter(private val mInvitationList: List<DataX>, private val mA
         return mInvitationList.size
     }
 
+    public fun updateItem(position: Int) {
+        mInvitationList.removeAt(position)
+        notifyDataSetChanged()
+    }
+
     inner class EventHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         @BindView(R.id.flex_layout_allies)
         lateinit var flexboxLayout: FlexboxLayout
 
         init {
             ButterKnife.bind(this, itemView)
+        }
+
+        @OnClick(R.id.linear_add_friend)
+        fun addFriendClicked() {
+            iInvitationCallback.onInvitationAccept(adapterPosition)
+        }
+
+        @OnClick(R.id.linear_decline)
+        fun declineRequestClicked() {
+            iInvitationCallback.onInvitationDeclined(adapterPosition)
         }
 
         fun bindData() {
@@ -86,5 +102,10 @@ class InvitationAdapter(private val mInvitationList: List<DataX>, private val mA
             lp.setMargins(10, 10, 10, 10)
             fLexLayout.addView(checkBox, lp)
         }
+    }
+
+    public interface IInvitationCallback {
+        fun onInvitationAccept(position: Int)
+        fun onInvitationDeclined(position: Int)
     }
 }

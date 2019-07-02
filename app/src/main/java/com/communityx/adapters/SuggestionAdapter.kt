@@ -18,7 +18,7 @@ import com.google.android.flexbox.FlexboxLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_connect_allies.view.*
 
-class SuggestionAdapter(private val mSuggestionList: List<DataX>, private val mActvity: Activity, private val iOnAddFriendClicked: IOnAddFriendClicked) : RecyclerView.Adapter<SuggestionAdapter.EventHolder>() {
+class SuggestionAdapter(private val mSuggestionList: ArrayList<DataX>, private val mActvity: Activity, private val iOnAddFriendClicked: IOnAddFriendClicked) : RecyclerView.Adapter<SuggestionAdapter.EventHolder>() {
 
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mActvity)
 
@@ -35,6 +35,11 @@ class SuggestionAdapter(private val mSuggestionList: List<DataX>, private val mA
         return mSuggestionList.size
     }
 
+    public fun updateItem(position: Int) {
+        mSuggestionList.removeAt(position)
+        notifyDataSetChanged()
+    }
+
     inner class EventHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         @BindView(R.id.flex_layout_allies)
@@ -46,8 +51,7 @@ class SuggestionAdapter(private val mSuggestionList: List<DataX>, private val mA
 
         @OnClick(R.id.linear_add_friend)
         fun onAddFriendClicked() {
-            itemView.linear_add_friend.visibility = View.GONE
-            iOnAddFriendClicked.sendInvitationTapped(mSuggestionList.get(adapterPosition).id)
+            iOnAddFriendClicked.sendInvitationTapped(mSuggestionList.get(adapterPosition).id, adapterPosition)
         }
 
         fun bindData() {
@@ -94,6 +98,6 @@ class SuggestionAdapter(private val mSuggestionList: List<DataX>, private val mA
     }
 
     public interface IOnAddFriendClicked {
-        fun sendInvitationTapped(id: String)
+        fun sendInvitationTapped(id: String, position: Int)
     }
 }
