@@ -78,27 +78,6 @@ class SelectedInfoInterestAdapter(val mInterestList: List<Data>, val mActvity: A
                         mSelectedIds.remove(civilRight.id)
                     }
 
-                    /*var category = (mActvity as SignUpStudentInfoActivity).selectedCategory
-
-                    if (mActvity == null) return@setOnCheckedChangeListener
-
-                    if (mSelectedIds.size > 0) {
-                        mActvity.enableButton(true)
-
-                        if (category.equals(AppConstant.ORGANIZATION)) {
-                            mActvity.changeButtonStatus(1, true)
-                        } else {
-                            mActvity.changeButtonStatus(4, true)
-                        }
-                    } else {
-                        mActvity.enableButton(false)
-
-                        if (category.equals(AppConstant.ORGANIZATION)) {
-                            mActvity.changeButtonStatus(1, false)
-                        } else {
-                            mActvity.changeButtonStatus(4, false)
-                        }
-                    }*/
                 }
 
                 val lp = ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
