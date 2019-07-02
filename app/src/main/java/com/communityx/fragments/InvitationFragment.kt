@@ -10,17 +10,22 @@ import android.widget.Toast
 import butterknife.ButterKnife
 import com.communityx.R
 import com.communityx.adapters.InvitationAdapter
+import com.communityx.models.logout.LogoutResponse
 import com.communityx.models.myallies.all_allies.AllAlliesResponse
 import com.communityx.models.myallies.all_allies.DataX
 import com.communityx.models.myallies.all_allies.UpdateInvitationRequest
-import com.communityx.models.signup.SignUpResponse
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
+import com.communityx.utils.AppConstant
+import com.communityx.utils.AppConstant.ACCEPTED
+import com.communityx.utils.AppConstant.REJECTED
 import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.fragment_invitation.*
 
-class InvitationFragment : Fragment() {
+class InvitationFragment : Fragment(), InvitationAdapter.IInvitationCallback , AppConstant {
+
     private var invitationAdapter: InvitationAdapter? = null
+    private var listInvitation: ArrayList<DataX> =  ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_invitation, container, false)
@@ -42,8 +47,12 @@ class InvitationFragment : Fragment() {
                 var data = response.data
                 var userData = data.get(0).data
 
+                listInvitation.clear()
+                listInvitation.addAll(userData)
+
                 (parentFragment as MyAllFriendsFragment)?.updateTabText(1, userData.size)
-                setAdapter(userData)
+                if (isAdded)
+                    setAdapter()
             }
 
             override fun onError(error: Any) {
@@ -53,23 +62,33 @@ class InvitationFragment : Fragment() {
         })
     }
 
-    private fun updateInvitation(updateInvitationRequest: UpdateInvitationRequest) {
-        progress_bar?.visibility = View.VISIBLE
-        DataManager.updateInvitation(activity!!, updateInvitationRequest, object : ResponseListener<SignUpResponse> {
-            override fun onSuccess(response: SignUpResponse) {
-                progress_bar?.visibility = View.GONE
-            }
-
-            override fun onError(error: Any) {
-                progress_bar?.visibility = View.GONE
-                Utils.showError(activity, frame_root, error)
-            }
-        })
-    }
-
-    fun setAdapter(mInvitationList: List<DataX>) {
+    fun setAdapter() {
         recycler_invitation_list?.layoutManager = LinearLayoutManager(activity)
-        invitationAdapter = InvitationAdapter(mInvitationList, activity!!)
+        invitationAdapter = InvitationAdapter(listInvitation, activity!!, this)
         recycler_invitation_list?.adapter = invitationAdapter
+    }
+
+    private fun updateInvitation(updateInvitationRequest: UpdateInvitationRequest, position: Int) {
+        progress_bar?.visibility = View.VISIBLE
+        DataManager.updateInvitation(activity!!, updateInvitationRequest, object : ResponseListener<LogoutResponse> {
+            override fun onSuccess(response: LogoutResponse) {
+                progress_bar?.visibility = View.GONE
+                Toast.makeText(activity, response.data.get(0), Toast.LENGTH_LONG).show()
+                invitationAdapter?.updateItem(position)
+            }
+
+            override fun onError(error: Any) {
+                progress_bar?.visibility = View.GONE
+                Utils.showError(activity, frame_root, error)
+            }
+        })
+    }
+
+    override fun onInvitationAccept(position: Int) {
+        updateInvitation(UpdateInvitationRequest(listInvitation.get(position).id, ACCEPTED), position)
+    }
+
+    override fun onInvitationDeclined(position: Int) {
+        updateInvitation(UpdateInvitationRequest(listInvitation.get(position).id, REJECTED), position)
     }
 }

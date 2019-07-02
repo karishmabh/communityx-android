@@ -4,9 +4,9 @@ import android.app.Activity
 import android.content.Context
 import com.communityx.models.connect_allies.ConnectAlliesResponse
 import com.communityx.models.connect_allies.ProfileData
+import com.communityx.models.job_companies.JobResponse
 import com.communityx.models.editinfo.Data
 import com.communityx.models.editinfo.EditInfoInterestResponse
-import com.communityx.models.job_companies.JobResponse
 import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
 import com.communityx.models.logout.LogoutResponse
@@ -15,8 +15,6 @@ import com.communityx.models.myallies.all_allies.UpdateInvitationRequest
 import com.communityx.models.profile.ProfileResponse
 import com.communityx.models.signup.EmailPhoneVerificationRequest
 import com.communityx.models.signup.SignUpResponse
-import com.communityx.models.signup.MajorMinorResponse
-import com.communityx.models.signup.MinorsData
 import com.communityx.models.signup.VerificationResponse
 import com.communityx.network.serviceRepo.AuthRepo
 import com.communityx.utils.AppConstant
@@ -116,9 +114,17 @@ object DataManager : AppConstant {
         })
     }
 
-    fun doVerifyEmailPhone(activity: Activity, emailPhoneVerificationRequest: EmailPhoneVerificationRequest, listener: ResponseListener<List<String>>) {
-        val call = DataManager.getService().verifyUser(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity), emailPhoneVerificationRequest)
-        call.enqueue(object  : Callback<VerificationResponse> {
+    fun doVerifyEmailPhone(
+        activity: Activity,
+        emailPhoneVerificationRequest: EmailPhoneVerificationRequest,
+        listener: ResponseListener<List<String>>
+    ) {
+        val call = DataManager.getService().verifyUser(
+            AuthRepo.getAccessToken(activity),
+            AuthRepo.getSessionId(activity),
+            emailPhoneVerificationRequest
+        )
+        call.enqueue(object : Callback<VerificationResponse> {
             override fun onFailure(call: Call<VerificationResponse>, t: Throwable) {
                 listener.onError(t)
             }
@@ -139,8 +145,9 @@ object DataManager : AppConstant {
     }
 
     fun getProfile(activity: Activity, listener: ResponseListener<ProfileResponse>) {
-        val call  = DataManager.getMockService().getProfile(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
-        call.enqueue(object  : Callback<ProfileResponse> {
+        val call =
+            DataManager.getMockService().getProfile(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
+        call.enqueue(object : Callback<ProfileResponse> {
             override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
                 listener.onError(t)
             }
@@ -160,7 +167,8 @@ object DataManager : AppConstant {
     }
 
     fun getConnectingAllies(activity: Activity, listener: ResponseListener<List<ProfileData>>) {
-        val call = DataManager.getService().getConnectingAllies(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
+        val call = DataManager.getService()
+            .getConnectingAllies(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
         call.enqueue(object : Callback<ConnectAlliesResponse> {
             override fun onResponse(call: Call<ConnectAlliesResponse>, response: Response<ConnectAlliesResponse>) {
                 if (!response.isSuccessful) {
@@ -181,7 +189,8 @@ object DataManager : AppConstant {
     }
 
     fun getAllAllies(activity: Activity, listener: ResponseListener<AllAlliesResponse>) {
-        val call = DataManager.getMockService().getAllAllies(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
+        val call = DataManager.getMockService()
+            .getAllAllies(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
         call.enqueue(object : Callback<AllAlliesResponse> {
             override fun onResponse(call: Call<AllAlliesResponse>, response: Response<AllAlliesResponse>) {
                 if (!response.isSuccessful) {
@@ -202,7 +211,8 @@ object DataManager : AppConstant {
     }
 
     fun getAlliesInvitation(activity: Activity, listener: ResponseListener<AllAlliesResponse>) {
-        val call = DataManager.getMockService().getAlliesInvitations(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
+        val call = DataManager.getMockService()
+            .getAlliesInvitations(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
         call.enqueue(object : Callback<AllAlliesResponse> {
             override fun onResponse(call: Call<AllAlliesResponse>, response: Response<AllAlliesResponse>) {
                 if (!response.isSuccessful) {
@@ -223,7 +233,8 @@ object DataManager : AppConstant {
     }
 
     fun getAlliesSuggestions(activity: Activity, listener: ResponseListener<AllAlliesResponse>) {
-        val call = DataManager.getMockService().getAlliesSuggestions(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
+        val call = DataManager.getMockService()
+            .getAlliesSuggestions(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
         call.enqueue(object : Callback<AllAlliesResponse> {
             override fun onResponse(call: Call<AllAlliesResponse>, response: Response<AllAlliesResponse>) {
                 if (!response.isSuccessful) {
@@ -244,7 +255,8 @@ object DataManager : AppConstant {
     }
 
     fun sendInvitation(activity: Activity, id: String, listener: ResponseListener<SignUpResponse>) {
-        val call = DataManager.getMockService().sendInvitation(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity), id)
+        val call = DataManager.getMockService()
+            .sendInvitation(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity), id)
         call.enqueue(object : Callback<SignUpResponse> {
             override fun onResponse(call: Call<SignUpResponse>, response: Response<SignUpResponse>) {
                 if (!response.isSuccessful) {
@@ -264,10 +276,10 @@ object DataManager : AppConstant {
         })
     }
 
-    fun updateInvitation(activity: Activity, updateInvitationRequest: UpdateInvitationRequest, listener: ResponseListener<SignUpResponse>) {
+    fun updateInvitation(activity: Activity, updateInvitationRequest: UpdateInvitationRequest, listener: ResponseListener<LogoutResponse>) {
         val call = DataManager.getMockService().updateInvitation(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity), updateInvitationRequest)
-        call.enqueue(object : Callback<SignUpResponse> {
-            override fun onResponse(call: Call<SignUpResponse>, response: Response<SignUpResponse>) {
+        call.enqueue(object : Callback<LogoutResponse> {
+            override fun onResponse(call: Call<LogoutResponse>, response: Response<LogoutResponse>) {
                 if (!response.isSuccessful) {
                     response.errorBody()?.let { listener.onError(it) }
                     return
@@ -279,11 +291,12 @@ object DataManager : AppConstant {
                     listener.onError(response.body()!!.error)
             }
 
-            override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
+            override fun onFailure(call: Call<LogoutResponse>, t: Throwable) {
                 listener.onError(t)
             }
         })
     }
+
     fun getInterests(context: Context, responseListener: ResponseListener<EditInfoInterestResponse>) {
         DataManager.getService().getInterests(AuthRepo.getAccessToken(context))
             .enqueue(object : Callback<EditInfoInterestResponse> {
@@ -291,7 +304,10 @@ object DataManager : AppConstant {
                     responseListener.onError(t)
                 }
 
-                override fun onResponse(call: Call<EditInfoInterestResponse>, response: Response<EditInfoInterestResponse>) {
+                override fun onResponse(
+                    call: Call<EditInfoInterestResponse>,
+                    response: Response<EditInfoInterestResponse>
+                ) {
                     if (!response.isSuccessful) {
                         response.errorBody()?.let { responseListener.onError(it) }
                         return

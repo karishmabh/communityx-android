@@ -48,7 +48,7 @@
                         android:layout_marginStart="@dimen/_2sdp"
                         android:layout_marginTop="@dimen/_2sdp"
                         android:elevation="3dp"
-                        android:src="@drawable/ic_signup_add_image"/>
+                        android:src="@drawable/ic_signup_edit_image"/>
 
                 <TextView
                         android:id="@+id/text_profile"

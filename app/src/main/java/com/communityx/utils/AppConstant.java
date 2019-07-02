@@ -43,4 +43,6 @@ public interface AppConstant {
     int REQUEST_PERMISSION_CODE = 300;
 
     String INTENT_USERLIST = "userlist";
+    String ACCEPTED = "ACCEPTED";
+    String REJECTED = "REJECTED";
 }

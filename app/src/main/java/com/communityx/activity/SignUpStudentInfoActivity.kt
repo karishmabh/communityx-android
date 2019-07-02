@@ -107,10 +107,11 @@ class SignUpStudentInfoActivity : BaseActivity(), AppConstant, View.OnClickListe
     }
 
     fun goToNextPage() {
-        if (view_pager.currentItem == 0) {
+        if (view_pager.currentItem == pagerAdapter!!.totalItems-1) {
             completedSignUp()
             return
         }
+
         view_pager?.setCurrentItem(view_pager!!.currentItem + 1, true)
     }
 
@@ -156,7 +157,7 @@ class SignUpStudentInfoActivity : BaseActivity(), AppConstant, View.OnClickListe
         dialog = CustomProgressBar.getInstance(this).showProgressDialog(getString(R.string.please_wait_while_register))
         SignUpRepo.createSignUp(this, signUpRequest!!, object : ResponseListener<SignUpResponse> {
             override fun onSuccess(response: SignUpResponse) {
-               // performLogin(signUpRequest?.phone!!, signUpRequest?.password!!)
+                performLogin(signUpRequest?.phone!!, signUpRequest?.password!!)
             }
 
             override fun onError(error: Any) {

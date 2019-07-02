@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageView
 import butterknife.BindView
 import butterknife.ButterKnife
+import butterknife.OnClick
 import com.communityx.R
 import com.communityx.models.connect_allies.Interest
 import com.communityx.models.connect_allies.Minors
@@ -19,7 +21,7 @@ import com.google.android.flexbox.FlexboxLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_connect_allies.view.*
 
-class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private val mActvity: Activity) : AppConstant,
+class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private val mActvity: Activity, private val iOnAddFriendClicked: IOnAddFriendClicked) : AppConstant,
         RecyclerView.Adapter<CommunityAlliesAdapter.EventHolder>() {
 
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mActvity)
@@ -47,6 +49,13 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
 
         init {
             ButterKnife.bind(this, itemView)
+        }
+
+        @OnClick(R.id.linear_add_friend)
+        fun onAddFriendClicked() {
+            if (mArrayList.get(adapterPosition).status.isNullOrEmpty()) {
+                iOnAddFriendClicked.sendInvitationTapped(mArrayList.get(adapterPosition).id, adapterPosition, itemView.image_request)
+            }
         }
 
         fun bindData() {
@@ -101,5 +110,9 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
             lp.setMargins(10, 10, 10, 10)
             fLexLayout.addView(checkBox, lp)
         }
+    }
+
+    public interface IOnAddFriendClicked {
+        fun sendInvitationTapped(id: String, position: Int, imageView: ImageView)
     }
 }

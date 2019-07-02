@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_suggestion.*
 class SuggestionFragment : Fragment() , SuggestionAdapter.IOnAddFriendClicked {
 
     private var suggestionAdapter: SuggestionAdapter? = null
+    private var listSuggestions: ArrayList<DataX> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_suggestion, container, false)
@@ -42,8 +43,12 @@ class SuggestionFragment : Fragment() , SuggestionAdapter.IOnAddFriendClicked {
                 var data = response.data
                 var userData = data.get(0).data
 
+                listSuggestions.clear()
+                listSuggestions = userData as ArrayList<DataX>
+
                 (parentFragment as MyAllFriendsFragment)?.updateTabText(2, userData.size)
-                setAdapter(userData)
+                if (isAdded)
+                    setAdapter()
             }
 
             override fun onError(error: Any) {
@@ -53,18 +58,21 @@ class SuggestionFragment : Fragment() , SuggestionAdapter.IOnAddFriendClicked {
         })
     }
 
-    fun setAdapter(dataX: List<DataX>) {
+    fun setAdapter() {
         recycler_suggestion_list?.layoutManager = LinearLayoutManager(activity)
-        suggestionAdapter = SuggestionAdapter(dataX, activity!!, this)
+        suggestionAdapter = SuggestionAdapter(listSuggestions, activity!!, this)
         recycler_suggestion_list?.adapter = suggestionAdapter
     }
 
-    private fun sendInvitation(id: String) {
+    private fun sendInvitation(id: String, position: Int) {
         progress_bar?.visibility = View.VISIBLE
         DataManager.sendInvitation(activity!!, id, object : ResponseListener<SignUpResponse> {
             override fun onSuccess(response: SignUpResponse) {
-                progress_bar?.visibility = View.GONE
-                Toast.makeText(activity, "Request Sent successfully!", Toast.LENGTH_SHORT).show()
+                if (isAdded) {
+                    progress_bar?.visibility = View.GONE
+                    suggestionAdapter?.updateItem(position)
+                    Toast.makeText(activity, "Request Sent successfully!", Toast.LENGTH_SHORT).show()
+                }
             }
 
             override fun onError(error: Any) {
@@ -74,7 +82,7 @@ class SuggestionFragment : Fragment() , SuggestionAdapter.IOnAddFriendClicked {
         })
     }
 
-    override fun sendInvitationTapped(id: String) {
-        sendInvitation(id)
+    override fun sendInvitationTapped(id: String, position: Int) {
+        sendInvitation(id, position)
     }
 }
