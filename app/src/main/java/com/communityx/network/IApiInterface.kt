@@ -104,7 +104,7 @@ interface IApiInterface {
     fun sendInvitation(@Header("token") token: String, @Header("session") session: String, @Field("send_to_id") userId: String): Call<SignUpResponse>
 
     @PUT("user/allies")
-    fun updateInvitation(@Header("token") token: String, @Header("session") session: String, @Body updateInvitationRequest: UpdateInvitationRequest): Call<SignUpResponse>
+    fun updateInvitation(@Header("token") token: String, @Header("session") session: String, @Body updateInvitationRequest: UpdateInvitationRequest): Call<LogoutResponse>
 
     @POST("user-club")
     fun addUserClub(@Header("token") token: String, @Body clubRequest: ClubRequest): Call<ClubResponse>

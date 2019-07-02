@@ -109,7 +109,7 @@ object SignUpRepo : BaseRepo , AppConstant {
             })
     }
 
-    fun createSignUp(context: Context, studentSignUpRequest: SignUpRequest, responseListener: ResponseListener<SignUpResponse>) {
+    fun createMockSignUp(context: Context, studentSignUpRequest: SignUpRequest, responseListener: ResponseListener<SignUpResponse>) {
         var call: Call<SignUpResponse>? = null
         if (studentSignUpRequest.role.equals(STUDENT)) {
             call = DataManager.getMockService().signUpStudent(AuthRepo.getAccessToken(context), studentSignUpRequest)
@@ -136,6 +136,27 @@ object SignUpRepo : BaseRepo , AppConstant {
                 }
             }
         })
+    }
+
+    fun createSignUp(context: Context, studentSignUpRequest: SignUpRequest, responseListener: ResponseListener<SignUpResponse>) {
+        DataManager.getService().signUp(AuthRepo.getAccessToken(context), studentSignUpRequest)
+            .enqueue(object : Callback<SignUpResponse> {
+                override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
+                    responseListener.onError(t)
+                }
+
+                override fun onResponse(call: Call<SignUpResponse>, response: Response<SignUpResponse>) {
+                    if (!response.isSuccessful) {
+                        response.errorBody()?.let { responseListener.onError(it) }
+                        return
+                    }
+                    if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                        responseListener.onSuccess(response.body()!!)
+                    } else {
+                        responseListener.onError(response.body()!!.error)
+                    }
+                }
+            })
     }
 
     fun getClubAndRoles(query: String,responseListener: ResponseListener<ClubAndRoleData>) {
