@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.EditEducationActivity"></activity>
+        <activity android:name=".activity.EditEducationActivity" />
         <activity android:name=".activity.EditClubActivity" />
         <activity android:name=".activity.AddVolunteerExperience" />
         <activity android:name=".activity.AddExperienceActivity" />
@@ -63,7 +63,8 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".activity.MessageActivity" />
         <activity android:name=".activity.SignupCategoryActivity" />
-        <activity android:name=".activity.ProfileActivity" />
+        <activity android:name=".activity.ProfileActivity"
+                  android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity android:name=".activity.EventDetailActivity" />
         <activity android:name=".activity.DonatedCreatedActivity" />
         <activity android:name=".activity.CrowdfundingDetailActivity" />

@@ -7,7 +7,24 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.communityx.R
 import com.communityx.models.profile.Education
+import kotlinx.android.synthetic.main.activity_edit_education.*
 import kotlinx.android.synthetic.main.fragment_sign_up_select_role.*
+import kotlinx.android.synthetic.main.fragment_sign_up_select_role.image_freshman
+import kotlinx.android.synthetic.main.fragment_sign_up_select_role.image_freshman_tick
+import kotlinx.android.synthetic.main.fragment_sign_up_select_role.image_junior
+import kotlinx.android.synthetic.main.fragment_sign_up_select_role.image_junior_tick
+import kotlinx.android.synthetic.main.fragment_sign_up_select_role.image_senior
+import kotlinx.android.synthetic.main.fragment_sign_up_select_role.image_senior_tick
+import kotlinx.android.synthetic.main.fragment_sign_up_select_role.image_sophomore
+import kotlinx.android.synthetic.main.fragment_sign_up_select_role.image_sophomore_tick
+import kotlinx.android.synthetic.main.fragment_sign_up_select_role.text_freshman
+import kotlinx.android.synthetic.main.fragment_sign_up_select_role.text_junior
+import kotlinx.android.synthetic.main.fragment_sign_up_select_role.text_senior
+import kotlinx.android.synthetic.main.fragment_sign_up_select_role.text_sophomore
+import kotlinx.android.synthetic.main.fragment_sign_up_select_role.view_freshman_main
+import kotlinx.android.synthetic.main.fragment_sign_up_select_role.view_junior_main
+import kotlinx.android.synthetic.main.fragment_sign_up_select_role.view_senior_main
+import kotlinx.android.synthetic.main.fragment_sign_up_select_role.view_sophomore_main
 
 class EditEducationActivity : BaseActivity() {
 
@@ -33,7 +50,17 @@ class EditEducationActivity : BaseActivity() {
         setUpData(education!!)
     }
 
-    fun setUpData(education: Education) {
+    private fun setUpData(education: Education) {
+
+        if (education.type == "COLLEGE_UNIVERSITY") {
+            view_school.visibility = View.GONE
+            layout_college.visibility = View.VISIBLE
+            edit_college_name.setText(education.name)
+        } else {
+            view_college.visibility = View.GONE
+            layout_school.visibility = View.VISIBLE
+            edit_school_name.setText(education.name)
+        }
 
         if (education.role == "SENIOR") {
 

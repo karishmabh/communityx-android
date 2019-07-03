@@ -269,4 +269,5 @@
     <string name="string_clubs_and_organization">Clubs and Organizations</string>
     <string name="string_work_experience">Work Experience</string>
     <string name="string_no_clubs_or_organizations_added">No clubs or organizations added</string>
+    <string name="string_sclubname_exists">This club name already exists.</string>
 </resources>
