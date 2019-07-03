@@ -164,8 +164,8 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
 
     private fun checkCategory() {
         mCategory = (activity as SignUpStudentInfoActivity).selectedCategory
-
         causesDataList.clear()
+
         if (mCategory.equals(AppConstant.PROFESSIONAL)) {
 
             var items = signUpStudent?.cause
@@ -185,6 +185,8 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
 
         if (causesDataList.size > 0) {
             showInList()
+        } else {
+            constraint_no_selection.visibility = View.VISIBLE
         }
     }
 
@@ -225,7 +227,10 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
         SignUpRepo.getClubAndRoles(query, object : ResponseListener<ClubAndRoleData> {
             override fun onSuccess(response: ClubAndRoleData) {
                 clubList = response.clubs
-                createClubDataId(clubList, editClub)
+
+                if (clubList != null) {
+                    createClubDataId(clubList, editClub)
+                }
             }
 
             override fun onError(error: Any) {
@@ -238,7 +243,7 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
     private fun getRole(editRole: AutoCompleteTextView) {
         SignUpRepo.getRoles(object : ResponseListener<RoleResponse> {
             override fun onSuccess(response: RoleResponse) {
-                createRoleString(response.data[0], editRole)
+                createRoleString(response.data, editRole)
             }
 
             override fun onError(error: Any) {

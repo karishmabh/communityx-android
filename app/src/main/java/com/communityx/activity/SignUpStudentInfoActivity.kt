@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
 import android.view.Window
+import android.widget.Toast
 import com.communityx.R
 import com.communityx.adapters.SignUpPagerAdapter
 import com.communityx.custom_views.CustomViewPager
@@ -21,6 +22,7 @@ import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.session.SessionManager
 import com.communityx.utils.AppConstant
 import com.communityx.utils.AppConstant.SESSION_KEY
+import com.communityx.utils.AppPreference
 import com.communityx.utils.CustomProgressBar
 import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.activity_sign_up_student_info.*
@@ -107,11 +109,10 @@ class SignUpStudentInfoActivity : BaseActivity(), AppConstant, View.OnClickListe
     }
 
     fun goToNextPage() {
-        if (view_pager.currentItem == pagerAdapter!!.totalItems-1) {
+        if (view_pager.currentItem == 5) {
             completedSignUp()
             return
         }
-
         view_pager?.setCurrentItem(view_pager!!.currentItem + 1, true)
     }
 
@@ -133,31 +134,30 @@ class SignUpStudentInfoActivity : BaseActivity(), AppConstant, View.OnClickListe
         val fragments = ArrayList<Fragment>()
         when (selectedCategory) {
             AppConstant.STUDENT -> {
-                fragments.add(SignUpStudentInfoFragment())
+               // fragments.add(SignUpStudentInfoFragment())
                 fragments.add(SignUpSchoolCollegeFragment())
                 fragments.add(SignUpRoleFragment())
                 fragments.add(SignUpMemberOfClub())
             }
-
             AppConstant.PROFESSIONAL -> {
                 fragments.add(SignUpStudentInfoFragment())
                 fragments.add(SignUpProfessional())
                 fragments.add(SignUpMemberOfClub())
             }
-
             AppConstant.ORGANIZATION -> fragments.add(SignUpOrganizationFragment())
         }
         fragments.add(SignUpSelectInterest())
         return fragments
     }
 
-
-    //todo : hard coded string
     private fun completedSignUp() {
         dialog = CustomProgressBar.getInstance(this).showProgressDialog(getString(R.string.please_wait_while_register))
         SignUpRepo.createSignUp(this, signUpRequest!!, object : ResponseListener<SignUpResponse> {
             override fun onSuccess(response: SignUpResponse) {
-                performLogin(signUpRequest?.phone!!, signUpRequest?.password!!)
+                dialog.dismiss()
+                AppPreference.getInstance().setString(AppConstant.PREF_USER_ID, response.data.get(0).user_id)
+                Toast.makeText(this@SignUpStudentInfoActivity, "You have successfully signed up!", Toast.LENGTH_LONG).show()
+                view_pager?.setCurrentItem(view_pager!!.currentItem + 1, true)
             }
 
             override fun onError(error: Any) {
