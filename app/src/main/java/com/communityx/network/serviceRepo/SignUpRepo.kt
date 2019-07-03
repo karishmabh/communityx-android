@@ -4,8 +4,10 @@ import android.content.Context
 import com.communityx.models.job_companies.Data
 import com.communityx.models.job_companies.JobResponse
 import com.communityx.models.signup.*
+import com.communityx.models.signup.club.ClubResponse
 import com.communityx.models.signup.image.ImageUploadRequest
 import com.communityx.models.signup.image.ImageUploadResponse
+import com.communityx.models.signup.institute.InstituteRequest
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
 import com.communityx.utils.AppConstant
@@ -30,7 +32,7 @@ object SignUpRepo : BaseRepo , AppConstant {
                         return
                     }
                     if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
-                        responseListener.onSuccess(response.body()?.data!![0])
+                        responseListener.onSuccess(response.body()?.data!!)
                     } else {
                         responseListener.onError(response.body()!!.error)
                     }
@@ -109,14 +111,14 @@ object SignUpRepo : BaseRepo , AppConstant {
             })
     }
 
-    fun createMockSignUp(context: Context, studentSignUpRequest: SignUpRequest, responseListener: ResponseListener<SignUpResponse>) {
+    fun createSignUp(context: Context, studentSignUpRequest: SignUpRequest, responseListener: ResponseListener<SignUpResponse>) {
         var call: Call<SignUpResponse>? = null
         if (studentSignUpRequest.role.equals(STUDENT)) {
-            call = DataManager.getMockService().signUpStudent(AuthRepo.getAccessToken(context), studentSignUpRequest)
+            call = DataManager.getService().signUpStudent(AuthRepo.getAccessToken(context), studentSignUpRequest)
         } else if (studentSignUpRequest.role.equals(PROFESSIONAL)) {
-            call = DataManager.getMockService().signUpProfessional(AuthRepo.getAccessToken(context), studentSignUpRequest)
+            call = DataManager.getService().signUpProfessional(AuthRepo.getAccessToken(context), studentSignUpRequest)
         } else {
-            call = DataManager.getMockService().signUpOrg(AuthRepo.getAccessToken(context), studentSignUpRequest)
+            call = DataManager.getService().signUpOrg(AuthRepo.getAccessToken(context), studentSignUpRequest)
         }
 
         call.enqueue(object : Callback<SignUpResponse> {
@@ -138,7 +140,7 @@ object SignUpRepo : BaseRepo , AppConstant {
         })
     }
 
-    fun createSignUp(context: Context, studentSignUpRequest: SignUpRequest, responseListener: ResponseListener<SignUpResponse>) {
+   /* fun createSignUp(context: Context, studentSignUpRequest: SignUpRequest, responseListener: ResponseListener<SignUpResponse>) {
         DataManager.getService().signUp(AuthRepo.getAccessToken(context), studentSignUpRequest)
             .enqueue(object : Callback<SignUpResponse> {
                 override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
@@ -157,7 +159,7 @@ object SignUpRepo : BaseRepo , AppConstant {
                     }
                 }
             })
-    }
+    }*/
 
     fun getClubAndRoles(query: String,responseListener: ResponseListener<ClubAndRoleData>) {
         DataManager.getService().getClubsAndRoles(AuthRepo.getAccessToken(),query)
@@ -200,6 +202,27 @@ object SignUpRepo : BaseRepo , AppConstant {
                     }
                 }
 
+            })
+    }
+
+    fun addInstitute(context: Context, instituteRequest: InstituteRequest, responseListener: ResponseListener<List<DataX>>) {
+        DataManager.getService().addUserInstitute(AuthRepo.getAccessToken(context), instituteRequest)
+            .enqueue(object : Callback<ClubResponse> {
+                override fun onFailure(call: Call<ClubResponse>, t: Throwable) {
+                    responseListener.onError(t)
+                }
+
+                override fun onResponse(call: Call<ClubResponse>, response: Response<ClubResponse>) {
+                    if (!response.isSuccessful) {
+                        response.errorBody()?.let { responseListener.onError(it) }
+                        return
+                    }
+                    if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                        responseListener.onSuccess(response.body()!!.data)
+                    } else {
+                        responseListener.onError(response.body()!!.error)
+                    }
+                }
             })
     }
 

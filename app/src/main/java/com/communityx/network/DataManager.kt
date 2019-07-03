@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Context
 import com.communityx.models.connect_allies.ConnectAlliesResponse
 import com.communityx.models.connect_allies.ProfileData
-import com.communityx.models.job_companies.JobResponse
-import com.communityx.models.editinfo.Data
 import com.communityx.models.editinfo.EditInfoInterestResponse
 import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
@@ -276,8 +274,16 @@ object DataManager : AppConstant {
         })
     }
 
-    fun updateInvitation(activity: Activity, updateInvitationRequest: UpdateInvitationRequest, listener: ResponseListener<LogoutResponse>) {
-        val call = DataManager.getMockService().updateInvitation(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity), updateInvitationRequest)
+    fun updateInvitation(
+        activity: Activity,
+        updateInvitationRequest: UpdateInvitationRequest,
+        listener: ResponseListener<LogoutResponse>
+    ) {
+        val call = DataManager.getMockService().updateInvitation(
+            AuthRepo.getAccessToken(activity),
+            AuthRepo.getSessionId(activity),
+            updateInvitationRequest
+        )
         call.enqueue(object : Callback<LogoutResponse> {
             override fun onResponse(call: Call<LogoutResponse>, response: Response<LogoutResponse>) {
                 if (!response.isSuccessful) {
@@ -320,6 +326,7 @@ object DataManager : AppConstant {
                 }
             })
     }
+
     fun getEditInterests(context: Context, responseListener: ResponseListener<EditInfoInterestResponse>) {
         DataManager.getMockService().getEditIntrest(AuthRepo.getAccessToken(context))
             .enqueue(object : Callback<EditInfoInterestResponse> {
@@ -327,7 +334,10 @@ object DataManager : AppConstant {
                     responseListener.onError(t)
                 }
 
-                override fun onResponse(call: Call<EditInfoInterestResponse>, response: Response<EditInfoInterestResponse>) {
+                override fun onResponse(
+                    call: Call<EditInfoInterestResponse>,
+                    response: Response<EditInfoInterestResponse>
+                ) {
                     if (!response.isSuccessful) {
                         response.errorBody()?.let { responseListener.onError(it) }
                         return
