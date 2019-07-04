@@ -7,6 +7,9 @@ import com.communityx.models.connect_allies.ProfileData
 import com.communityx.models.job_companies.JobResponse
 import com.communityx.models.editinfo.Data
 import com.communityx.models.editinfo.EditInfoInterestResponse
+import com.communityx.models.editintroinfo.EditIntroInfoRequest
+import com.communityx.models.editintroinfo.EditIntroInfoResponse
+import com.communityx.models.headline.EditHeadlineRequest
 import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
 import com.communityx.models.logout.LogoutResponse
@@ -153,6 +156,50 @@ object DataManager : AppConstant {
             }
 
             override fun onResponse(call: Call<ProfileResponse>, response: Response<ProfileResponse>) {
+                if (!response.isSuccessful) {
+                    response.errorBody()?.let { listener.onError(it) }
+                    return
+                }
+
+                if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS)
+                    listener.onSuccess(response.body()!!)
+                else
+                    listener.onError(response.body()!!.error)
+            }
+        })
+    }
+
+    fun updateIntroInfo(activity: Activity, editIntroInfoRequest: EditIntroInfoRequest, listener: ResponseListener<EditIntroInfoResponse>) {
+        val call =
+                DataManager.getMockService().updateIntroInfo(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity), editIntroInfoRequest)
+        call.enqueue(object : Callback<EditIntroInfoResponse> {
+            override fun onFailure(call: Call<EditIntroInfoResponse>, t: Throwable) {
+                listener.onError(t)
+            }
+
+            override fun onResponse(call: Call<EditIntroInfoResponse>, response: Response<EditIntroInfoResponse>) {
+                if (!response.isSuccessful) {
+                    response.errorBody()?.let { listener.onError(it) }
+                    return
+                }
+
+                if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS)
+                    listener.onSuccess(response.body()!!)
+                else
+                    listener.onError(response.body()!!.error)
+            }
+        })
+    }
+
+    fun updateHeadline(activity: Activity, editHeadlineRequest: EditHeadlineRequest, listener: ResponseListener<EditIntroInfoResponse>) {
+        val call =
+                DataManager.getMockService().updateHeadline(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity), editHeadlineRequest)
+        call.enqueue(object : Callback<EditIntroInfoResponse> {
+            override fun onFailure(call: Call<EditIntroInfoResponse>, t: Throwable) {
+                listener.onError(t)
+            }
+
+            override fun onResponse(call: Call<EditIntroInfoResponse>, response: Response<EditIntroInfoResponse>) {
                 if (!response.isSuccessful) {
                     response.errorBody()?.let { listener.onError(it) }
                     return

@@ -2,6 +2,9 @@ package com.communityx.network
 
 import com.communityx.models.connect_allies.ConnectAlliesResponse
 import com.communityx.models.editinfo.EditInfoInterestResponse
+import com.communityx.models.editintroinfo.EditIntroInfoRequest
+import com.communityx.models.editintroinfo.EditIntroInfoResponse
+import com.communityx.models.headline.EditHeadlineRequest
 import com.communityx.models.job_companies.JobResponse
 import com.communityx.models.login.LoginRequest
 import com.communityx.models.login.LoginResponse
@@ -126,5 +129,11 @@ interface IApiInterface {
 
     @POST("suggest-interest")
     fun suggestInterest(@Header("token") token: String, @Body signUpRequest: SignUpRequest): Call<SignUpResponse>
+
+    @PUT("user/update-user")
+    fun updateIntroInfo(@Header("token") token: String, @Header("session") session: String, @Body editIntroInfoRequest: EditIntroInfoRequest) : Call<EditIntroInfoResponse>
+
+    @PUT("user/update-headline")
+    fun updateHeadline(@Header("token") token: String, @Header("session") session: String, @Body editHeadlineRequest: EditHeadlineRequest): Call<EditIntroInfoResponse>
 
 }
