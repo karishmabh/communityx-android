@@ -4,6 +4,8 @@ import android.content.Context
 import com.communityx.models.job_companies.Data
 import com.communityx.models.job_companies.JobResponse
 import com.communityx.models.signup.*
+import com.communityx.models.signup.cause.CauseRequest
+import com.communityx.models.signup.club.ClubRequest
 import com.communityx.models.signup.club.ClubResponse
 import com.communityx.models.signup.image.ImageUploadRequest
 import com.communityx.models.signup.image.ImageUploadResponse
@@ -161,7 +163,7 @@ object SignUpRepo : BaseRepo , AppConstant {
             })
     }*/
 
-    fun getClubAndRoles(query: String,responseListener: ResponseListener<ClubAndRoleData>) {
+    fun getClubAndRoles(query: String,responseListener: ResponseListener<List<Club>>) {
         DataManager.getService().getClubsAndRoles(AuthRepo.getAccessToken(),query)
             .enqueue(object : Callback<ClubAndRoleResponse> {
                 override fun onFailure(call: Call<ClubAndRoleResponse>, t: Throwable) {
@@ -174,7 +176,7 @@ object SignUpRepo : BaseRepo , AppConstant {
                         return
                     }
                     if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
-                        responseListener.onSuccess(response.body()!!.data[0])
+                        responseListener.onSuccess(response.body()!!.data)
                     } else {
                         responseListener.onError(response.body()!!.error)
                     }
@@ -183,7 +185,7 @@ object SignUpRepo : BaseRepo , AppConstant {
             })
     }
 
-    fun getCauseAndRoles(query: String, responseListener: ResponseListener<ClubAndRoleData>) {
+    fun getCauseAndRoles(query: String, responseListener: ResponseListener<List<Club>>) {
         DataManager.getService().getCausesAndRoles(AuthRepo.getAccessToken(),query)
             .enqueue(object : Callback<ClubAndRoleResponse> {
                 override fun onFailure(call: Call<ClubAndRoleResponse>, t: Throwable) {
@@ -196,7 +198,7 @@ object SignUpRepo : BaseRepo , AppConstant {
                         return
                     }
                     if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
-                        responseListener.onSuccess(response.body()!!.data[0])
+                        responseListener.onSuccess(response.body()!!.data)
                     } else {
                         responseListener.onError(response.body()!!.error)
                     }
@@ -207,6 +209,91 @@ object SignUpRepo : BaseRepo , AppConstant {
 
     fun addInstitute(context: Context, instituteRequest: InstituteRequest, responseListener: ResponseListener<List<DataX>>) {
         DataManager.getService().addUserInstitute(AuthRepo.getAccessToken(context), instituteRequest)
+            .enqueue(object : Callback<ClubResponse> {
+                override fun onFailure(call: Call<ClubResponse>, t: Throwable) {
+                    responseListener.onError(t)
+                }
+
+                override fun onResponse(call: Call<ClubResponse>, response: Response<ClubResponse>) {
+                    if (!response.isSuccessful) {
+                        response.errorBody()?.let { responseListener.onError(it) }
+                        return
+                    }
+                    if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                        responseListener.onSuccess(response.body()!!.data)
+                    } else {
+                        responseListener.onError(response.body()!!.error)
+                    }
+                }
+            })
+    }
+
+    fun addInterests(context: Context, interestRequest: InterestRequest, responseListener: ResponseListener<List<DataX>>) {
+        DataManager.getService().addUserInterest(AuthRepo.getAccessToken(context), interestRequest)
+            .enqueue(object : Callback<ClubResponse> {
+                override fun onFailure(call: Call<ClubResponse>, t: Throwable) {
+                    responseListener.onError(t)
+                }
+
+                override fun onResponse(call: Call<ClubResponse>, response: Response<ClubResponse>) {
+                    if (!response.isSuccessful) {
+                        response.errorBody()?.let { responseListener.onError(it) }
+                        return
+                    }
+                    if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                        responseListener.onSuccess(response.body()!!.data)
+                    } else {
+                        responseListener.onError(response.body()!!.error)
+                    }
+                }
+            })
+    }
+
+    fun suggestInterests(context: Context, interestRequest: InterestRequest, responseListener: ResponseListener<List<DataX>>) {
+        DataManager.getService().suggestInterest(AuthRepo.getAccessToken(context), interestRequest)
+            .enqueue(object : Callback<ClubResponse> {
+                override fun onFailure(call: Call<ClubResponse>, t: Throwable) {
+                    responseListener.onError(t)
+                }
+
+                override fun onResponse(call: Call<ClubResponse>, response: Response<ClubResponse>) {
+                    if (!response.isSuccessful) {
+                        response.errorBody()?.let { responseListener.onError(it) }
+                        return
+                    }
+                    if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                        responseListener.onSuccess(response.body()!!.data)
+                    } else {
+                        responseListener.onError(response.body()!!.error)
+                    }
+                }
+            })
+    }
+
+    fun addUserClub(context: Context, clubRequest: ClubRequest, responseListener: ResponseListener<List<DataX>>) {
+        DataManager.getService().addUserClub(AuthRepo.getAccessToken(context), clubRequest)
+            .enqueue(object : Callback<ClubResponse> {
+                override fun onFailure(call: Call<ClubResponse>, t: Throwable) {
+                    responseListener.onError(t)
+                }
+
+                override fun onResponse(call: Call<ClubResponse>, response: Response<ClubResponse>) {
+                    if (!response.isSuccessful) {
+                        response.errorBody()?.let { responseListener.onError(it) }
+                        return
+                    }
+                    if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                        responseListener.onSuccess(response.body()!!.data)
+                    } else {
+                        responseListener.onError(response.body()!!.error)
+                    }
+                }
+            })
+    }
+
+
+    fun addUserCause(context: Context, causeRequest: CauseRequest, responseListener: ResponseListener<List<DataX>>) {
+        DataManager.getService().addUserCause(AuthRepo.getAccessToken(context), causeRequest)
             .enqueue(object : Callback<ClubResponse> {
                 override fun onFailure(call: Call<ClubResponse>, t: Throwable) {
                     responseListener.onError(t)
@@ -270,8 +357,8 @@ object SignUpRepo : BaseRepo , AppConstant {
             })
     }
 
-    fun getRoles(responseListener: ResponseListener<RoleResponse>) {
-        DataManager.getService().getRoles(AuthRepo.getAccessToken())
+    fun getRoles(type: String, responseListener: ResponseListener<RoleResponse>) {
+        DataManager.getService().getRoles(AuthRepo.getAccessToken(), type)
             .enqueue(object : Callback<RoleResponse> {
                 override fun onFailure(call: Call<RoleResponse>, t: Throwable) {
                     responseListener.onError(t)

@@ -116,6 +116,10 @@ class SignUpStudentInfoActivity : BaseActivity(), AppConstant, View.OnClickListe
         view_pager?.setCurrentItem(view_pager!!.currentItem + 1, true)
     }
 
+    fun changeContinueClick(value: Boolean) {
+        button_continue.isClickable = value
+    }
+
     fun enableButton(enable: Boolean?) {
         enable?.let {
             Utils.enableButton(button_continue, it)
@@ -134,7 +138,7 @@ class SignUpStudentInfoActivity : BaseActivity(), AppConstant, View.OnClickListe
         val fragments = ArrayList<Fragment>()
         when (selectedCategory) {
             AppConstant.STUDENT -> {
-               // fragments.add(SignUpStudentInfoFragment())
+                fragments.add(SignUpStudentInfoFragment())
                 fragments.add(SignUpSchoolCollegeFragment())
                 fragments.add(SignUpRoleFragment())
                 fragments.add(SignUpMemberOfClub())

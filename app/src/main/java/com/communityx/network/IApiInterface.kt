@@ -72,7 +72,7 @@ interface IApiInterface {
     fun getCausesAndRoles(@Header("token") token: String,@Query("q") query: String): Call<ClubAndRoleResponse>
 
     @GET("roles")
-    fun getRoles(@Header("token") token: String): Call<RoleResponse>
+    fun getRoles(@Header("token") token: String, @Query("type") type: String): Call<RoleResponse>
 
     @GET("user/friend-suggest-list")
     fun getConnectingAllies(@Header("token") token: String, @Header("session") session: String): Call<ConnectAlliesResponse>
@@ -122,7 +122,10 @@ interface IApiInterface {
     fun addUserCompany(@Header("token") token: String, @Body companyRequest: CompanyRequest): Call<ClubResponse>
 
     @POST("user-interest")
-    fun addUserInterest(@Header("token") token: String, @Body signUpRequest: SignUpRequest): Call<SignUpResponse>
+    fun addUserInterest(@Header("token") token: String, @Body interestRequest: InterestRequest): Call<ClubResponse>
+
+    @POST("suggest-interest")
+    fun suggestInterest(@Header("token") token: String, @Body interestRequest: InterestRequest): Call<ClubResponse>
 
     @POST("suggest-interest")
     fun suggestInterest(@Header("token") token: String, @Body signUpRequest: SignUpRequest): Call<SignUpResponse>
