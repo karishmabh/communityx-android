@@ -9,31 +9,18 @@ import com.communityx.utils.AppPreference
 object SessionManager : AppConstant {
 
     public fun setSession(loginData: Data) {
+
         AppPreference.getInstance().setString(AppConstant.PREF_SESSION_ID, loginData.session.session_id)
         AppPreference.getInstance().setString(AppConstant.PREF_EMAIL, loginData.user.email)
         AppPreference.getInstance().setString(AppConstant.PREF_USERIMAGE, loginData.user.profile.profile_image)
-        AppPreference.getInstance().setString(AppConstant.PREF_CATEGORY, loginData.user.category)
+        AppPreference.getInstance().setString(AppConstant.PREF_CATEGORY, loginData.user.type)
         AppPreference.getInstance().setBoolean(AppConstant.PREF_IS_LOGIN, true)
 
         AppPreference.getInstance().setString(PREF_USERNAME,
-            if (loginData.user.category == ORGANIZATION) loginData.user.profile.organization_name
-            else loginData.user.profile.full_name
+            if (loginData.user.type == ORGANIZATION) loginData.user.name
+            else loginData.user.name
         )
 
-        when (loginData.user.category) {
-            STUDENT -> AppPreference.getInstance().setString(
-                PREF_STANDARD_NAME,
-                loginData.user.profile.standard.name
-            )
-            PROFESSIONAL -> AppPreference.getInstance().setString(
-                PREF_COMPANY_NAME,
-                loginData.user.profile.company.name
-            )
-            ORGANIZATION -> AppPreference.getInstance().setString(
-                PREF_WEBSITE_NAME,
-                loginData.user.profile.website_name
-            )
-        }
     }
 
     public fun getSessionId(): String {

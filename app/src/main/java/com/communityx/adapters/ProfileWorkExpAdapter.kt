@@ -17,8 +17,10 @@ import com.communityx.R
 import com.communityx.activity.AddExperienceActivity
 import com.communityx.activity.EditClubActivity
 import com.communityx.activity.EditEducationActivity
+import com.communityx.activity.ProfileActivity
 import com.communityx.database.fakemodels.ProfileAboutModel
 import com.communityx.models.profile.Education
+import com.communityx.models.profile.profile
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import java.util.ArrayList
 
@@ -42,20 +44,24 @@ class ProfileWorkExpAdapter (private val mContext: Context, private val list: Li
         viewHolder.bindData(list[position])
 
         viewHolder.imageEdit.setOnClickListener {
-            if (viewHolder.textHeading.text == mContext.getString(R.string.string_work_experience)) {
+            if (list[position].datatype == "we") {
                 val intent = Intent(mContext, AddExperienceActivity::class.java)
                 mContext.startActivity(intent)
+                (mContext as ProfileActivity).overridePendingTransition(R.anim.anim_slide_up, R.anim.anim_stay)
             }
 
-            if (viewHolder.textHeading.text == mContext.getString(R.string.string_clubs_and_organization)) {
+            if (list[position].datatype == "club") {
                 val intent = Intent(mContext, EditClubActivity::class.java)
+                intent.putExtra("data",  list as ArrayList<Education>)
                 mContext.startActivity(intent)
+                (mContext as ProfileActivity).overridePendingTransition(R.anim.anim_slide_up, R.anim.anim_stay)
             }
 
-            if (viewHolder.textHeading.text == "Education") {
+            if (list[position].datatype == "edu") {
                 val intent = Intent(mContext, EditEducationActivity::class.java)
                 intent.putExtra("data", list[position])
                 mContext.startActivity(intent)
+                (mContext as ProfileActivity).overridePendingTransition(R.anim.anim_slide_up, R.anim.anim_stay)
             }
         }
     }
@@ -126,7 +132,6 @@ class ProfileWorkExpAdapter (private val mContext: Context, private val list: Li
 
         fun hideVisibility() {
             textHeading.visibility = View.GONE
-            imageEdit.visibility = View.GONE
         }
     }
 }

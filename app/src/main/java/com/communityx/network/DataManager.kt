@@ -81,6 +81,7 @@ object DataManager : AppConstant {
 
                 if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS)
                     listener.onSuccess(response.body()!!)
+
                 else
                     listener.onError(response.body()!!.error)
             }

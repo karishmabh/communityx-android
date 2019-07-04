@@ -84,9 +84,7 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
         image_profile.setImageURI(uri)
         text_profile.text = resources.getString(R.string.edit_profile_image)
         image_add_edit.setImageResource(R.drawable.ic_signup_edit_image)
-
     }
-
 
     @OnClick(R.id.imageView)
     fun closeTapped() {
