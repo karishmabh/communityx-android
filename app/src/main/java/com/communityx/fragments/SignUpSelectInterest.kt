@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.communityx.R
+import com.communityx.activity.SignUpStudentInfoActivity
 import com.communityx.adapters.SelectedInterestAdapter
 import com.communityx.base.BaseSignUpFragment
 import com.communityx.models.signup.DataX
@@ -202,7 +203,11 @@ class SignUpSelectInterest : BaseSignUpFragment() {
                 dialog.dismiss()
                 clickContinue = false
 
-                suggestInterests(suggestRequest)
+                if (!suggestRequest.interests.isNullOrEmpty()) {
+                    suggestInterests(suggestRequest)
+                } else {
+                    proceedOnSuccess()
+                }
             }
 
             override fun onError(error: Any) {
@@ -215,13 +220,12 @@ class SignUpSelectInterest : BaseSignUpFragment() {
 
     private fun suggestInterests(interestRequest: InterestRequest) {
         var dialog =  CustomProgressBar.getInstance(activity!!).showProgressDialog("Logging in..")
-        SignUpRepo.addInterests(activity!!, interestRequest, object : ResponseListener<List<DataX>> {
+        SignUpRepo.suggestInterests(activity!!, interestRequest, object : ResponseListener<List<DataX>> {
             override fun onSuccess(response: List<DataX>) {
                 dialog.dismiss()
                 clickContinue = false
 
-                changeButtonStatus(3, true)
-                goToNextPage()
+                proceedOnSuccess()
             }
 
             override fun onError(error: Any) {
@@ -230,6 +234,12 @@ class SignUpSelectInterest : BaseSignUpFragment() {
                 Utils.showError(activity, constraint_top, error)
             }
         })
+    }
+
+    fun proceedOnSuccess() {
+        changeButtonStatus(3, true)
+
+        (activity as SignUpStudentInfoActivity).performLogin(signUpStudent?.phone!!, signUpStudent?.password!!)
     }
 
     internal fun onCauseTyping(s: CharSequence?) {
