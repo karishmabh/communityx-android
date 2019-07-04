@@ -39,8 +39,8 @@
     <string name="what_causes_do_you_care_about">What causes do you care about?</string>
     <string name="email">Email</string>
     <string name="full_name">Full Name</string>
-    <string name="are_you_a_member_of_any_clubs">Are you a member of any clubs or organizations?
-    </string>
+    <string name="are_you_a_member_of_any_clubs">Are you a member of any clubs or organizations?</string>
+    <string name="member_of_these_clubs">You are connected to following clubs or organizations</string>
     <string name="role">Role</string>
     <string name="organization_">Organization</string>
     <string name="add_volunteer_experience">Add Volunteer Experience</string>

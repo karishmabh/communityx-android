@@ -15,18 +15,20 @@ import android.widget.TextView
 import com.communityx.R
 import com.communityx.adapters.SelectedInterestAdapter
 import com.communityx.base.BaseSignUpFragment
+import com.communityx.models.signup.DataX
+import com.communityx.models.signup.InterestRequest
 import com.communityx.models.signup.MinorsData
 import com.communityx.models.signup.SignUpRequest
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
-import com.communityx.utils.SnackBarFactory
-import com.communityx.utils.Utils
+import com.communityx.utils.*
 import kotlinx.android.synthetic.main.fragment_sign_up_select_interest.*
 
 class SignUpSelectInterest : BaseSignUpFragment() {
 
     private lateinit var mInterestAdapter : SelectedInterestAdapter
 
+    var clickContinue : Boolean = false
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_sign_up_select_interest, container, false)
     }
@@ -95,8 +97,20 @@ class SignUpSelectInterest : BaseSignUpFragment() {
 
     override fun onContinueButtonClicked() {
         if(setFieldsData()) {
-            changeButtonStatus(3, true)
-            goToNextPage()
+            var interestRequest = InterestRequest(
+                signUpStudent?.interests!!,
+                AppPreference.getInstance(activity!!).getString(AppConstant.PREF_USER_ID)
+            )
+
+            var suggestRequest = InterestRequest(
+                signUpStudent?.suggested_minors!!,
+                AppPreference.getInstance(activity!!).getString(AppConstant.PREF_USER_ID)
+            )
+
+            if (!clickContinue && isAdded) {
+                addInterests(interestRequest, suggestRequest)
+            }
+
         }
     }
 
@@ -111,7 +125,8 @@ class SignUpSelectInterest : BaseSignUpFragment() {
                         if(signUpActivity?.manaualInterest == null) {
                             signUpActivity?.manaualInterest = mutableListOf()
                         }
-                        val view = LayoutInflater.from(context).inflate(R.layout.item_suggest_cause, null)
+
+                        val view = LayoutInflater.from(context).inflate(R.layout.item_add_interest, null)
                         val textView = view.findViewById<TextView>(R.id.text_suggest_cause)
                         val imageCross = view.findViewById<ImageView>(R.id.image_cross)
                         textView.text = suggestedCause
@@ -178,6 +193,43 @@ class SignUpSelectInterest : BaseSignUpFragment() {
                 scrollView.post { scrollView.scrollTo(0, scrollView.height) }
             }
         }
+    }
+
+    private fun addInterests(interestRequest: InterestRequest, suggestRequest: InterestRequest) {
+       var dialog =  CustomProgressBar.getInstance(activity!!).showProgressDialog("Logging in..")
+        SignUpRepo.addInterests(activity!!, interestRequest, object : ResponseListener<List<DataX>> {
+            override fun onSuccess(response: List<DataX>) {
+                dialog.dismiss()
+                clickContinue = false
+
+                suggestInterests(suggestRequest)
+            }
+
+            override fun onError(error: Any) {
+                dialog.dismiss()
+                clickContinue = false
+                Utils.showError(activity, constraint_top, error)
+            }
+        })
+    }
+
+    private fun suggestInterests(interestRequest: InterestRequest) {
+        var dialog =  CustomProgressBar.getInstance(activity!!).showProgressDialog("Logging in..")
+        SignUpRepo.addInterests(activity!!, interestRequest, object : ResponseListener<List<DataX>> {
+            override fun onSuccess(response: List<DataX>) {
+                dialog.dismiss()
+                clickContinue = false
+
+                changeButtonStatus(3, true)
+                goToNextPage()
+            }
+
+            override fun onError(error: Any) {
+                dialog.dismiss()
+                clickContinue = false
+                Utils.showError(activity, constraint_top, error)
+            }
+        })
     }
 
     internal fun onCauseTyping(s: CharSequence?) {

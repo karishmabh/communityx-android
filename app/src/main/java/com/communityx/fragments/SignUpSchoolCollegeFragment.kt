@@ -53,8 +53,11 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
         isFirstLoaded = true
         initField()
 
-        edit_school_name.threshold = 0
-        edit_college_name.threshold = 0
+        edit_school_name.threshold = 1
+        edit_college_name.threshold = 1
+       // getStandardList(Qualification.COLLEGE_UNIVERSITY,"")
+       // getStandardList(Qualification.HIGH_SCHOOL,"")
+
         edit_school_name.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
@@ -232,8 +235,10 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
                 when (qualification) {
                     Qualification.HIGH_SCHOOL -> {
                         listSchool.clear()
-                        response.data[0].forEach {
-                            listSchool.add(it.name)
+                        if (!response.data.isEmpty()) {
+                            response.data.forEach {
+                                listSchool.add(it.name)
+                            }
                         }
                         if (edit_school_name == null) return
 
@@ -244,7 +249,7 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
                     }
                     Qualification.COLLEGE_UNIVERSITY -> {
                         listCollege.clear()
-                        response.data[0].forEach {
+                        response.data.forEach {
                             listCollege.add(it.name)
                         }
 

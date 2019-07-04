@@ -9,14 +9,23 @@ import android.view.ViewGroup
 import com.communityx.R
 import com.communityx.activity.SignUpStudentInfoActivity
 import com.communityx.base.BaseSignUpFragment
+import com.communityx.models.signup.DataX
 import com.communityx.models.signup.SignUpRequest
+import com.communityx.models.signup.institute.InstituteRequest
+import com.communityx.network.ResponseListener
+import com.communityx.network.serviceRepo.SignUpRepo
+import com.communityx.utils.AppConstant
+import com.communityx.utils.AppConstant.PREF_USER_ID
+import com.communityx.utils.AppPreference
 import com.communityx.utils.SnackBarFactory
+import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.fragment_sign_up_select_role.*
 import java.util.*
 
-class SignUpRoleFragment : BaseSignUpFragment(), View.OnClickListener {
+class SignUpRoleFragment : BaseSignUpFragment(), View.OnClickListener , AppConstant {
 
     private var standardYear: String? =null
+    private var clickContinue: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_sign_up_select_role, null)
@@ -39,9 +48,11 @@ class SignUpRoleFragment : BaseSignUpFragment(), View.OnClickListener {
 
     override fun onContinueButtonClicked() {
         if(setFieldsData()) {
-            changeButtonStatus(2, true)
-            goToNextPage()
-            enableButton(true)
+
+            if (!clickContinue) {
+                clickContinue = true
+                addInstitute()
+            }
         }
     }
 
@@ -168,6 +179,33 @@ class SignUpRoleFragment : BaseSignUpFragment(), View.OnClickListener {
                 image_junior_tick.visibility = View.GONE
             }
         }
+    }
+
+    private fun addInstitute() {
+        val instituteRequest = InstituteRequest(
+            signUpStudent?.standard_name!!,
+            signUpStudent?.standard_year!!,
+            signUpStudent?.standard!!,
+            AppPreference.getInstance(activity!!).getString(PREF_USER_ID))
+
+
+        progress_bar.visibility = View.VISIBLE
+        SignUpRepo.addInstitute(activity!!, instituteRequest, object : ResponseListener<List<DataX>> {
+            override fun onSuccess(response: List<DataX>) {
+
+                clickContinue = false
+                progress_bar.visibility = View.GONE
+                changeButtonStatus(2, true)
+                goToNextPage()
+                enableButton(true)
+            }
+
+            override fun onError(error: Any) {
+                clickContinue = false
+                Utils.showError(activity, constraint_layout, error)
+                progress_bar.visibility = View.GONE
+            }
+        })
     }
 
     private enum class Role {
