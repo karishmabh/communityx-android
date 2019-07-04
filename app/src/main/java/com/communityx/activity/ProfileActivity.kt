@@ -1,30 +1,33 @@
 package com.communityx.activity
 
+import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import android.widget.CheckBox
+import android.view.*
+import android.widget.*
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.communityx.R
 import com.communityx.adapters.ProfileWorkExpAdapter
+import com.communityx.models.editintroinfo.EditIntroInfoResponse
+import com.communityx.models.headline.EditHeadlineRequest
 import com.communityx.models.profile.*
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
-import com.communityx.utils.AppConstant
+import com.communityx.utils.*
+import com.communityx.utils.AppConstant.USER_ID
 import com.communityx.utils.AppConstant.UserName
-import com.communityx.utils.CustomProgressBar
-import com.communityx.utils.DialogHelper
-import com.communityx.utils.Utils
 import com.google.android.flexbox.FlexboxLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.activity_profile.text_headline
 import kotlinx.android.synthetic.main.activity_profile.text_name
 import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.layout_add_headline.*
 
 class ProfileActivity : AppCompatActivity(), AppConstant {
 
@@ -50,7 +53,8 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
 
     @OnClick(R.id.button_add_headline)
     internal fun addHeadlineTapped() {
-        DialogHelper.showHeadlineDialog(this)
+
+       showHeadlineDialog(this)
     }
 
     @OnClick(R.id.edit_profile)
@@ -140,5 +144,49 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
 
         val adapter = ProfileWorkExpAdapter(this, list)
         recycler_work_exp!!.adapter = adapter
+    }
+
+    fun showHeadlineDialog(context: Context) {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.layout_add_headline)
+        dialog.setCancelable(true)
+
+        val layoutParams = dialog.window!!.attributes
+        val window = dialog.window
+        layoutParams.copyFrom(window!!.attributes)
+        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT
+        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
+        window.attributes = layoutParams
+        layoutParams.gravity = Gravity.CENTER
+
+        val imageClose = dialog.findViewById<ImageView>(R.id.image_close)
+        val saveHeadLine = dialog.findViewById<Button>(R.id.button_continue)
+        val editHeadLine = dialog.findViewById<EditText>(R.id.edit_headline)
+
+        saveHeadLine.setOnClickListener {
+
+            var editHeadlineRequest = EditHeadlineRequest(editHeadLine.text.toString(), AppPreference.getInstance(this).getString(USER_ID))
+
+            val progressDialog = CustomProgressBar.getInstance(this).showProgressDialog("Updating headline...")
+            progressDialog.show()
+
+            DataManager.updateHeadline(this, editHeadlineRequest, object : ResponseListener<EditIntroInfoResponse> {
+                override fun onSuccess(response: EditIntroInfoResponse) {
+                    Toast.makeText(this@ProfileActivity, "Headline updated successfully", Toast.LENGTH_LONG).show()
+                    dialog.dismiss()
+                    progressDialog.dismiss()
+                }
+
+                override fun onError(error: Any) {
+                    dialog.dismiss()
+                    progressDialog.dismiss()
+                }
+            })
+        }
+
+        imageClose.setOnClickListener { dialog.dismiss() }
+
+        dialog.show()
     }
 }

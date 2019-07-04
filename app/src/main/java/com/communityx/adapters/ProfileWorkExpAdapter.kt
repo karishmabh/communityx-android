@@ -46,6 +46,7 @@ class ProfileWorkExpAdapter (private val mContext: Context, private val list: Li
         viewHolder.imageEdit.setOnClickListener {
             if (list[position].datatype == "we") {
                 val intent = Intent(mContext, AddExperienceActivity::class.java)
+                intent.putExtra("data", list[position])
                 mContext.startActivity(intent)
                 (mContext as ProfileActivity).overridePendingTransition(R.anim.anim_slide_up, R.anim.anim_stay)
             }
