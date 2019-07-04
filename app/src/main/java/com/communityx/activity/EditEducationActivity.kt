@@ -49,6 +49,104 @@ class EditEducationActivity : BaseActivity() {
         education = intent.getSerializableExtra("data") as Education
         setUpData(education!!)
     }
+    @OnClick(R.id.view_freshman_main)
+    fun freshman()
+    {
+        view_freshman_main.background = resources.getDrawable(R.drawable.border_orange_bg)
+        view_sophomore_main.background = resources.getDrawable(R.drawable.bordered_bg)
+        view_junior_main.background = resources.getDrawable(R.drawable.bordered_bg)
+        view_senior_main.background = resources.getDrawable(R.drawable.bordered_bg)
+
+        image_senior.setImageResource(R.drawable.ic_signup_senior_deselect)
+        image_freshman.setImageResource(R.drawable.ic_signup_freshman_select)
+        image_sophomore.setImageResource(R.drawable.ic_signup_sophomore_deselect)
+        image_junior.setImageResource(R.drawable.ic_signup_junior_deselect)
+
+        text_freshman.setTextColor(this.resources.getColor(R.color.colorBlackTitle))
+        text_sophomore.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
+        text_junior.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
+        text_senior.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
+
+        image_senior_tick.visibility = View.GONE
+        image_freshman_tick.visibility = View.VISIBLE
+        image_sophomore_tick.visibility = View.GONE
+        image_junior_tick.visibility = View.GONE
+
+
+    }
+    @OnClick(R.id.view_sophomore_main)
+    fun sophomore()
+    {
+        view_senior_main.background = resources.getDrawable(R.drawable.bordered_bg)
+        view_freshman_main.background = resources.getDrawable(R.drawable.bordered_bg)
+        view_sophomore_main.background = resources.getDrawable(R.drawable.border_orange_bg)
+        view_junior_main.background = resources.getDrawable(R.drawable.bordered_bg)
+
+        image_senior.setImageResource(R.drawable.ic_signup_senior_deselect)
+        image_freshman.setImageResource(R.drawable.ic_signup_freshman_deselect)
+        image_sophomore.setImageResource(R.drawable.ic_signup_sophomore_select)
+        image_junior.setImageResource(R.drawable.ic_signup_junior_deselect)
+
+        text_senior.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
+        text_freshman.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
+        text_sophomore.setTextColor(this.resources.getColor(R.color.colorBlackTitle))
+        text_junior.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
+
+        image_senior_tick.visibility = View.GONE
+        image_freshman_tick.visibility = View.GONE
+        image_sophomore_tick.visibility = View.VISIBLE
+        image_junior_tick.visibility = View.GONE
+
+    }
+    @OnClick(R.id.view_junior_main)
+    fun junior()
+    {
+        view_senior_main.background = resources.getDrawable(R.drawable.bordered_bg)
+        view_freshman_main.background = resources.getDrawable(R.drawable.bordered_bg)
+        view_sophomore_main.background = resources.getDrawable(R.drawable.bordered_bg)
+        view_junior_main.background = resources.getDrawable(R.drawable.border_orange_bg)
+
+        image_senior.setImageResource(R.drawable.ic_signup_senior_deselect)
+        image_freshman.setImageResource(R.drawable.ic_signup_freshman_deselect)
+        image_sophomore.setImageResource(R.drawable.ic_signup_sophomore_deselect)
+        image_junior.setImageResource(R.drawable.ic_signup_junior_select)
+
+        text_senior.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
+        text_freshman.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
+        text_sophomore.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
+        text_junior.setTextColor(this.resources.getColor(R.color.colorBlackTitle))
+
+        image_senior_tick.visibility = View.GONE
+        image_freshman_tick.visibility = View.GONE
+        image_sophomore_tick.visibility = View.GONE
+        image_junior_tick.visibility = View.VISIBLE
+
+    }
+    @OnClick(R.id.view_senior_main)
+    fun senior()
+    {
+        view_senior_main.background = resources.getDrawable(R.drawable.border_orange_bg)
+        view_freshman_main.background = resources.getDrawable(R.drawable.bordered_bg)
+        view_sophomore_main.background = resources.getDrawable(R.drawable.bordered_bg)
+        view_junior_main.background = resources.getDrawable(R.drawable.bordered_bg)
+
+        image_senior.setImageResource(R.drawable.ic_signup_senior_select)
+        image_freshman.setImageResource(R.drawable.ic_signup_freshman_deselect)
+        image_sophomore.setImageResource(R.drawable.ic_signup_sophomore_deselect)
+        image_junior.setImageResource(R.drawable.ic_signup_junior_deselect)
+
+        text_senior.setTextColor(this.resources.getColor(R.color.colorBlackTitle))
+        text_freshman.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
+        text_sophomore.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
+        text_junior.setTextColor(this.resources.getColor(R.color.colorLightestGrey))
+
+        image_senior_tick.visibility = View.VISIBLE
+        image_freshman_tick.visibility = View.GONE
+        image_sophomore_tick.visibility = View.GONE
+        image_junior_tick.visibility = View.GONE
+
+    }
+
 
     private fun setUpData(education: Education) {
 
@@ -83,6 +181,16 @@ class EditEducationActivity : BaseActivity() {
             image_freshman_tick.visibility = View.GONE
             image_sophomore_tick.visibility = View.GONE
             image_junior_tick.visibility = View.GONE
+
+            if(image_senior==image_senior)
+            {
+                image_freshman.setImageResource(R.drawable.ic_signup_freshman_deselect)
+                image_sophomore.setImageResource(R.drawable.ic_signup_sophomore_deselect)
+                image_junior.setImageResource(R.drawable.ic_signup_junior_deselect)
+                image_senior.setImageResource(R.drawable.ic_signup_senior_select)
+
+            }
+
         } else if (education.role == "FRESHMAN") {
             view_freshman_main.background = resources.getDrawable(R.drawable.border_orange_bg)
             view_sophomore_main.background = resources.getDrawable(R.drawable.bordered_bg)
@@ -103,6 +211,16 @@ class EditEducationActivity : BaseActivity() {
             image_sophomore_tick.visibility = View.GONE
             image_junior_tick.visibility = View.GONE
             image_senior_tick.visibility = View.GONE
+
+            if(image_freshman==image_freshman)
+            {
+                image_freshman.setImageResource(R.drawable.ic_signup_freshman_select)
+                image_sophomore.setImageResource(R.drawable.ic_signup_sophomore_deselect)
+                image_junior.setImageResource(R.drawable.ic_signup_junior_deselect)
+                image_senior.setImageResource(R.drawable.ic_signup_senior_deselect)
+            }
+
+
 
         } else if (education.role == "SOPHOMORE") {
 
@@ -125,6 +243,14 @@ class EditEducationActivity : BaseActivity() {
             image_freshman_tick.visibility = View.GONE
             image_junior_tick.visibility = View.GONE
             image_senior_tick.visibility = View.GONE
+
+            if(image_sophomore_tick==image_freshman)
+            {
+                image_freshman.setImageResource(R.drawable.ic_signup_freshman_deselect)
+                image_sophomore.setImageResource(R.drawable.ic_signup_sophomore_select)
+                image_junior.setImageResource(R.drawable.ic_signup_junior_deselect)
+                image_senior.setImageResource(R.drawable.ic_signup_senior_deselect)
+            }
         } else if (education.role == "JUNIOR") {
 
             view_junior_main.background = resources.getDrawable(R.drawable.border_orange_bg)
@@ -146,6 +272,13 @@ class EditEducationActivity : BaseActivity() {
             image_freshman_tick.visibility = View.GONE
             image_sophomore_tick.visibility = View.GONE
             image_senior_tick.visibility = View.GONE
+
+            if(image_junior==image_junior)
+                image_freshman.setImageResource(R.drawable.ic_signup_freshman_deselect)
+                image_sophomore.setImageResource(R.drawable.ic_signup_sophomore_deselect)
+                image_junior.setImageResource(R.drawable.ic_signup_junior_select)
+                image_senior.setImageResource(R.drawable.ic_signup_senior_deselect)
+
+            }
         }
     }
-}

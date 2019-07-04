@@ -131,14 +131,12 @@ class EditClubActivity : BaseActivity() {
             dialog.dismiss()
         }
 
-        buttonAdd.setOnClickListener {
+       buttonAdd.setOnClickListener {
 
             if (causesDataList.size > 0) {
 
-                //val iterator = causesDataList.iterator()
-
                 for (item in causesDataList) {
-                    if (item.cause_name.equals(editClub.text.toString())) {
+                    if (item.cause_name.equals(editClub.text.toString(),true)) {
                         textError.text = getString(R.string.string_sclubname_exists)
                         textError.visibility = View.VISIBLE
                         break
@@ -175,7 +173,6 @@ class EditClubActivity : BaseActivity() {
 
     private fun getIntentData() {
         receivedCausesDataList = intent.getSerializableExtra("data") as ArrayList<Education>
-
         prepareCausesData(receivedCausesDataList)
     }
 

@@ -262,18 +262,18 @@
                 app:layout_constraintTop_toBottomOf="@id/view_category">
 
                 <TextView
-                    android:id="@+id/text_heading"
-                    style="@style/text_size_small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_22sdp"
-                    android:layout_marginTop="@dimen/_18sdp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="@string/please_select_your_classification"
-                    android:textColor="@color/colorBlackTitle"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                        android:id="@+id/text_heading"
+                        style="@style/text_size_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_22sdp"
+                        android:layout_marginTop="@dimen/_18sdp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="@string/please_select_your_classification"
+                        android:textColor="@color/colorBlackTitle"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" tools:ignore="DuplicateIds"/>
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/view_role"
@@ -499,6 +499,18 @@
                     </FrameLayout>
 
                 </android.support.constraint.ConstraintLayout>
+                <Button
+                        android:id="@+id/button_save"
+                        android:text="@string/save"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view_role"
+                        android:background="@drawable/button_active"
+                        android:textColor="@color/colorWhite"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
             </android.support.constraint.ConstraintLayout>
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
