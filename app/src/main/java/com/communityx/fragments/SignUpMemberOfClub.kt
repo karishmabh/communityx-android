@@ -18,26 +18,31 @@ import com.communityx.activity.SignUpStudentInfoActivity
 import com.communityx.adapters.ClubsAdapter
 import com.communityx.base.BaseSignUpFragment
 import com.communityx.models.signup.*
+import com.communityx.models.signup.cause.CauseRequest
+import com.communityx.models.signup.club.ClubRequest
+import com.communityx.models.signup.institute.InstituteRequest
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.AppConstant
+import com.communityx.utils.AppConstant.PREF_USER_ID
+import com.communityx.utils.AppConstant.STUDENT
+import com.communityx.utils.AppPreference
 import com.communityx.utils.SnackBarFactory
 import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.fragment_sign_up_member_of_club.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
+class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant , ClubsAdapter.IClubCallback {
 
     private var clubList: List<Club> = ArrayList()
-    private var causeList: List<Causes> = ArrayList()
     private var clubListName: MutableList<String> = mutableListOf()
     private var roleList: MutableList<String> = mutableListOf()
     private var mCategory: String? = null
-    private var addedItems = mutableListOf<String>()
 
     public var causesDataList : ArrayList<CauseData> = ArrayList()
     public var clubsAdapter : ClubsAdapter? = null
+    private var clickContinue :Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up_member_of_club, null)
@@ -53,6 +58,10 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
 
     override fun validateEmpty(requestData: SignUpRequest?, showSnackbar: Boolean): Boolean {
         return false
+    }
+
+    override fun setFieldsData(): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     @OnClick(R.id.fab_add)
@@ -147,19 +156,32 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
             } else {
                 clubsAdapter?.notifyDataSetChanged()
             }
+
+            checkVisibility()
         }
 
         dialog.show()
     }
 
+    private fun checkVisibility() {
+        if (causesDataList.size > 0) {
+            setVisibility(true)
+            enableButton(true)
+        } else {
+            setVisibility(false)
+            enableButton(false)
+        }
+    }
+
     fun showInList() {
         recycler_club_members?.layoutManager = LinearLayoutManager(activity)
-        clubsAdapter = ClubsAdapter(causesDataList, activity!!, this)
+        clubsAdapter = ClubsAdapter(causesDataList, activity!!, this, this)
         recycler_club_members?.adapter = clubsAdapter
+    }
 
-        if (causesDataList.size > 0) {
-            enableButton(true)
-        }
+    fun setVisibility(hasData: Boolean) {
+        constraint_no_selection.visibility = if (hasData) View.GONE else View.VISIBLE
+        text_heading.visibility = if (hasData) View.VISIBLE else View.GONE
     }
 
     private fun checkCategory() {
@@ -191,42 +213,45 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
     }
 
     override fun onContinueButtonClicked() {
-        if (setFieldsData()) {
-            if (mCategory.equals(AppConstant.PROFESSIONAL)) {
-                changeButtonStatus(2, true)
-            } else {
-                changeButtonStatus(3, true)
-            }
-            goToNextPage()
+        if (!clickContinue) {
+            validateData()
         }
     }
 
-    override fun setFieldsData(): Boolean {
+    fun validateData() {
         if (causesDataList.size == 0) {
             SnackBarFactory.createSnackBar(context, constraint_layout, getString(R.string.select_club_organization))
-            return false
+            return
         }
 
         signUpStudent?.cause?.clear()
         signUpStudent?.club?.clear()
+        clickContinue = true
 
         for (i in causesDataList.indices) {
             var data = causesDataList.get(i)
 
             if (mCategory.equals(AppConstant.PROFESSIONAL)) {
                 signUpStudent?.cause?.add(data)
+
+                var causeList =  signUpStudent?.cause
+                var causeRequest = CauseRequest(AppPreference.getInstance(activity!!).getString(PREF_USER_ID), causeList!!)
+                addCause(causeRequest)
+
             } else {
                 signUpStudent?.club?.add(ClubData(data.cause_name, data.cause_role))
+
+                var clubList =  signUpStudent?.club
+                var clubRequest = ClubRequest(AppPreference.getInstance(activity!!).getString(PREF_USER_ID), clubList!!)
+                addClub(clubRequest)
             }
         }
-
-        return true
     }
 
     private fun getClubAndRole(query: String, editClub: AutoCompleteTextView) {
-        SignUpRepo.getClubAndRoles(query, object : ResponseListener<ClubAndRoleData> {
-            override fun onSuccess(response: ClubAndRoleData) {
-                clubList = response.clubs
+        SignUpRepo.getClubAndRoles(query, object : ResponseListener<List<Club>> {
+            override fun onSuccess(response: List<Club>) {
+                clubList = response
 
                 if (clubList != null) {
                     createClubDataId(clubList, editClub)
@@ -241,7 +266,14 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
     }
 
     private fun getRole(editRole: AutoCompleteTextView) {
-        SignUpRepo.getRoles(object : ResponseListener<RoleResponse> {
+        var type: String
+        if (category.equals(STUDENT)) {
+            type = "CLUB"
+        } else {
+            type = "CAUSE"
+        }
+
+        SignUpRepo.getRoles(type, object : ResponseListener<RoleResponse> {
             override fun onSuccess(response: RoleResponse) {
                 createRoleString(response.data, editRole)
             }
@@ -261,9 +293,9 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
     }
 
     private fun getCauseAndRole(query: String, editClub: AutoCompleteTextView) {
-        SignUpRepo.getCauseAndRoles(query, object : ResponseListener<ClubAndRoleData> {
-            override fun onSuccess(response: ClubAndRoleData) {
-                createCauseDataId(response.causes, editClub)
+        SignUpRepo.getCauseAndRoles(query, object : ResponseListener<List<Club>> {
+            override fun onSuccess(response: List<Club>) {
+                createCauseDataId(response, editClub)
             }
 
             override fun onError(error: Any) {
@@ -280,7 +312,7 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
         setClubData(clubListName, editClub)
     }
 
-    private fun createCauseDataId(clubList: List<Causes>, editClub: AutoCompleteTextView) {
+    private fun createCauseDataId(clubList: List<Club>, editClub: AutoCompleteTextView) {
         clubListName.clear()
         clubList.forEach {
             clubListName.add(it.name)
@@ -305,5 +337,54 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant {
         )
         editClub.setAdapter(arrayAdapter)
         editClub.threshold = 1
+    }
+
+    private fun addClub(clubRequest: ClubRequest) {
+        progress_bar.visibility = View.VISIBLE
+        SignUpRepo.addUserClub(activity!!, clubRequest, object : ResponseListener<List<DataX>> {
+            override fun onSuccess(response: List<DataX>) {
+
+                proccedOnSuccess()
+                clickContinue = false
+                progress_bar.visibility = View.GONE
+            }
+
+            override fun onError(error: Any) {
+                clickContinue = false
+                Utils.showError(activity, constraint_layout, error)
+                progress_bar.visibility = View.GONE
+            }
+        })
+    }
+
+    private fun addCause(causeRequest: CauseRequest) {
+        progress_bar.visibility = View.VISIBLE
+        SignUpRepo.addUserCause(activity!!, causeRequest, object : ResponseListener<List<DataX>> {
+            override fun onSuccess(response: List<DataX>) {
+
+                proccedOnSuccess()
+                clickContinue = false
+                progress_bar.visibility = View.GONE
+            }
+
+            override fun onError(error: Any) {
+                clickContinue = false
+                Utils.showError(activity, constraint_layout, error)
+                progress_bar.visibility = View.GONE
+            }
+        })
+    }
+
+    private fun proccedOnSuccess() {
+        if (mCategory.equals(AppConstant.PROFESSIONAL)) {
+            changeButtonStatus(2, true)
+        } else {
+            changeButtonStatus(3, true)
+        }
+        goToNextPage()
+    }
+
+    override fun onItemRemoved() {
+        checkVisibility()
     }
 }
