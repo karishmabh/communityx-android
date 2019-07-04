@@ -53,8 +53,11 @@ class SignUpSchoolCollegeFragment : BaseSignUpFragment(), View.OnClickListener {
         isFirstLoaded = true
         initField()
 
-        edit_school_name.threshold = 0
-        edit_college_name.threshold = 0
+        edit_school_name.threshold = 1
+        edit_college_name.threshold = 1
+       // getStandardList(Qualification.COLLEGE_UNIVERSITY,"")
+       // getStandardList(Qualification.HIGH_SCHOOL,"")
+
         edit_school_name.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
