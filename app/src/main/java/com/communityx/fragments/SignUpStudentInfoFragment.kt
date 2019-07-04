@@ -182,28 +182,9 @@ class SignUpStudentInfoFragment : BaseSignUpFragment(), AppConstant, View.OnClic
     }
 
     override fun onContinueButtonClicked() {
-
         if (setFieldsData()) {
-            context?.let {
-                val dialog = CustomProgressBar.getInstance(it).showProgressDialog("verifying data ...")
-                dialog.show()
-                val emailPhoneVerificationRequest = EmailPhoneVerificationRequest(signUpActivity?.signUpRequest?.phone.toString().trim(), signUpActivity?.signUpRequest?.email.toString().trim())
-
-                activity?.let {
-                    DataManager.doVerifyEmailPhone(it, emailPhoneVerificationRequest, object : ResponseListener<List<String>> {
-                        override fun onSuccess(response: List<String>) {
-                            dialog.dismiss()
-                            changeButtonStatus(0, true)
-                            goToNextPage()
-                        }
-
-                        override fun onError(error: Any) {
-                            dialog.dismiss()
-                            Utils.showError(activity, constraint_top, error)
-                        }
-                    })
-                }
-            }
+            changeButtonStatus(0, true)
+            goToNextPage()
         }
     }
 

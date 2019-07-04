@@ -20,7 +20,6 @@ import com.communityx.base.BaseSignUpFragment
 import com.communityx.models.signup.*
 import com.communityx.models.signup.cause.CauseRequest
 import com.communityx.models.signup.club.ClubRequest
-import com.communityx.models.signup.institute.InstituteRequest
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.AppConstant
@@ -43,6 +42,7 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant , ClubsAdapter.IClu
     public var causesDataList : ArrayList<CauseData> = ArrayList()
     public var clubsAdapter : ClubsAdapter? = null
     private var clickContinue :Boolean = false
+    private var isProfessional: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up_member_of_club, null)
@@ -190,6 +190,7 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant , ClubsAdapter.IClu
 
         if (mCategory.equals(AppConstant.PROFESSIONAL)) {
 
+            isProfessional = true
             var items = signUpStudent?.cause
             if (items != null) {
                 for (i in items.indices) {
@@ -197,6 +198,7 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant , ClubsAdapter.IClu
                 }
             }
         } else {
+            isProfessional = false
             var items = signUpStudent?.club
             if (items != null) {
                 for (i in items.indices) {
@@ -233,18 +235,21 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant , ClubsAdapter.IClu
 
             if (mCategory.equals(AppConstant.PROFESSIONAL)) {
                 signUpStudent?.cause?.add(data)
-
-                var causeList =  signUpStudent?.cause
-                var causeRequest = CauseRequest(AppPreference.getInstance(activity!!).getString(PREF_USER_ID), causeList!!)
-                addCause(causeRequest)
-
             } else {
                 signUpStudent?.club?.add(ClubData(data.cause_name, data.cause_role))
 
-                var clubList =  signUpStudent?.club
-                var clubRequest = ClubRequest(AppPreference.getInstance(activity!!).getString(PREF_USER_ID), clubList!!)
-                addClub(clubRequest)
             }
+        }
+
+        if (mCategory.equals(AppConstant.PROFESSIONAL)) {
+            var causeList =  signUpStudent?.cause
+            var causeRequest = CauseRequest(AppPreference.getInstance(activity!!).getString(PREF_USER_ID), causeList!!)
+            addCause(causeRequest)
+
+        } else {
+            var clubList =  signUpStudent?.club
+            var clubRequest = ClubRequest(AppPreference.getInstance(activity!!).getString(PREF_USER_ID), clubList!!)
+            addClub(clubRequest)
         }
     }
 
