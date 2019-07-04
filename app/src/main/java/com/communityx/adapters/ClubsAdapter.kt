@@ -2,29 +2,20 @@ package com.communityx.adapters
 
 import android.app.Activity
 import android.support.v7.widget.RecyclerView
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.communityx.R
 import com.communityx.fragments.SignUpMemberOfClub
-import com.communityx.models.connect_allies.Interest
-import com.communityx.models.connect_allies.Minors
-import com.communityx.models.connect_allies.ProfileData
 import com.communityx.models.signup.CauseData
 import com.communityx.utils.AppConstant
-import com.communityx.utils.AppConstant.*
-import com.google.android.flexbox.FlexboxLayout
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.item_connect_allies.view.*
 
-class ClubsAdapter(private val mArrayList: List<CauseData>, private val mActvity: Activity, private val signUpMemberOfClub: SignUpMemberOfClub) : AppConstant,
+class ClubsAdapter(private val mArrayList: List<CauseData>, private val mActvity: Activity, private val signUpMemberOfClub: SignUpMemberOfClub,
+                   private val iClubCallback: IClubCallback) : AppConstant,
         RecyclerView.Adapter<ClubsAdapter.EventHolder>() {
 
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mActvity)
@@ -41,6 +32,7 @@ class ClubsAdapter(private val mArrayList: List<CauseData>, private val mActvity
         eventHolder.imageCross.setOnClickListener {
             signUpMemberOfClub.causesDataList.removeAt(i)
             signUpMemberOfClub.clubsAdapter?.notifyDataSetChanged()
+            iClubCallback.onItemRemoved()
         }
     }
 
@@ -60,6 +52,9 @@ class ClubsAdapter(private val mArrayList: List<CauseData>, private val mActvity
         init {
             ButterKnife.bind(this, itemView)
         }
+    }
 
+    interface IClubCallback {
+        public fun onItemRemoved()
     }
 }
