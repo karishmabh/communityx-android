@@ -61,6 +61,7 @@ class SelectedInfoInterestAdapter(val mInterestList: List<Data>, val mActvity: A
                     if (civilRight.name.equals(selectedid.name, true)) {
                         checkBox.setBackgroundResource(R.drawable.bg_interest_active)
                         checkBox.setTextColor(mActvity.resources.getColor(R.color.colorBlackTitle))
+                        mSelectedIds.add(civilRight.id)
                     }
                 }
 
