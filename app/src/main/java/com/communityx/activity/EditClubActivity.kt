@@ -36,6 +36,7 @@ class EditClubActivity : BaseActivity() {
     private var clubListName: MutableList<String> = mutableListOf()
     private var receivedCausesDataList : ArrayList<Education> = ArrayList()
     private var roleList: MutableList<String> = mutableListOf()
+    protected var category: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -131,14 +132,12 @@ class EditClubActivity : BaseActivity() {
             dialog.dismiss()
         }
 
-        buttonAdd.setOnClickListener {
+       buttonAdd.setOnClickListener {
 
             if (causesDataList.size > 0) {
 
-                //val iterator = causesDataList.iterator()
-
                 for (item in causesDataList) {
-                    if (item.cause_name.equals(editClub.text.toString())) {
+                    if (item.cause_name.equals(editClub.text.toString(),true)) {
                         textError.text = getString(R.string.string_sclubname_exists)
                         textError.visibility = View.VISIBLE
                         break
@@ -175,7 +174,6 @@ class EditClubActivity : BaseActivity() {
 
     private fun getIntentData() {
         receivedCausesDataList = intent.getSerializableExtra("data") as ArrayList<Education>
-
         prepareCausesData(receivedCausesDataList)
     }
 
@@ -202,10 +200,13 @@ class EditClubActivity : BaseActivity() {
     }
 
     private fun getClubAndRole(query: String, editClub: AutoCompleteTextView) {
-        SignUpRepo.getClubAndRoles(query, object : ResponseListener<ClubAndRoleData> {
-            override fun onSuccess(response: ClubAndRoleData) {
-                clubList = response.clubs
-                createClubDataId(clubList, editClub)
+        SignUpRepo.getClubAndRoles(query, object : ResponseListener<List<Club>> {
+            override fun onSuccess(response: List<Club>) {
+                clubList = response
+
+                if (clubList != null) {
+                    createClubDataId(clubList, editClub)
+                }
             }
 
             override fun onError(error: Any) {
@@ -216,9 +217,9 @@ class EditClubActivity : BaseActivity() {
     }
 
     private fun getCauseAndRole(query: String, editClub: AutoCompleteTextView) {
-        SignUpRepo.getCauseAndRoles(query, object : ResponseListener<ClubAndRoleData> {
-            override fun onSuccess(response: ClubAndRoleData) {
-                createCauseDataId(response.causes, editClub)
+        SignUpRepo.getCauseAndRoles(query, object : ResponseListener<List<Club>> {
+            override fun onSuccess(response: List<Club>) {
+                createCauseDataId(response, editClub)
             }
 
             override fun onError(error: Any) {
@@ -235,7 +236,7 @@ class EditClubActivity : BaseActivity() {
         setClubData(clubListName, editClub)
     }
 
-    private fun createCauseDataId(clubList: List<Causes>, editClub: AutoCompleteTextView) {
+    private fun createCauseDataId(clubList: List<Club>, editClub: AutoCompleteTextView) {
         clubListName.clear()
         clubList.forEach {
             clubListName.add(it.name)
@@ -255,9 +256,16 @@ class EditClubActivity : BaseActivity() {
     }
 
     private fun getRole(editRole: AutoCompleteTextView) {
-        SignUpRepo.getRoles(object : ResponseListener<RoleResponse> {
+        var type: String
+        if (category.equals(AppConstant.STUDENT)) {
+            type = "CLUB"
+        } else {
+            type = "CAUSE"
+        }
+
+        SignUpRepo.getRoles(type, object : ResponseListener<RoleResponse> {
             override fun onSuccess(response: RoleResponse) {
-                createRoleString(response.data[0], editRole)
+                createRoleString(response.data, editRole)
             }
 
             override fun onError(error: Any) {

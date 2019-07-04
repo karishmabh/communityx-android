@@ -31,7 +31,7 @@ interface IApiInterface {
     @POST("basic-auth")
     fun getBasicAuth(@Body oAuthRequest: OAuthRequest): Call<OAuthResponse>
 
-    @GET("major")
+    @GET("interests")
     fun getMajorMinor(@Header("token") token: String): Call<MajorMinorResponse>
 
     @GET("interests")
@@ -46,10 +46,10 @@ interface IApiInterface {
     @POST("login")
     fun doLogin(@Header("token") token: String, @Body loginRequest: LoginRequest): Call<LoginResponse>
 
-    @POST("otp")
+    @POST("send-otp")
     fun generateOtp(@Header("token") token: String, @Body otpRequest: OtpRequest): Call<OtpResponse>
 
-    @POST("otp-verify")
+    @POST("verify-otp")
     fun verifyOtp(@Header("token") token: String, @Body verifyOtpRequest: VerifyOtpRequest): Call<OtpResponse>
 
     @Multipart
@@ -75,7 +75,7 @@ interface IApiInterface {
     fun getCausesAndRoles(@Header("token") token: String,@Query("q") query: String): Call<ClubAndRoleResponse>
 
     @GET("roles")
-    fun getRoles(@Header("token") token: String): Call<RoleResponse>
+    fun getRoles(@Header("token") token: String, @Query("type") type: String): Call<RoleResponse>
 
     @GET("user/friend-suggest-list")
     fun getConnectingAllies(@Header("token") token: String, @Header("session") session: String): Call<ConnectAlliesResponse>
@@ -86,8 +86,8 @@ interface IApiInterface {
     @GET("companies")
     fun getCompanies(@Header("token") token: String, @Query("q") query: String): Call<JobResponse>
 
-    @GET("standard")
-    fun getStandardList(@Header("token") token: String, @Query("standard") type: String, @Query("q") query: String) : Call<StandardResponse>
+    @GET("institute")
+    fun getStandardList(@Header("token") token: String, @Query("type") type: String, @Query("q") query: String) : Call<StandardResponse>
 
     @GET("user/profile")
     fun getProfile(@Header("token") token: String, @Header("session") session: String) : Call<ProfileResponse>
@@ -125,7 +125,10 @@ interface IApiInterface {
     fun addUserCompany(@Header("token") token: String, @Body companyRequest: CompanyRequest): Call<ClubResponse>
 
     @POST("user-interest")
-    fun addUserInterest(@Header("token") token: String, @Body signUpRequest: SignUpRequest): Call<SignUpResponse>
+    fun addUserInterest(@Header("token") token: String, @Body interestRequest: InterestRequest): Call<ClubResponse>
+
+    @POST("suggest-interest")
+    fun suggestInterest(@Header("token") token: String, @Body interestRequest: InterestRequest): Call<ClubResponse>
 
     @POST("suggest-interest")
     fun suggestInterest(@Header("token") token: String, @Body signUpRequest: SignUpRequest): Call<SignUpResponse>

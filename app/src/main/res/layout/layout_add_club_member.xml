@@ -52,6 +52,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
             android:imeOptions="actionNext"
+            android:dropDownAnchor="@id/text_heading"
             android:inputType="textCapWords"
             android:maxLength="30"
             android:singleLine="true" />
@@ -77,6 +78,7 @@
             android:fontFamily="@font/poppins_medium"
             android:imeOptions="actionDone"
             android:inputType="textCapWords"
+            android:dropDownAnchor="@id/textinput_club_cause"
             android:maxLength="30"
             android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>

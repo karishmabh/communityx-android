@@ -244,6 +244,14 @@
                     android:layout_height="wrap_content"/>
         </FrameLayout>
 
+        <ProgressBar
+                android:id="@+id/progress_bar"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"/>
     </android.support.constraint.ConstraintLayout>
-
 </android.support.constraint.ConstraintLayout>

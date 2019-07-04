@@ -44,7 +44,7 @@ class SelectedInterestAdapter(val mInterestList: List<MinorsData>, val mActvity:
             val minorsData = mInterestList[adapterPosition]
 
             itemView.text_heading.text = minorsData.name
-            initFlexLayout(minorsData.minors)
+            initFlexLayout(minorsData.subinterests)
         }
 
         private fun initFlexLayout(civilRights: List<Minor>) {
