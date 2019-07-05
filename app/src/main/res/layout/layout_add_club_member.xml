@@ -91,6 +91,7 @@
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginEnd="@dimen/_15sdp"
         android:visibility="gone"
+        android:text="@string/string_sclubname_exists"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
