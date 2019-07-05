@@ -63,6 +63,13 @@ public class Utils {
         errorManager.handleErrorResponse();
     }
 
+    public static String capitalizeFirstLetter(String original) {
+        if (original == null || original.length() == 0) {
+            return "";
+        }
+        return original.substring(0, 1).toUpperCase() + original.substring(1).toLowerCase();
+    }
+
     public static void datePicker(Activity activity, EditText editText) {
         int mYear, mMonth, mDay;
 

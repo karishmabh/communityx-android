@@ -13,10 +13,17 @@ import com.communityx.R
 import com.communityx.adapters.AutoSuggestAdapter
 import com.communityx.base.BaseSignUpFragment
 import com.communityx.models.job_companies.Data
+import com.communityx.models.signup.DataX
+import com.communityx.models.signup.RoleData
+import com.communityx.models.signup.RoleResponse
 import com.communityx.models.signup.SignUpRequest
+import com.communityx.models.signup.institute.CompanyRequest
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
+import com.communityx.utils.AppConstant
+import com.communityx.utils.AppPreference
 import com.communityx.utils.SnackBarFactory
+import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.fragment_sign_up_professional.*
 
 class SignUpProfessional : BaseSignUpFragment() {
@@ -26,6 +33,7 @@ class SignUpProfessional : BaseSignUpFragment() {
     private lateinit var handler: Handler
     private lateinit var autoSuggestAdapter: AutoSuggestAdapter
     private lateinit var autoSuggestCompanyAdapter: AutoSuggestAdapter
+    private var clickContinue : Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_sign_up_professional, container, false)
@@ -64,28 +72,29 @@ class SignUpProfessional : BaseSignUpFragment() {
 
     override fun onContinueButtonClicked() {
         if (setFieldsData())  {
-            changeButtonStatus(1, true)
-            goToNextPage()
+            if (!clickContinue)
+            addCompany(CompanyRequest(signUpStudent?.company_name!!, signUpStudent?.job_title!!,
+                AppPreference.getInstance(activity!!).getString(AppConstant.PREF_USER_ID)))
         }
     }
 
-    private fun getJobTitles(query: String) {
-        SignUpRepo.getJobTitle(query, object : ResponseListener<List<List<Data>>> {
-            override fun onSuccess(response: List<List<Data>>) {
-                setSpinnerData(response.get(0))
+    private fun getRole(query: String) {
+        var type = "COMPANY"
+        SignUpRepo.getRoles(type, object : ResponseListener<RoleResponse> {
+            override fun onSuccess(response: RoleResponse) {
+                setSpinnerData(response.data)
             }
 
             override fun onError(error: Any) {
+                Utils.showError(activity, coordinator_main, error)
             }
         })
     }
 
     private fun getCompanies(query: String) {
-        SignUpRepo.getCompanies(query, object : ResponseListener<List<List<Data>>> {
-            override fun onSuccess(response: List<List<Data>>) {
-                if (response.isNotEmpty()) {
-                    setCompanyData(response.get(0))
-                }
+        SignUpRepo.getCompanies(query, object : ResponseListener<List<Data>> {
+            override fun onSuccess(response: List<Data>) {
+                setCompanyData(response)
             }
 
             override fun onError(error: Any) {
@@ -93,7 +102,7 @@ class SignUpProfessional : BaseSignUpFragment() {
         })
     }
 
-    private fun setSpinnerData(jobs: List<Data>) {
+    private fun setSpinnerData(jobs: List<RoleData>) {
         val jobsList = mutableListOf<String>()
         jobs.forEach {
             jobsList.add(it.name)
@@ -128,7 +137,7 @@ class SignUpProfessional : BaseSignUpFragment() {
             override fun afterTextChanged(s: Editable) {
                 enableButton(true)
                 if (!TextUtils.isEmpty(auto_complete_job.text)) {
-                    getJobTitles(auto_complete_job.text.toString())
+                    getRole(auto_complete_job.text.toString())
                 }
             }
         })
@@ -137,7 +146,7 @@ class SignUpProfessional : BaseSignUpFragment() {
             override fun handleMessage(msg: Message): Boolean {
                 if (msg.what === TRIGGER_AUTO_COMPLETE) {
                     if (!TextUtils.isEmpty(auto_complete_job.text)) {
-                        getJobTitles(auto_complete_job.text.toString())
+                        getRole(auto_complete_job.text.toString())
                     }
                 }
                 return false
@@ -175,4 +184,25 @@ class SignUpProfessional : BaseSignUpFragment() {
             }
         })
     }
+
+    private fun addCompany(companyRequest: CompanyRequest) {
+        clickContinue = true
+        progress_bar.visibility = View.VISIBLE
+        SignUpRepo.addCompany(activity!!, companyRequest, object : ResponseListener<List<DataX>> {
+            override fun onSuccess(response: List<DataX>) {
+                clickContinue = false
+                progress_bar.visibility = View.GONE
+
+                changeButtonStatus(1, true)
+                goToNextPage()
+            }
+
+            override fun onError(error: Any) {
+                clickContinue = false
+                Utils.showError(activity, coordinator_main, error)
+                progress_bar.visibility = View.GONE
+            }
+        })
+    }
+
 }

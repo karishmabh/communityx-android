@@ -3,14 +3,12 @@ package com.communityx.fragments
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.TextInputLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.ImageView
+import android.widget.*
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.communityx.R
@@ -20,7 +18,6 @@ import com.communityx.base.BaseSignUpFragment
 import com.communityx.models.signup.*
 import com.communityx.models.signup.cause.CauseRequest
 import com.communityx.models.signup.club.ClubRequest
-import com.communityx.models.signup.institute.InstituteRequest
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.AppConstant
@@ -43,6 +40,7 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant , ClubsAdapter.IClu
     public var causesDataList : ArrayList<CauseData> = ArrayList()
     public var clubsAdapter : ClubsAdapter? = null
     private var clickContinue :Boolean = false
+    private var isProfessional: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sign_up_member_of_club, null)
@@ -86,6 +84,13 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant , ClubsAdapter.IClu
 
         var buttonAdd : Button = dialog.findViewById(R.id.button_add)
         var imageClose : ImageView = dialog.findViewById(R.id.image_close)
+        var textInputClub : TextInputLayout = dialog.findViewById(R.id.textinput_club_cause)
+        var textheading : TextView = dialog.findViewById(R.id.text_heading)
+
+        textheading.text = if (isProfessional) resources.getString(R.string.are_you_a_member_of_any_cause)
+                            else resources.getString(R.string.are_you_a_member_of_any_clubs)
+
+        textInputClub.hint = if (isProfessional) resources.getString(R.string.cause_name) else resources.getString(R.string.club_name)
 
         var editClub : AutoCompleteTextView = dialog.findViewById(R.id.edit_club)
         var editRole : AutoCompleteTextView = dialog.findViewById(R.id.edit_role)
@@ -190,6 +195,10 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant , ClubsAdapter.IClu
 
         if (mCategory.equals(AppConstant.PROFESSIONAL)) {
 
+            text_heading.text = resources.getString(R.string.member_of_these_causes)
+            text_no_clubs_added.text = resources.getString(R.string.string_no_cause_or_group_added)
+
+            isProfessional = true
             var items = signUpStudent?.cause
             if (items != null) {
                 for (i in items.indices) {
@@ -197,6 +206,10 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant , ClubsAdapter.IClu
                 }
             }
         } else {
+            text_heading.text = resources.getString(R.string.member_of_these_clubs)
+            text_no_clubs_added.text = resources.getString(R.string.string_no_clubs_or_organizations_added)
+
+            isProfessional = false
             var items = signUpStudent?.club
             if (items != null) {
                 for (i in items.indices) {
@@ -233,18 +246,21 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant , ClubsAdapter.IClu
 
             if (mCategory.equals(AppConstant.PROFESSIONAL)) {
                 signUpStudent?.cause?.add(data)
-
-                var causeList =  signUpStudent?.cause
-                var causeRequest = CauseRequest(AppPreference.getInstance(activity!!).getString(PREF_USER_ID), causeList!!)
-                addCause(causeRequest)
-
             } else {
                 signUpStudent?.club?.add(ClubData(data.cause_name, data.cause_role))
 
-                var clubList =  signUpStudent?.club
-                var clubRequest = ClubRequest(AppPreference.getInstance(activity!!).getString(PREF_USER_ID), clubList!!)
-                addClub(clubRequest)
             }
+        }
+
+        if (mCategory.equals(AppConstant.PROFESSIONAL)) {
+            var causeList =  signUpStudent?.cause
+            var causeRequest = CauseRequest(AppPreference.getInstance(activity!!).getString(PREF_USER_ID), causeList!!)
+            addCause(causeRequest)
+
+        } else {
+            var clubList =  signUpStudent?.club
+            var clubRequest = ClubRequest(AppPreference.getInstance(activity!!).getString(PREF_USER_ID), clubList!!)
+            addClub(clubRequest)
         }
     }
 

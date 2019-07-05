@@ -2,6 +2,7 @@ package com.communityx.fragments
 
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
@@ -13,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.communityx.R
+import com.communityx.activity.SignUpStudentInfoActivity
 import com.communityx.adapters.SelectedInterestAdapter
 import com.communityx.base.BaseSignUpFragment
 import com.communityx.models.signup.DataX
@@ -29,6 +31,7 @@ class SignUpSelectInterest : BaseSignUpFragment() {
     private lateinit var mInterestAdapter : SelectedInterestAdapter
 
     var clickContinue : Boolean = false
+    lateinit var dialog: Dialog
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_sign_up_select_interest, container, false)
     }
@@ -99,12 +102,14 @@ class SignUpSelectInterest : BaseSignUpFragment() {
         if(setFieldsData()) {
             var interestRequest = InterestRequest(
                 signUpStudent?.interests!!,
-                AppPreference.getInstance(activity!!).getString(AppConstant.PREF_USER_ID)
+                AppPreference.getInstance(activity!!).getString(AppConstant.PREF_USER_ID),
+                mutableListOf()
             )
 
             var suggestRequest = InterestRequest(
-                signUpStudent?.suggested_minors!!,
-                AppPreference.getInstance(activity!!).getString(AppConstant.PREF_USER_ID)
+                mutableListOf(),
+                AppPreference.getInstance(activity!!).getString(AppConstant.PREF_USER_ID),
+                signUpStudent?.suggested_minors!!
             )
 
             if (!clickContinue && isAdded) {
@@ -196,13 +201,17 @@ class SignUpSelectInterest : BaseSignUpFragment() {
     }
 
     private fun addInterests(interestRequest: InterestRequest, suggestRequest: InterestRequest) {
-        var dialog =  CustomProgressBar.getInstance(activity!!).showProgressDialog("Logging in..")
+       dialog =  CustomProgressBar.getInstance(activity!!).showProgressDialog("Logging in..")
         SignUpRepo.addInterests(activity!!, interestRequest, object : ResponseListener<List<DataX>> {
             override fun onSuccess(response: List<DataX>) {
-                dialog.dismiss()
                 clickContinue = false
 
-                suggestInterests(suggestRequest)
+                if (!suggestRequest.suggested_interests.isNullOrEmpty()) {
+                    suggestInterests(suggestRequest)
+                } else {
+                    dialog.dismiss()
+                    proceedOnSuccess()
+                }
             }
 
             override fun onError(error: Any) {
@@ -214,14 +223,12 @@ class SignUpSelectInterest : BaseSignUpFragment() {
     }
 
     private fun suggestInterests(interestRequest: InterestRequest) {
-        var dialog =  CustomProgressBar.getInstance(activity!!).showProgressDialog("Logging in..")
-        SignUpRepo.addInterests(activity!!, interestRequest, object : ResponseListener<List<DataX>> {
+        SignUpRepo.suggestInterests(activity!!, interestRequest, object : ResponseListener<List<DataX>> {
             override fun onSuccess(response: List<DataX>) {
                 dialog.dismiss()
                 clickContinue = false
 
-                changeButtonStatus(3, true)
-                goToNextPage()
+                proceedOnSuccess()
             }
 
             override fun onError(error: Any) {
@@ -230,6 +237,12 @@ class SignUpSelectInterest : BaseSignUpFragment() {
                 Utils.showError(activity, constraint_top, error)
             }
         })
+    }
+
+    fun proceedOnSuccess() {
+        changeButtonStatus(3, true)
+
+        (activity as SignUpStudentInfoActivity).performLogin(signUpStudent?.phone!!, signUpStudent?.password!!)
     }
 
     internal fun onCauseTyping(s: CharSequence?) {

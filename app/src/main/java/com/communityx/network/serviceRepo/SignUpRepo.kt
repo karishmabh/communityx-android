@@ -9,6 +9,7 @@ import com.communityx.models.signup.club.ClubRequest
 import com.communityx.models.signup.club.ClubResponse
 import com.communityx.models.signup.image.ImageUploadRequest
 import com.communityx.models.signup.image.ImageUploadResponse
+import com.communityx.models.signup.institute.CompanyRequest
 import com.communityx.models.signup.institute.InstituteRequest
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
@@ -228,6 +229,27 @@ object SignUpRepo : BaseRepo , AppConstant {
             })
     }
 
+    fun addCompany(context: Context, companyRequest: CompanyRequest, responseListener: ResponseListener<List<DataX>>) {
+        DataManager.getService().addUserCompany(AuthRepo.getAccessToken(context), companyRequest)
+            .enqueue(object : Callback<ClubResponse> {
+                override fun onFailure(call: Call<ClubResponse>, t: Throwable) {
+                    responseListener.onError(t)
+                }
+
+                override fun onResponse(call: Call<ClubResponse>, response: Response<ClubResponse>) {
+                    if (!response.isSuccessful) {
+                        response.errorBody()?.let { responseListener.onError(it) }
+                        return
+                    }
+                    if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                        responseListener.onSuccess(response.body()!!.data)
+                    } else {
+                        responseListener.onError(response.body()!!.error)
+                    }
+                }
+            })
+    }
+
     fun addInterests(context: Context, interestRequest: InterestRequest, responseListener: ResponseListener<List<DataX>>) {
         DataManager.getService().addUserInterest(AuthRepo.getAccessToken(context), interestRequest)
             .enqueue(object : Callback<ClubResponse> {
@@ -313,7 +335,7 @@ object SignUpRepo : BaseRepo , AppConstant {
             })
     }
 
-    fun getJobTitle(query: String, responseListener: ResponseListener<List<List<Data>>>) {
+    fun getJobTitle(query: String, responseListener: ResponseListener<List<Data>>) {
         DataManager.getService().getJobTitles(AuthRepo.getAccessToken(), query)
             .enqueue(object : Callback<JobResponse> {
                 override fun onFailure(call: Call<JobResponse>, t: Throwable) {
@@ -335,7 +357,7 @@ object SignUpRepo : BaseRepo , AppConstant {
             })
     }
 
-    fun getCompanies(query: String, responseListener: ResponseListener<List<List<Data>>>) {
+    fun getCompanies(query: String, responseListener: ResponseListener<List<Data>>) {
         DataManager.getService().getCompanies(AuthRepo.getAccessToken(), query)
             .enqueue(object : Callback<JobResponse> {
                 override fun onFailure(call: Call<JobResponse>, t: Throwable) {

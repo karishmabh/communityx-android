@@ -22,6 +22,26 @@ object SessionManager : AppConstant {
             else loginData.user.name
         )
 
+        when (loginData.user.type) {
+            STUDENT -> AppPreference.getInstance().setString(
+                PREF_STANDARD_NAME,
+                "Student, "+
+                if (loginData.user.education!=null && loginData.user.education.size > 0)
+                    loginData.user.education.get(0).name
+                else ""
+            )
+            PROFESSIONAL -> AppPreference.getInstance().setString(
+                PREF_COMPANY_NAME,
+
+             if (loginData.user.work_experience!=null && loginData.user.work_experience.size > 0)
+                 loginData.user.work_experience.get(0).role + ", " +loginData.user.work_experience.get(0).name
+             else ""
+            )
+            ORGANIZATION -> AppPreference.getInstance().setString(
+                PREF_WEBSITE_NAME,
+                "Organization, "+ loginData.user.name
+            )
+        }
     }
 
     public fun getSessionId(): String {

@@ -12,17 +12,19 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.communityx.R
-import com.communityx.models.connect_allies.Interest
-import com.communityx.models.connect_allies.Minors
-import com.communityx.models.connect_allies.ProfileData
+import com.communityx.models.myallies.invitation.Interest
+import com.communityx.models.myallies.all_allies.DataX
 import com.communityx.utils.AppConstant
 import com.communityx.utils.AppConstant.*
 import com.google.android.flexbox.FlexboxLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_connect_allies.view.*
 
-class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private val mActvity: Activity, private val iOnAddFriendClicked: IOnAddFriendClicked) : AppConstant,
-        RecyclerView.Adapter<CommunityAlliesAdapter.EventHolder>() {
+class CommunityAlliesAdapter(
+    private val mArrayList: List<DataX>,
+    private val mActvity: Activity,
+    private val iOnAddFriendClicked: IOnAddFriendClicked) : AppConstant,
+    RecyclerView.Adapter<CommunityAlliesAdapter.EventHolder>() {
 
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mActvity)
 
@@ -34,7 +36,7 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
     override fun onBindViewHolder(eventHolder: EventHolder, i: Int) {
         eventHolder.bindData()
         if (mArrayList.get(i).profile != null) {
-            val interesttList = mArrayList.get(i).minors
+            val interesttList = mArrayList.get(i).interests
             setFLexLayout(eventHolder.flexboxLayout, interesttList)
         }
     }
@@ -53,13 +55,13 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
 
         @OnClick(R.id.linear_add_friend)
         fun onAddFriendClicked() {
-            if (mArrayList.get(adapterPosition).status.isNullOrEmpty()) {
-                iOnAddFriendClicked.sendInvitationTapped(mArrayList.get(adapterPosition).id, adapterPosition, itemView.image_request)
-            }
+               iOnAddFriendClicked.sendInvitationTapped(mArrayList.get(adapterPosition).id, adapterPosition, itemView.image_request)
         }
 
         fun bindData() {
             val profileData = mArrayList.get(adapterPosition)
+
+            itemView.linear_message.visibility = View.GONE
 
             if (profileData.profile == null) return
             try {
@@ -74,24 +76,28 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
 
             }
 
-            itemView.text_description.setText(setSubTitle(profileData.category))
+            itemView.text_description.text = setSubTitle(profileData.type)
         }
 
-        fun setSubTitle(category: String) : String {
+        fun setSubTitle(category: String): String {
             when (category) {
                 STUDENT -> {
-                    itemView.text_title_name.setText(mArrayList.get(adapterPosition).profile.full_name)
-                    return "Student"+ ", "+ mArrayList.get(adapterPosition).profile.standard.name
+                    itemView.text_title_name.setText(mArrayList.get(adapterPosition).name)
+                    if (mArrayList.get(adapterPosition).education.size > 0) {
+                        return "Student" + ", " + mArrayList.get(adapterPosition).education.get(0).name
+                    }
                 }
 
-                ORGANIZATION ->  {
-                    itemView.text_title_name.setText(mArrayList.get(adapterPosition).profile.name)
-                    return "Organization" + ", " + mArrayList.get(adapterPosition).profile.name
+                ORGANIZATION -> {
+                    itemView.text_title_name.setText(mArrayList.get(adapterPosition).name)
+                    return "Organization" + ", " + mArrayList.get(adapterPosition).name
                 }
 
-                PROFESSIONAL ->  {
-                    itemView.text_title_name.setText(mArrayList.get(adapterPosition).profile.full_name)
-                    return mArrayList.get(adapterPosition).profile.job_title.name +", "+ mArrayList.get(adapterPosition).profile.company.name
+                PROFESSIONAL -> {
+                    itemView.text_title_name.setText(mArrayList.get(adapterPosition).name)
+                    if (mArrayList.get(adapterPosition).work_experience !=null && mArrayList.get(adapterPosition).work_experience.size>0) {
+                        return mArrayList.get(adapterPosition).work_experience.get(0).role+ ", " + mArrayList.get(adapterPosition).work_experience.get(0).name
+                    }
                 }
             }
             return ""
@@ -99,20 +105,21 @@ class CommunityAlliesAdapter(private val mArrayList: List<ProfileData>, private 
     }
 
 
-    fun setFLexLayout(fLexLayout: FlexboxLayout?, interest: List<Minors>) {
+    fun setFLexLayout(fLexLayout: FlexboxLayout?, interest: List<Interest>) {
         fLexLayout!!.removeAllViews()
         for (i in interest.indices) {
             val checkBox = LayoutInflater.from(mActvity).inflate(R.layout.item_interest, null) as CheckBox
             checkBox.text = interest.get(i).name
             checkBox.performClick()
 
-            val lp = ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            val lp =
+                ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             lp.setMargins(10, 10, 10, 10)
             fLexLayout.addView(checkBox, lp)
         }
     }
 
-    public interface IOnAddFriendClicked {
+    interface IOnAddFriendClicked {
         fun sendInvitationTapped(id: String, position: Int, imageView: ImageView)
     }
 }

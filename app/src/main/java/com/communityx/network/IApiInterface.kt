@@ -106,8 +106,8 @@ interface IApiInterface {
     fun getAlliesSuggestions(@Header("token") token: String, @Header("session") session: String): Call<AllAlliesResponse>
 
     @FormUrlEncoded
-    @POST("user/invitaion")
-    fun sendInvitation(@Header("token") token: String, @Header("session") session: String, @Field("send_to_id") userId: String): Call<SignUpResponse>
+    @POST("user/allies")
+    fun sendInvitation(@Header("token") token: String, @Header("session") session: String, @Field("send_to_id") userId: String): Call<LogoutResponse>
 
     @PUT("user/allies")
     fun updateInvitation(@Header("token") token: String, @Header("session") session: String, @Body updateInvitationRequest: UpdateInvitationRequest): Call<LogoutResponse>
