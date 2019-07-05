@@ -12,6 +12,9 @@ import butterknife.OnClick
 import com.communityx.R
 import com.communityx.adapters.CommunityAlliesAdapter
 import com.communityx.models.connect_allies.ProfileData
+import com.communityx.models.logout.LogoutResponse
+import com.communityx.models.myallies.all_allies.AllAlliesResponse
+import com.communityx.models.myallies.all_allies.DataX
 import com.communityx.models.signup.SignUpResponse
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
@@ -33,7 +36,7 @@ class ConnectAlliesActivity : AppCompatActivity(), CommunityAlliesAdapter.IOnAdd
         text_title.text = getString(R.string.connect_with_allias)
         text_description.text = getString(R.string.we_found_global)
 
-        getSuggestionsList()
+        getAllSuggestionsList()
     }
 
     @OnClick(R.id.button_community)
@@ -41,16 +44,16 @@ class ConnectAlliesActivity : AppCompatActivity(), CommunityAlliesAdapter.IOnAdd
         navigateActivity()
     }
 
-    private fun getSuggestionsList() {
+    private fun getAllSuggestionsList() {
         val dialog = CustomProgressBar.getInstance(this).showProgressDialog("loading...")
-        DataManager.getConnectingAllies(this, object : ResponseListener<List<ProfileData>> {
-            override fun onSuccess(response: List<ProfileData>) {
+        DataManager.getAlliesSuggestions(this, object : ResponseListener<AllAlliesResponse> {
+            override fun onSuccess(response: AllAlliesResponse) {
                 dialog.dismiss()
+                var data = response.data
+                var userData = data.get(0).data
 
-                val alliesList = response
-                listProfileData = alliesList as ArrayList<ProfileData>
-                if (alliesList.size > 0) {
-                    setAdapter(listProfileData)
+                if (userData.size > 0) {
+                    setAdapter(userData)
                 } else {
                     text_record_not_found.visibility = View.VISIBLE
                     recycler_view.visibility = View.GONE
@@ -64,7 +67,7 @@ class ConnectAlliesActivity : AppCompatActivity(), CommunityAlliesAdapter.IOnAdd
         })
     }
 
-    fun setAdapter(alliesList: List<ProfileData>) {
+    fun setAdapter(alliesList: List<DataX>) {
         recycler_view.layoutManager = LinearLayoutManager(this)
         communityAlliesAdapter = CommunityAlliesAdapter(alliesList, this, this)
         recycler_view.adapter = communityAlliesAdapter
@@ -80,8 +83,8 @@ class ConnectAlliesActivity : AppCompatActivity(), CommunityAlliesAdapter.IOnAdd
         var dialog = CustomProgressBar.getInstance(this).showProgressDialog("sending invitation..")
         dialog.show()
 
-        DataManager.sendInvitation(this, id, object : ResponseListener<SignUpResponse> {
-            override fun onSuccess(response: SignUpResponse) {
+        DataManager.sendInvitation(this, id, object : ResponseListener<LogoutResponse> {
+            override fun onSuccess(response: LogoutResponse) {
                 dialog.dismiss()
 
                 imageView.setImageResource(R.drawable.ic_suggestion_friend_sent_request)

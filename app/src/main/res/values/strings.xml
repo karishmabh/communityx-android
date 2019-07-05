@@ -40,11 +40,12 @@
     <string name="email">Email</string>
     <string name="full_name">Full Name</string>
     <string name="are_you_a_member_of_any_clubs">Are you a member of any clubs or organizations?</string>
+    <string name="are_you_a_member_of_any_cause">Are you a member of any cause or group?</string>
     <string name="member_of_these_clubs">You are connected to following clubs or organizations</string>
+    <string name="member_of_these_causes">You are connected to following causes or groups</string>
     <string name="role">Role</string>
     <string name="organization_">Organization</string>
     <string name="add_volunteer_experience">Add Volunteer Experience</string>
-    <string name="club_name">Club Name</string>
     <string name="your_role">Your Role</string>
     <string name="high_school">High School</string>
     <string name="college_university">College / University</string>
@@ -269,7 +270,10 @@
     <string name="string_clubs_and_organization">Clubs and Organizations</string>
     <string name="string_work_experience">Work Experience</string>
     <string name="string_no_clubs_or_organizations_added">No clubs or organizations added</string>
+    <string name="string_no_cause_or_group_added">No cause or group added</string>
     <string name="string_sclubname_exists">This club name already exists.</string>
     <string name="string_last_name">Last Name</string>
     <string name="string_first_name">First Name</string>
+    <string name="club_name">Club Name</string>
+    <string name="cause_name">Cause Name</string>
 </resources>
