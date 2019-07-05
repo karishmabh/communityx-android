@@ -14,8 +14,10 @@ import com.communityx.R
 import com.communityx.adapters.AutoSuggestAdapter
 import com.communityx.models.job_companies.Data
 import com.communityx.models.profile.Education
+import com.communityx.models.signup.RoleResponse
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
+import com.communityx.utils.Utils
 import com.communityx.utils.Utils.enableButton
 import kotlinx.android.synthetic.main.activity_add_experience.*
 import kotlinx.android.synthetic.main.fragment_sign_up_professional.*
@@ -37,8 +39,8 @@ class AddExperienceActivity : AppCompatActivity() {
 
         setToolbar()
         getIntentData()
-        setAutoCompleteJob()
-        setAutoCompleteCompany()
+        //setAutoCompleteJob()
+        //setAutoCompleteCompany()
     }
 
     @OnClick(R.id.imageView)
@@ -65,92 +67,7 @@ class AddExperienceActivity : AppCompatActivity() {
         auto_title.setText(education.role)
     }
 
-    private fun setAutoCompleteJob() {
-        autoSuggestAdapter = AutoSuggestAdapter(this@AddExperienceActivity, android.R.layout.simple_dropdown_item_1line)
-        auto_title.threshold = 1
-        auto_title.setAdapter(autoSuggestAdapter)
 
-        auto_title.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                if (!TextUtils.isEmpty(auto_title.text)) {
-                    getJobTitles(auto_title.text.toString())
-                }
-            }
-        })
-
-        handler = Handler(object : Handler.Callback {
-            override fun handleMessage(msg: Message): Boolean {
-                if (msg.what === TRIGGER_AUTO_COMPLETE) {
-                    if (!TextUtils.isEmpty(auto_title.text)) {
-                        getJobTitles(auto_title.text.toString())
-                    }
-                }
-                return false
-            }
-        })
-    }
-
-    private fun setAutoCompleteCompany() {
-        autoSuggestCompanyAdapter = AutoSuggestAdapter(this@AddExperienceActivity, android.R.layout.simple_dropdown_item_1line)
-        auto_company_name.threshold = 1
-        auto_company_name.setAdapter(autoSuggestCompanyAdapter)
-
-        auto_company_name.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
-            }
-            override fun afterTextChanged(s: Editable) {
-                if (!TextUtils.isEmpty(auto_company_name.text)) {
-                    getCompanies(auto_company_name.text.toString())
-                }
-            }
-        })
-
-        handler = Handler(object : Handler.Callback {
-            override fun handleMessage(msg: Message): Boolean {
-                if (msg.what === TRIGGER_AUTO_COMPLETE) {
-                    if (!TextUtils.isEmpty(auto_company_name.text)) {
-                        getCompanies(auto_company_name.text.toString())
-                    }
-                }
-                return false
-            }
-        })
-    }
-
-    private fun getJobTitles(query: String) {
-        SignUpRepo.getJobTitle(query, object : ResponseListener<List<List<Data>>> {
-            override fun onSuccess(response: List<List<Data>>) {
-                setSpinnerData(response.get(0))
-            }
-
-            override fun onError(error: Any) {
-            }
-        })
-    }
-
-    private fun getCompanies(query: String) {
-        SignUpRepo.getCompanies(query, object : ResponseListener<List<List<Data>>> {
-            override fun onSuccess(response: List<List<Data>>) {
-                if (response.isNotEmpty()) {
-                    setCompanyData(response.get(0))
-                }
-            }
-
-            override fun onError(error: Any) {
-            }
-        })
-    }
 
     private fun setSpinnerData(jobs: List<Data>) {
         val jobsList = mutableListOf<String>()
