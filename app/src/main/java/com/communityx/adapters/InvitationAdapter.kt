@@ -14,6 +14,7 @@ import com.communityx.R
 import com.communityx.models.myallies.all_allies.DataX
 import com.communityx.models.myallies.invitation.Interest
 import com.communityx.utils.AppConstant
+import com.communityx.utils.Utils
 import com.google.android.flexbox.FlexboxLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_invitation.view.*
@@ -61,11 +62,11 @@ class InvitationAdapter(private val mInvitationList: ArrayList<DataX>, private v
 
         fun bindData() {
             val item = mInvitationList.get(adapterPosition)
-            var name = item?.profile?.first_name + " " + item.profile?.last_name
-            itemView.text_title_name.text = name
+            itemView.text_title_name.text = Utils.capitalizeFirstLetter(item.name)
 
             if (!TextUtils.isEmpty(item.profile?.profile_image)) {
                 Picasso.get().load(item.profile?.profile_image)
+                    .noPlaceholder()
                     .error(R.drawable.profile_placeholder).into(itemView.circle_profile_image)
             }
 
@@ -78,16 +79,27 @@ class InvitationAdapter(private val mInvitationList: ArrayList<DataX>, private v
             var profession: String ? = null
             when (type) {
                 AppConstant.STUDENT -> {
-                    profession  = "Student" + ", "+ dataX.city
+                    profession  = "Student" + getCity(dataX)
                 }
                 AppConstant.PROFESSIONAL -> {
-                    profession  = dataX.work_experience.get(0).role + ", "+ dataX.city
+                    profession  =
+                        if (!dataX.work_experience.isNullOrEmpty() && dataX.work_experience.size > 0)
+                            dataX.work_experience.get(0).role + getCity(dataX)
+                        else "Professional" + getCity(dataX)
                 }
                 AppConstant.ORGANIZATION -> {
-                    profession  = "Organization" +", "+ dataX.city
+                    profession  = "Organization" +getCity(dataX)
                 }
             }
             itemView.text_description.text = profession
+        }
+    }
+
+    private fun getCity(dataX: DataX): String {
+        if (dataX.city.isNullOrEmpty()) {
+            return ""
+        } else {
+            return ", " + dataX.city
         }
     }
 

@@ -89,14 +89,16 @@ class ProfileFragment : Fragment(), AppConstant {
             Utils.loadProfile(image, image_user_profile)
         }
 
-        text_name.text = AppPreference.getInstance(activity!!).getString(AppConstant.PREF_USERNAME)
+        text_name.text = Utils.capitalizeFirstLetter(AppPreference.getInstance(activity!!).getString(AppConstant.PREF_USERNAME))
 
         var category = AppPreference.getInstance().getString(AppConstant.PREF_CATEGORY)
+        var subtitle: String = ""
         when (category) {
-            STUDENT -> text_sub_title.text = AppPreference.getInstance().getString(PREF_STANDARD_NAME)
-            PROFESSIONAL -> text_sub_title.text = AppPreference.getInstance().getString(PREF_COMPANY_NAME)
-            ORGANIZATION -> text_sub_title.text = AppPreference.getInstance().getString(PREF_WEBSITE_NAME)
+            STUDENT -> subtitle = AppPreference.getInstance().getString(PREF_STANDARD_NAME)
+            PROFESSIONAL -> subtitle = AppPreference.getInstance().getString(PREF_COMPANY_NAME)
+            ORGANIZATION -> subtitle = AppPreference.getInstance().getString(PREF_WEBSITE_NAME)
         }
+        text_sub_title.text = Utils.capitalizeFirstLetter(subtitle)
     }
 
     private fun doLogout() {

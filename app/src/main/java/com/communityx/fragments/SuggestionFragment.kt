@@ -10,9 +10,9 @@ import android.widget.Toast
 import butterknife.ButterKnife
 import com.communityx.R
 import com.communityx.adapters.SuggestionAdapter
+import com.communityx.models.logout.LogoutResponse
 import com.communityx.models.myallies.all_allies.AllAlliesResponse
 import com.communityx.models.myallies.all_allies.DataX
-import com.communityx.models.signup.SignUpResponse
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
 import com.communityx.utils.Utils
@@ -46,9 +46,12 @@ class SuggestionFragment : Fragment() , SuggestionAdapter.IOnAddFriendClicked {
                 listSuggestions.clear()
                 listSuggestions = userData as ArrayList<DataX>
 
-                (parentFragment as MyAllFriendsFragment)?.updateTabText(2, userData.size)
-                if (isAdded)
+                updateTabListCount(userData.size)
+
+                if (isAdded) {
+                    changeVisibility(listSuggestions.isNullOrEmpty())
                     setAdapter()
+                }
             }
 
             override fun onError(error: Any) {
@@ -56,6 +59,17 @@ class SuggestionFragment : Fragment() , SuggestionAdapter.IOnAddFriendClicked {
                 Utils.showError(activity, frame_root, error)
             }
         })
+    }
+
+    fun updateTabListCount(count: Int) {
+        if (isAdded) {
+            (parentFragment as MyAllFriendsFragment)?.updateTabText(2, count)
+        }
+    }
+
+    fun changeVisibility(isEmpty: Boolean) {
+        text_no_record.visibility = if (isEmpty) View.VISIBLE else View.GONE
+        recycler_suggestion_list.visibility = if (isEmpty) View.GONE else View.VISIBLE
     }
 
     fun setAdapter() {
@@ -66,11 +80,15 @@ class SuggestionFragment : Fragment() , SuggestionAdapter.IOnAddFriendClicked {
 
     private fun sendInvitation(id: String, position: Int) {
         progress_bar?.visibility = View.VISIBLE
-        DataManager.sendInvitation(activity!!, id, object : ResponseListener<SignUpResponse> {
-            override fun onSuccess(response: SignUpResponse) {
+        DataManager.sendInvitation(activity!!, id, object : ResponseListener<LogoutResponse> {
+            override fun onSuccess(response: LogoutResponse) {
                 if (isAdded) {
                     progress_bar?.visibility = View.GONE
                     suggestionAdapter?.updateItem(position)
+
+                    updateTabListCount(suggestionAdapter?.itemCount!!)
+                    changeVisibility(suggestionAdapter?.itemCount == 0)
+
                     Toast.makeText(activity, "Request Sent successfully!", Toast.LENGTH_SHORT).show()
                 }
             }

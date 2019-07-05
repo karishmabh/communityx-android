@@ -235,7 +235,7 @@ object DataManager : AppConstant {
     }
 
     fun getAllAllies(activity: Activity, listener: ResponseListener<AllAlliesResponse>) {
-        val call = DataManager.getMockService()
+        val call = DataManager.getService()
             .getAllAllies(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
         call.enqueue(object : Callback<AllAlliesResponse> {
             override fun onResponse(call: Call<AllAlliesResponse>, response: Response<AllAlliesResponse>) {
@@ -257,7 +257,7 @@ object DataManager : AppConstant {
     }
 
     fun getAlliesInvitation(activity: Activity, listener: ResponseListener<AllAlliesResponse>) {
-        val call = DataManager.getMockService()
+        val call = DataManager.getService()
             .getAlliesInvitations(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
         call.enqueue(object : Callback<AllAlliesResponse> {
             override fun onResponse(call: Call<AllAlliesResponse>, response: Response<AllAlliesResponse>) {
@@ -279,8 +279,7 @@ object DataManager : AppConstant {
     }
 
     fun getAlliesSuggestions(activity: Activity, listener: ResponseListener<AllAlliesResponse>) {
-        val call = DataManager.getMockService()
-            .getAlliesSuggestions(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
+        val call = DataManager.getService().getAlliesSuggestions(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
         call.enqueue(object : Callback<AllAlliesResponse> {
             override fun onResponse(call: Call<AllAlliesResponse>, response: Response<AllAlliesResponse>) {
                 if (!response.isSuccessful) {
@@ -300,11 +299,10 @@ object DataManager : AppConstant {
         })
     }
 
-    fun sendInvitation(activity: Activity, id: String, listener: ResponseListener<SignUpResponse>) {
-        val call = DataManager.getMockService()
-            .sendInvitation(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity), id)
-        call.enqueue(object : Callback<SignUpResponse> {
-            override fun onResponse(call: Call<SignUpResponse>, response: Response<SignUpResponse>) {
+    fun sendInvitation(activity: Activity, id: String, listener: ResponseListener<LogoutResponse>) {
+        val call = DataManager.getService().sendInvitation(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity), id)
+        call.enqueue(object : Callback<LogoutResponse> {
+            override fun onResponse(call: Call<LogoutResponse>, response: Response<LogoutResponse>) {
                 if (!response.isSuccessful) {
                     response.errorBody()?.let { listener.onError(it) }
                     return
@@ -316,18 +314,14 @@ object DataManager : AppConstant {
                     listener.onError(response.body()!!.error)
             }
 
-            override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
+            override fun onFailure(call: Call<LogoutResponse>, t: Throwable) {
                 listener.onError(t)
             }
         })
     }
 
-    fun updateInvitation(
-        activity: Activity,
-        updateInvitationRequest: UpdateInvitationRequest,
-        listener: ResponseListener<LogoutResponse>
-    ) {
-        val call = DataManager.getMockService().updateInvitation(
+    fun updateInvitation(activity: Activity, updateInvitationRequest: UpdateInvitationRequest, listener: ResponseListener<LogoutResponse>) {
+        val call = DataManager.getService().updateInvitation(
             AuthRepo.getAccessToken(activity),
             AuthRepo.getSessionId(activity),
             updateInvitationRequest

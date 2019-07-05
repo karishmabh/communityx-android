@@ -109,7 +109,7 @@ class SignUpStudentInfoActivity : BaseActivity(), AppConstant, View.OnClickListe
     }
 
     fun goToNextPage() {
-        if (view_pager.currentItem == 5) {
+        if (view_pager.currentItem == 0) {
             completedSignUp()
             return
         }
@@ -160,7 +160,6 @@ class SignUpStudentInfoActivity : BaseActivity(), AppConstant, View.OnClickListe
             override fun onSuccess(response: SignUpResponse) {
                 dialog.dismiss()
                 AppPreference.getInstance().setString(AppConstant.PREF_USER_ID, response.data.get(0).user_id)
-                Toast.makeText(this@SignUpStudentInfoActivity, "You have successfully signed up!", Toast.LENGTH_LONG).show()
                 view_pager?.setCurrentItem(view_pager!!.currentItem + 1, true)
             }
 
@@ -183,7 +182,7 @@ class SignUpStudentInfoActivity : BaseActivity(), AppConstant, View.OnClickListe
         super.onBackPressed()
     }
 
-    private fun performLogin(phoneNumber: String, password: String) {
+    public fun performLogin(phoneNumber: String, password: String) {
         DataManager.doLogin(this, LoginRequest(phoneNumber, password), object : ResponseListener<LoginResponse> {
             override fun onSuccess(response: LoginResponse) {
 

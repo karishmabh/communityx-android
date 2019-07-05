@@ -44,8 +44,12 @@ class FriendsFragment : Fragment() {
 
                 (parentFragment as MyAllFriendsFragment)?.updateTabText(0, userData.size)
 
-                if (isAdded)
-                initAllFriends(userData)
+                if (isAdded) {
+                    text_no_record.visibility = if (userData.size > 0) View.GONE else View.VISIBLE
+                    recycler_my_friends.visibility = if (userData.size > 0) View.VISIBLE else View.GONE
+                    initAllFriends(userData)
+                }
+
             }
 
             override fun onError(error: Any) {

@@ -33,4 +33,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"/>
+
+    <TextView
+            android:id="@+id/text_no_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="No Record Found"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/colorLightGrey"
+            android:textSize="@dimen/_12ssp"/>
 </android.support.constraint.ConstraintLayout>

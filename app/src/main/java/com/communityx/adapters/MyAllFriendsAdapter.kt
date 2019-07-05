@@ -10,6 +10,7 @@ import butterknife.ButterKnife
 import com.communityx.R
 import com.communityx.models.myallies.all_allies.DataX
 import com.communityx.utils.AppConstant
+import com.communityx.utils.Utils
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_my_all_friend.view.*
 
@@ -44,10 +45,11 @@ class MyAllFriendsAdapter(private val mContext: Context, private val friendList:
         fun bindData() {
             val item = friendList.get(adapterPosition)
             var name = item.profile?.first_name + " " + item.profile?.last_name
-            itemView.text_name.text = name
+            itemView.text_name.text = Utils.capitalizeFirstLetter(name)
 
             if (!TextUtils.isEmpty(item.profile.profile_image)) {
                 Picasso.get().load(item.profile.profile_image)
+                    .noPlaceholder()
                     .error(R.drawable.profile_placeholder).into(itemView.image_user)
             }
 
@@ -60,16 +62,26 @@ class MyAllFriendsAdapter(private val mContext: Context, private val friendList:
             var profession: String ? = null
             when (type) {
                 AppConstant.STUDENT -> {
-                    profession  = "Student" + ", "+ dataX.city
+                    profession  = "Student" + getCity(dataX)
                 }
                 AppConstant.PROFESSIONAL -> {
-                    profession  = dataX.work_experience.get(0).role + ", "+ dataX.city
+                    profession  = if (!dataX.work_experience.isNullOrEmpty() && dataX.work_experience.size > 0)
+                                     dataX.work_experience.get(0).role + getCity(dataX)
+                                  else "Professional" + getCity(dataX)
                 }
                 AppConstant.ORGANIZATION -> {
-                    profession  = "Organization" +", "+ dataX.city
+                    profession  = "Organization" +getCity(dataX)
                 }
             }
             itemView.text_profession.text = profession
+        }
+
+        private fun getCity(dataX: DataX): String {
+            if (dataX.city.isNullOrEmpty()) {
+                return ""
+            } else {
+                return ", " + dataX.city
+            }
         }
 
         private fun setDividerText(name: String) {

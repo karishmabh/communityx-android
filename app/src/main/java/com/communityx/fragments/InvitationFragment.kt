@@ -50,9 +50,11 @@ class InvitationFragment : Fragment(), InvitationAdapter.IInvitationCallback , A
                 listInvitation.clear()
                 listInvitation.addAll(userData)
 
-                (parentFragment as MyAllFriendsFragment)?.updateTabText(1, userData.size)
-                if (isAdded)
+                changeTabCount(userData.size)
+                if (isAdded) {
+                    changeVisiblity(userData.isNullOrEmpty())
                     setAdapter()
+                }
             }
 
             override fun onError(error: Any) {
@@ -60,6 +62,17 @@ class InvitationFragment : Fragment(), InvitationAdapter.IInvitationCallback , A
                 Utils.showError(activity, frame_root, error)
             }
         })
+    }
+
+    fun changeTabCount(count: Int) {
+        if (isAdded) {
+            (parentFragment as MyAllFriendsFragment).updateTabText(1, count)
+        }
+    }
+
+    fun changeVisiblity(isEmpty: Boolean) {
+        text_no_record.visibility = if (isEmpty) View.VISIBLE else View.GONE
+        recycler_invitation_list.visibility = if (isEmpty) View.GONE else View.VISIBLE
     }
 
     fun setAdapter() {
@@ -74,7 +87,10 @@ class InvitationFragment : Fragment(), InvitationAdapter.IInvitationCallback , A
             override fun onSuccess(response: LogoutResponse) {
                 progress_bar?.visibility = View.GONE
                 Toast.makeText(activity, response.data.get(0), Toast.LENGTH_LONG).show()
+
                 invitationAdapter?.updateItem(position)
+                changeTabCount(invitationAdapter?.itemCount!!)
+                changeVisiblity(invitationAdapter?.itemCount == 0)
             }
 
             override fun onError(error: Any) {
