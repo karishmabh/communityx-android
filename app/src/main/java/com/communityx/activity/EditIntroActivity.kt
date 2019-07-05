@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -54,11 +55,12 @@ import java.io.File
 class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListener {
 
     private lateinit var mInterestAdapter: SelectedInfoInterestAdapter
-    private var listSelected: ArrayList<Education> = ArrayList()
+    var listSelected: ArrayList<Education> = ArrayList()
     private var manaualInterest: MutableList<String>? = null
     private var galleryPicker: GalleryPicker? = null
     var interests: MutableList<String>? = mutableListOf()
     var profile_image : String? = null
+    var profileResponse : ProfileResponse? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -114,8 +116,13 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
             return
         }
 
-        var editIntroInfoRequest = EditIntroInfoRequest(edit_first_name.text.toString(), edit_headline.text.toString(), interests, edit_last_name.text.toString(),
-                "22.364154", "70.86451654", AppPreference.getInstance(this).getString(PREF_CATEGORY), AppPreference.getInstance(this).getString(USER_ID))
+        if (TextUtils.isEmpty(edit_headline.text)) {
+            SnackBarFactory.createSnackBar(this, constraintLayout, "Headline cannot be empty.")
+            return
+        }
+
+        var editIntroInfoRequest = EditIntroInfoRequest(edit_first_name.text.toString(), edit_headline.text.toString(), mInterestAdapter.getSelectedIds(), edit_last_name.text.toString(),
+                "22.364154", "70.864516", AppPreference.getInstance(this).getString(PREF_CATEGORY), AppPreference.getInstance(this).getString(PREF_USER_ID), manaualInterest, profile_image)
 
         val dialog = CustomProgressBar.getInstance(this).showProgressDialog("Updating Profile...")
         dialog.show()
@@ -139,16 +146,19 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
     }
 
     private fun getIntentData() {
-        val profileResponse = intent?.extras?.getSerializable(UserName) as ProfileResponse
+        profileResponse = intent?.extras?.getSerializable(UserName) as ProfileResponse
         if (profileResponse != null) {
-            val data = profileResponse.data.get(0)
+            val data = profileResponse?.data?.get(0)
 
-            edit_first_name.setText(data.profile.first_name)
-            edit_last_name.setText(data.profile.last_name)
-            edit_recent_job_title.setText(data.type)
-            edit_location.setText(data.state)
+            edit_first_name.setText(data?.profile?.first_name)
+            edit_last_name.setText(data?.profile?.last_name)
+            edit_recent_job_title.setText(data?.type)
+            edit_location.setText(data?.state)
+            edit_headline.setText(data?.headline)
 
-            listSelected = data.interests as ArrayList<Education>
+            profile_image = data?.profile_image
+
+            listSelected = data?.interests as ArrayList<Education>
 
             if (!data.profile.profile_image.isNullOrEmpty()) {
                 Picasso.get().load(data?.profile?.profile_image).into(image_profile)
@@ -170,7 +180,7 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
         image_profile.setImageURI(uri)
         text_profile.text = resources.getString(R.string.edit_profile_image)
         image_add_edit.setImageResource(R.drawable.ic_signup_edit_image)
-        uploadImage(imagePath, constraint_root)
+        uploadImage(imagePath, constraintLayout)
     }
 
     @OnClick(R.id.imageView)
@@ -292,6 +302,10 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
     }
 
     protected fun uploadImage(imagePath: String, view: View) {
+
+        val dialog = CustomProgressBar.getInstance(this).showProgressDialog("Uploading picture...")
+        dialog.show()
+
         val file = File(imagePath)
         val requestFile = RequestBody.create(MediaType.parse(AppConstant.MILTI_PART_FORM_DATA), file)
         val body = MultipartBody.Part.createFormData(AppConstant.IMAGE_PARAM, file.name, requestFile)
@@ -301,10 +315,12 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
         SignUpRepo.uploadImage(this, imageUploadRequest, object : ResponseListener<ImageUploadResponse> {
             override fun onSuccess(response: ImageUploadResponse) {
                 profile_image = response.data[0].name
+                dialog.dismiss()
             }
 
             override fun onError(error: Any) {
                 Utils.showError(this@EditIntroActivity, view, error)
+                dialog.dismiss()
             }
         })
     }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.Window
@@ -17,11 +18,12 @@ import com.communityx.R
 import com.communityx.adapters.EditClubsAdapter
 import com.communityx.models.profile.Education
 import com.communityx.models.signup.*
+import com.communityx.models.signup.cause.CauseRequest
+import com.communityx.models.signup.club.ClubRequest
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
-import com.communityx.utils.AppConstant
-import com.communityx.utils.AppPreference
-import com.communityx.utils.Utils
+import com.communityx.utils.*
+import com.communityx.utils.AppConstant.PREF_USER_ID
 import kotlinx.android.synthetic.main.activity_edit_club.*
 import kotlinx.android.synthetic.main.activity_edit_club.constraint_layout
 import kotlinx.android.synthetic.main.fragment_sign_up_member_of_club.*
@@ -37,6 +39,9 @@ class EditClubActivity : BaseActivity() {
     private var receivedCausesDataList : ArrayList<Education> = ArrayList()
     private var roleList: MutableList<String> = mutableListOf()
     protected var category: String? = null
+    protected var signUpStudent : SignUpRequest? = null
+    var club: MutableList<ClubData>? = mutableListOf()
+    var cause: MutableList<CauseData>? = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +56,68 @@ class EditClubActivity : BaseActivity() {
     fun closeTapped() {
         finish()
         overridePendingTransition(R.anim.anim_stay, R.anim.anim_slide_down)
+    }
+
+    @OnClick(R.id.button_save)
+    fun saveTapped() {
+
+        if (causesDataList.size == 0) {
+            SnackBarFactory.createSnackBar(this, constraint_layout, getString(R.string.select_club_organization))
+            return
+        }
+
+        cause?.clear()
+        club?.clear()
+
+        for (i in causesDataList) {
+            var data = i
+
+            if (AppPreference.getInstance(this).getString(AppConstant.PREF_CATEGORY) == AppConstant.PROFESSIONAL) {
+                cause?.add(data)
+
+                var causeList =  cause
+                var causeRequest = CauseRequest(AppPreference.getInstance(this).getString(PREF_USER_ID), causeList!!)
+                addCause(causeRequest)
+
+            } else {
+                club?.add(ClubData(data.cause_name, data.cause_role))
+
+                var clubList =  club
+                var clubRequest = ClubRequest(AppPreference.getInstance(this).getString(PREF_USER_ID), clubList!!)
+                addClub(clubRequest)
+            }
+        }
+    }
+
+    private fun addClub(clubRequest: ClubRequest) {
+        val dialog = CustomProgressBar.getInstance(this).showProgressDialog("Updating Profile...")
+        dialog.show()
+        SignUpRepo.addUserClub(this, clubRequest, object : ResponseListener<List<DataX>> {
+            override fun onSuccess(response: List<DataX>) {
+               dialog.dismiss()
+            }
+
+            override fun onError(error: Any) {
+                Utils.showError(this@EditClubActivity, constraint_layout, error)
+                dialog.dismiss()
+            }
+        })
+    }
+
+    private fun addCause(causeRequest: CauseRequest) {
+        val dialog = CustomProgressBar.getInstance(this).showProgressDialog("Updating Profile...")
+        dialog.show()
+
+        SignUpRepo.addUserCause(this, causeRequest, object : ResponseListener<List<DataX>> {
+            override fun onSuccess(response: List<DataX>) {
+                dialog.dismiss()
+            }
+
+            override fun onError(error: Any) {
+                Utils.showError(this@EditClubActivity, constraint_layout, error)
+                dialog.dismiss()
+            }
+        })
     }
 
     @OnClick(R.id.fab_add)
@@ -132,23 +199,25 @@ class EditClubActivity : BaseActivity() {
             dialog.dismiss()
         }
 
-       buttonAdd.setOnClickListener {
+        buttonAdd.setOnClickListener {
+
+           var status = false
 
             if (causesDataList.size > 0) {
 
                 for (item in causesDataList) {
                     if (item.cause_name.equals(editClub.text.toString(),true)) {
-                        textError.text = getString(R.string.string_sclubname_exists)
-                        textError.visibility = View.VISIBLE
-                        break
-                    } else {
-                        textError.visibility = View.GONE
-                        causesDataList.add(CauseData(editClub.text.toString(), editRole.text.toString()))
-                        break
+                        status= true
                     }
                 }
 
-                dialog.dismiss()
+                if (!status) {
+                    causesDataList.add(CauseData(editClub.text.toString(), editRole.text.toString()))
+                    dialog.dismiss()
+                } else {
+                    textError.visibility = View.VISIBLE
+                }
+
                 if (clubsAdapter == null) {
                     showInList()
                 } else {
@@ -166,7 +235,6 @@ class EditClubActivity : BaseActivity() {
                     relative_no_data.visibility = View.GONE
                 }
             }
-
         }
 
         dialog.show()
