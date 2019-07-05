@@ -22,7 +22,7 @@ class SearchSuggestionActivity : AppCompatActivity() {
     }
 
     @OnClick(R.id.image_back)
-    fun onbackTapped() {
+    fun onBackTapped() {
         onBackPressed()
     }
 

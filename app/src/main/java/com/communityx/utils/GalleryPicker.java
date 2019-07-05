@@ -175,9 +175,9 @@ public class GalleryPicker {
         View imageCamera = view.findViewById(R.id.layout_camera);
         View imageGallery = view.findViewById(R.id.layout_gallery);
 
-        if (!new PermissionHelper(mActivity).checkPermission(permissions)) {
+       /* if (!new PermissionHelper(mActivity).checkPermission(permissions)) {
             mFragment.requestPermissions(permissions, ALL_PERMISSION_CODE);
-        }
+        }*/
 
         imageCamera.setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
