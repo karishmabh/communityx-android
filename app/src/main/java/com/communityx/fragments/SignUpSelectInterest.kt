@@ -196,7 +196,7 @@ class SignUpSelectInterest : BaseSignUpFragment() {
     }
 
     private fun addInterests(interestRequest: InterestRequest, suggestRequest: InterestRequest) {
-       var dialog =  CustomProgressBar.getInstance(activity!!).showProgressDialog("Logging in..")
+        var dialog =  CustomProgressBar.getInstance(activity!!).showProgressDialog("Logging in..")
         SignUpRepo.addInterests(activity!!, interestRequest, object : ResponseListener<List<DataX>> {
             override fun onSuccess(response: List<DataX>) {
                 dialog.dismiss()

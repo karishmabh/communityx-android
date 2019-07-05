@@ -83,7 +83,9 @@ class SignUpProfessional : BaseSignUpFragment() {
     private fun getCompanies(query: String) {
         SignUpRepo.getCompanies(query, object : ResponseListener<List<List<Data>>> {
             override fun onSuccess(response: List<List<Data>>) {
-                setCompanyData(response.get(0))
+                if (response.isNotEmpty()) {
+                    setCompanyData(response.get(0))
+                }
             }
 
             override fun onError(error: Any) {

@@ -109,7 +109,7 @@ class SignUpStudentInfoActivity : BaseActivity(), AppConstant, View.OnClickListe
     }
 
     fun goToNextPage() {
-        if (view_pager.currentItem == 5) {
+        if (view_pager.currentItem == 0) {
             completedSignUp()
             return
         }

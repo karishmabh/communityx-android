@@ -288,5 +288,6 @@ class EditClubActivity : BaseActivity() {
 
         editRole.setAdapter(arrayAdapter)
         editRole.threshold = 1
+
     }
 }
