@@ -67,7 +67,6 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant , ClubsAdapter.IClu
        openAddCauseClubDialog()
     }
 
-
     fun openAddCauseClubDialog() {
         val dialog = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -277,7 +276,6 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant , ClubsAdapter.IClu
             override fun onError(error: Any) {
                 Utils.showError(activity, constraint_layout, error)
             }
-
         })
     }
 
