@@ -23,8 +23,8 @@
             app:hintTextAppearance="@style/TextInputHint"
             app:layout_constraintTop_toBottomOf="@+id/view_toolbar">
 
-        <android.support.design.widget.TextInputEditText
-                android:id="@+id/edit_company_name"
+        <AutoCompleteTextView
+                android:id="@+id/auto_company_name"
                 style="@style/textInputEditText"
                 android:transitionName="@string/anim_start"
                 android:layout_width="match_parent"
@@ -47,8 +47,8 @@
             app:hintTextAppearance="@style/TextInputHint"
             app:layout_constraintTop_toBottomOf="@+id/textinput_company_name">
 
-        <android.support.design.widget.TextInputEditText
-                android:id="@+id/edit_title"
+        <AutoCompleteTextView
+                android:id="@+id/auto_title"
                 style="@style/textInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,12 +71,13 @@
             app:layout_constraintTop_toBottomOf="@+id/textinput_title">
 
         <android.support.design.widget.TextInputEditText
-                android:id="@+id/edit_location"
+                android:id="@+id/auto_edit_location"
                 style="@style/textInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
                 android:inputType="textCapWords"
+                android:drawableEnd="@drawable/ic_edit_profile_location"
                 android:maxLength="50"
                 android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
@@ -113,6 +114,7 @@
 
             <android.support.design.widget.TextInputEditText
                     style="@style/textInputEditText"
+                    android:id="@+id/edit_start_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/ic_signup_calendar"
@@ -134,6 +136,7 @@
 
             <android.support.design.widget.TextInputEditText
                     style="@style/textInputEditText"
+                    android:id="@+id/edit_end_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/ic_signup_calendar"
@@ -146,7 +149,6 @@
     </LinearLayout>
 
     <android.support.design.widget.TextInputLayout
-            android:id="@+id/textinput_description"
             style="@style/textInputLayoutColor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -158,6 +160,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linear_date">
 
         <android.support.design.widget.TextInputEditText
+                android:id="@+id/textinput_description"
                 style="@style/textInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -175,9 +178,8 @@
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_15sdp"
-            android:background="@drawable/button_inactive"
+            android:background="@drawable/button_active"
             android:text="@string/save"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent" />
-
 </android.support.constraint.ConstraintLayout>
