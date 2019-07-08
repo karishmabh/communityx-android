@@ -94,7 +94,7 @@ interface IApiInterface {
 
     //mock apis
     @GET("user/allies")
-    fun getAllAllies(@Header("token") token: String, @Header("session") session: String): Call<AllAlliesResponse>
+    fun getAllAllies(@Header("token") token: String, @Header("session") session: String, @Query("q") query: String): Call<AllAlliesResponse>
 
     @GET("user/allies/invitations")
     fun getAlliesInvitations(@Header("token") token: String, @Header("session") session: String): Call<AllAlliesResponse>

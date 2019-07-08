@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import butterknife.ButterKnife
-import com.communityx.R
 import com.communityx.adapters.InvitationAdapter
 import com.communityx.models.logout.LogoutResponse
 import com.communityx.models.myallies.all_allies.AllAlliesResponse
@@ -21,6 +20,9 @@ import com.communityx.utils.AppConstant.ACCEPTED
 import com.communityx.utils.AppConstant.REJECTED
 import com.communityx.utils.Utils
 import kotlinx.android.synthetic.main.fragment_invitation.*
+import android.R
+
+
 
 class InvitationFragment : Fragment(), InvitationAdapter.IInvitationCallback , AppConstant {
 
@@ -28,7 +30,7 @@ class InvitationFragment : Fragment(), InvitationAdapter.IInvitationCallback , A
     private var listInvitation: ArrayList<DataX> =  ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_invitation, container, false)
+        val view = inflater.inflate(com.communityx.R.layout.fragment_invitation, container, false)
         ButterKnife.bind(this, view)
 
         return view
@@ -86,11 +88,12 @@ class InvitationFragment : Fragment(), InvitationAdapter.IInvitationCallback , A
         DataManager.updateInvitation(activity!!, updateInvitationRequest, object : ResponseListener<LogoutResponse> {
             override fun onSuccess(response: LogoutResponse) {
                 progress_bar?.visibility = View.GONE
-                Toast.makeText(activity, response.data.get(0), Toast.LENGTH_LONG).show()
+                Toast.makeText(activity, response.data[0], Toast.LENGTH_LONG).show()
 
                 invitationAdapter?.updateItem(position)
                 changeTabCount(invitationAdapter?.itemCount!!)
                 changeVisiblity(invitationAdapter?.itemCount == 0)
+               // updateAlliesFragment()
             }
 
             override fun onError(error: Any) {
@@ -101,10 +104,15 @@ class InvitationFragment : Fragment(), InvitationAdapter.IInvitationCallback , A
     }
 
     override fun onInvitationAccept(position: Int) {
-        updateInvitation(UpdateInvitationRequest(listInvitation.get(position).id, ACCEPTED), position)
+        updateInvitation(UpdateInvitationRequest(listInvitation[position].id, ACCEPTED), position)
     }
 
     override fun onInvitationDeclined(position: Int) {
-        updateInvitation(UpdateInvitationRequest(listInvitation.get(position).id, REJECTED), position)
+        updateInvitation(UpdateInvitationRequest(listInvitation[position].id, REJECTED), position)
+    }
+
+    fun updateAlliesFragment() {
+        val f = activity!!.supportFragmentManager!!.findFragmentById(com.communityx.R.id.constraint_top) as FriendsFragment
+        f.getAllFriendsList("")
     }
 }
