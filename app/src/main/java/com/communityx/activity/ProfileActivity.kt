@@ -38,6 +38,7 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         setContentView(R.layout.activity_profile)
         ButterKnife.bind(this)
 
+        Utils.hideSoftKeyboard(this)
         getProfile()
         showEditIcon(!isOtherProfile)
         showAddHeadlines(true && !isOtherProfile)

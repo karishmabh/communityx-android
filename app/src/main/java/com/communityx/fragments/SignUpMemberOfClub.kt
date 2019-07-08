@@ -268,7 +268,7 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant , ClubsAdapter.IClu
             override fun onSuccess(response: List<Club>) {
                 clubList = response
 
-                if (clubList != null) {
+                if (clubList != null && isAdded) {
                     createClubDataId(clubList, editClub)
                 }
             }
@@ -309,6 +309,7 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant , ClubsAdapter.IClu
     private fun getCauseAndRole(query: String, editClub: AutoCompleteTextView) {
         SignUpRepo.getCauseAndRoles(query, object : ResponseListener<List<Club>> {
             override fun onSuccess(response: List<Club>) {
+                if(isAdded)
                 createCauseDataId(response, editClub)
             }
 

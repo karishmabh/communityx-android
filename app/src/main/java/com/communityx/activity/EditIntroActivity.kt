@@ -161,7 +161,7 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
             listSelected = data?.interests as ArrayList<Education>
 
             if (!data.profile.profile_image.isNullOrEmpty()) {
-                Picasso.get().load(data?.profile?.profile_image).into(image_profile)
+                Picasso.get().load(data?.profile?.profile_image).error(R.drawable.profile_placeholder).into(image_profile)
             }
         }
     }
