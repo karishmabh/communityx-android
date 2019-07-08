@@ -20,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.communityx.R;
 import com.communityx.adapters.FriendsPagerAdapter;
+import com.communityx.utils.Utils;
 
 public class MyAllFriendsFragment extends Fragment {
 
@@ -42,7 +43,24 @@ public class MyAllFriendsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         pagerAdapter = new FriendsPagerAdapter(getChildFragmentManager());
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+                Utils.hideSoftKeyboard(getActivity());
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setOffscreenPageLimit(2);
         tabLayout.setupWithViewPager(viewPager);
     }
 
@@ -53,7 +71,11 @@ public class MyAllFriendsFragment extends Fragment {
             String updatedText = "";
 
             if (i == position) {
-                updatedText = title + " " + count;
+
+                if (count  > 0)
+                    updatedText = title + " " + count;
+                else
+                    updatedText = title;
 
                 Spannable spannable = createSpannable(updatedText, title);
                 if (spannable != null) tv.setText(spannable, TextView.BufferType.SPANNABLE);
