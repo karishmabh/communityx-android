@@ -19,8 +19,7 @@ import com.communityx.models.profile.*
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
 import com.communityx.utils.*
-import com.communityx.utils.AppConstant.USER_ID
-import com.communityx.utils.AppConstant.UserName
+import com.communityx.utils.AppConstant.*
 import com.google.android.flexbox.FlexboxLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile.*
@@ -43,6 +42,12 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         showEditIcon(!isOtherProfile)
         showAddHeadlines(true && !isOtherProfile)
         showAddAndMessageButton(isOtherProfile)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        getProfile()
     }
 
     @OnClick(R.id.image_back)
@@ -100,6 +105,13 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         text_name.text = profileData?.profile?.first_name + " " + profileData?.profile?.last_name
         Picasso.get().load(profileData?.profile?.profile_image).into(image_profile)
         text_title.text = profileData?.type
+
+        if (profileData?.headline != null) {
+            text_headline.text = profileData?.headline
+            text_headline.visibility = View.VISIBLE
+            view_add_headline.visibility = View.GONE
+        }
+
         setFlexLayout(flex_layout_cause, profileData?.interests)
     }
 
@@ -124,8 +136,10 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
 
         var list : ArrayList<Education>  = ArrayList<Education>()
 
-        profileData?.education.datatype = "edu"
-        list.add(profileData?.education)
+        for (e : Education in profileData?.education) {
+            e.datatype = "edu"
+        }
+        list.addAll(profileData.education)
 
         for (e : Education in profileData?.clubs) {
             e.datatype = "club"
@@ -166,7 +180,8 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
 
         saveHeadLine.setOnClickListener {
 
-            var editHeadlineRequest = EditHeadlineRequest(editHeadLine.text.toString(), AppPreference.getInstance(this).getString(USER_ID))
+            var editHeadlineRequest = EditHeadlineRequest(editHeadLine.text.toString(), AppPreference.getInstance(this).getString(
+                PREF_USER_ID))
 
             val progressDialog = CustomProgressBar.getInstance(this).showProgressDialog("Updating headline...")
             progressDialog.show()

@@ -148,7 +148,7 @@ object DataManager : AppConstant {
 
     fun getProfile(activity: Activity, listener: ResponseListener<ProfileResponse>) {
         val call =
-            DataManager.getMockService().getProfile(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
+            DataManager.getService().getProfile(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
         call.enqueue(object : Callback<ProfileResponse> {
             override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
                 listener.onError(t)
@@ -170,7 +170,7 @@ object DataManager : AppConstant {
 
     fun updateIntroInfo(activity: Activity, editIntroInfoRequest: EditIntroInfoRequest, listener: ResponseListener<EditIntroInfoResponse>) {
         val call =
-                DataManager.getMockService().updateIntroInfo(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity), editIntroInfoRequest)
+                DataManager.getService().updateIntroInfo(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity), editIntroInfoRequest)
         call.enqueue(object : Callback<EditIntroInfoResponse> {
             override fun onFailure(call: Call<EditIntroInfoResponse>, t: Throwable) {
                 listener.onError(t)
@@ -192,7 +192,7 @@ object DataManager : AppConstant {
 
     fun updateHeadline(activity: Activity, editHeadlineRequest: EditHeadlineRequest, listener: ResponseListener<EditIntroInfoResponse>) {
         val call =
-                DataManager.getMockService().updateHeadline(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity), editHeadlineRequest)
+                DataManager.getService().updateHeadline(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity), editHeadlineRequest)
         call.enqueue(object : Callback<EditIntroInfoResponse> {
             override fun onFailure(call: Call<EditIntroInfoResponse>, t: Throwable) {
                 listener.onError(t)
@@ -370,7 +370,7 @@ object DataManager : AppConstant {
     }
 
     fun getEditInterests(context: Context, responseListener: ResponseListener<EditInfoInterestResponse>) {
-        DataManager.getMockService().getEditIntrest(AuthRepo.getAccessToken(context))
+        DataManager.getService().getInterests(AuthRepo.getAccessToken(context))
             .enqueue(object : Callback<EditInfoInterestResponse> {
                 override fun onFailure(call: Call<EditInfoInterestResponse>, t: Throwable) {
                     responseListener.onError(t)
