@@ -38,7 +38,7 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         setContentView(R.layout.activity_profile)
         ButterKnife.bind(this)
 
-        getProfile()
+         //getProfile()
         showEditIcon(!isOtherProfile)
         showAddHeadlines(true && !isOtherProfile)
         showAddAndMessageButton(isOtherProfile)
@@ -46,7 +46,6 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
 
     override fun onResume() {
         super.onResume()
-
         getProfile()
     }
 
