@@ -95,6 +95,7 @@ class EditClubActivity : BaseActivity() {
         SignUpRepo.addUserClub(this, clubRequest, object : ResponseListener<List<DataX>> {
             override fun onSuccess(response: List<DataX>) {
                dialog.dismiss()
+                finish()
             }
 
             override fun onError(error: Any) {
@@ -111,6 +112,7 @@ class EditClubActivity : BaseActivity() {
         SignUpRepo.addUserCause(this, causeRequest, object : ResponseListener<List<DataX>> {
             override fun onSuccess(response: List<DataX>) {
                 dialog.dismiss()
+                finish()
             }
 
             override fun onError(error: Any) {
