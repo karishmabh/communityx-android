@@ -43,9 +43,8 @@ class MyAllFriendsAdapter(private val mContext: Context, private val friendList:
         }
 
         fun bindData() {
-            val item = friendList.get(adapterPosition)
-            var name = item.profile?.first_name + " " + item.profile?.last_name
-            itemView.text_name.text = Utils.capitalizeFirstLetter(name)
+            val item = friendList[adapterPosition]
+            itemView.text_name.text = Utils.capitalizeFirstLetter(item.name)
 
             if (!TextUtils.isEmpty(item.profile.profile_image)) {
                 Picasso.get().load(item.profile.profile_image)
@@ -54,7 +53,7 @@ class MyAllFriendsAdapter(private val mContext: Context, private val friendList:
             }
 
             setProfessionType(item)
-            setDividerText(name)
+            setDividerText(item.name)
         }
 
         private fun setProfessionType(dataX: DataX) {
@@ -65,8 +64,8 @@ class MyAllFriendsAdapter(private val mContext: Context, private val friendList:
                     profession  = "Student" + getCity(dataX)
                 }
                 AppConstant.PROFESSIONAL -> {
-                    profession  = if (!dataX.work_experience.isNullOrEmpty() && dataX.work_experience.size > 0)
-                                     dataX.work_experience.get(0).role + getCity(dataX)
+                    profession  = if (!dataX.work_experience.isNullOrEmpty() && dataX.work_experience.isNotEmpty())
+                                     dataX.work_experience[0].role + getCity(dataX)
                                   else "Professional" + getCity(dataX)
                 }
                 AppConstant.ORGANIZATION -> {
@@ -85,7 +84,7 @@ class MyAllFriendsAdapter(private val mContext: Context, private val friendList:
         }
 
         private fun setDividerText(name: String) {
-            itemView.text_letter.text = getFirstLetter(name)
+            itemView.text_letter.text = getFirstLetter(name).capitalize()
 
             if (prevStr == null) {
                 itemView.text_letter.visibility = View.VISIBLE

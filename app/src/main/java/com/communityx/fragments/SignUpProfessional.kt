@@ -73,8 +73,7 @@ class SignUpProfessional : BaseSignUpFragment() {
     override fun onContinueButtonClicked() {
         if (setFieldsData())  {
             if (!clickContinue)
-            addCompany(CompanyRequest(signUpStudent?.company_name!!, signUpStudent?.job_title!!,
-                AppPreference.getInstance(activity!!).getString(AppConstant.PREF_USER_ID)))
+                addCompany(CompanyRequest(signUpStudent?.company_name!!, signUpStudent?.job_title!!, AppPreference.getInstance(activity!!).getString(AppConstant.PREF_USER_ID)))
         }
     }
 

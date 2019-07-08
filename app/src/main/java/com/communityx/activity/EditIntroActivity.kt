@@ -121,8 +121,17 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
             return
         }
 
-        var editIntroInfoRequest = EditIntroInfoRequest(edit_first_name.text.toString(), edit_headline.text.toString(), mInterestAdapter.getSelectedIds(), edit_last_name.text.toString(),
-                "22.364154", "70.864516", AppPreference.getInstance(this).getString(PREF_CATEGORY), AppPreference.getInstance(this).getString(PREF_USER_ID), manaualInterest, profile_image)
+        if (image_profile.getDrawable() != null){
+            SnackBarFactory.createSnackBar(this, constraintLayout, "Image Field be required.")
+            return
+        }
+
+
+        var editIntroInfoRequest = EditIntroInfoRequest(edit_first_name.text.toString(),
+            edit_headline.text.toString(),
+            mInterestAdapter.getSelectedIds(),
+            edit_last_name.text.toString(),
+            "22.364154", "70.864516", AppPreference.getInstance(this).getString(PREF_CATEGORY), AppPreference.getInstance(this).getString(PREF_USER_ID), manaualInterest, profile_image)
 
         val dialog = CustomProgressBar.getInstance(this).showProgressDialog("Updating Profile...")
         dialog.show()

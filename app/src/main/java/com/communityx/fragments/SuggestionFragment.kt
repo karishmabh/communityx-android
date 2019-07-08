@@ -33,6 +33,7 @@ class SuggestionFragment : Fragment() , SuggestionAdapter.IOnAddFriendClicked {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getAllSuggestionsList()
+        Utils.hideSoftKeyboard(activity)
     }
 
     private fun getAllSuggestionsList() {

@@ -13,7 +13,7 @@ public interface AppConstant {
     String PREF_STANDARD_NAME = "pref_standard_name";
     String PREF_COMPANY_NAME = "pref_company_name";
     String PREF_WEBSITE_NAME = "pref_website_name";
-
+    String COMPANY ="COMPANY";
     String SAVECARD = "saved_card";
     String DEBITCARD = "debit_card";
     String CREDITCARD = "credit_card";

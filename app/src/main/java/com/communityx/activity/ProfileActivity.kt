@@ -39,7 +39,7 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         ButterKnife.bind(this)
 
         Utils.hideSoftKeyboard(this)
-        getProfile()
+    
         showEditIcon(!isOtherProfile)
         showAddHeadlines(true && !isOtherProfile)
         showAddAndMessageButton(isOtherProfile)
@@ -47,7 +47,6 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
 
     override fun onResume() {
         super.onResume()
-
         getProfile()
     }
 

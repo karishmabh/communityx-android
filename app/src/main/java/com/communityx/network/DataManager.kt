@@ -234,9 +234,9 @@ object DataManager : AppConstant {
         })
     }
 
-    fun getAllAllies(activity: Activity, listener: ResponseListener<AllAlliesResponse>) {
+    fun getAllAllies(activity: Activity, query: String, listener: ResponseListener<AllAlliesResponse>) {
         val call = DataManager.getService()
-            .getAllAllies(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity))
+            .getAllAllies(AuthRepo.getAccessToken(activity), AuthRepo.getSessionId(activity), query)
         call.enqueue(object : Callback<AllAlliesResponse> {
             override fun onResponse(call: Call<AllAlliesResponse>, response: Response<AllAlliesResponse>) {
                 if (!response.isSuccessful) {
