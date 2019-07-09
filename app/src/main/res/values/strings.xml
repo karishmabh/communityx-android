@@ -276,6 +276,7 @@
     <string name="string_first_name">First Name</string>
     <string name="string_update_profile">Profile Updated Sucessfully</string>
     <string name="string_update_experience">Experience Updated Sucessfully</string>
+    <string name="google_places_api_key">AIzaSyDqGGYPMaSS2fK2Cni703cUCpX1hc326NI</string>
     <string name="club_name">Club Name</string>
     <string name="cause_name">Cause Name</string>
 </resources>
