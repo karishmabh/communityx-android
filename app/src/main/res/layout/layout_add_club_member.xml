@@ -104,6 +104,7 @@
         android:layout_marginBottom="@dimen/_15sdp"
         android:background="@drawable/button_inactive"
         android:text="@string/add"
+        android:clickable="false"
         android:layout_marginLeft="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_15sdp"
         android:textAllCaps="true"
