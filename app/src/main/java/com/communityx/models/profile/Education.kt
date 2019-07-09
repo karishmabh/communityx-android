@@ -7,5 +7,8 @@ data class Education(
     val id: String,
     val name: String,
     val role: String,
-    val type: String
+    val type: String,
+
+    val start_date :String="",
+    val end_date :String=""
 ) : Serializable

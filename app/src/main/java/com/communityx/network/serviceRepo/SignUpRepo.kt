@@ -250,6 +250,27 @@ object SignUpRepo : BaseRepo , AppConstant {
             })
     }
 
+    fun UpdateCompany(context: Context, companyRequest: CompanyRequest, responseListener: ResponseListener<List<DataX>>) {
+        DataManager.getService().updateCompany(AuthRepo.getAccessToken(context), AuthRepo.getSessionId(context), companyRequest)
+            .enqueue(object : Callback<ClubResponse> {
+                override fun onFailure(call: Call<ClubResponse>, t: Throwable) {
+                    responseListener.onError(t)
+                }
+
+                override fun onResponse(call: Call<ClubResponse>, response: Response<ClubResponse>) {
+                    if (!response.isSuccessful) {
+                        response.errorBody()?.let { responseListener.onError(it) }
+                        return
+                    }
+                    if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
+                        responseListener.onSuccess(response.body()!!.data)
+                    } else {
+                        responseListener.onError(response.body()!!.error)
+                    }
+                }
+            })
+    }
+
     fun addInterests(context: Context, interestRequest: InterestRequest, responseListener: ResponseListener<List<DataX>>) {
         DataManager.getService().addUserInterest(AuthRepo.getAccessToken(context), interestRequest)
             .enqueue(object : Callback<ClubResponse> {
