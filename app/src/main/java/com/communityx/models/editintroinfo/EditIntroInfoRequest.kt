@@ -7,6 +7,7 @@ data class EditIntroInfoRequest (
         val last_name: String,
         val latitude: String,
         val longitude: String,
+        val address : String,
         val type: String,
         val user_id: String,
         val suggested_interests: MutableList<String>?,

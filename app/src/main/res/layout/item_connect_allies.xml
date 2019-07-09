@@ -1,120 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhite">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite">
 
     <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraint_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:padding="@dimen/_3sdp"
-            app:layout_constraintTop_toTopOf="parent">
+        android:id="@+id/constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:padding="@dimen/_3sdp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/circle_profile_image"
-                android:layout_width="@dimen/_45sdp"
-                android:layout_height="@dimen/_45sdp"
-                android:layout_margin="@dimen/_10sdp"
-                android:src="@drawable/profile_placeholder"
-                app:civ_border_color="@android:color/background_light"
-                app:civ_border_width="3dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+            android:id="@+id/circle_profile_image"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:src="@drawable/profile_placeholder"
+            app:civ_border_color="@android:color/background_light"
+            app:civ_border_width="3dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-                android:id="@+id/text_title_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:fontFamily="@font/poppins_semibold"
-                android:includeFontPadding="false"
-                android:text="Bella Oliver"
-                android:textColor="@color/colorBlackTitle"
-                android:textSize="@dimen/_12ssp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:layout_marginEnd="@dimen/_7sdp"
-                app:layout_constraintEnd_toStartOf="@id/linear_add_friend"
-                app:layout_constraintStart_toEndOf="@+id/circle_profile_image"
-                app:layout_constraintTop_toTopOf="parent"/>
+            android:id="@+id/text_title_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_7sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/poppins_semibold"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="Bella Oliver"
+            android:textColor="@color/colorBlackTitle"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toStartOf="@id/linear_add_friend"
+            app:layout_constraintStart_toEndOf="@+id/circle_profile_image"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-                android:id="@+id/text_description"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_7sdp"
-                android:fontFamily="@font/poppins_regular"
-                android:includeFontPadding="false"
-                android:text="College Student, New york"
-                android:textColor="@color/colorLightGrey"
-                android:textSize="@dimen/_10ssp"
-                app:layout_constraintEnd_toStartOf="@id/linear_add_friend"
-                app:layout_constraintStart_toStartOf="@+id/text_title_name"
-                app:layout_constraintTop_toBottomOf="@+id/text_title_name"/>
+            android:id="@+id/text_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_7sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:includeFontPadding="false"
+            android:text="College Student, New york"
+            android:textColor="@color/colorLightGrey"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintEnd_toStartOf="@id/linear_add_friend"
+            app:layout_constraintStart_toStartOf="@+id/text_title_name"
+            app:layout_constraintTop_toBottomOf="@+id/text_title_name" />
 
         <LinearLayout
-                android:id="@+id/linear_add_friend"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginLeft="@dimen/_15sdp"
-                android:layout_marginRight="@dimen/_15sdp"
-                android:background="@drawable/square_bg"
-                android:gravity="center"
-                app:layout_constraintBottom_toBottomOf="@+id/text_description"
-                app:layout_constraintRight_toLeftOf="@id/linear_message"
-                app:layout_constraintTop_toTopOf="@+id/text_title_name">
+            android:id="@+id/linear_add_friend"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:background="@drawable/square_bg"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/text_description"
+            app:layout_constraintRight_toLeftOf="@id/linear_message"
+            app:layout_constraintTop_toTopOf="@+id/text_title_name">
 
             <ImageView
-                    android:id="@+id/image_request"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@null"
-                    app:srcCompat="@drawable/ic_suggestion_friend_add_friend"/>
+                android:id="@+id/image_request"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                app:srcCompat="@drawable/ic_suggestion_friend_add_friend" />
         </LinearLayout>
 
         <LinearLayout
-                android:id="@+id/linear_message"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:background="@drawable/square_green_bg"
-                android:gravity="center"
-                app:layout_constraintBottom_toBottomOf="@+id/text_description"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/linear_add_friend"
-                app:layout_constraintTop_toTopOf="@+id/text_title_name">
+            android:id="@+id/linear_message"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:background="@drawable/square_green_bg"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/text_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/linear_add_friend"
+            app:layout_constraintTop_toTopOf="@+id/text_title_name">
 
             <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@null"
-                    app:srcCompat="@drawable/ic_suggestion_friend_message"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                app:srcCompat="@drawable/ic_suggestion_friend_message" />
         </LinearLayout>
 
         <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/flex_layout_allies"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                app:alignContent="stretch"
-                app:alignItems="stretch"
-                app:flexWrap="wrap"
-                app:layout_constraintEnd_toEndOf="@+id/linear_message"
-                app:layout_constraintStart_toStartOf="@id/text_title_name"
-                app:layout_constraintTop_toBottomOf="@id/text_description"/>
+            android:id="@+id/flex_layout_allies"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:alignContent="stretch"
+            app:alignItems="stretch"
+            app:flexWrap="wrap"
+            app:layout_constraintEnd_toEndOf="@+id/linear_message"
+            app:layout_constraintStart_toStartOf="@id/text_title_name"
+            app:layout_constraintTop_toBottomOf="@id/text_description" />
     </android.support.constraint.ConstraintLayout>
 
     <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_margin="@dimen/_15sdp"
-            android:background="@color/colorLightGrey"
-            app:layout_constraintTop_toBottomOf="@+id/constraint_layout"/>
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_margin="@dimen/_15sdp"
+        android:background="@color/colorLightGrey"
+        app:layout_constraintTop_toBottomOf="@+id/constraint_layout" />
 </android.support.constraint.ConstraintLayout>

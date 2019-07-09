@@ -10,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -33,8 +32,13 @@ import com.communityx.models.signup.image.ImageUploadResponse
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
+import com.communityx.places.PlacesFieldSelector
 import com.communityx.utils.*
 import com.communityx.utils.AppConstant.*
+import com.google.android.gms.location.places.Place
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_edit_intro.*
 import kotlinx.android.synthetic.main.activity_edit_intro.edit_cause
@@ -42,8 +46,6 @@ import kotlinx.android.synthetic.main.activity_edit_intro.flex_layout_cause
 import kotlinx.android.synthetic.main.activity_edit_intro.image_add_edit
 import kotlinx.android.synthetic.main.activity_edit_intro.image_profile
 import kotlinx.android.synthetic.main.activity_edit_intro.text_profile
-import kotlinx.android.synthetic.main.fragment_sign_up_organization.*
-import kotlinx.android.synthetic.main.fragment_sign_up_select_interest.*
 import kotlinx.android.synthetic.main.fragment_sign_up_select_interest.recycler_interests
 import kotlinx.android.synthetic.main.fragment_sign_up_select_interest.scrollView
 import kotlinx.android.synthetic.main.toolbar.*
@@ -59,17 +61,28 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
     private var manaualInterest: MutableList<String>? = null
     private var galleryPicker: GalleryPicker? = null
     var interests: MutableList<String>? = mutableListOf()
-    var profile_image : String? = null
+    var profileImage : String? = null
     var profileResponse : ProfileResponse? = null
+    private var placesFieldSelector: PlacesFieldSelector = PlacesFieldSelector()
+    private val PLACE_PICKER_REQUEST = 1
+    var latitude : Double = 0.0
+    var longitude : Double = 0.0
+    var address : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_intro)
         ButterKnife.bind(this)
 
+        Utils.hideSoftKeyboard(this@EditIntroActivity)
+
         setToolbar()
         getIntentData()
         loadInterest()
+
+        if (!Places.isInitialized()) {
+            Places.initialize(applicationContext, getString(R.string.google_places_api_key))
+        }
 
         setSuggestedCause()
         edit_cause.addTextChangedListener(object : TextWatcher {
@@ -85,12 +98,17 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
                 onCauseTyping(s)
             }
         })
-
     }
 
     @OnClick(R.id.image_profile)
     internal fun chooseImage() {
         showImageChooserDialog()
+    }
+
+    @OnClick(R.id.edit_location)
+    fun locationTapped() {
+        val autocompleteIntent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, placesFieldSelector.getAllFields()).build(this)
+        startActivityForResult(autocompleteIntent, PLACE_PICKER_REQUEST)
     }
 
     @OnClick(R.id.button_submit)
@@ -121,17 +139,11 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
             return
         }
 
-        if (image_profile.getDrawable() != null){
-            SnackBarFactory.createSnackBar(this, constraintLayout, "Image Field be required.")
-            return
-        }
-
-
         var editIntroInfoRequest = EditIntroInfoRequest(edit_first_name.text.toString(),
             edit_headline.text.toString(),
             mInterestAdapter.getSelectedIds(),
             edit_last_name.text.toString(),
-            "22.364154", "70.864516", AppPreference.getInstance(this).getString(PREF_CATEGORY), AppPreference.getInstance(this).getString(PREF_USER_ID), manaualInterest, profile_image)
+            latitude.toString() , longitude.toString(), edit_location.text.toString(), AppPreference.getInstance(this).getString(PREF_CATEGORY), AppPreference.getInstance(this).getString(PREF_USER_ID), manaualInterest, profileImage)
 
         val dialog = CustomProgressBar.getInstance(this).showProgressDialog("Updating Profile...")
         dialog.show()
@@ -164,20 +176,33 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
             edit_recent_job_title.setText(data?.type)
             edit_location.setText(data?.state)
             edit_headline.setText(data?.headline)
-
-            profile_image = data?.profile_image
+            edit_location.setText(data?.city)
 
             listSelected = data?.interests as ArrayList<Education>
 
             if (!data.profile.profile_image.isNullOrEmpty()) {
-                Picasso.get().load(data?.profile?.profile_image).error(R.drawable.profile_placeholder).into(image_profile)
+                Picasso.get().load(data.profile.profile_image).error(R.drawable.profile_placeholder).into(image_profile)
+                profileImage = null
             }
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         if (resultCode == Activity.RESULT_OK) galleryPicker?.fetch(requestCode, data)
+
+        if (resultCode == Activity.RESULT_OK && requestCode == PLACE_PICKER_REQUEST) run {
+            when (requestCode) {
+                PLACE_PICKER_REQUEST -> {
+                  var place = Autocomplete.getPlaceFromIntent(data!!)
+
+                    edit_location.setText(place.address.toString())
+                    latitude = place.latLng!!.latitude
+                    longitude = place.latLng!!.longitude
+                }
+            }
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -239,7 +264,7 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
         edit_cause.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
                 if (event.rawX >= edit_cause.right - edit_cause.totalPaddingRight) {
-                    val suggestedCause = edit_cause.text.toString()
+                    val suggestedCause = edit_cause.text.toString().trim()
                     if (!suggestedCause.isEmpty()) {
                         if(manaualInterest == null) {
                             manaualInterest = mutableListOf()
@@ -249,7 +274,7 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
                         textView.text = suggestedCause
 
                         val imageCross = view.findViewById<ImageView>(R.id.image_cross)
-                        imageCross.setOnClickListener { v1 ->
+                        imageCross.setOnClickListener { _ ->
                             flex_layout_cause.removeView(view)
                             manaualInterest?.remove(textView.text.toString())
                         }
@@ -286,7 +311,7 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
                 val textView = view.findViewById<TextView>(R.id.text_suggest_cause)
                 val imageCross = view.findViewById<ImageView>(R.id.image_cross)
                 textView.text = it
-                imageCross.setOnClickListener { v1 ->
+                imageCross.setOnClickListener { _ ->
                     flex_layout_cause.removeView(view)
                     interests?.remove(textView.text.toString())
                     manaualInterest?.remove(textView.text.toString())
@@ -323,7 +348,7 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
         val imageUploadRequest = ImageUploadRequest(body, type)
         SignUpRepo.uploadImage(this, imageUploadRequest, object : ResponseListener<ImageUploadResponse> {
             override fun onSuccess(response: ImageUploadResponse) {
-                profile_image = response.data[0].name
+                profileImage = response.data[0].name
                 dialog.dismiss()
             }
 

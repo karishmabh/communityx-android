@@ -51,7 +51,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="@string/google_places_api_key" />
 
         <activity
             android:name=".activity.SendLocationActivity"
@@ -95,5 +95,4 @@
         <activity android:name=".activity.PraiseActivity" />
         <activity android:name=".activity.DonatedByActivity" />
     </application>
-
 </manifest>
