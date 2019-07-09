@@ -121,10 +121,6 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
             return
         }
 
-        if (image_profile.getDrawable() != null){
-            SnackBarFactory.createSnackBar(this, constraintLayout, "Image Field be required.")
-            return
-        }
 
 
         var editIntroInfoRequest = EditIntroInfoRequest(edit_first_name.text.toString(),

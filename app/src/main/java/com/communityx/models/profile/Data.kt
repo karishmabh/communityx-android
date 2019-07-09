@@ -18,6 +18,8 @@ data class Data(
     val headline : String,
     val type: String,
     val state:String,
+    val name: String,
     val city:String,
+    val total_allies: String,
     val work_experience: List<Education>
 ) : Serializable
