@@ -4,12 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
-import android.transition.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -18,22 +16,20 @@ import com.communityx.activity.AddExperienceActivity
 import com.communityx.activity.EditClubActivity
 import com.communityx.activity.EditEducationActivity
 import com.communityx.activity.ProfileActivity
-import com.communityx.database.fakemodels.ProfileAboutModel
 import com.communityx.models.profile.Education
-import com.communityx.models.profile.profile
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException
-import java.util.ArrayList
+import java.util.*
 
-class ProfileWorkExpAdapter (private val mContext: Context, private val list: List<Education>) : RecyclerView.Adapter<ProfileWorkExpAdapter.ViewHolder>() {
+class ProfileWorkExpAdapter(private val mContext: Context, private val list: List<Education>) :
+    RecyclerView.Adapter<ProfileWorkExpAdapter.ViewHolder>() {
 
     private val mInflater: LayoutInflater = LayoutInflater.from(mContext)
-    private var bool_work_exp : Boolean = false
-    private var bool_club : Boolean = false
-    private var bool_education : Boolean = false
-    private var bool_interest : Boolean = false
+    private var bool_work_exp: Boolean = false
+    private var bool_club: Boolean = false
+    private var bool_education: Boolean = false
+    private var bool_interest: Boolean = false
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, p1: Int): ViewHolder {
-       return ViewHolder(mInflater.inflate(R.layout.item_profile_info, viewGroup, false))
+        return ViewHolder(mInflater.inflate(R.layout.item_profile_info, viewGroup, false))
     }
 
     override fun getItemCount(): Int {
@@ -53,7 +49,7 @@ class ProfileWorkExpAdapter (private val mContext: Context, private val list: Li
 
             if (list[position].datatype == "club") {
                 val intent = Intent(mContext, EditClubActivity::class.java)
-                intent.putExtra("data",  list as ArrayList<Education>)
+                intent.putExtra("data", list as ArrayList<Education>)
                 mContext.startActivity(intent)
                 (mContext as ProfileActivity).overridePendingTransition(R.anim.anim_slide_up, R.anim.anim_stay)
             }
@@ -97,7 +93,7 @@ class ProfileWorkExpAdapter (private val mContext: Context, private val list: Li
                 bool_club = true
                 viewGradient.visibility = View.VISIBLE
             } else if (education.datatype == "club" && bool_club) {
-                hideVisibility()
+                hideVisibilityClub()
             }
 
             if (education.datatype == "edu" && !bool_education) {
@@ -133,6 +129,11 @@ class ProfileWorkExpAdapter (private val mContext: Context, private val list: Li
 
         fun hideVisibility() {
             textHeading.visibility = View.GONE
+        }
+
+        fun hideVisibilityClub() {
+            textHeading.visibility = View.GONE
+            imageEdit.visibility = View.GONE
         }
     }
 }
