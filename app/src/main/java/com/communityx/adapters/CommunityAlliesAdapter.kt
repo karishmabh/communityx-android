@@ -35,8 +35,8 @@ class CommunityAlliesAdapter(
 
     override fun onBindViewHolder(eventHolder: EventHolder, i: Int) {
         eventHolder.bindData()
-        if (mArrayList.get(i).profile != null) {
-            val interesttList = mArrayList.get(i).interests
+        if (mArrayList[i].profile != null) {
+            val interesttList = mArrayList[i].interests
             setFLexLayout(eventHolder.flexboxLayout, interesttList)
         }
     }
@@ -55,7 +55,7 @@ class CommunityAlliesAdapter(
 
         @OnClick(R.id.linear_add_friend)
         fun onAddFriendClicked() {
-               iOnAddFriendClicked.sendInvitationTapped(mArrayList.get(adapterPosition).id, adapterPosition, itemView.image_request)
+               iOnAddFriendClicked.sendInvitationTapped(mArrayList[adapterPosition].id, adapterPosition, itemView.image_request)
         }
 
         fun bindData() {
@@ -82,21 +82,21 @@ class CommunityAlliesAdapter(
         fun setSubTitle(category: String): String {
             when (category) {
                 STUDENT -> {
-                    itemView.text_title_name.setText(mArrayList.get(adapterPosition).name)
-                    if (mArrayList.get(adapterPosition).education.size > 0) {
-                        return "Student" + ", " + mArrayList.get(adapterPosition).education.get(0).name
+                    itemView.text_title_name.text = mArrayList.get(adapterPosition).name
+                    if (mArrayList[adapterPosition].education.isNotEmpty()) {
+                        return "Student" + ", " + mArrayList[adapterPosition].education[0].name
                     }
                 }
 
                 ORGANIZATION -> {
-                    itemView.text_title_name.setText(mArrayList.get(adapterPosition).name)
-                    return "Organization" + ", " + mArrayList.get(adapterPosition).name
+                    itemView.text_title_name.text = mArrayList[adapterPosition].name
+                    return "Organization" + ", " + mArrayList[adapterPosition].name
                 }
 
                 PROFESSIONAL -> {
-                    itemView.text_title_name.setText(mArrayList.get(adapterPosition).name)
-                    if (mArrayList.get(adapterPosition).work_experience !=null && mArrayList.get(adapterPosition).work_experience.size>0) {
-                        return mArrayList.get(adapterPosition).work_experience.get(0).role+ ", " + mArrayList.get(adapterPosition).work_experience.get(0).name
+                    itemView.text_title_name.text = mArrayList[adapterPosition].name
+                    if (mArrayList[adapterPosition].work_experience !=null && mArrayList[adapterPosition].work_experience.isNotEmpty()) {
+                        return mArrayList[adapterPosition].work_experience[0].role+ ", " + mArrayList[adapterPosition].work_experience[0].name
                     }
                 }
             }

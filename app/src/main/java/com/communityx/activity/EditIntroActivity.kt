@@ -182,7 +182,7 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
 
             if (!data.profile.profile_image.isNullOrEmpty()) {
                 Picasso.get().load(data.profile.profile_image).error(R.drawable.profile_placeholder).into(image_profile)
-                profileImage = ""
+                profileImage = null
             }
         }
     }
@@ -264,7 +264,7 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
         edit_cause.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
                 if (event.rawX >= edit_cause.right - edit_cause.totalPaddingRight) {
-                    val suggestedCause = edit_cause.text.toString()
+                    val suggestedCause = edit_cause.text.toString().trim()
                     if (!suggestedCause.isEmpty()) {
                         if(manaualInterest == null) {
                             manaualInterest = mutableListOf()
