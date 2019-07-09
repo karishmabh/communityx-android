@@ -138,9 +138,9 @@ class SignUpStudentInfoActivity : BaseActivity(), AppConstant, View.OnClickListe
         val fragments = ArrayList<Fragment>()
         when (selectedCategory) {
             AppConstant.STUDENT -> {
-                fragments.add(SignUpStudentInfoFragment())
-                fragments.add(SignUpSchoolCollegeFragment())
-                fragments.add(SignUpRoleFragment())
+              //  fragments.add(SignUpStudentInfoFragment())
+              //  fragments.add(SignUpSchoolCollegeFragment())
+              //  fragments.add(SignUpRoleFragment())
                 fragments.add(SignUpMemberOfClub())
             }
             AppConstant.PROFESSIONAL -> {

@@ -152,6 +152,10 @@ class SignUpMemberOfClub : BaseSignUpFragment(), AppConstant , ClubsAdapter.IClu
         }
 
         buttonAdd.setOnClickListener {
+            if (editClub.text.toString().trim().isNullOrEmpty() || editRole.text.toString().trim().isNullOrEmpty()) {
+                return@setOnClickListener
+            }
+
             causesDataList.add(CauseData(editClub.text.toString(), editRole.text.toString()))
             dialog.dismiss()
 
