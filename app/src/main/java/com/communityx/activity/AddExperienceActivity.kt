@@ -1,17 +1,13 @@
 package com.communityx.activity
 
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import android.widget.Toast
@@ -19,7 +15,6 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.communityx.R
 import com.communityx.adapters.AutoSuggestAdapter
-import com.communityx.models.editintroinfo.EditIntroInfoRequest
 import com.communityx.models.job_companies.Data
 import com.communityx.models.profile.Education
 import com.communityx.models.signup.DataX
@@ -29,17 +24,9 @@ import com.communityx.models.signup.institute.CompanyRequest
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
 import com.communityx.utils.*
-import com.communityx.utils.AppConstant.PREF_USER_ID
-import com.communityx.utils.Utils.enableButton
 import kotlinx.android.synthetic.main.activity_add_experience.*
-import kotlinx.android.synthetic.main.activity_edit_education.*
-import kotlinx.android.synthetic.main.activity_edit_intro.*
 import kotlinx.android.synthetic.main.fragment_sign_up_professional.*
 import kotlinx.android.synthetic.main.fragment_sign_up_student_info.*
-import kotlinx.android.synthetic.main.fragment_sign_up_student_info.constraintLayout
-import kotlinx.android.synthetic.main.fragment_sign_up_student_info.edit_first_name
-import kotlinx.android.synthetic.main.fragment_sign_up_student_info.edit_last_name
-import kotlinx.android.synthetic.main.fragment_sign_up_student_info.image_profile
 import kotlinx.android.synthetic.main.toolbar.*
 
 class AddExperienceActivity : AppCompatActivity() {
@@ -71,24 +58,24 @@ class AddExperienceActivity : AppCompatActivity() {
     }
 
     @OnClick(R.id.edit_start_date)
-        fun tappedStartDate(){
+    fun tappedStartDate() {
         Utils.hideSoftKeyboard(this@AddExperienceActivity)
         Utils.openDatePickerDialog(this@AddExperienceActivity, object : Utils.IDateCallback {
             override fun getDate(date: String?) {
                 edit_start_date.setText(date)
-                edit_start_date.setTextColor(ContextCompat.getColor(this@AddExperienceActivity,R.color.Black))
+                edit_start_date.setTextColor(ContextCompat.getColor(this@AddExperienceActivity, R.color.Black))
                 edit_end_date.requestFocus()
             }
         })
     }
 
     @OnClick(R.id.edit_end_date)
-    fun tappedEndDate(){
+    fun tappedEndDate() {
         Utils.hideSoftKeyboard(this@AddExperienceActivity)
         Utils.openDatePickerDialog(this@AddExperienceActivity, object : Utils.IDateCallback {
             override fun getDate(date: String?) {
                 edit_end_date.setText(date)
-                edit_end_date.setTextColor(ContextCompat.getColor(this@AddExperienceActivity,R.color.Black))
+                edit_end_date.setTextColor(ContextCompat.getColor(this@AddExperienceActivity, R.color.Black))
                 edit_end_date.requestFocus()
                 textinput_description.requestFocus()
             }
@@ -121,7 +108,8 @@ class AddExperienceActivity : AppCompatActivity() {
     }
 
     private fun setAutoCompanyName() {
-        autoSuggestCompanyAdapter = AutoSuggestAdapter(this@AddExperienceActivity, android.R.layout.simple_dropdown_item_1line)
+        autoSuggestCompanyAdapter =
+            AutoSuggestAdapter(this@AddExperienceActivity, android.R.layout.simple_dropdown_item_1line)
         auto_company_name.threshold = 1
         auto_company_name.setAdapter(autoSuggestCompanyAdapter)
 
@@ -172,7 +160,8 @@ class AddExperienceActivity : AppCompatActivity() {
     }
 
     private fun setAutoJobTitle() {
-        autoSuggestTitleAdapter = AutoSuggestAdapter(this@AddExperienceActivity, android.R.layout.simple_dropdown_item_1line)
+        autoSuggestTitleAdapter =
+            AutoSuggestAdapter(this@AddExperienceActivity, android.R.layout.simple_dropdown_item_1line)
         auto_title.threshold = 1
         auto_title.setAdapter(autoSuggestTitleAdapter)
 
@@ -203,6 +192,7 @@ class AddExperienceActivity : AppCompatActivity() {
             }
         })
     }
+
     private fun setSpinnerJobData(jobs: List<RoleData>) {
         val jobsList = mutableListOf<String>()
         jobs.forEach {
@@ -213,7 +203,7 @@ class AddExperienceActivity : AppCompatActivity() {
     }
 
     @OnClick(R.id.button_login)
-    fun tapped(){
+    fun tapped() {
 
         if (TextUtils.isEmpty(auto_company_name.text)) {
             SnackBarFactory.createSnackBar(this, constraintLayout, "Company name cannot be empty.")
@@ -245,31 +235,37 @@ class AddExperienceActivity : AppCompatActivity() {
             return
         }
 
-        var editExperienceInfoRequest = CompanyRequest(auto_company_name.text.toString(),
+        var editExperienceInfoRequest = CompanyRequest(
+            auto_company_name.text.toString(),
             auto_title.text.toString(),
             AppPreference.getInstance(this).getString(
-                AppConstant.PREF_USER_ID),
+                AppConstant.PREF_USER_ID
+            ),
             "Kempton",
             "22.364154", "70.864516",
             edit_start_date.text.toString(),
             edit_end_date.text.toString(),
             textinput_description.text.toString(),
             msg
-            )
+        )
         val dialog = CustomProgressBar.getInstance(this).showProgressDialog("Updating Experience...")
         dialog.show()
-        SignUpRepo.addCompany(this,editExperienceInfoRequest, object : ResponseListener<List<DataX>> {
+        SignUpRepo.addCompany(this, editExperienceInfoRequest, object : ResponseListener<List<DataX>> {
             override fun onSuccess(response: List<DataX>) {
                 finish()
-                overridePendingTransition(R.anim.anim_stay,R.anim.anim_slide_down)
-                Toast.makeText(this@AddExperienceActivity, resources.getString(R.string.string_update_experience), Toast.LENGTH_SHORT).show()
-                dialog.dismiss();
+                overridePendingTransition(R.anim.anim_stay, R.anim.anim_slide_down)
+                Toast.makeText(
+                    this@AddExperienceActivity,
+                    resources.getString(R.string.string_update_experience),
+                    Toast.LENGTH_SHORT
+                ).show()
+                dialog.dismiss()
             }
 
             override fun onError(error: Any) {
 
                 Utils.showError(this@AddExperienceActivity, coordinator_main, error)
-                dialog.dismiss();
+                dialog.dismiss()
             }
         })
 
