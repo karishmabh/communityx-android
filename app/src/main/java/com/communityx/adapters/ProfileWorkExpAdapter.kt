@@ -113,6 +113,7 @@ class ProfileWorkExpAdapter(private val mContext: Context, private val list: Lis
 
             if (education.datatype == "we" && !bool_work_exp) {
                 textHeading.text = mContext.getString(R.string.string_work_experience)
+                textDuration.text = education.start_date + " - " + education.end_date
                 bool_work_exp = true
                 viewGradient.visibility = View.VISIBLE
             } else if (education.datatype == "we" && bool_work_exp) {
@@ -121,9 +122,9 @@ class ProfileWorkExpAdapter(private val mContext: Context, private val list: Lis
 
             textTitle.text = education.name
 
-            if (education.role != null)
+            if (education.role != null) {
                 textSubTitle.text = education.role
-            else
+            } else
                 textSubTitle.visibility = View.GONE
         }
 

@@ -29,7 +29,6 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import kotlinx.android.synthetic.main.activity_add_experience.*
-import kotlinx.android.synthetic.main.activity_edit_intro.*
 import kotlinx.android.synthetic.main.fragment_sign_up_professional.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -44,6 +43,8 @@ class AddExperienceActivity : BaseActivity() {
     var msg: String = ""
     private var placesFieldSelector: PlacesFieldSelector = PlacesFieldSelector()
     private val PLACE_PICKER_REQUEST = 1
+    var latitude: String = "0.0"
+    var longitude: String = "0.0"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +52,6 @@ class AddExperienceActivity : BaseActivity() {
         ButterKnife.bind(this)
 
         Utils.hideSoftKeyboard(this@AddExperienceActivity)
-
-
         if (!Places.isInitialized()) {
             Places.initialize(applicationContext, getString(R.string.google_places_api_key))
         }
@@ -96,7 +95,9 @@ class AddExperienceActivity : BaseActivity() {
 
     @OnClick(R.id.auto_edit_location)
     fun locationTapped() {
-        val autocompleteIntent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, placesFieldSelector.getAllFields()).build(this)
+        val autocompleteIntent =
+            Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, placesFieldSelector.getAllFields())
+                .build(this)
         startActivityForResult(autocompleteIntent, PLACE_PICKER_REQUEST)
     }
 
@@ -107,8 +108,10 @@ class AddExperienceActivity : BaseActivity() {
             when (requestCode) {
                 PLACE_PICKER_REQUEST -> {
                     var place = Autocomplete.getPlaceFromIntent(data!!)
-
                     auto_edit_location.setText(place.address.toString())
+
+                    latitude = place.latLng?.latitude.toString()
+                    longitude = place.latLng?.longitude.toString()
                 }
             }
         }
@@ -304,32 +307,39 @@ class AddExperienceActivity : BaseActivity() {
         var companyName = auto_company_name.text.toString().trim()
         var autoTitle = auto_title.text.toString().trim()
         var userId = AppPreference.getInstance(this).getString(AppConstant.PREF_USER_ID)
+        var companyId = education.id
         var startDate = edit_start_date.text.toString().trim()
         var endDate = edit_end_date.text.toString().trim()
         var inputDescription = textinput_description.text.toString().trim()
+        var address = auto_edit_location.text.toString().trim()
 
         msg = if (check_work_here.isChecked) "1" else "0"
 
         //TODO : hard coded location
         var editExperienceInfoRequest = CompanyRequest(
-            companyName, autoTitle, userId, "Kempton",
-            "22.364154", "70.864516",
+            companyName, autoTitle, userId, companyId, address,
+            latitude, longitude,
             startDate,
             endDate,
             inputDescription,
             msg
         )
 
-        val dialog = CustomProgressBar.getInstance(this).showProgressDialog(resources.getString(R.string.upadating_experience))
+        val dialog =
+            CustomProgressBar.getInstance(this).showProgressDialog(resources.getString(R.string.upadating_experience))
         dialog.show()
-        SignUpRepo.addCompany(this, editExperienceInfoRequest, object : ResponseListener<List<DataX>> {
+        SignUpRepo.UpdateCompany(this, editExperienceInfoRequest, object : ResponseListener<List<DataX>> {
 
             override fun onSuccess(response: List<DataX>) {
                 dialog.dismiss()
 
                 finish()
                 overridePendingTransition(R.anim.anim_stay, R.anim.anim_slide_down)
-                Toast.makeText(this@AddExperienceActivity, resources.getString(R.string.string_update_experience), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@AddExperienceActivity,
+                    resources.getString(R.string.string_update_experience),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
             override fun onError(error: Any) {
