@@ -1,5 +1,7 @@
 package com.communityx.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -21,8 +23,13 @@ import com.communityx.models.signup.RoleResponse
 import com.communityx.models.signup.institute.CompanyRequest
 import com.communityx.network.ResponseListener
 import com.communityx.network.serviceRepo.SignUpRepo
+import com.communityx.places.PlacesFieldSelector
 import com.communityx.utils.*
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import kotlinx.android.synthetic.main.activity_add_experience.*
+import kotlinx.android.synthetic.main.activity_edit_intro.*
 import kotlinx.android.synthetic.main.fragment_sign_up_professional.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -35,6 +42,8 @@ class AddExperienceActivity : BaseActivity() {
     private val AUTO_COMPLETE_DELAY: Long = 300
     private lateinit var handler: Handler
     var msg: String = ""
+    private var placesFieldSelector: PlacesFieldSelector = PlacesFieldSelector()
+    private val PLACE_PICKER_REQUEST = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +51,11 @@ class AddExperienceActivity : BaseActivity() {
         ButterKnife.bind(this)
 
         Utils.hideSoftKeyboard(this@AddExperienceActivity)
+
+
+        if (!Places.isInitialized()) {
+            Places.initialize(applicationContext, getString(R.string.google_places_api_key))
+        }
 
         setToolbar()
         getIntentData()
@@ -78,6 +92,26 @@ class AddExperienceActivity : BaseActivity() {
     fun closeTapped() {
         finish()
         overridePendingTransition(R.anim.anim_stay, R.anim.anim_slide_down)
+    }
+
+    @OnClick(R.id.auto_edit_location)
+    fun locationTapped() {
+        val autocompleteIntent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, placesFieldSelector.getAllFields()).build(this)
+        startActivityForResult(autocompleteIntent, PLACE_PICKER_REQUEST)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK && requestCode == PLACE_PICKER_REQUEST) run {
+            when (requestCode) {
+                PLACE_PICKER_REQUEST -> {
+                    var place = Autocomplete.getPlaceFromIntent(data!!)
+
+                    auto_edit_location.setText(place.address.toString())
+                }
+            }
+        }
     }
 
     private fun setToolbar() {

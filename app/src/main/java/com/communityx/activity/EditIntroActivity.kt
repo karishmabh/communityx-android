@@ -176,19 +176,23 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
             edit_recent_job_title.setText(data?.type)
             edit_location.setText(data?.state)
             edit_headline.setText(data?.headline)
+            edit_location.setText(data?.city)
 
             listSelected = data?.interests as ArrayList<Education>
 
             if (!data.profile.profile_image.isNullOrEmpty()) {
                 Picasso.get().load(data.profile.profile_image).error(R.drawable.profile_placeholder).into(image_profile)
-                profileImage = data.profile.profile_image
+                profileImage = ""
             }
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) run {
+
+        if (resultCode == Activity.RESULT_OK) galleryPicker?.fetch(requestCode, data)
+
+        if (resultCode == Activity.RESULT_OK && requestCode == PLACE_PICKER_REQUEST) run {
             when (requestCode) {
                 PLACE_PICKER_REQUEST -> {
                   var place = Autocomplete.getPlaceFromIntent(data!!)

@@ -79,6 +79,9 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
                 android:inputType="textCapWords"
+                android:editable="false"
+                android:focusableInTouchMode="false"
+                android:focusable="false"
                 android:drawableEnd="@drawable/ic_edit_profile_location"
                 android:maxLength="50"
                 android:singleLine="true" />
