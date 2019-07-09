@@ -17,6 +17,7 @@ import com.communityx.activity.EditClubActivity
 import com.communityx.activity.EditEducationActivity
 import com.communityx.activity.ProfileActivity
 import com.communityx.models.profile.Education
+import kotlinx.android.synthetic.main.activity_add_experience.*
 import java.util.*
 
 class ProfileWorkExpAdapter(private val mContext: Context, private val list: List<Education>) :
@@ -126,6 +127,7 @@ class ProfileWorkExpAdapter(private val mContext: Context, private val list: Lis
             else
                 textSubTitle.visibility = View.GONE
         }
+
 
         fun hideVisibility() {
             textHeading.visibility = View.GONE

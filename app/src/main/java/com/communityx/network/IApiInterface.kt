@@ -121,6 +121,9 @@ interface IApiInterface {
     @POST("user-company")
     fun addUserCompany(@Header("token") token: String, @Body companyRequest: CompanyRequest): Call<ClubResponse>
 
+    @POST("user/update-company")
+    fun updateCompany(@Header("token") token: String, @Header("session") session: String,  @Body companyRequest: CompanyRequest): Call<ClubResponse>
+
     @POST("user-interest")
     fun addUserInterest(@Header("token") token: String, @Body interestRequest: InterestRequest): Call<ClubResponse>
 
