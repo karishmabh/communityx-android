@@ -5,6 +5,7 @@ data class CompanyRequest(
     val role: String,
     val user_id: String,
 
+    val user_company_id :String="",
     val address : String= "",
     val latitude : String = "",
     val longitude : String = "",
@@ -12,4 +13,5 @@ data class CompanyRequest(
     val end_date : String = "",
     val description : String = "",
     val is_current : String = ""
+
 )

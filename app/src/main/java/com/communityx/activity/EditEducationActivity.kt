@@ -54,6 +54,7 @@ class EditEducationActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_education)
         ButterKnife.bind(this)
+        Utils.hideSoftKeyboard(this@EditEducationActivity)
 
         setToolBar(this, getString(R.string.string_edit_education), true, true)
 

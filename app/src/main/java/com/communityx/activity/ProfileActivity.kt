@@ -253,7 +253,6 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         }
 
         imageClose.setOnClickListener { dialog.dismiss() }
-
         dialog.show()
     }
 }

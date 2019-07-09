@@ -48,6 +48,8 @@ class EditClubActivity : BaseActivity() {
         setContentView(R.layout.activity_edit_club)
         ButterKnife.bind(this)
 
+        Utils.hideSoftKeyboard(this@EditClubActivity)
+
         setToolBar(this, getString(R.string.string_edit_club), true, true)
         getIntentData()
     }
