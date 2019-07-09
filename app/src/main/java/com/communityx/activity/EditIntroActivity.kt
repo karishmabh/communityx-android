@@ -74,6 +74,8 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
         setContentView(R.layout.activity_edit_intro)
         ButterKnife.bind(this)
 
+        Utils.hideSoftKeyboard(this@EditIntroActivity)
+
         setToolbar()
         getIntentData()
         loadInterest()

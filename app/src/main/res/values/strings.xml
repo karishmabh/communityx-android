@@ -180,7 +180,7 @@
     <string name="click_on_send_otp">Please send otp to proceed</string>
     <string name="password_field_empty">Please enter password</string>
     <string name="confirm_password_field_empty">Please enter confirm password</string>
-    <string name="password_not_matched">Passwords does not match. Please check</string>
+    <string name="password_not_matched">Password does not match.</string>
     <string name="mobiel_number_not_valid">Please enter valid phone number</string>
     <string name="mobiel_number_less_digits">Phone number cannot be less than 10 digits</string>
     <string name="please_verify_otp">Please verify OTP</string>
@@ -263,7 +263,7 @@
     <string name="string_headline">Headline</string>
     <string name="string_what_causes_you_care_about">What causes you care about?</string>
     <string name="string_select_up_to_5">(Select up to 5)</string>
-    <string name="string_add_work_exp">Add Work Experience</string>
+    <string name="string_add_work_exp">Edit Work Experience</string>
     <string name="string_add_volunteer_exp">Add Volunteer Experience</string>
     <string name="string_edit_education">Edit Education</string>
     <string name="string_edit_club">Edit Club</string>
@@ -279,4 +279,12 @@
     <string name="google_places_api_key">AIzaSyDqGGYPMaSS2fK2Cni703cUCpX1hc326NI</string>
     <string name="club_name">Club Name</string>
     <string name="cause_name">Cause Name</string>
+    <string name="error_company_cannot_be_empty">Company name cannot be empty.</string>
+    <string name="error_title_cannot_be_empty">Job Title cannot be empty.</string>
+    <string name="error_location_cannot_be_empty">Location cannot be empty.</string>
+    <string name="error_start_date_cannot_be_empty">Start Date cannot be empty.</string>
+    <string name="error_end_date_cannot_be_empty">End Date cannot be empty.</string>
+    <string name="error_description_cannot_be_empty">Description cannot be empty.</string>
+    <string name="COMPANY">COMPANY</string>
+    <string name="upadating_experience">Updating Experience...</string>
 </resources>

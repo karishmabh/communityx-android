@@ -38,8 +38,9 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         setContentView(R.layout.activity_profile)
         ButterKnife.bind(this)
 
-        Utils.hideSoftKeyboard(this)
-    
+        Utils.hideSoftKeyboard(this@ProfileActivity)
+
+        getProfile()
         showEditIcon(!isOtherProfile)
         showAddHeadlines(true && !isOtherProfile)
         showAddAndMessageButton(isOtherProfile)
@@ -201,7 +202,6 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         }
 
         imageClose.setOnClickListener { dialog.dismiss() }
-
         dialog.show()
     }
 }
