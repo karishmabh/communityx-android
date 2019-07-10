@@ -259,6 +259,7 @@
                             app:layout_constraintTop_toBottomOf="@id/flex_layout_cause"/>
 
                     <LinearLayout
+                            android:id="@+id/linear_connections"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackground"
@@ -341,6 +342,7 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             app:fabCustomSize="@dimen/_48sdp"
+            android:visibility="gone"
             android:layout_gravity="bottom|right"
             android:src="@drawable/ic_create_crowdfunding_add"
             android:layout_width="@dimen/_48sdp"

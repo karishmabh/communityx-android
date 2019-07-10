@@ -88,7 +88,8 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         bottomSheetDialog.findViewById<View>(R.id.image_add_work)!!.setOnClickListener(object: View.OnClickListener {
             override fun onClick(v: View?) {
                 bottomSheetDialog.dismiss()
-                startActivity(Intent(this@ProfileActivity, AddExperienceActivity::class.java))
+                startActivity(Intent(this@ProfileActivity, AddExperienceActivity::class.java)
+                    .putExtra("isAdded", true))
             }
         })
 
@@ -155,6 +156,10 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
             text_headline.text = profileData.headline
             text_headline.visibility = View.VISIBLE
             view_add_headline.visibility = View.GONE
+        }
+
+        if (profileData.total_allies.isNullOrEmpty()) {
+            linear_connections.visibility = View.GONE
         }
 
         text_connections.text = resources.getString(R.string.see_all_102_connections).replace("102", profileData.total_allies)
@@ -241,6 +246,7 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
             DataManager.updateHeadline(this, editHeadlineRequest, object : ResponseListener<EditIntroInfoResponse> {
                 override fun onSuccess(response: EditIntroInfoResponse) {
                     Toast.makeText(this@ProfileActivity, "Headline updated successfully", Toast.LENGTH_LONG).show()
+                    getProfile()
                     dialog.dismiss()
                     progressDialog.dismiss()
                 }

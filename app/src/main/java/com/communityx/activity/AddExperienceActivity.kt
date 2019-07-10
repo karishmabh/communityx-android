@@ -45,11 +45,16 @@ class AddExperienceActivity : BaseActivity() {
     private val PLACE_PICKER_REQUEST = 1
     var latitude: String = "0.0"
     var longitude: String = "0.0"
+    var isCompanyAdded: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_experience)
         ButterKnife.bind(this)
+
+        if (intent.extras!=null) {
+            isCompanyAdded = intent.extras.getBoolean("isAdded")
+        }
 
         Utils.hideSoftKeyboard(this@AddExperienceActivity)
         if (!Places.isInitialized()) {
@@ -297,9 +302,12 @@ class AddExperienceActivity : BaseActivity() {
 
     @OnClick(R.id.button_save)
     fun SaveTapped() {
-
         if (validate()) {
-            onSubmit()
+            if (isCompanyAdded) {
+                newCompanyAdded()
+            } else {
+                onSubmit()
+            }
         }
     }
 
@@ -329,6 +337,49 @@ class AddExperienceActivity : BaseActivity() {
             CustomProgressBar.getInstance(this).showProgressDialog(resources.getString(R.string.upadating_experience))
         dialog.show()
         SignUpRepo.UpdateCompany(this, editExperienceInfoRequest, object : ResponseListener<List<DataX>> {
+
+            override fun onSuccess(response: List<DataX>) {
+                dialog.dismiss()
+
+                finish()
+                overridePendingTransition(R.anim.anim_stay, R.anim.anim_slide_down)
+                Toast.makeText(
+                    this@AddExperienceActivity,
+                    resources.getString(R.string.string_update_experience),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            override fun onError(error: Any) {
+                Utils.showError(this@AddExperienceActivity, coordinator_main_exp, error)
+                dialog.dismiss()
+            }
+        })
+    }
+
+    private fun newCompanyAdded() {
+        var companyName = auto_company_name.text.toString().trim()
+        var autoTitle = auto_title.text.toString().trim()
+        var startDate = edit_start_date.text.toString().trim()
+        var endDate = edit_end_date.text.toString().trim()
+        var inputDescription = textinput_description.text.toString().trim()
+        var address = auto_edit_location.text.toString().trim()
+
+        msg = if (check_work_here.isChecked) "1" else "0"
+
+        //TODO : hard coded location
+        var editExperienceInfoRequest = CompanyRequest(
+            companyName, autoTitle, "", "", address,
+            latitude, longitude,
+            startDate,
+            endDate,
+            inputDescription,
+            msg
+        )
+
+        val dialog = CustomProgressBar.getInstance(this).showProgressDialog(resources.getString(R.string.upadating_experience))
+        dialog.show()
+        SignUpRepo.addCompany(this, editExperienceInfoRequest, object : ResponseListener<List<DataX>> {
 
             override fun onSuccess(response: List<DataX>) {
                 dialog.dismiss()
