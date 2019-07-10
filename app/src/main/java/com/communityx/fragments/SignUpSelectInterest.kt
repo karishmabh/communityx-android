@@ -125,7 +125,7 @@ class SignUpSelectInterest : BaseSignUpFragment() {
         edit_cause.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
                 if (event.rawX >= edit_cause.right - edit_cause.totalPaddingRight) {
-                    val suggestedCause = edit_cause.text.toString()
+                    val suggestedCause = edit_cause.text.toString().trim()
                     if (!suggestedCause.isEmpty()) {
                         if(signUpActivity?.manaualInterest == null) {
                             signUpActivity?.manaualInterest = mutableListOf()

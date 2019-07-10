@@ -91,15 +91,16 @@ class FriendsFragment : Fragment() {
                         initAllFriends(userData)
                     }
                 } else {
-
-                    if (query == "") {
-                        edit_search.visibility = View.GONE
-                        recycler_my_friends.visibility = View.GONE
-                        text_no_record.visibility = View.VISIBLE
-                    } else {
-                        recycler_my_friends.visibility = View.GONE
-                        text_no_record.visibility = View.VISIBLE
-                        text_no_record.text = "No allies found"
+                    if (isAdded) {
+                        if (query == "") {
+                            edit_search.visibility = View.GONE
+                            recycler_my_friends.visibility = View.GONE
+                            text_no_record.visibility = View.VISIBLE
+                        } else {
+                            recycler_my_friends.visibility = View.GONE
+                            text_no_record.visibility = View.VISIBLE
+                            text_no_record.text = "No allies found"
+                        }
                     }
                 }
             }
