@@ -281,10 +281,15 @@
     <string name="cause_name">Cause Name</string>
     <string name="error_company_cannot_be_empty">Company name cannot be empty.</string>
     <string name="error_title_cannot_be_empty">Job Title cannot be empty.</string>
-    <string name="error_location_cannot_be_empty">Location cannot be empty.</string>
+    <string name="eror_location_cannot_be_empty">Location cannot be empty.</string>
     <string name="error_start_date_cannot_be_empty">Start Date cannot be empty.</string>
     <string name="error_end_date_cannot_be_empty">End Date cannot be empty.</string>
     <string name="error_description_cannot_be_empty">Description cannot be empty.</string>
     <string name="COMPANY">COMPANY</string>
     <string name="upadating_experience">Updating Experience...</string>
+    <string name="error_first_name_cannot_be_empty">First name cannot be empty.</string>
+    <string name="error_last_name_canot_be_empty">Last name cannot be empty.</string>
+    <string name="error_job_title_cannot_be_empty">Job title cannot be empty.</string>
+    <string name="error_location_cannot_be_empty">Location cannot be empty.</string>
+    <string name="error_headline_cannot_be_empty">Headline cannot be empty.</string>
 </resources>

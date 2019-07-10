@@ -90,6 +90,7 @@ class ProfileWorkExpAdapter(private val mContext: Context, private val list: Lis
 
             if (education.datatype == "club" && !bool_club) {
                 textHeading.text = mContext.getString(R.string.string_clubs_and_organization)
+                textDuration.visibility=View.GONE
                 bool_club = true
                 viewGradient.visibility = View.VISIBLE
             } else if (education.datatype == "club" && bool_club) {
@@ -98,6 +99,7 @@ class ProfileWorkExpAdapter(private val mContext: Context, private val list: Lis
 
             if (education.datatype == "edu" && !bool_education) {
                 textHeading.text = "Education"
+                textDuration.visibility=View.GONE
                 bool_education = true
             } else if (education.datatype == "edu" && bool_education) {
                 hideVisibility()
@@ -105,6 +107,7 @@ class ProfileWorkExpAdapter(private val mContext: Context, private val list: Lis
 
             if (education.datatype == "interest" && !bool_interest) {
                 textHeading.text = "Interest"
+                textDuration.visibility=View.GONE
                 bool_interest = true
                 viewGradient.visibility = View.VISIBLE
             } else if (education.datatype == "interest" && bool_interest) {
@@ -113,28 +116,36 @@ class ProfileWorkExpAdapter(private val mContext: Context, private val list: Lis
 
             if (education.datatype == "we" && !bool_work_exp) {
                 textHeading.text = mContext.getString(R.string.string_work_experience)
-                textDuration.text = education.start_date + " - " + education.end_date
+                textDuration.text = education.start_date+ " - " + education.end_date!!
                 bool_work_exp = true
                 viewGradient.visibility = View.VISIBLE
             } else if (education.datatype == "we" && bool_work_exp) {
-                hideVisibility()
+                hideVisibilityExp(education)
             }
 
             textTitle.text = education.name
 
             if (education.role != null) {
                 textSubTitle.text = education.role
+
             } else
                 textSubTitle.visibility = View.GONE
         }
 
         fun hideVisibility() {
             textHeading.visibility = View.GONE
+            textDuration.visibility=View.GONE
+        }
+
+        fun hideVisibilityExp(education: Education) {
+            textHeading.visibility = View.GONE
+            textDuration.text = education.start_date+ " - " + education.end_date
         }
 
         fun hideVisibilityClub() {
             textHeading.visibility = View.GONE
             imageEdit.visibility = View.GONE
+            textDuration.visibility=View.GONE
         }
     }
 }

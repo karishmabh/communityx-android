@@ -115,27 +115,27 @@ class EditIntroActivity : AppCompatActivity(), GalleryPicker.GalleryPickerListen
     fun submitTapped() {
 
         if (TextUtils.isEmpty(edit_first_name.text)) {
-            SnackBarFactory.createSnackBar(this, constraintLayout, "First name cannot be empty.")
+            SnackBarFactory.createSnackBar(this, constraintLayout, resources.getString(R.string.error_first_name_cannot_be_empty))
             return
         }
 
         if (TextUtils.isEmpty(edit_last_name.text)) {
-            SnackBarFactory.createSnackBar(this, constraintLayout, "Last name cannot be empty.")
+            SnackBarFactory.createSnackBar(this, constraintLayout, resources.getString(R.string.error_last_name_canot_be_empty))
             return
         }
 
         if (TextUtils.isEmpty(edit_recent_job_title.text)) {
-            SnackBarFactory.createSnackBar(this, constraintLayout, "Job title cannot be empty.")
+            SnackBarFactory.createSnackBar(this, constraintLayout, resources.getString(R.string.error_job_title_cannot_be_empty))
             return
         }
 
         if (TextUtils.isEmpty(edit_location.text)) {
-            SnackBarFactory.createSnackBar(this, constraintLayout, "Location cannot be empty.")
+            SnackBarFactory.createSnackBar(this, constraintLayout, resources.getString(R.string.eror_location_cannot_be_empty))
             return
         }
 
         if (TextUtils.isEmpty(edit_headline.text)) {
-            SnackBarFactory.createSnackBar(this, constraintLayout, "Headline cannot be empty.")
+            SnackBarFactory.createSnackBar(this, constraintLayout, resources.getString(R.string.error_headline_cannot_be_empty))
             return
         }
 
