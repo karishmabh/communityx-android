@@ -17,7 +17,12 @@ import com.communityx.activity.EditClubActivity
 import com.communityx.activity.EditEducationActivity
 import com.communityx.activity.ProfileActivity
 import com.communityx.models.profile.Education
+import com.communityx.utils.Utils
+import java.time.YearMonth
 import java.util.*
+
+import java.text.SimpleDateFormat
+
 
 class ProfileWorkExpAdapter(private val mContext: Context, private val list: List<Education>) :
     RecyclerView.Adapter<ProfileWorkExpAdapter.ViewHolder>() {
@@ -116,11 +121,25 @@ class ProfileWorkExpAdapter(private val mContext: Context, private val list: Lis
 
             if (education.datatype == "we" && !bool_work_exp) {
                 textHeading.text = mContext.getString(R.string.string_work_experience)
-                textDuration.text = education.start_date+ " - " + education.end_date!!
                 bool_work_exp = true
                 viewGradient.visibility = View.VISIBLE
+
+                if(education.is_current == "1")
+                {
+                    if (education.start_date.isNullOrEmpty() || education.start_date == "0000-00-00" ) {
+                        textDuration.visibility = View.GONE
+                    }
+                    else
+                        textDuration.text=education.start_date +" to Present "
+                }
+
+                else if (education.start_date.isNullOrEmpty() || education.end_date.isNullOrEmpty()|| education.start_date == "0000-00-00" || education.end_date == "0000-00-00") {
+                    textDuration.visibility = View.GONE
+                }
+
             } else if (education.datatype == "we" && bool_work_exp) {
                 hideVisibilityExp(education)
+
             }
 
             textTitle.text = education.name
@@ -139,7 +158,21 @@ class ProfileWorkExpAdapter(private val mContext: Context, private val list: Lis
 
         fun hideVisibilityExp(education: Education) {
             textHeading.visibility = View.GONE
-            textDuration.text = education.start_date+ " - " + education.end_date
+            if(education.is_current == "1")
+            {
+                if (education.start_date.isNullOrEmpty() || education.start_date == "0000-00-00" ) {
+                    textDuration.visibility = View.GONE
+                }
+                else
+                    textDuration.text=education.start_date + "  to Present "
+            }
+
+            else if (education.start_date.isNullOrEmpty() ||education.end_date.isNullOrEmpty()  || education.start_date == "0000-00-00" || education.end_date == "0000-00-00") {
+                textDuration.visibility = View.GONE
+            }
+
+            else
+            textDuration.text = returnFormatedDate(education.start_date, education.end_date,education.is_current)
         }
 
         fun hideVisibilityClub() {
@@ -147,5 +180,41 @@ class ProfileWorkExpAdapter(private val mContext: Context, private val list: Lis
             imageEdit.visibility = View.GONE
             textDuration.visibility=View.GONE
         }
+
+        fun returnFormatedDate (startDate : String,  endDate : String ,isChecked : String) : String {
+
+            if(isChecked== "1")
+           return Utils.getDateMonthName(startDate)+ "  to Present"
+
+            else
+            return Utils.getDateMonthName(startDate)+ " - " + Utils.getDateMonthName(endDate) /*+ "." +returnCalcualtedDate(startDate ,endDate)*/
+
+        }
+    }
+
+    fun returnCalcualtedDate (startDate : String,  endDate : String ) : String {
+
+        val startDate1 = SimpleDateFormat("yyyy-MM-dd").parse(startDate)
+        val endDate1 = SimpleDateFormat("yyyy-MM-dd").parse(endDate)
+
+        var diffDay  = Utils.diffBetweenDate(startDate1, endDate1)
+
+        if (diffDay >= 30) {
+             var Month = diffDay/30
+            var Days = diffDay%30
+            if(Days>=0){
+
+            }
+        }
+        else if(diffDay >= 365){
+            Utils.getDateMonthName(startDate)+ " - " + Utils.getDateMonthName(endDate) + " . Years"
+        }
+        else if( diffDay <=30)
+        {
+            Utils.getDateMonthName(startDate)+ " - " + Utils.getDateMonthName(endDate) + " . Days"
+        }
+
+        return diffDay.toString()
+
     }
 }

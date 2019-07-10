@@ -10,5 +10,7 @@ data class Education(
     val type: String,
 
     val start_date :String="",
-    val end_date :String=""
+    val end_date :String="",
+    val is_current :String=""
+
 ) : Serializable

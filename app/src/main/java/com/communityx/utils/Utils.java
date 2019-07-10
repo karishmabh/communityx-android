@@ -233,6 +233,23 @@ public class Utils {
         return outputDate;
     }
 
+    public static String getDateMonthName(String givenTime) {
+        String initialPattern = "yyyy-MM-dd";
+        String requiredPattern = "MMM yyyy";
+        String outputDate = "";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(initialPattern);
+        Date date = null;
+        try {
+            date = dateFormat.parse(givenTime);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(requiredPattern);
+            outputDate = simpleDateFormat.format(date);
+            return outputDate;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return outputDate;
+    }
+
     public static void replaceFragment(AppCompatActivity activity, Fragment fragment, boolean addToStack, String tag){
         if(activity == null) return;
 
@@ -275,5 +292,26 @@ public class Utils {
                         Objects.requireNonNull(activity.getCurrentFocus()).getWindowToken(), 0);
             }
         }catch (Exception ignored) {}
+    }
+
+
+    public static long diffBetweenDate(Date startDate, Date endDate) {
+        //milliseconds
+        long different = endDate.getTime() - startDate.getTime();
+
+        System.out.println("startDate : " + startDate);
+        System.out.println("endDate : "+ endDate);
+        System.out.println("different : " + different);
+
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+        long hoursInMilli = minutesInMilli * 60;
+        long daysInMilli = hoursInMilli * 24;
+
+        long elapsedDays = different / daysInMilli;
+        different = different % daysInMilli;
+
+
+        return elapsedDays;
     }
 }

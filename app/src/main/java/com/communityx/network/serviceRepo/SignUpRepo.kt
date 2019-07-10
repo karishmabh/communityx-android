@@ -265,7 +265,7 @@ object SignUpRepo : BaseRepo , AppConstant {
                     if (response.body()?.status != null && response.body()?.status == AppConstant.STATUS_SUCCESS) {
                         responseListener.onSuccess(response.body()!!.data)
                     } else {
-                        responseListener.onError(response.body()!!.error)
+                        responseListener.onError(response.body()!!.error.error_message[0])
                     }
                 }
             })

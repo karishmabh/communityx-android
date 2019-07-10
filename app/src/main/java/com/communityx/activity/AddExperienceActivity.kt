@@ -61,6 +61,11 @@ class AddExperienceActivity : BaseActivity() {
             Places.initialize(applicationContext, getString(R.string.google_places_api_key))
         }
 
+        check_work_here.setOnCheckedChangeListener { buttonView, isChecked ->
+            edit_end_date.isEnabled = !isChecked
+        }
+
+
         setToolbar()
         getIntentData()
         setAutoCompanyName()
@@ -83,6 +88,7 @@ class AddExperienceActivity : BaseActivity() {
                 if (isStartdate) {
                     edit_start_date.setText(date)
                     edit_start_date.setTextColor(ContextCompat.getColor(this@AddExperienceActivity, R.color.Black))
+
                 } else {
                     edit_end_date.setText(date)
                     edit_end_date.setTextColor(ContextCompat.getColor(this@AddExperienceActivity, R.color.Black))
@@ -279,13 +285,15 @@ class AddExperienceActivity : BaseActivity() {
             return false
         }
 
-        if (TextUtils.isEmpty(edit_end_date.text)) {
-            SnackBarFactory.createSnackBar(
-                this,
-                coordinator_main_exp,
-                resources.getString(R.string.error_end_date_cannot_be_empty)
-            )
-            return false
+        if(!check_work_here.isChecked) {
+            if (TextUtils.isEmpty(edit_end_date.text)) {
+                SnackBarFactory.createSnackBar(
+                        this,
+                        coordinator_main_exp,
+                        resources.getString(R.string.error_end_date_cannot_be_empty)
+                )
+                return false
+            }
         }
 
         if (TextUtils.isEmpty(textinput_description.text?.trim())) {
@@ -351,7 +359,8 @@ class AddExperienceActivity : BaseActivity() {
             }
 
             override fun onError(error: Any) {
-                Utils.showError(this@AddExperienceActivity, coordinator_main_exp, error)
+                SnackBarFactory.createSnackBar(this@AddExperienceActivity, coordinator_main_exp, error.toString())
+              //  Utils.showError(this@AddExperienceActivity, coordinator_main_exp, error)
                 dialog.dismiss()
             }
         })

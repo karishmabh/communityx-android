@@ -1,6 +1,6 @@
 package com.communityx.models.signup
 
 data class Error(
-    val error_code: Any,
-    val error_message: Any
+    val error_code: Int,
+    val error_message: ArrayList<String>
 )
