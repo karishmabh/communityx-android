@@ -67,7 +67,7 @@
         <activity android:name=".activity.MessageActivity" />
         <activity android:name=".activity.SignupCategoryActivity" />
         <activity android:name=".activity.ProfileActivity"
-                  android:windowSoftInputMode="stateVisible|adjustPan" />
+                  android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity android:name=".activity.EventDetailActivity" />
         <activity android:name=".activity.DonatedCreatedActivity" />
         <activity android:name=".activity.CrowdfundingDetailActivity" />

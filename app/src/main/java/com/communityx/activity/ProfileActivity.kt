@@ -1,12 +1,15 @@
 package com.communityx.activity
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.BottomSheetDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.view.*
 import android.widget.*
 import butterknife.ButterKnife
@@ -15,18 +18,21 @@ import com.communityx.R
 import com.communityx.adapters.ProfileWorkExpAdapter
 import com.communityx.models.editintroinfo.EditIntroInfoResponse
 import com.communityx.models.headline.EditHeadlineRequest
-import com.communityx.models.profile.*
+import com.communityx.models.profile.Data
+import com.communityx.models.profile.Education
+import com.communityx.models.profile.ProfileResponse
 import com.communityx.network.DataManager
 import com.communityx.network.ResponseListener
-import com.communityx.utils.*
-import com.communityx.utils.AppConstant.*
+import com.communityx.utils.AppConstant
+import com.communityx.utils.AppConstant.PREF_USER_ID
+import com.communityx.utils.AppConstant.UserName
+import com.communityx.utils.AppPreference
+import com.communityx.utils.CustomProgressBar
+import com.communityx.utils.Utils
 import com.google.android.flexbox.FlexboxLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile.*
-import kotlinx.android.synthetic.main.activity_profile.text_headline
 import kotlinx.android.synthetic.main.activity_profile.text_name
-import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.layout_add_headline.*
 
 class ProfileActivity : AppCompatActivity(), AppConstant {
 
@@ -38,9 +44,6 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         setContentView(R.layout.activity_profile)
         ButterKnife.bind(this)
 
-        Utils.hideSoftKeyboard(this@ProfileActivity)
-
-        getProfile()
         showEditIcon(!isOtherProfile)
         showAddHeadlines(true && !isOtherProfile)
         showAddAndMessageButton(isOtherProfile)
@@ -57,6 +60,11 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         overridePendingTransition(R.anim.anim_prev_slide_in, R.anim.anim_prev_slide_out)
     }
 
+    @OnClick(R.id.float_add_profile)
+    internal fun onAddProfile() {
+        openNewInfoDialog(this)
+    }
+
     @OnClick(R.id.button_add_headline)
     internal fun addHeadlineTapped() {
 
@@ -69,6 +77,37 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
         intent.putExtra(UserName, profileResponse)
         startActivity(intent)
         overridePendingTransition(R.anim.anim_slide_up, R.anim.anim_stay)
+    }
+
+    private fun openNewInfoDialog(activity: Activity) {
+        //fab_add!!.hide()
+        val dialogView = LayoutInflater.from(activity).inflate(R.layout.dialog_add_new_info, null)
+        val bottomSheetDialog = BottomSheetDialog(activity)
+        bottomSheetDialog.setContentView(dialogView)
+
+        bottomSheetDialog.findViewById<View>(R.id.image_add_work)!!.setOnClickListener(object: View.OnClickListener {
+            override fun onClick(v: View?) {
+                bottomSheetDialog.dismiss()
+                startActivity(Intent(this@ProfileActivity, AddExperienceActivity::class.java)
+                    .putExtra("isAdded", true))
+            }
+        })
+
+        bottomSheetDialog.findViewById<View>(R.id.image_add_volunteer)!!.setOnClickListener(object: View.OnClickListener {
+            override fun onClick(v: View?) {
+                bottomSheetDialog.dismiss()
+                //startActivity(Intent(this@ProfileActivity, AddVolunteerActivity::class.java))
+            }
+        })
+
+        bottomSheetDialog.findViewById<View>(R.id.image_cross)!!.setOnClickListener {
+            bottomSheetDialog.dismiss()
+        }
+        bottomSheetDialog.setOnDismissListener {
+           // fab_add!!.show()
+        }
+
+        bottomSheetDialog.show()
     }
 
     private fun showEditIcon(shouldShow: Boolean) {
@@ -97,23 +136,40 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
 
             override fun onError(error: Any) {
                 dialog.dismiss()
-                Utils.showError(this@ProfileActivity, linear_top, error)
+                Utils.showError(this@ProfileActivity, constraint_top, error)
             }
         })
     }
 
     private fun setProfile(profileData: Data) {
-        text_name.text = profileData?.profile?.first_name + " " + profileData?.profile?.last_name
-        Picasso.get().load(profileData?.profile?.profile_image).into(image_profile)
+        text_name.text = if (profileData.name!=null) profileData.name else ""
+
+        if (!TextUtils.isEmpty(profileData?.profile.profile_image))
+            Picasso.get()
+                .load(profileData?.profile.profile_image)
+                .noPlaceholder()
+                .error(R.drawable.profile_placeholder).into(image_profile)
+
         text_title.text = profileData?.type
 
         if (profileData?.headline != null) {
-            text_headline.text = profileData?.headline
+            text_headline.text = profileData.headline
             text_headline.visibility = View.VISIBLE
             view_add_headline.visibility = View.GONE
         }
 
-        setFlexLayout(flex_layout_cause, profileData?.interests)
+        if (profileData.total_allies.isNullOrEmpty()) {
+            linear_connections.visibility = View.GONE
+        }
+
+        text_connections.text = resources.getString(R.string.see_all_102_connections).replace("102", profileData.total_allies)
+
+        if (profileData.interests.isNullOrEmpty()) {
+            text_cause.visibility = View.GONE
+            view_divider_one.visibility = View.GONE
+        } else {
+            setFlexLayout(flex_layout_cause, profileData.interests)
+        }
     }
 
     fun setFlexLayout(fLexLayout: FlexboxLayout?, interest: List<Education>) {
@@ -190,6 +246,7 @@ class ProfileActivity : AppCompatActivity(), AppConstant {
             DataManager.updateHeadline(this, editHeadlineRequest, object : ResponseListener<EditIntroInfoResponse> {
                 override fun onSuccess(response: EditIntroInfoResponse) {
                     Toast.makeText(this@ProfileActivity, "Headline updated successfully", Toast.LENGTH_LONG).show()
+                    getProfile()
                     dialog.dismiss()
                     progressDialog.dismiss()
                 }

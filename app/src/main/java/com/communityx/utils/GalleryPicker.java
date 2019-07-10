@@ -223,8 +223,8 @@ public class GalleryPicker {
         Intent intent = new Intent();
         if (option == Option.GALLERY) {
             intent.setAction(Intent.ACTION_PICK);
+            intent.setType("image/*");
             intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            intent.setType(media.getMedia());
         } else if (option == Option.CAMERA) {
             intent.setAction(media == Media.IMAGE ? MediaStore.ACTION_IMAGE_CAPTURE : MediaStore.ACTION_VIDEO_CAPTURE);
         }
